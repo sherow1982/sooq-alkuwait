@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفاية سلطة - سوق الكويت</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <h1><a href="../index.html" style="color: var(--luxury-gold); text-decoration: none;"><i class="fas fa-shopping-bag"></i> سوق الكويت</a></h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main style="padding-top: 120px; min-height: 100vh;">
+        <div class="container">
+            <div class="product-detail" style="margin: 40px 0;">
+                <div class="product-detail-image">
+                    <img src="https://ecomerg.com/uploads/products_images/3710/Wb0quKAvoB6mUZ2F5L27o2hcdmHW1w9QhLUVwOkf.jpg" alt="صفاية سلطة">
+                </div>
+                <div class="product-detail-info">
+                    <h1 style="color: var(--kuwait-black); margin-bottom: 1.5rem; font-size: 2.2rem;">
+                        صفاية سلطة دوّارة متعددة الوظائف
+                    </h1>
+                    
+                    <div class="product-price" style="margin: 2rem 0; padding: 1.5rem; background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(0,166,81,0.1)); border-radius: 15px;">
+                        <span class="current-price" style="font-size: 2.5rem;">13.0 د.ك</span>
+                        <span class="original-price" style="font-size: 1.3rem;">18.0 د.ك</span>
+                        <span class="discount">وفر 28%</span>
+                    </div>
+
+                    <div class="product-description" style="white-space: pre-line; line-height: 1.8;">
+صفاية سلطة دوّارة متعددة الوظائف
+
+✨ مواصفات المنتج:
+• جودة عالية
+• مناسب للاستخدام اليومي
+• تصميم عملي
+
+🚚 توصيل مجاني فوق 100 د.ك
+💰 الدفع عند الاستلام
+                    </div>
+
+                    <div style="margin-top: 3rem;">
+                        <button onclick="contactWhatsApp()" class="btn-whatsapp-large" style="width: 100%; padding: 20px;">
+                            <i class="fab fa-whatsapp"></i> اطلب الآن
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    function contactWhatsApp() {
+        const message = `مرحباً! أريد هذا المنتج:\nصفاية سلطة\nالسعر: 13.0 د.ك`;
+        window.open(`https://wa.me/201110760081?text=${encodeURIComponent(message)}`, '_blank');
+    }
+    </script>
+</body>
+</html>
