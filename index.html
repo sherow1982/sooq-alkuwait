@@ -17,6 +17,8 @@
         <div class="logo">
           <h1><a href="/" style="color: var(--luxury-gold); text-decoration: none;"><i class="fas fa-shopping-bag"></i> سوق الكويت</a></h1>
         </div>
+        
+        <!-- Desktop Navigation -->
         <nav class="nav">
           <ul>
             <li><a href="/">الرئيسية</a></li>
@@ -26,9 +28,28 @@
             <li><a href="contact.html">اتصل بنا</a></li>
           </ul>
         </nav>
+        
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+          <i class="fas fa-bars"></i> القائمة
+        </button>
       </div>
     </div>
   </header>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" onclick="toggleMobileMenu()">×</button>
+    <ul>
+      <li><a href="/" onclick="toggleMobileMenu()">🏠 الرئيسية</a></li>
+      <li><a href="/#products" onclick="toggleMobileMenu()">🛍️ المنتجات</a></li>
+      <li><a href="cart.html" onclick="toggleMobileMenu()">🛒 سلة التسوق</a></li>
+      <li><a href="checkout.html" onclick="toggleMobileMenu()">💳 إتمام الطلب</a></li>
+      <li><a href="contact.html" onclick="toggleMobileMenu()">📧 اتصل بنا</a></li>
+      <li><a href="terms.html" onclick="toggleMobileMenu()">📄 الشروط</a></li>
+      <li><a href="privacy.html" onclick="toggleMobileMenu()">🔒 الخصوصية</a></li>
+    </ul>
+  </div>
 
   <section id="home" class="hero">
     <div class="container">
@@ -36,7 +57,7 @@
         <h2>مرحباً بك في <span style="color: var(--luxury-gold);">سوق الكويت</span></h2>
         <p>أفضل المنتجات بأسعار مميزة مع توصيل مجاني ودفع عند الاستلام</p>
         <div class="search-box">
-          <input type="text" id="searchInput" placeholder="ابحث عن المنتجات بالكويت..." />
+          <input type="text" id="searchInput" placeholder="ابحث عن المنتجات..." />
           <button id="searchBtn"><i class="fas fa-search"></i></button>
           <button class="cart-icon" onclick="window.location.href='cart.html'">
             <i class="fas fa-shopping-cart"></i>
@@ -83,7 +104,6 @@
           <h3>خدماتنا</h3>
           <ul>
             <li><a href="shipping.html">توصيل مجاني</a></li>
-            <li><a href="refund.html">سياسة الإرجاع</a></li>
             <li><a href="terms.html">الشروط والأحكام</a></li>
             <li><a href="privacy.html">سياسة الخصوصية</a></li>
           </ul>
@@ -100,6 +120,23 @@
     </div>
   </footer>
 
+  <script>
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('active');
+    }
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.querySelector('.mobile-menu-btn');
+      
+      if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('active');
+      }
+    });
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
