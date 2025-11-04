@@ -20,22 +20,15 @@ async function loadProducts() {
     }
 }
 
-// Create product URL - FIXED: Direct link to product page
+// Create product URL using Arabic SEO URLs
 function createProductURL(product) {
-    // تحويل التصنيف للإنجليزية للـ SEO
-    let categoryFolder = 'products';
-    if (product.category === 'أطفال') categoryFolder = 'kids';
-    else if (product.category === 'مطبخ') categoryFolder = 'kitchen';
-    else if (product.category === 'ملابس') categoryFolder = 'fashion';
-    else if (product.category === 'إلكترونيات') categoryFolder = 'electronics';
-    else if (product.category === 'تجميل') categoryFolder = 'beauty';
-    else if (product.category === 'منزل') categoryFolder = 'home';
+    // استخدام الـ seo_url المحفوظ في البيانات مباشرة
+    if (product.seo_url) {
+        return product.seo_url + '.html';
+    }
     
-    // إنشاء slug بسيط من ID والعنوان
-    const slug = `product-${product.id}`;
-    
-    // المسار الصحيح: /{category}/{slug}.html
-    return `${categoryFolder}/${slug}.html`;
+    // Fallback للمنتجات القديمة
+    return `product-${product.id}.html`;
 }
 
 // Display products
@@ -63,11 +56,9 @@ function displayProducts() {
             loadMoreBtn.style.display = 'block';
         }
     }
-    
-    console.log(`تم عرض ${productsToShow.length} منتج`);
 }
 
-// Create product card - Fixed to open correct product page
+// Create product card - Fixed popup issue
 function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card';
@@ -76,15 +67,16 @@ function createProductCard(product) {
     const productURL = createProductURL(product);
     
     card.innerHTML = `
-        <div class="product-image" onclick="window.open('${productURL}', '_blank')" style="cursor: pointer;">
-            <img src="${product.image}" alt="${product.title}" onerror="this.src='https://via.placeholder.com/300x300/cccccc/666666?text=صورة'">
-            <div class="product-overlay">
-                <i class="fas fa-external-link-alt"></i>
-                <span>عرض المنتج</span>
-            </div>
+        <div class="product-image">
+            <a href="${productURL}" style="display: block; text-decoration: none; color: inherit;">
+                <img src="${product.image}" alt="${product.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div style="display: none; height: 100%; background: #f0f0f0; align-items: center; justify-content: center; color: #666; font-size: 0.9rem;">تحميل الصورة...</div>
+            </a>
         </div>
         <div class="product-info">
-            <h3 class="product-title" onclick="window.open('${productURL}', '_blank')" style="cursor: pointer;">${product.title}</h3>
+            <a href="${productURL}" style="text-decoration: none; color: inherit;">
+                <h3 class="product-title">${product.title}</h3>
+            </a>
             <div class="product-price">
                 <span class="current-price">${product.sale_price} د.ك</span>
                 <span class="original-price">${product.price} د.ك</span>
@@ -97,20 +89,12 @@ function createProductCard(product) {
                 <button class="btn-whatsapp" onclick="contactWhatsApp(${product.id}); event.stopPropagation();" title="اسأل عبر واتساب">
                     <i class="fab fa-whatsapp"></i>
                 </button>
-                <button class="btn-details" onclick="window.open('${productURL}', '_blank'); event.stopPropagation();" title="صفحة المنتج">
+                <a href="${productURL}" target="_blank" class="btn-details" title="صفحة المنتج" style="display: flex; align-items: center; justify-content: center; text-decoration: none; color: inherit;">
                     <i class="fas fa-external-link-alt"></i>
-                </button>
+                </a>
             </div>
         </div>
     `;
-    
-    // Make entire card clickable
-    card.style.cursor = 'pointer';
-    card.onclick = function(e) {
-        if (!e.target.closest('.product-actions')) {
-            window.open(productURL, '_blank');
-        }
-    };
     
     return card;
 }
@@ -123,7 +107,7 @@ function contactWhatsApp(productId) {
     const productURL = createProductURL(product);
     const fullURL = `${window.location.origin}/${productURL}`;
     
-    const message = `مرحباً! 👋\n\nأريد الاستفسار عن هذا المنتج:\n\n*${product.title}*\n\nالسعر: ${product.sale_price} د.ك\nالرابط: ${fullURL}\n\nشكراً لكم 🙏`;
+    const message = `مرحباً! 🖐\n\nأريد الاستفسار عن هذا المنتج:\n\n*${product.title}*\n\nالسعر: ${product.sale_price} د.ك\nالرابط: ${fullURL}\n\nشكراً لكم 🙏`;
     
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -134,6 +118,7 @@ function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
     
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
     const existingItem = cart.find(item => item.id === productId);
     
     if (existingItem) {
@@ -142,79 +127,19 @@ function addToCart(productId) {
         cart.push({ ...product, quantity: 1 });
     }
     
+    localStorage.setItem('cart', JSON.stringify(cart));
     updateCartUI();
     showNotification('تم إضافة المنتج للسلة');
 }
 
 // Update cart UI
 function updateCartUI() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     const cartCount = document.querySelector('.cart-count');
     if (cartCount) {
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
         cartCount.textContent = totalItems;
     }
-    updateCartModal();
-}
-
-// Update cart modal
-function updateCartModal() {
-    const cartItems = document.getElementById('cartItems');
-    const cartTotal = document.getElementById('cartTotal');
-    
-    if (!cartItems || !cartTotal) return;
-    
-    if (cart.length === 0) {
-        cartItems.innerHTML = '<p>السلة فارغة</p>';
-        cartTotal.textContent = '0';
-        return;
-    }
-    
-    let html = '';
-    let total = 0;
-    
-    cart.forEach(item => {
-        const itemTotal = item.sale_price * item.quantity;
-        total += itemTotal;
-        
-        html += `
-            <div class="cart-item">
-                <img src="${item.image}" alt="${item.title}" onerror="this.src='https://via.placeholder.com/80x80?text=صورة'">
-                <div class="cart-item-info">
-                    <h4>${item.title}</h4>
-                    <div class="cart-item-controls">
-                        <button onclick="updateQuantity(${item.id}, -1)">-</button>
-                        <span>${item.quantity}</span>
-                        <button onclick="updateQuantity(${item.id}, 1)">+</button>
-                    </div>
-                    <span class="cart-item-price">${itemTotal.toFixed(2)} د.ك</span>
-                </div>
-                <button class="remove-item" onclick="removeFromCart(${item.id})">&times;</button>
-            </div>
-        `;
-    });
-    
-    cartItems.innerHTML = html;
-    cartTotal.textContent = total.toFixed(2);
-}
-
-// Update quantity
-function updateQuantity(productId, change) {
-    const item = cart.find(item => item.id === productId);
-    if (!item) return;
-    
-    item.quantity += change;
-    
-    if (item.quantity <= 0) {
-        removeFromCart(productId);
-    } else {
-        updateCartUI();
-    }
-}
-
-// Remove from cart
-function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
-    updateCartUI();
 }
 
 // Filter products
@@ -267,6 +192,12 @@ function showNotification(message) {
     setTimeout(() => notification.remove(), 3000);
 }
 
+// Load more products
+function loadMore() {
+    currentPage++;
+    displayProducts();
+}
+
 // Event listeners
 document.addEventListener('DOMContentLoaded', function() {
     loadProducts();
@@ -289,13 +220,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Cart icon
-    const cartIcon = document.querySelector('.cart-icon');
-    if (cartIcon) {
-        cartIcon.addEventListener('click', () => {
-            window.location.href = 'cart.html';
-        });
-    }
-    
-    console.log('سوق الكويت - تم التحميل بنجاح');
+    console.log('سوق الكويت - تم التحميل بنجاح مع روابط SEO عربية');
 });
