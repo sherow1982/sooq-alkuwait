@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="منتج من سوق الكويت - توصيل مجاني ودفع عند الاستلام">
+  <title>سوق الكويت - منتج</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="/geo-location.js"></script>
+  <script src="/router.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <div class="logo">
+          <h1><a href="/" style="color: var(--luxury-gold); text-decoration: none;"><i class="fas fa-shopping-bag"></i> سوق الكويت</a></h1>
+        </div>
+        
+        <nav class="nav">
+          <ul>
+            <li><a href="/">الرئيسية</a></li>
+            <li><a href="/#products">المنتجات</a></li>
+            <li><a href="/cart.html">سلة التسوق</a></li>
+            <li><a href="/checkout.html">إتمام الطلب</a></li>
+            <li><a href="/contact.html">اتصل بنا</a></li>
+          </ul>
+        </nav>
+        
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+          <i class="fas fa-bars"></i> القائمة
+        </button>
+      </div>
+    </div>
+  </header>
+  
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" onclick="toggleMobileMenu()">×</button>
+    <ul>
+      <li><a href="/" onclick="toggleMobileMenu()">🏠 الرئيسية</a></li>
+      <li><a href="/#products" onclick="toggleMobileMenu()">🛍️ المنتجات</a></li>
+      <li><a href="/cart.html" onclick="toggleMobileMenu()">🛒 سلة التسوق</a></li>
+      <li><a href="/checkout.html" onclick="toggleMobileMenu()">💳 إتمام الطلب</a></li>
+      <li><a href="/contact.html" onclick="toggleMobileMenu()">📧 اتصل بنا</a></li>
+    </ul>
+  </div>
+
+  <main id="productContent">
+    <div class="container" style="margin-top: 120px; text-align: center; padding: 3rem 0;">
+      <div class="loading" style="font-size: 1.2rem; color: #666;">
+        <i class="fas fa-spinner fa-spin"></i> جاري تحميل المنتج...
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3><i class="fas fa-shopping-bag"></i> سوق الكويت</h3>
+          <p>متجرك الإلكتروني الموثوق لأفضل المنتجات</p>
+        </div>
+        <div class="footer-section">
+          <h3>تواصل معنا</h3>
+          <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/201110760081">+20 111 076 0081</a></p>
+          <p><i class="fas fa-envelope"></i> <a href="mailto:sooqalkuwait2010@gmail.com">sooqalkuwait2010@gmail.com</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 سوق الكويت. جميع الحقوق محفوظة.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('active');
+    }
+  </script>
+  <script src="/script.js"></script>
+</body>
+</html>
