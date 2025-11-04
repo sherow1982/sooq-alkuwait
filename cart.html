@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سلة التسوق - سوق الكويت</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <div class="logo">
+          <h1><a href="index.html" style="color: var(--luxury-gold); text-decoration: none;"><i class="fas fa-shopping-bag"></i> سوق الكويت</a></h1>
+        </div>
+        <nav class="nav">
+          <ul>
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="index.html#products">المنتجات</a></li>
+            <li><a href="contact.html">اتصل بنا</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding: 140px 0 80px;">
+    <h2 class="section-title" style="margin-bottom: 1.5rem;">سلة التسوق</h2>
+
+    <div id="cartItems"></div>
+    <div class="cart-total">
+      <h3>المجموع: <span id="cartTotal">0</span> د.ك</h3>
+    </div>
+
+    <div class="checkout-actions" style="margin-top: 1.5rem;">
+      <a href="checkout.html" class="btn-primary" id="goCheckoutBtn"><i class="fas fa-credit-card"></i> إتمام الطلب الآن</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2025 سوق الكويت. جميع الحقوق محفوظة.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // تحويل تلقائي إلى صفحة إتمام الطلب لو السلة غير فارغة
+    window.addEventListener('load', function() {
+      try {
+        const cartRaw = localStorage.getItem('cart');
+        const cart = cartRaw ? JSON.parse(cartRaw) : [];
+        if (Array.isArray(cart) && cart.length > 0) {
+          // حساب الإجمالي
+          const total = cart.reduce((sum, item) => sum + (item.sale_price * (item.quantity || 1)), 0);
+          document.getElementById('cartTotal').textContent = total.toFixed(2);
+          // عرض العناصر بشكل بسيط
+          const itemsDiv = document.getElementById('cartItems');
+          let html = '';
+          cart.forEach((item) => {
+            html += `
+              <div class="cart-item">
+                <img src="${item.image}" alt="${item.title}" onerror="this.src='https://via.placeholder.com/80x80?text=صورة'">
+                <div class="cart-item-info">
+                  <h4>${item.title}</h4>
+                  <div class="cart-item-controls">
+                    <span>الكمية: ${item.quantity || 1}</span>
+                  </div>
+                  <span class="cart-item-price">${(item.sale_price * (item.quantity || 1)).toFixed(2)} د.ك</span>
+                </div>
+              </div>`;
+          });
+          itemsDiv.innerHTML = html;
+
+          // تحويل تلقائي بعد ثانية
+          setTimeout(() => { window.location.href = 'checkout.html'; }, 1000);
+        } else {
+          // لو السلة فاضية ابقى في الصفحة
+          document.getElementById('cartItems').innerHTML = '<p>السلة فارغة</p>';
+        }
+      } catch (e) {
+        console.warn('خطأ في قراءة السلة:', e);
+      }
+    });
+  </script>
+</body>
+</html>
