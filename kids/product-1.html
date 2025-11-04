@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حصالة صراف آلي للأطفال - سوق الكويت</title>
+    <meta name="description" content="حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال. 13 د.ك فقط مع توصيل مجاني">
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <h1><a href="../index.html" style="color: var(--luxury-gold); text-decoration: none;"><i class="fas fa-shopping-bag"></i> سوق الكويت</a></h1>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="../index.html">الرئيسية</a></li>
+                        <li><a href="../index.html#products">المنتجات</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main style="padding-top: 120px; min-height: 100vh;">
+        <div class="container">
+            <div class="product-detail" style="margin: 40px 0;">
+                <div class="product-detail-image">
+                    <img src="https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg" alt="حصالة صراف آلي">
+                </div>
+                <div class="product-detail-info">
+                    <h1 style="color: var(--kuwait-black); margin-bottom: 1.5rem; font-size: 2.2rem;">
+                        حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال
+                    </h1>
+                    
+                    <div class="product-price" style="margin: 2rem 0; padding: 1.5rem; background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(0,166,81,0.1)); border-radius: 15px;">
+                        <span class="current-price" style="font-size: 2.5rem; display: block;">13.0 د.ك</span>
+                        <span class="original-price" style="font-size: 1.3rem;">18.0 د.ك</span>
+                        <span class="discount">وفر 28%</span>
+                    </div>
+
+                    <div class="product-description" style="white-space: pre-line; line-height: 1.8;">
+حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال
+
+✨ مواصفات المنتج:
+• جودة عالية
+• مناسب للاستخدام اليومي
+• تصميم عملي
+
+🚚 توصيل مجاني فوق 100 د.ك
+💰 الدفع عند الاستلام
+                    </div>
+
+                    <div style="margin-top: 3rem;">
+                        <button onclick="contactWhatsApp()" class="btn-whatsapp-large" style="width: 100%; font-size: 1.3rem; padding: 20px;">
+                            <i class="fab fa-whatsapp"></i> اطلب الآن عبر واتساب
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    function contactWhatsApp() {
+        const message = `مرحباً! أريد هذا المنتج:\n\nحصالة صراف آلي للأطفال\nالسعر: 13.0 د.ك\nالرابط: ${window.location.href}`;
+        window.open(`https://wa.me/201110760081?text=${encodeURIComponent(message)}`, '_blank');
+    }
+    </script>
+</body>
+</html>
