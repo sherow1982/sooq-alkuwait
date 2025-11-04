@@ -20,15 +20,12 @@ async function loadProducts() {
     }
 }
 
-// Create product URL using Arabic SEO URLs
+// Create product URL - SEO Arabic clean URLs
 function createProductURL(product) {
-    // استخدام الـ seo_url المحفوظ في البيانات مباشرة
     if (product.seo_url) {
-        return product.seo_url + '.html';
+        return product.seo_url;
     }
-    
-    // Fallback للمنتجات القديمة
-    return `product-${product.id}.html`;
+    return `منتجات/منتج-${product.id}`;
 }
 
 // Display products
@@ -47,7 +44,6 @@ function displayProducts() {
         productsGrid.appendChild(productCard);
     });
     
-    // Show/hide load more button
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     if (loadMoreBtn) {
         if (endIndex >= filteredProducts.length) {
@@ -58,7 +54,7 @@ function displayProducts() {
     }
 }
 
-// Create product card - Fixed popup issue
+// Create product card
 function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card';
@@ -83,13 +79,13 @@ function createProductCard(product) {
                 <span class="discount">-${discount}%</span>
             </div>
             <div class="product-actions">
-                <button class="btn-cart" onclick="addToCart(${product.id}); event.stopPropagation();" title="أضف للسلة">
+                <button class="btn-cart" onclick="addToCartAndGo(${product.id}); event.stopPropagation();" title="أضف للسلة">
                     <i class="fas fa-shopping-cart"></i>
                 </button>
                 <button class="btn-whatsapp" onclick="contactWhatsApp(${product.id}); event.stopPropagation();" title="اسأل عبر واتساب">
                     <i class="fab fa-whatsapp"></i>
                 </button>
-                <a href="${productURL}" target="_blank" class="btn-details" title="صفحة المنتج" style="display: flex; align-items: center; justify-content: center; text-decoration: none; color: inherit;">
+                <a href="${productURL}" class="btn-details" title="صفحة المنتج" style="display: flex; align-items: center; justify-content: center; text-decoration: none; color: inherit;">
                     <i class="fas fa-external-link-alt"></i>
                 </a>
             </div>
@@ -99,21 +95,28 @@ function createProductCard(product) {
     return card;
 }
 
-// Contact via WhatsApp
-function contactWhatsApp(productId) {
+// Add to cart and redirect to cart page
+function addToCartAndGo(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
     
-    const productURL = createProductURL(product);
-    const fullURL = `${window.location.origin}/${productURL}`;
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const existingItem = cart.find(item => item.id === productId);
     
-    const message = `مرحباً! 🖐\n\nأريد الاستفسار عن هذا المنتج:\n\n*${product.title}*\n\nالسعر: ${product.sale_price} د.ك\nالرابط: ${fullURL}\n\nشكراً لكم 🙏`;
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ ...product, quantity: 1 });
+    }
     
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartUI();
+    
+    // الانتقال فوراً للسلة بعد الإضافة
+    window.location.href = 'cart.html';
 }
 
-// Add to cart
+// Regular add to cart (without redirect)
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
@@ -130,6 +133,20 @@ function addToCart(productId) {
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartUI();
     showNotification('تم إضافة المنتج للسلة');
+}
+
+// Contact via WhatsApp
+function contactWhatsApp(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+    
+    const productURL = createProductURL(product);
+    const fullURL = `https://sooq-alkuwait.arabsad.com/${productURL}`;
+    
+    const message = `مرحباً! 🛍\n\nأريد الاستفسار عن هذا المنتج:\n\n*${product.title}*\n\nالسعر: ${product.sale_price} د.ك\nالرابط: ${fullURL}\n\nشكراً لكم 🙏`;
+    
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
 }
 
 // Update cart UI
@@ -156,7 +173,6 @@ function filterProducts(category) {
     currentPage = 1;
     displayProducts();
     
-    // Update filter buttons
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active');
     });
@@ -202,7 +218,6 @@ function loadMore() {
 document.addEventListener('DOMContentLoaded', function() {
     loadProducts();
     
-    // Search functionality
     const searchBtn = document.getElementById('searchBtn');
     const searchInput = document.getElementById('searchInput');
     
@@ -220,5 +235,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    console.log('سوق الكويت - تم التحميل بنجاح مع روابط SEO عربية');
+    console.log('سوق الكويت - تم التحميل مع الانتقال للسلة بعد الإضافة');
 });
