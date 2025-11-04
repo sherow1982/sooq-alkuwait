@@ -3,35 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="سوق الكويت - متجرك الإلكتروني لأفضل المنتجات بأسعار مميزة. توصيل مجاني ودفع عند الاستلام" />
   <title>سوق الكويت - تسوق إلكتروني بتوصيل مجاني</title>
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="geo-location.js"></script>
 </head>
 <body>
-  <!-- استيراد رأس الموبايل -->
-  <div id="mobileHeader"></div>
-  <script>
-    // تحميل رأس الموبايل فقط على الشاشات الصغيرة
-    if (window.matchMedia('(max-width: 768px)').matches) {
-      fetch('partials/header-mobile.html')
-        .then(r => r.text())
-        .then(html => { document.getElementById('mobileHeader').innerHTML = html; })
-        .catch(console.error);
-    }
-  </script>
-
   <header class="header">
     <div class="container">
       <div class="nav-wrapper">
         <div class="logo">
-          <h1><a href="index.html" style="color: var(--luxury-gold); text-decoration: none;"><i class="fas fa-shopping-bag"></i> سوق الكويت</a></h1>
+          <h1><a href="/" style="color: var(--luxury-gold); text-decoration: none;"><i class="fas fa-shopping-bag"></i> سوق الكويت</a></h1>
         </div>
         <nav class="nav">
           <ul>
-            <li><a href="#home">الرئيسية</a></li>
-            <li><a href="#products">المنتجات</a></li>
-            <li><a href="about.html">من نحن</a></li>
+            <li><a href="/">الرئيسية</a></li>
+            <li><a href="/#products">المنتجات</a></li>
+            <li><a href="cart.html">سلة التسوق</a></li>
+            <li><a href="checkout.html">إتمام الطلب</a></li>
             <li><a href="contact.html">اتصل بنا</a></li>
           </ul>
         </nav>
@@ -59,7 +50,7 @@
   <section class="filters">
     <div class="container">
       <div class="filter-buttons">
-        <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+        <button class="filter-btn active" onclick="filterProducts('all')">كل المنتجات</button>
         <button class="filter-btn" onclick="filterProducts('أطفال')">أطفال</button>
         <button class="filter-btn" onclick="filterProducts('مطبخ')">مطبخ</button>
         <button class="filter-btn" onclick="filterProducts('ملابس')">ملابس</button>
@@ -100,7 +91,7 @@
         <div class="footer-section">
           <h3>تواصل معنا</h3>
           <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/201110760081">+20 111 076 0081</a></p>
-          <p><i class="fas fa-envelope"></i> info@sooq-alkuwait.com</p>
+          <p><i class="fas fa-envelope"></i> <a href="mailto:sooqalkuwait2010@gmail.com">sooqalkuwait2010@gmail.com</a></p>
         </div>
       </div>
       <div class="footer-bottom">
