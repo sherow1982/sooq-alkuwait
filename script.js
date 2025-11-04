@@ -29,15 +29,57 @@ function createSampleProducts() {
             "title": "حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال",
             "price": 18.0,
             "sale_price": 13.0,
-            "image": "https://via.placeholder.com/300x300?text=منتج+1",
+            "image": "https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg",
             "category": "أطفال",
             "availability": "متوفر",
-            "description": "حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال"
+            "description": "حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال\n\n✨ مواصفات المنتج:\n• مادة آمنة وعالية الجودة\n• تصميم جذاب للأطفال\n• سهل الاستخدام\n• ينمي المهارات\n• مناسب من 3 سنوات\n\n🚚 توصيل مجاني الكويت\n💰 الدفع عند الاستلام"
+        },
+        {
+            "id": 2,
+            "title": "صفاية سلطة دوّارة متعددة الوظائف",
+            "price": 18.0,
+            "sale_price": 13.0,
+            "image": "https://via.placeholder.com/300x300?text=صفاية",
+            "category": "مطبخ",
+            "availability": "متوفر",
+            "description": "صفاية سلطة دوّارة متعددة الوظائف\n\n✨ مواصفات المنتج:\n• مواد غذائية آمنة\n• سهل التنظيف\n• متين وعملي\n• يوفر الوقت\n• تصميم مريح\n\n🚚 توصيل مجاني الكويت\n💰 الدفع عند الاستلام"
         }
     ];
     filteredProducts = products;
     displayProducts();
-    console.log('تم إنشاء منتج تجريبي');
+    console.log('تم إنشاء منتجات تجريبية');
+}
+
+// Create product URL for dedicated page
+function createProductURL(product) {
+    // إنشاء slug بسيط للمنتج
+    let slug = product.title.toLowerCase()
+        .replace(/حصالة/g, 'piggy-bank')
+        .replace(/أطفال/g, 'kids')
+        .replace(/صراف آلي/g, 'electronic')
+        .replace(/كرتوني/g, 'cartoon')
+        .replace(/صفاية/g, 'spinner')
+        .replace(/سلطة/g, 'salad')
+        .replace(/مطبخ/g, 'kitchen')
+        .replace(/شورت/g, 'shorts')
+        .replace(/ملابس/g, 'clothes')
+        .replace(/نسائي/g, 'womens')
+        .replace(/[^\w\s-]/g, '') // إزالة الرموز
+        .replace(/\s+/g, '-') // استبدال المسافات بشرطات
+        .replace(/-+/g, '-') // إزالة الشرطات المتعددة
+        .substring(0, 50) // تحديد الطول
+        .replace(/^-+|-+$/g, ''); // إزالة الشرطات من البداية والنهاية
+    
+    // تحديد الفئة الإنجليزية
+    let categoryFolder = 'products';
+    if (product.category === 'أطفال') categoryFolder = 'atfal';
+    else if (product.category === 'مطبخ') categoryFolder = 'matbakh';
+    else if (product.category === 'ملابس') categoryFolder = 'malabis';
+    else if (product.category === 'إلكترونيات') categoryFolder = 'electronics';
+    else if (product.category === 'تجميل') categoryFolder = 'tajmil';
+    else if (product.category === 'منزل') categoryFolder = 'manzil';
+    
+    return `${categoryFolder}/${slug}/${product.id}.html`;
 }
 
 // Display products
@@ -67,15 +109,16 @@ function displayProducts() {
     console.log(`تم عرض ${productsToShow.length} منتج`);
 }
 
-// Create product card
+// Create product card - بدون مودال، فتح مباشر في تبويب جديد
 function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card';
     
     const discount = Math.round(((product.price - product.sale_price) / product.price) * 100);
+    const productURL = createProductURL(product);
     
     card.innerHTML = `
-        <div class="product-image" onclick="openProductPage(${product.id})">
+        <div class="product-image" onclick="window.open('${productURL}', '_blank')" style="cursor: pointer;">
             <img src="${product.image}" alt="${product.title}" onerror="this.src='https://via.placeholder.com/300x300?text=صورة+غير+متوفرة'">
             <div class="product-overlay">
                 <i class="fas fa-external-link-alt"></i>
@@ -83,37 +126,36 @@ function createProductCard(product) {
             </div>
         </div>
         <div class="product-info">
-            <h3 class="product-title" onclick="openProductPage(${product.id})">${product.title}</h3>
+            <h3 class="product-title" onclick="window.open('${productURL}', '_blank')" style="cursor: pointer;">${product.title}</h3>
             <div class="product-price">
                 <span class="current-price">${product.sale_price} د.ك</span>
                 <span class="original-price">${product.price} د.ك</span>
                 <span class="discount">-${discount}%</span>
             </div>
             <div class="product-actions">
-                <button class="btn-cart" onclick="addToCart(${product.id})" title="أضف للسلة">
+                <button class="btn-cart" onclick="addToCart(${product.id}); event.stopPropagation();" title="أضف للسلة">
                     <i class="fas fa-shopping-cart"></i>
                 </button>
-                <button class="btn-whatsapp" onclick="contactWhatsApp(${product.id})" title="اسأل عبر واتساب">
+                <button class="btn-whatsapp" onclick="contactWhatsApp(${product.id}); event.stopPropagation();" title="اسأل عبر واتساب">
                     <i class="fab fa-whatsapp"></i>
                 </button>
-                <button class="btn-details" onclick="showProductDetails(${product.id})" title="التفاصيل">
-                    <i class="fas fa-info-circle"></i>
+                <button class="btn-details" onclick="window.open('${productURL}', '_blank'); event.stopPropagation();" title="صفحة المنتج">
+                    <i class="fas fa-external-link-alt"></i>
                 </button>
             </div>
         </div>
     `;
     
-    return card;
-}
-
-// Open product in new tab
-function openProductPage(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
+    // جعل البطاقة كلها clickable
+    card.style.cursor = 'pointer';
+    card.onclick = function(e) {
+        // تجنب فتح الصفحة عند النقر على الأزرار
+        if (!e.target.closest('.product-actions')) {
+            window.open(productURL, '_blank');
+        }
+    };
     
-    // Create product page URL with hash
-    const productUrl = `${window.location.origin}${window.location.pathname}#product-${productId}`;
-    window.open(productUrl, '_blank');
+    return card;
 }
 
 // Contact via WhatsApp for specific product
@@ -121,52 +163,13 @@ function contactWhatsApp(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
     
-    const message = `مرحباً! 👋\n\nأريد الاستفسار عن هذا المنتج:\n\n*${product.title}*\n\nالسعر: ${product.sale_price} د.ك\nالرابط: ${window.location.origin}${window.location.pathname}#product-${product.id}\n\nشكراً لكم 🙏`;
+    const productURL = createProductURL(product);
+    const fullURL = `${window.location.origin}/${productURL}`;
+    
+    const message = `مرحباً! 👋\n\nأريد الاستفسار عن هذا المنتج:\n\n*${product.title}*\n\nالسعر: ${product.sale_price} د.ك\nالرابط: ${fullURL}\n\nشكراً لكم 🙏`;
     
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
-}
-
-// Show product details in modal (existing function)
-function showProductDetails(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-    
-    const modal = document.getElementById('productModal');
-    const productDetails = document.getElementById('productDetails');
-    
-    const discount = Math.round(((product.price - product.sale_price) / product.price) * 100);
-    
-    productDetails.innerHTML = `
-        <div class="product-detail">
-            <div class="product-detail-image">
-                <img src="${product.image}" alt="${product.title}" onerror="this.src='https://via.placeholder.com/400x400?text=صورة+غير+متوفرة'">
-            </div>
-            <div class="product-detail-info">
-                <h2>${product.title}</h2>
-                <div class="product-description">${product.description.replace(/\n/g, '<br>')}</div>
-                <div class="product-price">
-                    <span class="current-price">${product.sale_price} د.ك</span>
-                    <span class="original-price">${product.price} د.ك</span>
-                    <span class="discount">وفر ${discount}%</span>
-                </div>
-                <div class="product-status">
-                    <span class="availability">${product.availability}</span>
-                    <span class="category">القسم: ${product.category}</span>
-                </div>
-                <div class="product-detail-actions">
-                    <button class="btn-primary" onclick="addToCart(${product.id}); closeModal('productModal')">
-                        <i class="fas fa-shopping-cart"></i> أضف للسلة
-                    </button>
-                    <button class="btn-whatsapp-large" onclick="contactWhatsApp(${product.id}); closeModal('productModal')">
-                        <i class="fab fa-whatsapp"></i> اسأل عبر واتساب
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    modal.style.display = 'block';
 }
 
 // Add to cart
@@ -228,7 +231,7 @@ function updateCartModal() {
                     </div>
                     <span class="cart-item-price">${itemTotal.toFixed(2)} د.ك</span>
                 </div>
-                <button class="remove-item" onclick="removeFromCart(${item.id})">×</button>
+                <button class="remove-item" onclick="removeFromCart(${item.id})">&times;</button>
             </div>
         `;
     });
@@ -376,21 +379,23 @@ function sendWhatsAppOrder() {
     }
     
     orderText += `\n🛍️ *تفاصيل الطلب:*\n`;
-    orderText += `────────────────────\n`;
+    orderText += `────────────────────────────\n`;
     
     let total = 0;
     cart.forEach((item, index) => {
         const itemTotal = item.sale_price * item.quantity;
         total += itemTotal;
+        const productURL = createProductURL(item);
+        const fullURL = `${window.location.origin}/${productURL}`;
         
         orderText += `${index + 1}. *${item.title}*\n`;
         orderText += `   الكمية: ${item.quantity}\n`;
         orderText += `   السعر: ${item.sale_price} د.ك\n`;
         orderText += `   المجموع: ${itemTotal.toFixed(2)} د.ك\n`;
-        orderText += `   الرابط: ${window.location.origin}${window.location.pathname}#product-${item.id}\n\n`;
+        orderText += `   الرابط: ${fullURL}\n\n`;
     });
     
-    orderText += `────────────────────\n`;
+    orderText += `────────────────────────────\n`;
     orderText += `💰 *إجمالي الطلب: ${total.toFixed(2)} د.ك*\n`;
     orderText += `💳 *طريقة الدفع: الدفع عند الاستلام*\n\n`;
     orderText += `شكراً لك على اختيار سوق الكويت! 🇰🇼`;
@@ -442,23 +447,9 @@ function showNotification(message) {
     }, 3000);
 }
 
-// Handle direct product links
-function handleProductLink() {
-    const hash = window.location.hash;
-    if (hash.startsWith('#product-')) {
-        const productId = parseInt(hash.replace('#product-', ''));
-        if (productId && products.length > 0) {
-            showProductDetails(productId);
-        }
-    }
-}
-
 // Event listeners
 document.addEventListener('DOMContentLoaded', function() {
     loadProducts();
-    
-    // Handle product links after products are loaded
-    setTimeout(handleProductLink, 1000);
     
     // Search functionality
     const searchInput = document.getElementById('searchInput');
@@ -515,8 +506,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Handle hash changes for product links
-    window.addEventListener('hashchange', handleProductLink);
-    
-    console.log('تم تحميل المتجر بنجاح');
+    console.log('تم تحميل المتجر بنجاح - صفحات منتجات منفصلة');
 });
