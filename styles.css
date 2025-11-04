@@ -1,42 +1,24 @@
-/* تحسينات تجاوبية للجوال */
-@media (max-width: 992px) {
-  .nav-wrapper { gap: 0.8rem; }
-  .nav ul { gap: 1rem; flex-wrap: wrap; justify-content: center; }
-  .search-box input { width: 220px; }
-  .hero { padding: 160px 0 110px; }
-  .hero-content h2 { font-size: 2.4rem; }
-  .hero-content p { font-size: 1.1rem; }
-  .products-grid { grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 1.2rem; }
-  .product-image { height: 230px; }
-  .product-info { padding: 1rem; }
-  .product-actions { gap: 0.4rem; }
-  .btn-cart,.btn-whatsapp,.btn-details { padding: 10px 6px; font-size: .9rem; }
-}
+/* Grid & typography scaling for all devices */
+html{font-size:16px}
+@media (max-width:1400px){html{font-size:15px}.container{max-width:1140px}}
+@media (max-width:1200px){html{font-size:15px}.container{max-width:960px}.products-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}.product-image{height:240px}}
+@media (max-width:992px){html{font-size:14px}.container{max-width:720px}.nav ul{flex-wrap:wrap}.products-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}.product-image{height:220px}}
+@media (max-width:768px){html{font-size:14px}.container{max-width:540px}.products-grid{grid-template-columns:repeat(2,1fr)}.product-image{height:190px}.hero{padding:140px 0 90px}.header-actions{flex-direction:column}}
+@media (max-width:576px){html{font-size:13px}.container{max-width:100%}.products-grid{grid-template-columns:1fr}.product-image{height:180px}.search-box input{width:100%}}
 
-@media (max-width: 768px) {
-  .header-actions { flex-direction: column; gap: .6rem; }
-  .search-box { width: 100%; }
-  .search-box input { width: 100%; }
-  .filters { gap: .6rem; margin-bottom: 1.2rem; }
-  .filter-btn { padding: 10px 14px; font-size: .9rem; }
-  .section-title { font-size: 1.8rem; margin: 1.2rem 0; }
-  .products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
-  .product-image { height: 190px; }
-  .cart-item img { width: 64px; height: 64px; }
-  .modal-content { width: 94%; padding: 1.2rem; }
-  .product-detail { grid-template-columns: 1fr; gap: 1rem; }
-  .product-detail-actions { flex-direction: column; }
-}
+/* Prevent horizontal scroll */
+body,html{overflow-x:hidden}
 
-@media (max-width: 480px) {
-  .nav ul { gap: .6rem; }
-  .hero { padding: 140px 0 90px; }
-  .hero-content h2 { font-size: 1.8rem; }
-  .cta-btn { padding: 12px 20px; font-size: 1rem; }
-  .products-grid { grid-template-columns: 1fr; }
-  .product-image { height: 180px; }
-  .btn-primary, .btn-secondary, .btn-whatsapp-large { padding: 12px 14px; font-size: .95rem; border-radius: 12px; }
-  .footer-grid { grid-template-columns: 1fr; gap: 1rem; }
-  .category-card { padding: 1.2rem; }
-  .search-box button { width: 42px; height: 42px; }
-}
+/* Touch targets */
+button, .filter-btn, .btn-primary, .btn-secondary, .btn-whatsapp, .btn-details {min-height:44px}
+
+/* Images responsive */
+img{max-width:100%;height:auto}
+
+/* Safe areas for iOS notch */
+:root{--safe-top:env(safe-area-inset-top);--safe-bottom:env(safe-area-inset-bottom)}
+.header{padding-top:calc(1.2rem + var(--safe-top))}
+.footer{padding-bottom:calc(40px + var(--safe-bottom))}
+
+/* Landscape small heights */
+@media (max-height:480px) and (orientation:landscape){.hero{padding:100px 0 60px}.product-image{height:160px}}
