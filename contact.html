@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>اتصل بنا - سوق الكويت</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="kuwait-luxury.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <div class="logo">
+          <h1><i class="fas fa-shopping-bag"></i> سوق الكويت</h1>
+        </div>
+        <nav class="nav">
+          <ul>
+            <li><a href="/sooq-alkuwait/">الرئيسية</a></li>
+            <li><a href="about.html">من نحن</a></li>
+            <li><a href="contact.html" class="active">اتصل بنا</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content container">
+      <h2>اتصل بنا</h2>
+      <p>تواصل معنا على مدار الساعة عبر واتساب أو البريد الإلكتروني.</p>
+    </div>
+  </section>
+
+  <main class="container" style="padding: 60px 0;">
+    <h3 class="section-title">بيانات الاتصال</h3>
+    <div class="checkout-section">
+      <p>الدولة: الكويت 🇰🇼</p>
+      <p>المدينة: الكويت</p>
+      <p>الرمز البريدي: 36320</p>
+      <p>واتساب: <a href="https://wa.me/201110760081" target="_blank">201110760081+</a></p>
+      <p>البريد: info@sooq-kw.com</p>
+      <p>الدفع: الدفع عند الاستلام</p>
+    </div>
+
+    <h3 class="section-title">أرسل رسالة</h3>
+    <div class="checkout-section">
+      <form onsubmit="event.preventDefault();window.open('https://wa.me/201110760081?text='+encodeURIComponent(document.getElementById('msg').value),'_blank');">
+        <div class="form-group">
+          <label for="msg">رسالتك</label>
+          <textarea id="msg" rows="4" placeholder="اكتب رسالتك هنا وسيتم فتح واتساب تلقائياً"></textarea>
+        </div>
+        <button class="btn-whatsapp-large" type="submit"><i class="fab fa-whatsapp"></i> إرسال عبر واتساب</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2025 سوق الكويت. جميع الحقوق محفوظة.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+</body>
+</html>
