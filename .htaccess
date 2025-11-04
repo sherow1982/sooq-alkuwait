@@ -1,0 +1,12 @@
+# إعادة توجيه الروابط العربية إلى صفحة المنتج الديناميكية
+RewriteEngine On
+
+# تجاهل الملفات الموجودة
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# إعادة توجيه روابط المنتجات العربية
+RewriteRule ^(اطفال|مطبخ|ملابس|الكترونيات|تجميل|منتجات)/(.*)$ /product.html?path=/$1/$2 [QSA,L]
+
+# إعادة توجيه أي مسار آخر إلى الرئيسية
+RewriteRule ^(.*)$ /index.html?path=/$1 [QSA,L]
