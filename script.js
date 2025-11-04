@@ -33,28 +33,11 @@ class SmartArabicRouter {
 
     async loadProducts() {
         try {
-            // تحميل من مصادر متعددة بدلاً من ملف واحد فقط
-            const sources = [
-                '/products-full.json',
-                '/products-full-2.json',
-                '/products-full-3.json',
-                '/products-part1.json',
-                '/products-part2.json',
-                '/products-part3.json',
-                '/products-part4.json',
-                '/products.json'
-            ];
-            const loaded = [];
-            for (const url of sources) {
-                try {
-                    const res = await fetch(url + '?v=' + Date.now(), { cache: 'no-store' });
-                    if (!res.ok) continue;
-                    const data = await res.json();
-                    if (Array.isArray(data)) loaded.push(...data);
-                } catch (e) { console.warn('تخطي:', url); }
-            }
-            this.products = loaded;
-            console.log(`📦 تم تحميل ${this.products.length} منتج للراوتر من مصادر متعددة`);
+            // مصدر واحد مبسّط لتجنب 404
+            const res = await fetch('/products-comprehensive.json?v=' + Date.now(), { cache: 'no-store' });
+            const data = await res.json();
+            this.products = Array.isArray(data) ? data : [];
+            console.log(`📦 تم تحميل ${this.products.length} منتج للراوتر من الملف الشامل`);
         } catch (error) {
             console.error('❌ خطأ تحميل المنتجات:', error);
             this.products = [];
@@ -72,36 +55,23 @@ class SmartArabicRouter {
     }
 
     findProductByPath(targetPath) {
-        // بحث مباشر
         let product = this.products.find(p => p.seo_url === targetPath);
-        
         if (!product) {
-            // بحث ذكي - يبحث عن روابط تبدأ بنفس النص
-            product = this.products.find(p => 
-                targetPath.startsWith(p.seo_url) || 
-                p.seo_url.startsWith(targetPath)
-            );
+            product = this.products.find(p => targetPath.startsWith(p.seo_url) || p.seo_url.startsWith(targetPath));
         }
-        
         if (!product) {
-            // بحث بالـ ID إذا كان الرابط يحتوي رقم
             const idMatch = targetPath.match(/\d+/);
             if (idMatch) {
                 const id = parseInt(idMatch[0]);
                 product = this.products.find(p => p.id === id);
             }
         }
-        
         return product;
     }
 
     renderProductPage(product) {
         const discount = Math.round(((product.price - product.sale_price) / product.price) * 100);
-        
-        // تحديث العنوان
         document.title = `${product.title} - سوق الكويت`;
-        
-        // HTML صفحة المنتج
         const productHTML = `
             <div class="container" style="margin-top: 120px; padding: 2rem 0;">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
@@ -152,7 +122,6 @@ class SmartArabicRouter {
             </div>
         `;
         
-        // استبدال محتوى الصفحة
         const main = document.querySelector('main') || document.querySelector('.products-section') || document.querySelector('.hero');
         if (main) {
             main.innerHTML = productHTML;
@@ -160,8 +129,6 @@ class SmartArabicRouter {
             document.body.innerHTML = productHTML;
             this.addBasicHeader();
         }
-        
-        // إضافة منتج للذاكرة المحلية
         localStorage.setItem('currentViewedProduct', JSON.stringify(product));
     }
 
@@ -178,7 +145,6 @@ class SmartArabicRouter {
                 </div>
             </div>
         `;
-        
         const main = document.querySelector('main') || document.querySelector('.products-section');
         if (main) {
             main.innerHTML = notFoundHTML;
@@ -204,31 +170,13 @@ class SmartArabicRouter {
 // Load products data for homepage
 async function loadProducts() {
     try {
-        // استخدام نفس نهج المصادر المتعددة في الصفحة الرئيسية
-        const sources = [
-            '/products-full.json',
-            '/products-full-2.json',
-            '/products-full-3.json',
-            '/products-part1.json',
-            '/products-part2.json',
-            '/products-part3.json',
-            '/products-part4.json',
-            '/products.json'
-        ];
-        const loaded = [];
-        for (const url of sources) {
-            try {
-                const res = await fetch(url + '?v=' + Date.now(), { cache: 'no-store' });
-                if (!res.ok) continue;
-                const data = await res.json();
-                if (Array.isArray(data)) loaded.push(...data);
-            } catch (e) { console.warn('تخطي:', url); }
-        }
-        products = loaded;
+        const res = await fetch('/products-comprehensive.json?v=' + Date.now(), { cache: 'no-store' });
+        const data = await res.json();
+        products = Array.isArray(data) ? data : [];
         filteredProducts = products;
         displayProducts();
         updateCartUI();
-        console.log(`✅ تم تحميل ${products.length} منتج للصفحة الرئيسية من مصادر متعددة`);
+        console.log(`✅ تم تحميل ${products.length} منتج من الملف الشامل`);
     } catch (error) {
         console.error('❌ خطأ في تحميل المنتجات:', error);
     }
