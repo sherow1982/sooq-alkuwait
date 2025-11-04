@@ -1,1 +1,8 @@
-{"url":"https://sherow1982.github.io/sooq-alkuwait/","enforce_https":true,"force_ssl":true}
+url: "https://sherow1982.github.io/sooq-alkuwait"
+baseurl: "/sooq-alkuwait"
+lang: ar
+title: "سوق الكويت - متجر إلكتروني"
+description: "تسوق اونلاين داخل الكويت - آلاف المنتجات مع توصيل سريع"
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
