@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الصفحة غير موجودة - سوق الكويت</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .error-hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,var(--kuwait-black),#0a0a0a 30%,var(--kuwait-green) 85%);color:#fff;position:relative;overflow:hidden;padding:120px 20px}
+    .error-hero::after{content:'';position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,0,.25),transparent 60%)}
+    .error-card{background:rgba(255,255,255,.07);border:2px solid var(--luxury-gold);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.4);backdrop-filter:blur(8px);max-width:720px;padding:40px 28px}
+    .error-code{font-size:5rem;font-weight:900;letter-spacing:2px;margin-bottom:10px;background:linear-gradient(135deg,var(--luxury-gold),#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .error-title{font-size:1.8rem;font-weight:800;margin-bottom:10px;color:#fff}
+    .error-text{color:#eee;line-height:1.9;margin-bottom:24px}
+    .error-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .btn-gold{background:linear-gradient(135deg,var(--luxury-gold),var(--dark-gold));color:#000;border:none;padding:14px 20px;border-radius:30px;font-weight:800;cursor:pointer;box-shadow:0 10px 25px rgba(255,215,0,.35)}
+    .btn-dark{background:linear-gradient(135deg,#111,#333);color:var(--luxury-gold);border:2px solid var(--luxury-gold);padding:14px 20px;border-radius:30px;font-weight:800;cursor:pointer}
+    .error-flags{margin-top:24px;display:flex;gap:6px;justify-content:center;align-items:center}
+    .flag{width:22px;height:14px;border:1px solid rgba(255,255,255,.3);box-shadow:0 0 8px rgba(0,0,0,.3)}
+    .flag.kw{background:linear-gradient(90deg,#000 0 20%,#00A651 20% 50%,#fff 50% 75%,#CE1126 75%)}
+  </style>
+</head>
+<body>
+  <section class="error-hero">
+    <div class="error-card">
+      <div class="error-code">404</div>
+      <h1 class="error-title">الصفحة غير موجودة</h1>
+      <p class="error-text">يبدو أن الرابط الذي وصلت إليه غير صحيح أو تم نقله. لا تقلق — يمكنك العودة للرئيسية أو تصفح منتجاتنا المميزة.</p>
+      <div class="error-actions">
+        <a class="btn-gold" href="index.html"><i class="fas fa-home"></i> العودة للرئيسية</a>
+        <a class="btn-dark" href="index.html#products"><i class="fas fa-th-large"></i> تصفّح المنتجات</a>
+      </div>
+      <div class="error-flags">
+        <div class="flag kw" title="Kuwait"></div>
+        <span style="color:#ffd700;font-weight:800">سوق الكويت</span>
+      </div>
+    </div>
+  </section>
+  <script>
+    // إعادة توجيه ذكي بعد 4 ثواني إلى الرئيسية
+    setTimeout(()=>{ window.location.href = 'index.html'; }, 4000);
+  </script>
+</body>
+</html>
