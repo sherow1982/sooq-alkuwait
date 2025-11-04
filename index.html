@@ -5,12 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="سوق الكويت - متجرك الإلكتروني لأفضل المنتجات بأسعار مميزة. توصيل مجاني ودفع عند الاستلام" />
   <title>سوق الكويت - تسوق إلكتروني بتوصيل مجاني</title>
-  <link rel="stylesheet" href="styles.css" />
+  
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MSZDN3ZJ');</script>
+  <!-- End Google Tag Manager -->
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YQW5LL476X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YQW5LL476X');
+  </script>
+  
+  <link rel="stylesheet" href="/styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <script src="geo-location.js"></script>
+  <script src="/geo-location.js"></script>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MSZDN3ZJ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
   <header class="header">
     <div class="container">
       <div class="nav-wrapper">
@@ -23,9 +46,10 @@
           <ul>
             <li><a href="/">الرئيسية</a></li>
             <li><a href="/#products">المنتجات</a></li>
-            <li><a href="cart.html">سلة التسوق</a></li>
-            <li><a href="checkout.html">إتمام الطلب</a></li>
-            <li><a href="contact.html">اتصل بنا</a></li>
+            <li><a href="/cart.html">سلة التسوق</a></li>
+            <li><a href="/checkout.html">إتمام الطلب</a></li>
+            <li><a href="/contact.html">اتصل بنا</a></li>
+            <li><a href="/refund.html">سياسة الارجاع</a></li>
           </ul>
         </nav>
         
@@ -43,11 +67,12 @@
     <ul>
       <li><a href="/" onclick="toggleMobileMenu()">🏠 الرئيسية</a></li>
       <li><a href="/#products" onclick="toggleMobileMenu()">🛍️ المنتجات</a></li>
-      <li><a href="cart.html" onclick="toggleMobileMenu()">🛒 سلة التسوق</a></li>
-      <li><a href="checkout.html" onclick="toggleMobileMenu()">💳 إتمام الطلب</a></li>
-      <li><a href="contact.html" onclick="toggleMobileMenu()">📧 اتصل بنا</a></li>
-      <li><a href="terms.html" onclick="toggleMobileMenu()">📄 الشروط</a></li>
-      <li><a href="privacy.html" onclick="toggleMobileMenu()">🔒 الخصوصية</a></li>
+      <li><a href="/cart.html" onclick="toggleMobileMenu()">🛒 سلة التسوق</a></li>
+      <li><a href="/checkout.html" onclick="toggleMobileMenu()">💳 إتمام الطلب</a></li>
+      <li><a href="/contact.html" onclick="toggleMobileMenu()">📧 اتصل بنا</a></li>
+      <li><a href="/terms.html" onclick="toggleMobileMenu()">📄 الشروط</a></li>
+      <li><a href="/privacy.html" onclick="toggleMobileMenu()">🔒 الخصوصية</a></li>
+      <li><a href="/refund.html" onclick="toggleMobileMenu()">🔄 سياسة الارجاع</a></li>
     </ul>
   </div>
 
@@ -59,7 +84,7 @@
         <div class="search-box">
           <input type="text" id="searchInput" placeholder="ابحث عن المنتجات..." />
           <button id="searchBtn"><i class="fas fa-search"></i></button>
-          <button class="cart-icon" onclick="window.location.href='cart.html'">
+          <button class="cart-icon" onclick="window.location.href='/cart.html'">
             <i class="fas fa-shopping-cart"></i>
             <span class="cart-count">0</span>
           </button>
@@ -101,11 +126,12 @@
           <p>متجرك الإلكتروني الموثوق لأفضل المنتجات بأسعار تنافسية</p>
         </div>
         <div class="footer-section">
-          <h3>خدماتنا</h3>
+          <h3>روابط سريعة</h3>
           <ul>
-            <li><a href="shipping.html">توصيل مجاني</a></li>
-            <li><a href="terms.html">الشروط والأحكام</a></li>
-            <li><a href="privacy.html">سياسة الخصوصية</a></li>
+            <li><a href="/shipping.html">توصيل مجاني</a></li>
+            <li><a href="/terms.html">الشروط والأحكام</a></li>
+            <li><a href="/privacy.html">سياسة الخصوصية</a></li>
+            <li><a href="/refund.html">سياسة الارجاع</a></li>
           </ul>
         </div>
         <div class="footer-section">
@@ -137,6 +163,6 @@
       }
     });
   </script>
-  <script src="script.js"></script>
+  <script src="/script.js"></script>
 </body>
 </html>
