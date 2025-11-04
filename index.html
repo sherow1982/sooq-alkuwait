@@ -3,14 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="سوق الكويت - متجرك الإلكتروني لأفضل المنتجات بأسعار مميزة. توصيل مجاني ودفع عند الاستلام" />
-  <meta name="keywords" content="سوق الكويت, تسوق إلكتروني, منتجات, توصيل مجاني, دفع عند الاستلام" />
   <title>سوق الكويت - تسوق إلكتروني بتوصيل مجاني</title>
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+  <!-- استيراد رأس الموبايل -->
+  <div id="mobileHeader"></div>
+  <script>
+    // تحميل رأس الموبايل فقط على الشاشات الصغيرة
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      fetch('partials/header-mobile.html')
+        .then(r => r.text())
+        .then(html => { document.getElementById('mobileHeader').innerHTML = html; })
+        .catch(console.error);
+    }
+  </script>
+
   <header class="header">
     <div class="container">
       <div class="nav-wrapper">
@@ -62,11 +72,9 @@
   <section id="products" class="products-section">
     <div class="container">
       <h2 class="section-title">منتجاتنا المميزة</h2>
-      <div class="products-grid" id="productsGrid">
-        <!-- Products will be loaded here -->
-      </div>
+      <div class="products-grid" id="productsGrid"></div>
       <div class="load-more-container">
-        <button id="loadMoreBtn" class="btn-load-more" onclick="loadMoreProducts()" style="display: none;">
+        <button id="loadMoreBtn" class="btn-load-more" onclick="loadMore()" style="display: none;">
           <i class="fas fa-plus-circle"></i> عرض المزيد
         </button>
       </div>
