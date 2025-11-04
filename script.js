@@ -17,74 +17,32 @@ async function loadProducts() {
         console.log(`تم تحميل ${products.length} منتج`);
     } catch (error) {
         console.error('خطأ في تحميل المنتجات:', error);
-        createSampleProducts();
     }
 }
 
-// Create sample products as fallback
-function createSampleProducts() {
-    products = [
-        {
-            "id": 1,
-            "title": "حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال",
-            "price": 18.0,
-            "sale_price": 13.0,
-            "image": "https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg",
-            "category": "أطفال",
-            "availability": "متوفر",
-            "description": "حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال\n\n✨ مواصفات المنتج:\n• مادة آمنة وعالية الجودة\n• تصميم جذاب للأطفال\n• سهل الاستخدام\n• ينمي المهارات\n• مناسب من 3 سنوات\n\n🚚 توصيل مجاني الكويت\n💰 الدفع عند الاستلام"
-        },
-        {
-            "id": 2,
-            "title": "صفاية سلطة دوّارة متعددة الوظائف",
-            "price": 18.0,
-            "sale_price": 13.0,
-            "image": "https://via.placeholder.com/300x300?text=صفاية",
-            "category": "مطبخ",
-            "availability": "متوفر",
-            "description": "صفاية سلطة دوّارة متعددة الوظائف\n\n✨ مواصفات المنتج:\n• مواد غذائية آمنة\n• سهل التنظيف\n• متين وعملي\n• يوفر الوقت\n• تصميم مريح\n\n🚚 توصيل مجاني الكويت\n💰 الدفع عند الاستلام"
-        }
-    ];
-    filteredProducts = products;
-    displayProducts();
-    console.log('تم إنشاء منتجات تجريبية');
-}
-
-// Create product URL for dedicated page
+// Create product URL - FIXED: Direct link to product page
 function createProductURL(product) {
-    // إنشاء slug بسيط للمنتج
-    let slug = product.title.toLowerCase()
-        .replace(/حصالة/g, 'piggy-bank')
-        .replace(/أطفال/g, 'kids')
-        .replace(/صراف آلي/g, 'electronic')
-        .replace(/كرتوني/g, 'cartoon')
-        .replace(/صفاية/g, 'spinner')
-        .replace(/سلطة/g, 'salad')
-        .replace(/مطبخ/g, 'kitchen')
-        .replace(/شورت/g, 'shorts')
-        .replace(/ملابس/g, 'clothes')
-        .replace(/نسائي/g, 'womens')
-        .replace(/[^\w\s-]/g, '') // إزالة الرموز
-        .replace(/\s+/g, '-') // استبدال المسافات بشرطات
-        .replace(/-+/g, '-') // إزالة الشرطات المتعددة
-        .substring(0, 50) // تحديد الطول
-        .replace(/^-+|-+$/g, ''); // إزالة الشرطات من البداية والنهاية
-    
-    // تحديد الفئة الإنجليزية
+    // تحويل التصنيف للإنجليزية للـ SEO
     let categoryFolder = 'products';
-    if (product.category === 'أطفال') categoryFolder = 'atfal';
-    else if (product.category === 'مطبخ') categoryFolder = 'matbakh';
-    else if (product.category === 'ملابس') categoryFolder = 'malabis';
+    if (product.category === 'أطفال') categoryFolder = 'kids';
+    else if (product.category === 'مطبخ') categoryFolder = 'kitchen';
+    else if (product.category === 'ملابس') categoryFolder = 'fashion';
     else if (product.category === 'إلكترونيات') categoryFolder = 'electronics';
-    else if (product.category === 'تجميل') categoryFolder = 'tajmil';
-    else if (product.category === 'منزل') categoryFolder = 'manzil';
+    else if (product.category === 'تجميل') categoryFolder = 'beauty';
+    else if (product.category === 'منزل') categoryFolder = 'home';
     
-    return `${categoryFolder}/${slug}/${product.id}.html`;
+    // إنشاء slug بسيط من ID والعنوان
+    const slug = `product-${product.id}`;
+    
+    // المسار الصحيح: /{category}/{slug}.html
+    return `${categoryFolder}/${slug}.html`;
 }
 
 // Display products
 function displayProducts() {
     const productsGrid = document.getElementById('productsGrid');
+    if (!productsGrid) return;
+    
     const startIndex = (currentPage - 1) * productsPerPage;
     const endIndex = startIndex + productsPerPage;
     const productsToShow = filteredProducts.slice(0, endIndex);
@@ -109,7 +67,7 @@ function displayProducts() {
     console.log(`تم عرض ${productsToShow.length} منتج`);
 }
 
-// Create product card - بدون مودال، فتح مباشر في تبويب جديد
+// Create product card - Fixed to open correct product page
 function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card';
@@ -119,7 +77,7 @@ function createProductCard(product) {
     
     card.innerHTML = `
         <div class="product-image" onclick="window.open('${productURL}', '_blank')" style="cursor: pointer;">
-            <img src="${product.image}" alt="${product.title}" onerror="this.src='https://via.placeholder.com/300x300?text=صورة+غير+متوفرة'">
+            <img src="${product.image}" alt="${product.title}" onerror="this.src='https://via.placeholder.com/300x300/cccccc/666666?text=صورة'">
             <div class="product-overlay">
                 <i class="fas fa-external-link-alt"></i>
                 <span>عرض المنتج</span>
@@ -146,10 +104,9 @@ function createProductCard(product) {
         </div>
     `;
     
-    // جعل البطاقة كلها clickable
+    // Make entire card clickable
     card.style.cursor = 'pointer';
     card.onclick = function(e) {
-        // تجنب فتح الصفحة عند النقر على الأزرار
         if (!e.target.closest('.product-actions')) {
             window.open(productURL, '_blank');
         }
@@ -158,7 +115,7 @@ function createProductCard(product) {
     return card;
 }
 
-// Contact via WhatsApp for specific product
+// Contact via WhatsApp
 function contactWhatsApp(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
@@ -278,10 +235,7 @@ function filterProducts(category) {
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active');
     });
-    const targetBtn = document.querySelector(`[data-category="${category}"]`) || document.querySelector(`[onclick="filterProducts('${category}')"]`);
-    if (targetBtn) targetBtn.classList.add('active');
-    
-    console.log(`تم تطبيق فلتر: ${category} - عدد النتائج: ${filteredProducts.length}`);
+    document.querySelector(`[onclick="filterProducts('${category}')"]`)?.classList.add('active');
 }
 
 // Search products
@@ -298,153 +252,19 @@ function searchProducts(query) {
     
     currentPage = 1;
     displayProducts();
-    console.log(`نتائج البحث عن "${query}": ${filteredProducts.length} منتج`);
-}
-
-// Load more products
-function loadMore() {
-    currentPage += 1;
-    displayProducts();
-}
-
-// Scroll to products section
-function scrollToProducts() {
-    const productsSection = document.getElementById('products');
-    if (productsSection) {
-        productsSection.scrollIntoView({ behavior: 'smooth' });
-    }
-}
-
-// Show checkout form
-function showCheckout() {
-    if (cart.length === 0) {
-        showNotification('السلة فارغة');
-        return;
-    }
-    
-    closeModal('cartModal');
-    const checkoutModal = document.getElementById('checkoutModal');
-    if (checkoutModal) {
-        checkoutModal.style.display = 'block';
-        displayCheckoutItems();
-    }
-}
-
-// Display checkout items
-function displayCheckoutItems() {
-    const checkoutItems = document.getElementById('checkoutItems');
-    const checkoutTotal = document.getElementById('checkoutTotal');
-    
-    if (!checkoutItems || !checkoutTotal) return;
-    
-    let html = '';
-    let total = 0;
-    
-    cart.forEach(item => {
-        const itemTotal = item.sale_price * item.quantity;
-        total += itemTotal;
-        
-        html += `
-            <div class="checkout-item">
-                <span class="item-name">${item.title}</span>
-                <span class="item-quantity">x${item.quantity}</span>
-                <span class="item-price">${itemTotal.toFixed(2)} د.ك</span>
-            </div>
-        `;
-    });
-    
-    checkoutItems.innerHTML = html;
-    checkoutTotal.textContent = total.toFixed(2);
-}
-
-// Send WhatsApp order
-function sendWhatsAppOrder() {
-    const customerName = document.getElementById('customerName')?.value;
-    const customerPhone = document.getElementById('customerPhone')?.value;
-    const customerAddress = document.getElementById('customerAddress')?.value;
-    const orderNotes = document.getElementById('orderNotes')?.value;
-    
-    if (!customerName || !customerPhone || !customerAddress) {
-        showNotification('يرجى ملء جميع البيانات المطلوبة');
-        return;
-    }
-    
-    let orderText = `🛍️ *طلب جديد من سوق الكويت*\n\n`;
-    orderText += `👤 *اسم العميل:* ${customerName}\n`;
-    orderText += `📞 *رقم الهاتف:* ${customerPhone}\n`;
-    orderText += `📍 *العنوان:* ${customerAddress}\n`;
-    
-    if (orderNotes) {
-        orderText += `📝 *ملاحظات:* ${orderNotes}\n`;
-    }
-    
-    orderText += `\n🛍️ *تفاصيل الطلب:*\n`;
-    orderText += `────────────────────────────\n`;
-    
-    let total = 0;
-    cart.forEach((item, index) => {
-        const itemTotal = item.sale_price * item.quantity;
-        total += itemTotal;
-        const productURL = createProductURL(item);
-        const fullURL = `${window.location.origin}/${productURL}`;
-        
-        orderText += `${index + 1}. *${item.title}*\n`;
-        orderText += `   الكمية: ${item.quantity}\n`;
-        orderText += `   السعر: ${item.sale_price} د.ك\n`;
-        orderText += `   المجموع: ${itemTotal.toFixed(2)} د.ك\n`;
-        orderText += `   الرابط: ${fullURL}\n\n`;
-    });
-    
-    orderText += `────────────────────────────\n`;
-    orderText += `💰 *إجمالي الطلب: ${total.toFixed(2)} د.ك*\n`;
-    orderText += `💳 *طريقة الدفع: الدفع عند الاستلام*\n\n`;
-    orderText += `شكراً لك على اختيار سوق الكويت! 🇰🇼`;
-    
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(orderText)}`;
-    
-    cart = [];
-    updateCartUI();
-    closeModal('checkoutModal');
-    
-    showNotification('تم إرسال الطلب! سيتم توجيهك لواتساب...');
-    
-    setTimeout(() => {
-        window.open(whatsappUrl, '_blank');
-    }, 1000);
-}
-
-// Close modal
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.display = 'none';
-    }
 }
 
 // Show notification
 function showNotification(message) {
     const notification = document.createElement('div');
-    notification.className = 'notification';
     notification.textContent = message;
     notification.style.cssText = `
-        position: fixed;
-        top: 80px;
-        right: 20px;
-        background: var(--kuwait-green);
-        color: white;
-        padding: 15px 20px;
-        border-radius: 10px;
-        z-index: 3000;
-        font-family: 'Cairo', sans-serif;
-        box-shadow: 0 5px 15px rgba(0,166,81,0.3);
-        font-weight: 600;
+        position: fixed; top: 100px; right: 20px; background: var(--kuwait-green);
+        color: white; padding: 15px 20px; border-radius: 10px; z-index: 3000;
+        font-family: 'Cairo', sans-serif; box-shadow: 0 5px 15px rgba(0,166,81,0.3);
     `;
     document.body.appendChild(notification);
-    setTimeout(() => { 
-        if (notification.parentNode) {
-            notification.remove(); 
-        }
-    }, 3000);
+    setTimeout(() => notification.remove(), 3000);
 }
 
 // Event listeners
@@ -452,8 +272,8 @@ document.addEventListener('DOMContentLoaded', function() {
     loadProducts();
     
     // Search functionality
-    const searchInput = document.getElementById('searchInput');
     const searchBtn = document.getElementById('searchBtn');
+    const searchInput = document.getElementById('searchInput');
     
     if (searchBtn) {
         searchBtn.addEventListener('click', () => {
@@ -469,42 +289,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Filter buttons
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterProducts(btn.dataset.category);
-        });
-    });
-    
-    // Load more button
-    const loadMoreBtn = document.getElementById('loadMoreBtn');
-    if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', loadMore);
-    }
-    
-    // Cart icon click
+    // Cart icon
     const cartIcon = document.querySelector('.cart-icon');
     if (cartIcon) {
         cartIcon.addEventListener('click', () => {
-            const cartModal = document.getElementById('cartModal');
-            if (cartModal) cartModal.style.display = 'block';
+            window.location.href = 'cart.html';
         });
     }
     
-    // Modal close buttons
-    document.querySelectorAll('.close').forEach(closeBtn => {
-        closeBtn.addEventListener('click', (e) => {
-            const modal = e.target.closest('.modal');
-            if (modal) closeModal(modal.id);
-        });
-    });
-    
-    // Close modal when clicking outside
-    window.addEventListener('click', (e) => {
-        if (e.target.classList.contains('modal')) {
-            e.target.style.display = 'none';
-        }
-    });
-    
-    console.log('تم تحميل المتجر بنجاح - صفحات منتجات منفصلة');
+    console.log('سوق الكويت - تم التحميل بنجاح');
 });
