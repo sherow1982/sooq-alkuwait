@@ -7,14 +7,22 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="geo-location.js"></script>
 </head>
 <body>
     <header class="header">
         <div class="container">
             <div class="nav-wrapper">
                 <div class="logo">
-                    <h1><a href="index.html" style="color: var(--luxury-gold); text-decoration: none;"><i class="fas fa-shopping-bag"></i> سوق الكويت</a></h1>
+                    <h1><a href="/" style="color: var(--luxury-gold); text-decoration: none;"><i class="fas fa-shopping-bag"></i> سوق الكويت</a></h1>
                 </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="/">الرئيسية</a></li>
+                        <li><a href="cart.html">سلة التسوق</a></li>
+                        <li><a href="checkout.html">إتمام الطلب</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </header>
@@ -32,13 +40,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="phone">رقم الهاتف <span style="color: red;">*</span></label>
-                    <input type="tel" id="phone" name="phone" required style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 10px; font-family: Cairo;">
+                    <label for="phone">رقم الهاتف الكويتي <span style="color: red;">*</span></label>
+                    <input type="tel" id="phone" name="phone" required placeholder="مثال: 55123456" style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 10px; font-family: Cairo;">
+                    <small style="color: #666; display: block; margin-top: 0.5rem;">أرقام هواتف الكويت فقط (5, 6, 9)</small>
                 </div>
 
                 <div class="form-group">
-                    <label for="address">عنوان التوصيل <span style="color: red;">*</span></label>
-                    <textarea id="address" name="address" required rows="3" style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 10px; font-family: Cairo; resize: vertical;"></textarea>
+                    <label for="address">عنوان التوصيل في الكويت <span style="color: red;">*</span></label>
+                    <textarea id="address" name="address" required rows="3" placeholder="المحافظة، المنطقة، القطعة، الشارع..." style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 10px; font-family: Cairo; resize: vertical;"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -55,19 +64,26 @@
                         <span id="finalTotal">0 د.ك</span>
                     </div>
                     <p style="color: var(--kuwait-green); font-weight: 600; margin-top: 1rem;">
-                        <i class="fas fa-truck"></i> توصيل مجاني للطلبات فوق 100 د.ك | رسوم شحن 2 د.ك لما دون ذلك
+                        <i class="fas fa-truck"></i> توصيل مجاني فوق 100 د.ك | رسوم شحن 2 د.ك لما دون ذلك
                     </p>
                 </div>
 
-                <button type="submit" style="width: 100%; padding: 1.5rem; background: var(--kuwait-green); color: white; border: none; border-radius: 15px; font-size: 1.3rem; font-weight: 700; cursor: pointer;">
+                <button type="submit" id="submitBtn" style="width: 100%; padding: 1.5rem; background: var(--kuwait-green); color: white; border: none; border-radius: 15px; font-size: 1.3rem; font-weight: 700; cursor: pointer;">
                     <i class="fab fa-whatsapp"></i> إرسال الطلب عبر واتساب
                 </button>
+                
+                <div id="geoBlockMessage" style="display: none; color: var(--kuwait-red); font-weight: 600; text-align: center; margin-top: 1rem;">
+                    عفواً، التوصيل متاح داخل الكويت فقط 🇰🇼
+                </div>
             </form>
 
             <div style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #666;">
                 <p>بإرسال الطلب، أنت توافق على 
                 <a href="terms.html" style="color: var(--kuwait-green);">شروط الخدمة</a> و
                 <a href="privacy.html" style="color: var(--kuwait-green);">سياسة الخصوصية</a></p>
+                <p style="margin-top: 1rem; color: var(--kuwait-green); font-weight: 600;">
+                    📧 للاستفسارات: <a href="mailto:sooqalkuwait2010@gmail.com">sooqalkuwait2010@gmail.com</a>
+                </p>
             </div>
         </div>
     </main>
@@ -77,7 +93,7 @@
             try {
                 const cart = JSON.parse(localStorage.getItem('cart') || '[]');
                 if (cart.length === 0) {
-                    window.location.href = 'index.html';
+                    window.location.href = '/';
                     return;
                 }
 
@@ -97,9 +113,19 @@
                 document.getElementById('orderItems').innerHTML = itemsHtml;
                 document.getElementById('finalTotal').textContent = total.toFixed(2) + ' د.ك';
                 
-                // معالجة إرسال الطلب
+                // تعطيل زر الإرسال إذا لم يكن في الكويت
+                if (!geoIsKuwait) {
+                    document.getElementById('submitBtn').disabled = true;
+                    document.getElementById('submitBtn').style.background = '#ccc';
+                    document.getElementById('geoBlockMessage').style.display = 'block';
+                }
+                
                 document.getElementById('checkoutForm').addEventListener('submit', function(e) {
                     e.preventDefault();
+                    
+                    if (!validateCheckoutForm()) {
+                        return;
+                    }
                     
                     const name = document.getElementById('name').value;
                     const phone = document.getElementById('phone').value;
@@ -134,15 +160,14 @@
                     const whatsappUrl = `https://wa.me/201110760081?text=${encodeURIComponent(orderText)}`;
                     window.open(whatsappUrl, '_blank');
                     
-                    // مسح السلة بعد الإرسال
                     localStorage.removeItem('cart');
                     alert('تم إرسال طلبك! سنتواصل معك قريباً 🙏');
-                    window.location.href = 'index.html';
+                    window.location.href = '/';
                 });
                 
             } catch (e) {
                 console.error('خطأ في تحميل السلة:', e);
-                window.location.href = 'index.html';
+                window.location.href = '/';
             }
         });
     </script>
