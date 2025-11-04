@@ -1,241 +1,106 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سوق الكويت - متجر إلكتروني</title>
-    <meta name="description" content="سوق الكويت: متجر إلكتروني كويتي يعرض آلاف المنتجات بأسعار منافسة وشحن سريع داخل الكويت.">
-    <meta name="keywords" content="سوق الكويت, متجر إلكتروني, تسوق اونلاين الكويت, عروض الكويت, شراء اونلاين, توصيل الكويت">
-    <meta name="robots" content="index, follow">
-    <meta name="geo.region" content="KW">
-    <meta name="geo.placename" content="Kuwait">
-    <meta name="theme-color" content="#FFD700">
-    <link rel="manifest" href="/manifest.json">
-
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Store",
-      "name": "سوق الكويت",
-      "image": "https://sherow1982.github.io/sooq-alkuwait/og.png",
-      "address": {"@type":"PostalAddress","addressCountry":"KW","postalCode":"36320","addressLocality":"الكويت"},
-      "url": "https://sherow1982.github.io/sooq-alkuwait/",
-      "priceRange": "KD",
-      "telephone": "+201110760081"
-    }
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="سوق الكويت - متجرك الإلكتروني لأفضل المنتجات بأسعار مميزة. توصيل مجاني ودفع عند الاستلام" />
+  <meta name="keywords" content="سوق الكويت, تسوق إلكتروني, منتجات, توصيل مجاني, دفع عند الاستلام" />
+  <title>سوق الكويت - تسوق إلكتروني بتوصيل مجاني</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="nav-wrapper">
-                <div class="logo">
-                    <h1><i class="fas fa-shopping-bag"></i> سوق الكويت</h1>
-                </div>
-                <nav class="nav">
-                    <ul>
-                        <li><a href="#home">الرئيسية</a></li>
-                        <li><a href="#products">المنتجات</a></li>
-                        <li><a href="#categories">الأقسام</a></li>
-                        <li><a href="about.html">من نحن</a></li>
-                        <li><a href="contact.html">اتصل بنا</a></li>
-                    </ul>
-                </nav>
-                <div class="header-actions">
-                    <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="ابحث عن المنتجات بالكويت...">
-                        <button id="searchBtn"><i class="fas fa-search"></i></button>
-                    </div>
-                    <div class="cart-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count">0</span>
-                    </div>
-                </div>
-            </div>
+  <header class="header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <div class="logo">
+          <h1><a href="index.html" style="color: var(--luxury-gold); text-decoration: none;"><i class="fas fa-shopping-bag"></i> سوق الكويت</a></h1>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h2>🇰🇼 أهلاً بكم في سوق الكويت</h2>
-            <p>اكتشف آلاف المنتجات مع أفضل الأسعار والتوصيل السريع داخل الكويت</p>
-            <button class="cta-btn" onclick="scrollToProducts()">تسوق الآن</button>
-        </div>
-    </section>
-
-    <!-- Categories Section -->
-    <section id="categories" class="categories">
-        <div class="container">
-            <h2 class="section-title">تصفح حسب الفئة</h2>
-            <div class="categories-grid" id="categoriesGrid">
-                <div class="category-card" onclick="filterProducts('أطفال')">
-                    <i class="fas fa-child"></i>
-                    <h3>أطفال</h3>
-                </div>
-                <div class="category-card" onclick="filterProducts('مطبخ')">
-                    <i class="fas fa-utensils"></i>
-                    <h3>مطبخ</h3>
-                </div>
-                <div class="category-card" onclick="filterProducts('ملابس')">
-                    <i class="fas fa-tshirt"></i>
-                    <h3>ملابس</h3>
-                </div>
-                <div class="category-card" onclick="filterProducts('إلكترونيات')">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>إلكترونيات</h3>
-                </div>
-                <div class="category-card" onclick="filterProducts('تجميل')">
-                    <i class="fas fa-spa"></i>
-                    <h3>تجميل</h3>
-                </div>
-                <div class="category-card" onclick="filterProducts('منزل')">
-                    <i class="fas fa-home"></i>
-                    <h3>منزل</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section id="products" class="products">
-        <div class="container">
-            <h2 class="section-title">منتجاتنا المميزة</h2>
-            <div class="filters">
-                <button class="filter-btn active" data-category="all">الكل</button>
-                <button class="filter-btn" data-category="أطفال">أطفال</button>
-                <button class="filter-btn" data-category="مطبخ">مطبخ</button>
-                <button class="filter-btn" data-category="ملابس">ملابس</button>
-                <button class="filter-btn" data-category="إلكترونيات">إلكترونيات</button>
-                <button class="filter-btn" data-category="تجميل">تجميل</button>
-                <button class="filter-btn" data-category="عام">عام</button>
-            </div>
-            <div class="products-grid" id="productsGrid"></div>
-            <div class="load-more">
-                <button id="loadMoreBtn" class="btn-secondary"><i class="fas fa-plus"></i> تحميل المزيد</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Cart Modal -->
-    <div id="cartModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2><i class="fas fa-shopping-cart"></i> سلة التسوق</h2>
-            <div id="cartItems"></div>
-            <div class="cart-total">
-                <h3>المجموع: <span id="cartTotal">0</span> د.ك</h3>
-                <button class="btn-primary" onclick="showCheckout()">
-                    <i class="fas fa-credit-card"></i> إتمام الطلب
-                </button>
-            </div>
-        </div>
+        <nav class="nav">
+          <ul>
+            <li><a href="#home">الرئيسية</a></li>
+            <li><a href="#products">المنتجات</a></li>
+            <li><a href="about.html">من نحن</a></li>
+            <li><a href="contact.html">اتصل بنا</a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
+  </header>
 
-    <!-- Product Modal -->
-    <div id="productModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div id="productDetails"></div>
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h2>مرحباً بك في <span style="color: var(--luxury-gold);">سوق الكويت</span></h2>
+        <p>أفضل المنتجات بأسعار مميزة مع توصيل مجاني ودفع عند الاستلام</p>
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="ابحث عن المنتجات بالكويت..." />
+          <button id="searchBtn"><i class="fas fa-search"></i></button>
+          <button class="cart-icon" onclick="window.location.href='cart.html'">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </button>
         </div>
+      </div>
     </div>
+  </section>
 
-    <!-- Checkout Modal -->
-    <div id="checkoutModal" class="modal">
-        <div class="modal-content checkout-modal">
-            <span class="close">&times;</span>
-            <h2><i class="fas fa-clipboard-check"></i> إتمام الطلب</h2>
-            
-            <div class="checkout-section">
-                <h3><i class="fas fa-user"></i> بيانات العميل</h3>
-                <form id="checkoutForm">
-                    <div class="form-group">
-                        <label for="customerName">الاسم الكامل *</label>
-                        <input type="text" id="customerName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerPhone">رقم الهاتف *</label>
-                        <input type="tel" id="customerPhone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerAddress">العنوان بالتفصيل *</label>
-                        <textarea id="customerAddress" rows="3" required placeholder="المنطقة، الشارع، رقم المنزل، أي معالم مميزة"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="orderNotes">ملاحظات الطلب</label>
-                        <textarea id="orderNotes" rows="2" placeholder="أي ملاحظات إضافية أو طلبات خاصة (اختياري)"></textarea>
-                    </div>
-                </form>
-            </div>
-
-            <div class="checkout-section">
-                <h3><i class="fas fa-list"></i> تفاصيل الطلب</h3>
-                <div id="checkoutItems"></div>
-                <div class="checkout-total">
-                    <strong>المجموع النهائي: <span id="checkoutTotal">0</span> د.ك</strong>
-                    <p class="payment-method">💰 طريقة الدفع: الدفع عند الاستلام</p>
-                </div>
-            </div>
-
-            <div class="checkout-actions">
-                <button class="btn-whatsapp-large" onclick="sendWhatsAppOrder()">
-                    <i class="fab fa-whatsapp"></i> تأكيد الطلب عبر واتساب
-                </button>
-            </div>
-        </div>
+  <section class="filters">
+    <div class="container">
+      <div class="filter-buttons">
+        <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+        <button class="filter-btn" onclick="filterProducts('أطفال')">أطفال</button>
+        <button class="filter-btn" onclick="filterProducts('مطبخ')">مطبخ</button>
+        <button class="filter-btn" onclick="filterProducts('ملابس')">ملابس</button>
+        <button class="filter-btn" onclick="filterProducts('إلكترونيات')">إلكترونيات</button>
+        <button class="filter-btn" onclick="filterProducts('تجميل')">تجميل</button>
+      </div>
     </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h3>🛍️ سوق الكويت</h3>
-                    <p>متجرك الإلكتروني المفضل في الكويت - جودة عالية وأسعار منافسة</p>
-                    <div class="social-links">
-                        <a href="https://wa.me/201110760081" target="_blank" title="واتساب"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#" title="فيسبوك"><i class="fab fa-facebook"></i></a>
-                        <a href="#" title="انستغرام"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3>روابط سريعة</h3>
-                    <ul>
-                        <li><a href="#home">الرئيسية</a></li>
-                        <li><a href="#products">المنتجات</a></li>
-                        <li><a href="#categories">الأقسام</a></li>
-                        <li><a href="contact.html">اتصل بنا</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>خدمة العملاء</h3>
-                    <ul>
-                        <li><a href="refund.html">سياسة الإرجاع</a></li>
-                        <li><a href="terms.html">شروط الخدمة</a></li>
-                        <li><a href="https://wa.me/201110760081" target="_blank">دعم العملاء</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>تواصل معنا</h3>
-                    <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/201110760081" target="_blank">+20 111 076 0081</a></p>
-                    <p><i class="fas fa-envelope"></i> info@sooq-kw.com</p>
-                    <p><i class="fas fa-map-marker-alt"></i> الكويت 🇰🇼 - 36320</p>
-                    <p><i class="fas fa-truck"></i> الدفع عند الاستلام متاح</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 سوق الكويت. جميع الحقوق محفوظة. | 
-                <a href="terms.html" style="color: var(--luxury-gold);">شروط الخدمة</a> | 
-                <a href="refund.html" style="color: var(--luxury-gold);">سياسة الارجاع</a> | 
-                <strong style="color: var(--kuwait-green);">تصميم وتطوير بحب في الكويت 🇰🇼</strong></p>
-            </div>
+  <section id="products" class="products-section">
+    <div class="container">
+      <h2 class="section-title">منتجاتنا المميزة</h2>
+      <div class="products-grid" id="productsGrid">
+        <!-- Products will be loaded here -->
+      </div>
+      <div class="load-more-container">
+        <button id="loadMoreBtn" class="btn-load-more" onclick="loadMoreProducts()" style="display: none;">
+          <i class="fas fa-plus-circle"></i> عرض المزيد
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3><i class="fas fa-shopping-bag"></i> سوق الكويت</h3>
+          <p>متجرك الإلكتروني الموثوق لأفضل المنتجات بأسعار تنافسية</p>
         </div>
-    </footer>
+        <div class="footer-section">
+          <h3>خدماتنا</h3>
+          <ul>
+            <li><a href="shipping.html">توصيل مجاني</a></li>
+            <li><a href="refund.html">سياسة الإرجاع</a></li>
+            <li><a href="terms.html">الشروط والأحكام</a></li>
+            <li><a href="privacy.html">سياسة الخصوصية</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>تواصل معنا</h3>
+          <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/201110760081">+20 111 076 0081</a></p>
+          <p><i class="fas fa-envelope"></i> info@sooq-alkuwait.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 سوق الكويت. جميع الحقوق محفوظة.</p>
+      </div>
+    </div>
+  </footer>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
