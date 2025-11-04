@@ -9,11 +9,12 @@
     <meta name="robots" content="index, follow">
     <meta name="geo.region" content="KW">
     <meta name="geo.placename" content="Kuwait">
-    <meta name="theme-color" content="#667eea">
+    <meta name="theme-color" content="#000000">
     <link rel="manifest" href="/manifest.json">
 
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="kuwait-luxury.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script type="application/ld+json">
     {
@@ -61,12 +62,9 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <h2>أهلاً بكم في سوق الكويت</h2>
+            <h2>🇰🇼 أهلاً بكم في سوق الكويت</h2>
             <p>اكتشف آلاف المنتجات مع أفضل الأسعار والتوصيل السريع داخل الكويت</p>
             <button class="cta-btn" onclick="scrollToProducts()">تسوق الآن</button>
-        </div>
-        <div class="hero-image">
-            <i class="fas fa-store"></i>
         </div>
     </section>
 
@@ -84,10 +82,12 @@
             <h2 class="section-title">منتجاتنا المميزة</h2>
             <div class="filters">
                 <button class="filter-btn active" data-category="all">الكل</button>
-                <button class="filter-btn" data-category="عام">منتجات عامة</button>
-                <button class="filter-btn" data-category="electronics">إلكترونيات</button>
-                <button class="filter-btn" data-category="beauty">تجميل</button>
-                <button class="filter-btn" data-category="home">منزل</button>
+                <button class="filter-btn" data-category="أطفال">أطفال</button>
+                <button class="filter-btn" data-category="مطبخ">مطبخ</button>
+                <button class="filter-btn" data-category="ملابس">ملابس</button>
+                <button class="filter-btn" data-category="إلكترونيات">إلكترونيات</button>
+                <button class="filter-btn" data-category="تجميل">تجميل</button>
+                <button class="filter-btn" data-category="منزل">منزل</button>
             </div>
             <div class="products-grid" id="productsGrid"></div>
             <div class="load-more">
@@ -104,7 +104,7 @@
             <div id="cartItems"></div>
             <div class="cart-total">
                 <h3>المجموع: <span id="cartTotal">0</span> د.ك</h3>
-                <button class="btn-primary">إتمام الشراء</button>
+                <button class="btn-primary" onclick="showCheckout()">إتمام الطلب</button>
             </div>
         </div>
     </div>
@@ -117,6 +117,48 @@
         </div>
     </div>
 
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content checkout-modal">
+            <span class="close">&times;</span>
+            <h2>إتمام الطلب</h2>
+            <div class="checkout-section">
+                <h3>بيانات العميل</h3>
+                <form id="checkoutForm">
+                    <div class="form-group">
+                        <label for="customerName">الاسم الكامل *</label>
+                        <input type="text" id="customerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerPhone">رقم الهاتف *</label>
+                        <input type="tel" id="customerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerAddress">العنوان بالتفصيل *</label>
+                        <textarea id="customerAddress" rows="3" required placeholder="المنطقة، الشارع، رقم المنزل"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderNotes">ملاحظات الطلب</label>
+                        <textarea id="orderNotes" rows="2" placeholder="أي ملاحظات إضافية (اختياري)"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="checkout-section">
+                <h3>تفاصيل الطلب</h3>
+                <div id="checkoutItems"></div>
+                <div class="checkout-total">
+                    <strong>المجموع النهائي: <span id="checkoutTotal">0</span> د.ك</strong>
+                    <p class="payment-method">💳 طريقة الدفع: الدفع عند الاستلام</p>
+                </div>
+            </div>
+            <div class="checkout-actions">
+                <button class="btn-primary btn-whatsapp" onclick="sendWhatsAppOrder()">
+                    <i class="fab fa-whatsapp"></i> تأكيد الطلب عبر واتساب
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -125,9 +167,9 @@
                     <h3>سوق الكويت</h3>
                     <p>متجرك الإلكتروني المفضل في الكويت</p>
                     <div class="social-links">
+                        <a href="https://wa.me/201110760081" target="_blank"><i class="fab fa-whatsapp"></i></a>
                         <a href="#"><i class="fab fa-facebook"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -145,14 +187,15 @@
                         <li><a href="#">سياسة الإرجاع</a></li>
                         <li><a href="#">الشحن والتوصيل</a></li>
                         <li><a href="#">الأسئلة الشائعة</a></li>
-                        <li><a href="#">دعم العملاء</a></li>
+                        <li><a href="https://wa.me/201110760081" target="_blank">دعم العملاء</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h3>تواصل معنا</h3>
-                    <p><i class="fas fa-phone"></i> +965 1234 5678</p>
+                    <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/201110760081" target="_blank">+20 111 076 0081</a></p>
                     <p><i class="fas fa-envelope"></i> info@sooq-kw.com</p>
                     <p><i class="fas fa-map-marker-alt"></i> الكويت</p>
+                    <p><i class="fas fa-truck"></i> الدفع عند الاستلام</p>
                 </div>
             </div>
             <div class="footer-bottom">
