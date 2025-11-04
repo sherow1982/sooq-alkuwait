@@ -21,9 +21,12 @@ async function loadProducts() {
     }
 }
 
-// Display products
+// Display products مع دعم معرفات متعددة
 function displayProducts() {
-    const productsContainer = document.getElementById('products-container');
+    const productsContainer = document.getElementById('products-container') || 
+                             document.getElementById('productsGrid') || 
+                             document.querySelector('.products-grid');
+    
     if (!productsContainer) return;
 
     if (filteredProducts.length === 0) {
@@ -48,27 +51,31 @@ function displayProducts() {
         
         return `
             <div class="product-card" style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: all 0.3s ease; cursor: pointer;" 
-                 onclick="openProductInNewTab(${product.id})">
+                 onclick="openProductInNewTab(${product.id})" itemscope itemtype="https://schema.org/Product">
                 <div class="product-image" style="position: relative; overflow: hidden;">
-                    <img src="${product.image}" alt="${product.title}" 
+                    <img src="${product.image}" alt="${product.title}" itemprop="image"
                          style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.3s ease;"
                          onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iI2Y4ZjlmYSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQ2Fpcm8sQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM2NjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7Yp9mE2LXZiNix2Kkg2LrZitixINmF2KrYp9ir2Kk8L3RleHQ+PC9zdmc+'">
                     ${discount > 0 ? `<div class="discount-badge" style="position: absolute; top: 15px; right: 15px; background: var(--kuwait-red); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 700; font-size: 0.9rem;">-${discount}%</div>` : ''}
-                    <div class="product-category" style="position: absolute; bottom: 15px; left: 15px; background: rgba(0,0,0,0.8); color: white; padding: 0.3rem 1rem; border-radius: 15px; font-size: 0.8rem;">${product.category}</div>
+                    <div class="product-category" style="position: absolute; bottom: 15px; left: 15px; background: rgba(0,0,0,0.8); color: white; padding: 0.3rem 1rem; border-radius: 15px; font-size: 0.8rem;" itemprop="category">${product.category}</div>
                 </div>
                 <div class="product-info" style="padding: 1.5rem;">
-                    <h3 style="font-size: 1.1rem; margin-bottom: 1rem; height: 50px; overflow: hidden; line-height: 1.4; color: var(--kuwait-black);">${product.title}</h3>
-                    <div class="price-section" style="margin-bottom: 1.5rem;">
-                        <div class="current-price" style="font-size: 1.5rem; font-weight: 900; color: var(--kuwait-green); margin-bottom: 0.3rem;">${product.sale_price} د.ك</div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 1rem; height: 50px; overflow: hidden; line-height: 1.4; color: var(--kuwait-black);" itemprop="name">${product.title}</h3>
+                    <div class="price-section" style="margin-bottom: 1.5rem;" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                        <meta itemprop="availability" content="https://schema.org/InStock">
+                        <meta itemprop="priceCurrency" content="KWD">
+                        <div class="current-price" style="font-size: 1.5rem; font-weight: 900; color: var(--kuwait-green); margin-bottom: 0.3rem;" itemprop="price" content="${product.sale_price}">${product.sale_price} د.ك</div>
                         ${product.price > product.sale_price ? `<div class="old-price" style="text-decoration: line-through; color: #999; font-size: 1rem;">${product.price} د.ك</div>` : ''}
                     </div>
                     <div class="product-actions" style="display: flex; gap: 0.5rem;">
                         <button onclick="event.stopPropagation(); addToCart(${product.id})" 
-                                style="flex: 1; background: var(--kuwait-green); color: white; border: none; padding: 0.8rem 1rem; border-radius: 10px; font-weight: 600; cursor: pointer; transition: background 0.3s ease;">
+                                style="flex: 1; background: var(--kuwait-green); color: white; border: none; padding: 0.8rem 1rem; border-radius: 10px; font-weight: 600; cursor: pointer; transition: background 0.3s ease;"
+                                aria-label="أضف ${product.title} للسلة">
                             <i class="fas fa-cart-plus"></i> أضف للسلة
                         </button>
                         <button onclick="event.stopPropagation(); contactWhatsApp(${product.id})" 
-                                style="background: #25D366; color: white; border: none; padding: 0.8rem 1rem; border-radius: 10px; cursor: pointer; transition: background 0.3s ease;">
+                                style="background: #25D366; color: white; border: none; padding: 0.8rem 1rem; border-radius: 10px; cursor: pointer; transition: background 0.3s ease;"
+                                aria-label="استفسر عن ${product.title} عبر واتساب">
                             <i class="fab fa-whatsapp"></i>
                         </button>
                     </div>
@@ -117,9 +124,12 @@ function contactWhatsApp(productId) {
     window.open(whatsappUrl, '_blank');
 }
 
-// Pagination
+// Pagination مع دعم معرفات متعددة
 function displayPagination() {
-    const paginationContainer = document.getElementById('pagination');
+    const paginationContainer = document.getElementById('pagination') || 
+                               document.querySelector('.pagination') ||
+                               document.querySelector('.load-more-container');
+    
     if (!paginationContainer) return;
 
     const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
@@ -133,7 +143,8 @@ function displayPagination() {
     for (let i = 1; i <= totalPages; i++) {
         paginationHTML += `
             <button onclick="goToPage(${i})" 
-                    style="padding: 0.8rem 1.2rem; border: 2px solid var(--kuwait-green); background: ${i === currentPage ? 'var(--kuwait-green)' : 'white'}; color: ${i === currentPage ? 'white' : 'var(--kuwait-green)'}; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
+                    style="padding: 0.8rem 1.2rem; border: 2px solid var(--kuwait-green); background: ${i === currentPage ? 'var(--kuwait-green)' : 'white'}; color: ${i === currentPage ? 'white' : 'var(--kuwait-green)'}; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;"
+                    aria-label="الانتقال للصفحة ${i}">
                 ${i}
             </button>
         `;
@@ -149,9 +160,12 @@ function goToPage(page) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Update cart UI
+// Update cart UI مع دعم معرفات متعددة
 function updateCartUI() {
-    const cartBadge = document.querySelector('.cart-badge');
+    const cartBadge = document.querySelector('.cart-badge') || 
+                     document.querySelector('.cart-count') ||
+                     document.querySelector('[class*="cart"]');
+    
     const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
     
     if (cartBadge) {
@@ -185,9 +199,12 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-// Search functionality
+// Search functionality مع دعم معرفات متعددة
 function searchProducts() {
-    const searchInput = document.getElementById('search-input');
+    const searchInput = document.getElementById('search-input') || 
+                       document.getElementById('searchInput') ||
+                       document.querySelector('input[type="text"]');
+    
     if (!searchInput) return;
     
     const searchTerm = searchInput.value.trim().toLowerCase();
@@ -218,6 +235,11 @@ function filterByCategory(category) {
     displayProducts();
 }
 
+// Legacy function support
+function filterProducts(category) {
+    filterByCategory(category);
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
     const savedCart = localStorage.getItem('cart');
@@ -225,7 +247,11 @@ document.addEventListener('DOMContentLoaded', function() {
         cart = JSON.parse(savedCart);
     }
     
-    if (document.getElementById('products-container')) {
+    const hasProductsContainer = document.getElementById('products-container') || 
+                                document.getElementById('productsGrid') || 
+                                document.querySelector('.products-grid');
+    
+    if (hasProductsContainer) {
         loadProducts();
     }
 });
