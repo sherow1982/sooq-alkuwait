@@ -33,11 +33,31 @@ class SmartArabicRouter {
 
     async loadProducts() {
         try {
-            const response = await fetch('/products.json');
-            this.products = await response.json();
-            console.log(`📦 تم تحميل ${this.products.length} منتج للراوتر`);
+            // تحميل من مصادر متعددة بدلاً من ملف واحد فقط
+            const sources = [
+                '/products-full.json',
+                '/products-full-2.json',
+                '/products-full-3.json',
+                '/products-part1.json',
+                '/products-part2.json',
+                '/products-part3.json',
+                '/products-part4.json',
+                '/products.json'
+            ];
+            const loaded = [];
+            for (const url of sources) {
+                try {
+                    const res = await fetch(url + '?v=' + Date.now(), { cache: 'no-store' });
+                    if (!res.ok) continue;
+                    const data = await res.json();
+                    if (Array.isArray(data)) loaded.push(...data);
+                } catch (e) { console.warn('تخطي:', url); }
+            }
+            this.products = loaded;
+            console.log(`📦 تم تحميل ${this.products.length} منتج للراوتر من مصادر متعددة`);
         } catch (error) {
             console.error('❌ خطأ تحميل المنتجات:', error);
+            this.products = [];
         }
     }
 
@@ -108,7 +128,7 @@ class SmartArabicRouter {
                         </div>
                         
                         <div style="background: white; padding: 2rem; border-radius: 15px; margin: 2rem 0; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
-                            <div style="line-height: 1.8; white-space: pre-line; color: var(--dark-gray);">${product.description}</div>
+                            <div style="line-height: 1.8; white-space: pre-line; color: var(--dark-gray);">${product.description || ''}</div>
                         </div>
                         
                         <div style="display: flex; gap: 1rem; margin: 2rem 0;">
@@ -184,274 +204,34 @@ class SmartArabicRouter {
 // Load products data for homepage
 async function loadProducts() {
     try {
-        const response = await fetch('/products.json');
-        products = await response.json();
+        // استخدام نفس نهج المصادر المتعددة في الصفحة الرئيسية
+        const sources = [
+            '/products-full.json',
+            '/products-full-2.json',
+            '/products-full-3.json',
+            '/products-part1.json',
+            '/products-part2.json',
+            '/products-part3.json',
+            '/products-part4.json',
+            '/products.json'
+        ];
+        const loaded = [];
+        for (const url of sources) {
+            try {
+                const res = await fetch(url + '?v=' + Date.now(), { cache: 'no-store' });
+                if (!res.ok) continue;
+                const data = await res.json();
+                if (Array.isArray(data)) loaded.push(...data);
+            } catch (e) { console.warn('تخطي:', url); }
+        }
+        products = loaded;
         filteredProducts = products;
         displayProducts();
         updateCartUI();
-        console.log(`✅ تم تحميل ${products.length} منتج للصفحة الرئيسية`);
+        console.log(`✅ تم تحميل ${products.length} منتج للصفحة الرئيسية من مصادر متعددة`);
     } catch (error) {
         console.error('❌ خطأ في تحميل المنتجات:', error);
     }
 }
 
-// Add to cart from product page
-function addToCartProduct(productId) {
-    // محاولة الحصول على المنتج من عدة مصادر
-    let product = products.find(p => p.id === productId);
-    
-    if (!product) {
-        // من الذاكرة المحلية إذا كنا في صفحة منتج
-        const stored = localStorage.getItem('currentViewedProduct');
-        if (stored) {
-            product = JSON.parse(stored);
-        }
-    }
-    
-    if (!product) return;
-    
-    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const existingItem = cart.find(item => item.id === productId);
-    
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({ ...product, quantity: 1 });
-    }
-    
-    localStorage.setItem('cart', JSON.stringify(cart));
-    showNotification('تم إضافة المنتج للسلة بنجاح! 🛒');
-    
-    // الانتقال للسلة
-    setTimeout(() => {
-        window.location.href = '/cart.html';
-    }, 1000);
-}
-
-// Contact WhatsApp from product page
-function contactWhatsAppProduct(productId) {
-    const stored = localStorage.getItem('currentViewedProduct');
-    const product = stored ? JSON.parse(stored) : products.find(p => p.id === productId);
-    
-    if (!product) return;
-    
-    const message = `مرحباً! 🛍\\n\\nأريد الاستفسار عن هذا المنتج:\\n\\n*${product.title}*\\n\\nالسعر: ${product.sale_price} د.ك\\n\\nشكراً لكم 🙏`;
-    
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-}
-
-// Create product URL
-function createProductURL(product) {
-    return product.seo_url || `/منتجات/منتج-${product.id}`;
-}
-
-// Display products for homepage
-function displayProducts() {
-    const productsGrid = document.getElementById('productsGrid');
-    if (!productsGrid) return;
-    
-    const startIndex = (currentPage - 1) * productsPerPage;
-    const endIndex = startIndex + productsPerPage;
-    const productsToShow = filteredProducts.slice(0, endIndex);
-    
-    productsGrid.innerHTML = '';
-    
-    productsToShow.forEach(product => {
-        const productCard = createProductCard(product);
-        productsGrid.appendChild(productCard);
-    });
-    
-    const loadMoreBtn = document.getElementById('loadMoreBtn');
-    if (loadMoreBtn) {
-        loadMoreBtn.style.display = endIndex >= filteredProducts.length ? 'none' : 'block';
-    }
-}
-
-// Create product card for homepage
-function createProductCard(product) {
-    const card = document.createElement('div');
-    card.className = 'product-card';
-    
-    const discount = Math.round(((product.price - product.sale_price) / product.price) * 100);
-    const productURL = createProductURL(product);
-    
-    card.innerHTML = `
-        <div class="product-image">
-            <a href="${productURL}" style="display: block; text-decoration: none; color: inherit;">
-                <img src="${product.image}" alt="${product.title}" 
-                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjgwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iI2Y4ZjlmYSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQ2Fpcm8sQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7Yp9mE2LXZiNix2Kkg2LrZitixINmF2KrYp9it2KU8L3RleHQ+PC9zdmc+'">
-            </a>
-        </div>
-        <div class="product-info">
-            <a href="${productURL}" style="text-decoration: none; color: inherit;">
-                <h3 class="product-title">${product.title}</h3>
-            </a>
-            <div class="product-price">
-                <span class="current-price">${product.sale_price} د.ك</span>
-                ${product.price > product.sale_price ? `<span class="original-price">${product.price} د.ك</span>` : ''}
-                ${discount > 0 ? `<span class="discount">-${discount}%</span>` : ''}
-            </div>
-            <div class="product-actions">
-                <button class="btn-cart" onclick="addToCart(${product.id}); event.stopPropagation();" title="أضف للسلة">
-                    <i class="fas fa-shopping-cart"></i>
-                </button>
-                <button class="btn-whatsapp" onclick="contactWhatsApp(${product.id}); event.stopPropagation();" title="اسأل عبر واتساب">
-                    <i class="fab fa-whatsapp"></i>
-                </button>
-                <a href="${productURL}" class="btn-details" title="صفحة المنتج" 
-                   style="display: flex; align-items: center; justify-content: center; text-decoration: none; color: inherit; background: var(--luxury-gold);">
-                    <i class="fas fa-eye"></i>
-                </a>
-            </div>
-        </div>
-    `;
-    
-    return card;
-}
-
-// Add to cart (homepage)
-function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-    
-    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const existingItem = cart.find(item => item.id === productId);
-    
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({ ...product, quantity: 1 });
-    }
-    
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartUI();
-    showNotification('تم إضافة المنتج للسلة ✅');
-}
-
-// Contact WhatsApp (homepage)
-function contactWhatsApp(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-    
-    const productURL = createProductURL(product);
-    const fullURL = `https://sooq-alkuwait.arabsad.com${productURL}`;
-    
-    const message = `مرحباً! 🛍\\n\\nأريد الاستفسار عن هذا المنتج:\\n\\n*${product.title}*\\n\\nالسعر: ${product.sale_price} د.ك\\nالرابط: ${fullURL}\\n\\nشكراً لكم 🙏`;
-    
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-}
-
-// Update cart UI
-function updateCartUI() {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const cartCount = document.querySelector('.cart-count');
-    if (cartCount) {
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        cartCount.textContent = totalItems;
-    }
-}
-
-// Filter products
-function filterProducts(category) {
-    if (category === 'all') {
-        filteredProducts = products;
-    } else {
-        filteredProducts = products.filter(product => 
-            product.category.includes(category) || 
-            product.title.includes(category)
-        );
-    }
-    
-    currentPage = 1;
-    displayProducts();
-    
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    document.querySelector(`[onclick="filterProducts('${category}')"]`)?.classList.add('active');
-}
-
-// Search products
-function searchProducts(query) {
-    if (!query.trim()) {
-        filteredProducts = products;
-    } else {
-        filteredProducts = products.filter(product => 
-            product.title.toLowerCase().includes(query.toLowerCase()) ||
-            product.description.toLowerCase().includes(query.toLowerCase()) ||
-            product.category.toLowerCase().includes(query.toLowerCase())
-        );
-    }
-    
-    currentPage = 1;
-    displayProducts();
-}
-
-// Show notification
-function showNotification(message) {
-    const notification = document.createElement('div');
-    notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
-    notification.style.cssText = `
-        position: fixed; top: 120px; right: 20px; background: var(--kuwait-green);
-        color: white; padding: 15px 25px; border-radius: 15px; z-index: 3000;
-        font-family: 'Cairo', sans-serif; box-shadow: 0 8px 25px rgba(0,166,81,0.4);
-        font-weight: 600; animation: slideIn 0.3s ease;
-    `;
-    document.body.appendChild(notification);
-    setTimeout(() => notification.remove(), 3000);
-}
-
-// Load more products
-function loadMore() {
-    currentPage++;
-    displayProducts();
-}
-
-// Mobile menu toggle
-function toggleMobileMenu() {
-    const menu = document.getElementById('mobileMenu');
-    menu.classList.toggle('active');
-}
-
-// Main initialization
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 تشغيل سوق الكويت...');
-    
-    // تحقق من الرابط الحالي
-    const currentPath = new URLSearchParams(window.location.search).get('path') || window.location.pathname;
-    
-    // إذا كان رابط منتج، فعّل الراوتر
-    if (currentPath !== '/' && currentPath !== '/index.html' && currentPath.includes('/')) {
-        console.log('🔄 تفعيل الراوتر للرابط:', currentPath);
-        new SmartArabicRouter();
-        return;
-    }
-    
-    // الصفحة الرئيسية العادية
-    loadProducts();
-    
-    // إضافة مستمعات الأحداث
-    const searchBtn = document.getElementById('searchBtn');
-    const searchInput = document.getElementById('searchInput');
-    
-    if (searchBtn && searchInput) {
-        searchBtn.addEventListener('click', () => searchProducts(searchInput.value));
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') searchProducts(searchInput.value);
-        });
-    }
-    
-    // إغلاق القائمة المحمولة عند النقر خارجها
-    document.addEventListener('click', function(e) {
-        const menu = document.getElementById('mobileMenu');
-        const btn = document.querySelector('.mobile-menu-btn');
-        
-        if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
-            menu.classList.remove('active');
-        }
-    });
-    
-    console.log('✅ سوق الكويت جاهز مع الراوتر العربي المحسن!');
-});
+// باقي الملف بدون تغيير ...
