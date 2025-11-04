@@ -88,12 +88,15 @@ function displayProducts() {
     displayPagination();
 }
 
-// Open product in new tab
+// FIX: Open product in new tab with direct Arabic URL
 function openProductInNewTab(productId) {
     const product = products.find(p => p.id === productId);
-    if (product) {
-        const productUrl = `${window.location.origin}?path=${product.seo_url}`;
-        window.open(productUrl, '_blank');
+    if (product && product.seo_url) {
+        const productUrl = product.seo_url.startsWith('http')
+            ? product.seo_url
+            : `${window.location.origin}${product.seo_url}`;
+        window.open(productUrl, '_blank', 'noopener,noreferrer');
+        console.log(`🔗 فتح المنتج: ${product.title} في ${productUrl}`);
     }
 }
 
