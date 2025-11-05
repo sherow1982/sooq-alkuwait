@@ -1,0 +1,599 @@
+/* قالب احترافي موحد للصفحات القانونية - سوق الكويت 🇰🇼 */
+
+/* متغيرات خاصة بالصفحات القانونية */
+:root {
+  --legal-bg: linear-gradient(135deg, #f8fafc, #e2e8f0, #f1f5f9);
+  --legal-content-bg: rgba(255, 255, 255, 0.95);
+  --legal-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  --legal-border: 2px solid var(--kuwait-green);
+  --legal-header-height: 200px;
+}
+
+/* تخطيط الصفحة القانونية */
+.legal-page {
+  min-height: 100vh;
+  background: var(--legal-bg);
+  padding-top: 80px;
+}
+
+.legal-header {
+  background: var(--gradient-national);
+  color: var(--kuwait-white);
+  text-align: center;
+  padding: 3rem 0 2rem;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+
+.legal-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 20%, rgba(255, 215, 0, 0.1), transparent),
+    radial-gradient(circle at 70% 80%, rgba(0, 166, 81, 0.1), transparent);
+  animation: legalGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes legalGlow {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.7; }
+}
+
+.legal-header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.legal-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  margin-bottom: 1rem;
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.legal-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  font-weight: 600;
+}
+
+.legal-breadcrumb {
+  background: rgba(0, 166, 81, 0.1);
+  padding: 1rem;
+  border-radius: 12px;
+  margin: 2rem auto 0;
+  max-width: 600px;
+  backdrop-filter: blur(10px);
+}
+
+.breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.breadcrumb-nav a {
+  color: var(--kuwait-white);
+  text-decoration: none;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.breadcrumb-nav a:hover {
+  opacity: 1;
+  color: var(--gold-kuwait);
+}
+
+.breadcrumb-separator {
+  color: var(--gold-kuwait);
+  font-weight: bold;
+}
+
+/* محتوى الصفحة */
+.legal-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.legal-container {
+  background: var(--legal-content-bg);
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: var(--legal-shadow);
+  border: var(--legal-border);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.legal-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-kuwait);
+}
+
+/* تنسيق النصوص */
+.legal-section {
+  margin-bottom: 3rem;
+}
+
+.legal-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--kuwait-green);
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 3px;
+  background: var(--gradient-gold);
+  border-radius: 2px;
+}
+
+.section-subtitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--kuwait-black);
+  margin: 2rem 0 1rem;
+}
+
+.legal-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #374151;
+  text-align: justify;
+  margin-bottom: 1.5rem;
+}
+
+.legal-list {
+  padding-right: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.legal-list li {
+  margin-bottom: 0.8rem;
+  line-height: 1.7;
+  position: relative;
+}
+
+.legal-list li::marker {
+  color: var(--kuwait-green);
+  font-weight: bold;
+}
+
+/* صناديق التمييز */
+.highlight-box {
+  background: linear-gradient(135deg, rgba(0, 166, 81, 0.05), rgba(255, 215, 0, 0.05));
+  border: 2px solid var(--kuwait-green);
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.highlight-box::before {
+  content: '⭐';
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  background: var(--kuwait-green);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.important-note {
+  background: linear-gradient(135deg, rgba(206, 17, 38, 0.05), rgba(255, 215, 0, 0.05));
+  border: 2px solid var(--kuwait-red);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.important-note::before {
+  content: '⚠️';
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  background: var(--kuwait-red);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+/* بطاقات المعلومات */
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.info-card {
+  background: var(--kuwait-white);
+  border-radius: 15px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  border: 2px solid transparent;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-kuwait);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--kuwait-green);
+  box-shadow: var(--shadow-green);
+}
+
+.info-card:hover::before {
+  opacity: 0.03;
+}
+
+.info-card-icon {
+  font-size: 3rem;
+  color: var(--kuwait-green);
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.info-card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--kuwait-black);
+  margin-bottom: 0.8rem;
+  position: relative;
+  z-index: 2;
+}
+
+.info-card-text {
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  position: relative;
+  z-index: 2;
+}
+
+/* جدول البيانات */
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.legal-table th {
+  background: var(--gradient-kuwait);
+  color: var(--kuwait-white);
+  padding: 1rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.legal-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.legal-table tr:nth-child(even) {
+  background: rgba(0, 166, 81, 0.02);
+}
+
+.legal-table tr:hover {
+  background: rgba(0, 166, 81, 0.05);
+}
+
+/* أزرار الإجراء */
+.legal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 3rem 0;
+  flex-wrap: wrap;
+}
+
+.legal-btn {
+  background: var(--gradient-kuwait);
+  color: var(--kuwait-white);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-green);
+  position: relative;
+  overflow: hidden;
+}
+
+.legal-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.legal-btn:hover::before {
+  left: 100%;
+}
+
+.legal-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-glow);
+}
+
+.legal-btn.secondary {
+  background: transparent;
+  color: var(--kuwait-green);
+  border: 2px solid var(--kuwait-green);
+  box-shadow: none;
+}
+
+.legal-btn.secondary:hover {
+  background: var(--kuwait-green);
+  color: var(--kuwait-white);
+}
+
+/* تذييل الصفحة القانونية */
+.legal-footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--kuwait-green);
+}
+
+.legal-footer-text {
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.legal-contact {
+  background: rgba(0, 166, 81, 0.05);
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: center;
+  border: 2px solid var(--kuwait-green);
+}
+
+.legal-contact h3 {
+  color: var(--kuwait-green);
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.contact-options {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.whatsapp-contact {
+  background: #25d366;
+  color: white;
+}
+
+.phone-contact {
+  background: var(--kuwait-green);
+  color: white;
+}
+
+.email-contact {
+  background: var(--gold-kuwait);
+  color: var(--kuwait-black);
+}
+
+.contact-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  border-color: var(--kuwait-white);
+}
+
+/* تصميم متجاوب للصفحات القانونية */
+@media (max-width: 768px) {
+  .legal-page {
+    padding-top: 60px;
+  }
+  
+  .legal-header {
+    padding: 2rem 0 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .legal-title {
+    font-size: 2rem;
+  }
+  
+  .legal-container {
+    padding: 2rem 1.5rem;
+    margin: 0 0.5rem;
+  }
+  
+  .info-cards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .legal-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .legal-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .contact-options {
+    flex-direction: column;
+  }
+  
+  .contact-btn {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .legal-container {
+    padding: 1.5rem 1rem;
+  }
+  
+  .legal-title {
+    font-size: 1.8rem;
+  }
+  
+  .section-title {
+    font-size: 1.4rem;
+  }
+  
+  .legal-table {
+    font-size: 0.8rem;
+  }
+  
+  .legal-table th,
+  .legal-table td {
+    padding: 0.5rem;
+  }
+}
+
+/* تأثيرات الرسوم المتحركة */
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-animation {
+  animation-delay: calc(var(--stagger) * 0.1s);
+}
+
+/* تحسينات إضافية */
+.legal-page .container {
+  max-width: 1000px;
+}
+
+.last-updated {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.8rem;
+  margin-top: 2rem;
+  font-style: italic;
+}
+
+.policy-version {
+  display: inline-block;
+  background: rgba(0, 166, 81, 0.1);
+  color: var(--kuwait-green);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+/* أيقونات تفاعلية */
+.interactive-icon {
+  display: inline-block;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.interactive-icon:hover {
+  transform: scale(1.2) rotate(10deg);
+  filter: drop-shadow(0 0 5px var(--gold-kuwait));
+}
+
+/* تأثير التظليل للنصوص المهمة */
+.highlight-text {
+  background: linear-gradient(135deg, var(--gold-kuwait), #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
