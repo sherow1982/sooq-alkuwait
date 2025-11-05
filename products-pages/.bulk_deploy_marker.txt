@@ -1,0 +1,5 @@
+BULK OPERATION INFO
+-------------------
+Operation: BULK_PROFESSIONAL_TEMPLATE_DEPLOYMENT
+Start: 2025-11-05T11:12:40Z
+Files: 50 (first batch)
