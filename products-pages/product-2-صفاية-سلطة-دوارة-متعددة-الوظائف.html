@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفاية سلطة دوّارة متعددة الوظائف | سوق الكويت 🇰🇼</title>
-    <meta name="description" content="حصالة نقود ممتازة للأطفال تساعد على تعلم الأطفال عادة الإدخار وتوفير المال. مصنوعة من مواد عالية الجودة وآمنة تماماً على الأطفال. منتج تعليمي مفيد وسهل الا... تسوق من سوق الكويت بأفضل الأسعار مع شحن مجاني">
+    <meta name="description" content="حصالة نقود ممتازة للأطفال تساعد على تعلم الأطفال عادة الإدخار وتوفير المال. مصنوعة من مواد عالية الجودة وآمنة تماماً على الأطفال. منتج تعليمي مفيد وسهل الا... تسوق من سوق الكويت بأفضل الأسعار مع شحن مجاني لجميع أنحاء الكويت.">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -15,14 +15,17 @@
         .whatsapp-nav { background: rgba(37,211,102,0.15); color: var(--whatsapp-green); padding: 8px 16px; border-radius: 25px; border: 2px solid var(--whatsapp-green); font-weight: 700; text-decoration: none; transition: all 0.3s ease; display: inline-flex; align-items: center; }
         .whatsapp-nav:hover { background: var(--whatsapp-green); color: white; transform: translateY(-2px); }
         
-        /* نظام الصور المضمون 100% */
+        /* نظام الصور - فقط من ملف المنتجات */
         .product-img-container { 
             position: relative; 
             border-radius: 20px; 
             box-shadow: 0 15px 35px rgba(0,0,0,0.12); 
             height: 400px;
             overflow: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .product-img { 
@@ -32,21 +35,46 @@
             border-radius: 20px;
             transition: all 0.4s ease; 
             cursor: pointer;
-            position: absolute;
-            top: 0;
-            left: 0;
+            display: block;
         }
         
         .product-img:hover { transform: scale(1.05); }
         
-        .img-guaranteed { 
+        .img-loading { 
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, #667eea, #764ba2); 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            text-align: center;
+            z-index: 2;
+        }
+        
+        .spinner { 
+            width: 30px; height: 30px; 
+            border: 3px solid rgba(255,255,255,0.3); 
+            border-radius: 50%; 
+            border-top: 3px solid white; 
+            animation: spin 1s linear infinite; 
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .img-placeholder {
             width: 100%; 
             height: 400px; 
-            object-fit: cover; 
+            background: linear-gradient(135deg, #667eea, #764ba2); 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            text-align: center;
             border-radius: 20px;
-            display: block;
-            transition: all 0.4s ease; 
-            cursor: pointer;
         }
         
         .price-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 25px; text-align: center; margin: 25px 0; box-shadow: 0 12px 35px rgba(102,126,234,0.3); }
@@ -104,12 +132,18 @@
         <div class="row">
             <div class="col-lg-6 mb-4">
                 <div class="product-img-container">
-                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&h=400&fit=crop&crop=center&auto=format&q=80" 
-                         data-secondary="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=500&h=400&fit=crop&auto=format&q=80"
+                    <div class="img-loading" id="imgLoading">
+                        <div class="spinner"></div>
+                        <div>جاري تحميل الصورة...</div>
+                        <small style="opacity: 0.8; margin-top: 8px;">من ملف المنتجات</small>
+                    </div>
+                    
+                    <img id="productImg" 
+                         src="https://ecomerg.com/uploads/products_images/3710/Wb0quKAvoB677UBgtCjZiyrSBPEbi3vJQIgo2usj.jpg"
                          alt="صفاية سلطة دوّارة متعددة الوظائف" 
-                         class="img-guaranteed"
-                         onclick="window.open(this.src, '_blank')"
-                         onerror="this.src=this.dataset.secondary; this.onerror=function(){ this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:400px;color:white;text-align:center;\'>💎<br><strong>صفاية سلطة دوّارة متعددة الوظائف</strong><br><small>SOOQ-0002</small></div>'; };"/>
+                         class="product-img" 
+                         style="display: none;"
+                         onclick="window.open(this.src, '_blank')">
                 </div>
                 
                 <div class="text-center mt-3">
@@ -236,7 +270,7 @@
                 </div>
                 <div class="col-md-6 text-end">
                     <p>كود المنتج: <span class="text-primary fw-bold">SOOQ-0002</span></p>
-                    <small class="text-success">صور مضمونة 100%</small>
+                    <small class="text-info">الصور من: ملف المنتجات فقط</small>
                 </div>
             </div>
             <div class="text-center pt-4 border-top">
@@ -247,6 +281,71 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // نظام الصور - فقط من ملف المنتجات
+        document.addEventListener('DOMContentLoaded', function() {
+            const img = document.getElementById('productImg');
+            const loading = document.getElementById('imgLoading');
+            
+            let imageLoaded = false;
+            
+            function showLoadedImage() {
+                loading.style.display = 'none';
+                img.style.display = 'block';
+                img.style.opacity = '0';
+                setTimeout(() => {
+                    img.style.transition = 'opacity 0.6s ease';
+                    img.style.opacity = '1';
+                }, 50);
+                imageLoaded = true;
+                console.log('✅ تم تحميل الصورة من ملف المنتجات:', img.src);
+            }
+            
+            function showSimplePlaceholder() {
+                console.log('🖼️ عرض placeholder بسيط...');
+                loading.innerHTML = `
+                    <div style="text-align: center; padding: 30px;">
+                        <i class="fas fa-image" style="font-size: 4em; margin-bottom: 20px; opacity: 0.9;"></i>
+                        <h6 style="margin: 15px 0; font-weight: 600; line-height: 1.3;">صفاية سلطة دوّارة متعددة الوظائف</h6>
+                        <div style="background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 15px; margin-top: 15px;">
+                            <small>SOOQ-0002</small>
+                        </div>
+                        <div style="margin-top: 10px; opacity: 0.8;">
+                            <small>الصورة من ملف المنتجات</small>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // محاولة تحميل الصورة من ملف المنتجات فقط
+            function loadImageFromFile() {
+                const jsonSrc = img.src;
+                console.log('🔗 محاولة تحميل الصورة من ملف المنتجات:', jsonSrc);
+                
+                if (jsonSrc && jsonSrc.trim() && jsonSrc !== 'null' && jsonSrc !== '') {
+                    img.onload = showLoadedImage;
+                    img.onerror = function() {
+                        console.log('❌ فشل تحميل الصورة من ملف المنتجات');
+                        showSimplePlaceholder();
+                    };
+                    // الصورة موضوعة مسبقاً في src
+                } else {
+                    console.log('⚠️ لا يوجد رابط صورة في ملف المنتجات');
+                    showSimplePlaceholder();
+                }
+            }
+            
+            // بدء العملية
+            loadImageFromFile();
+            
+            // Timeout للأمان (8 ثواني)
+            setTimeout(() => {
+                if (!imageLoaded) {
+                    console.log('⏰ انتهى وقت التحميل، عرض placeholder...');
+                    showSimplePlaceholder();
+                }
+            }, 8000);
+        });
+
         // العداد التنازلي
         let countdown = 24 * 3600 + Math.floor(Math.random() * 3600);
         function updateTimer() {
@@ -261,10 +360,9 @@
         setInterval(updateTimer, 1000);
         updateTimer();
 
-        console.log('✅ صفحة منتج مع صور مضمونة 100%');
-        console.log('🎯 المنتج: صفاية سلطة دوّارة متعددة الوظائف');
-        console.log('🆔 الكود: SOOQ-0002');
-        console.log('🖼️ نظام الصور: مضمون من Unsplash');
+        console.log('📄 صفحة منتج - الصور فقط من ملف المنتجات');
+        console.log('🆔 كود المنتج: SOOQ-0002');
+        console.log('🖼️ مصدر الصور: image_link من products_data.json');
     </script>
 </body>
 </html>
