@@ -6,16 +6,27 @@
     'نورا الهاجري', 'محمد الرشيد', 'هند الشمري', 'عبدالله العجمي',
     'سارة الدوسري', 'فيصل الخالد', 'جواهر العسعوسي', 'بدر الزعبي',
     'دانة الكندري', 'يوسف الحربي', 'شيخة الصالح', 'راشد البذال',
-    'لطيفة القطان', 'طلال المنصور', 'ريم الجاسم', 'عمار العوضي'
+    'لطيفة القطان', 'طلال المنصور', 'ريم الجاسم', 'عمار العوضي',
+    'ماجد السبيعي', 'أمل الخرافي', 'جاسم الياقوت', 'ليلى البغلي',
+    'حمد الفليج', 'وضحا المرزوق', 'منيرة الرمضان', 'نوف العنزي',
+    'عبدالرحمن الفهد', 'سعد العازمي'
   ];
   
-  // أسماء منتجات عشوائية مع روابطها
+  // أسماء منتجات عشوائية مع روابطها - محدثة لتشمل جميع المنتجات
   const productLinks = [
     {name: 'حصالة صراف آلي', url: '/products-pages/piggy-bank-atm-auto-1.html'},
     {name: 'صفاية سلطة دوارة', url: '/products-pages/strainer-salad-2.html'},
     {name: 'شورت نسائي لشد الجسم', url: '/products-pages/shorts-women-shape-4.html'},
     {name: 'محول كهرباء 220 فولت', url: '/products-pages/converter-electric-5.html'},
-    {name: 'ريشة تين شورت', url: '/products-pages/product-3.html'}
+    {name: 'ريشة تين شورت', url: '/products-pages/product-3.html'},
+    {name: 'شامبو طبيعي للعناية', url: '/products-pages/shampoo-6.html'},
+    {name: 'سيروم طبيعي للبشرة', url: '/products-pages/serum-7.html'},
+    {name: 'جهاز إلكتروني ذكي', url: '/products-pages/device-8.html'},
+    {name: 'قهوة عربية أصيلة', url: '/products-pages/coffee-9.html'},
+    {name: 'روبوت ذكي تفاعلي', url: '/products-pages/robot-10.html'},
+    {name: 'حصالة أوتوماتيكية للأطفال', url: '/products-pages/piggy-bank-atm-auto-automatic-1.html'},
+    {name: 'حصالة أطفال تلقائية', url: '/products-pages/piggy-bank-automatic-kids-1.html'},
+    {name: 'صندوق ادخار ATM', url: '/products-pages/savings-box-atm-automatic-wtwmaty-1.html'}
   ];
 
   function getRandomName() {
@@ -84,38 +95,38 @@
     document.body.appendChild(notification);
     
     // إضافة الأنيميشن
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes slideInLeft {
-        from {
-          transform: translateX(-100%);
-          opacity: 0;
+    if (!document.querySelector('#purchase-animations')) {
+      const style = document.createElement('style');
+      style.id = 'purchase-animations';
+      style.textContent = `
+        @keyframes slideInLeft {
+          from {
+            transform: translateX(-100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
         }
-        to {
-          transform: translateX(0);
-          opacity: 1;
+        @keyframes fadeOut {
+          from {
+            opacity: 1;
+            transform: translateX(0);
+          }
+          to {
+            opacity: 0;
+            transform: translateX(-100%);
+          }
         }
-      }
-      @keyframes fadeOut {
-        from {
-          opacity: 1;
-          transform: translateX(0);
-        }
-        to {
-          opacity: 0;
-          transform: translateX(-100%);
-        }
-      }
-    `;
-    document.head.appendChild(style);
+      `;
+      document.head.appendChild(style);
+    }
     
     // إزالة الإشعار بعد 5 ثوان
     setTimeout(() => {
       if (notification.parentNode) {
         notification.remove();
-      }
-      if (style.parentNode) {
-        style.remove();
       }
     }, 5000);
   }
