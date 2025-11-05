@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال الأزرق - سوق الكويت</title>
+    <meta name="description" content="لعبة تعليمية وترفيهية آمنة للأطفال تساعد في تطوير القدرات الذهنية والحركية متوفر بأفضل جودة في الكويت. منتج رقم 1.">    <meta name="keywords" content="حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال الأزرق, الكويت, توصيل, ألعاب ولوازم الأطفال">
+    <meta property="og:title" content="حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال الأزرق">
+    <meta property="og:image" content="https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال الأزرق",
+        "image": "https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg",
+        "description": "لعبة تعليمية وترفيهية آمنة للأطفال تساعد في تطوير القدرات الذهنية والحركية متوفر بأفضل جودة في الكويت. منتج رقم 1.",
+        "sku": "SOOQ-0001",
+        "offers": {
+            "@type": "Offer",
+            "price": "13",
+            "priceCurrency": "KWD",
+            "availability": "https://schema.org/InStock"
+        }
+    }
+    </script>
+    <style>
+        body{font-family:Arial,sans-serif;margin:0;padding:20px;background:#f5f5f5;direction:rtl}
+        .container{max-width:1200px;margin:0 auto;background:white;padding:30px;border-radius:15px;box-shadow:0 4px 20px rgba(0,0,0,0.1)}
+        .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+        .product-image img{width:100%;max-width:400px;border-radius:10px}
+        h1{color:#2c3e50;font-size:24px;margin-bottom:15px}
+        .price-section{background:#e74c3c;color:white;padding:20px;border-radius:10px;text-align:center;margin:15px 0}
+        .current-price{font-size:28px;font-weight:bold}
+        .original-price{font-size:18px;text-decoration:line-through;margin-right:10px}
+        .discount{background:#27ae60;padding:5px 15px;border-radius:20px;margin-top:10px;display:inline-block}
+        .countdown-timer{background:#e67e22;color:white;padding:20px;border-radius:10px;text-align:center;margin:15px 0}
+        .timer-display{font-size:24px;font-weight:bold;font-family:monospace}
+        .cta-button{background:#27ae60;color:white;padding:15px 30px;border:none;border-radius:25px;font-size:18px;text-decoration:none;display:block;text-align:center;margin:20px 0}
+        @media(max-width:768px){.product-grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="product-grid">
+            <div class="product-image">
+                <img src="https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg" alt="حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال الأزرق" loading="lazy">
+            </div>
+            <div class="product-info">
+                <h1>حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال الأزرق</h1>
+                <div class="price-section">
+                    <span class="original-price">18 د.ك</span>
+                    <span class="current-price">13 د.ك</span>
+                    <div class="discount">خصم 27%</div>
+                </div>
+                <div class="countdown-timer">
+                    <div>⏰ العرض ينتهي خلال:</div>
+                    <div class="timer-display" id="timer-1">23:59:45</div>
+                </div>
+                <p><strong>الفئة:</strong> ألعاب ولوازم الأطفال</p>
+                <p><strong>رقم المنتج:</strong> SOOQ-0001</p>
+                <a href="tel:+96590000000" class="cta-button">🛒 اطلب الآن - توصيل مجاني</a>
+            </div>
+        </div>
+        <div style="margin-top:30px;">
+            <h2>وصف المنتج</h2>
+            <p>لعبة تعليمية وترفيهية آمنة للأطفال تساعد في تطوير القدرات الذهنية والحركية متوفر بأفضل جودة في الكويت. منتج رقم 1.</p>
+        </div>
+    </div>
+    <script>
+        function updateTimer(){
+            const now=new Date();
+            const tomorrow=new Date(now.getTime()+24*60*60*1000);
+            tomorrow.setHours(0,0,0,0);
+            const diff=tomorrow-now;
+            const hours=Math.floor(diff/3600000);
+            const minutes=Math.floor((diff%3600000)/60000);
+            const seconds=Math.floor((diff%60000)/1000);
+            const timer=document.getElementById('timer-1');
+            if(timer){
+                timer.textContent=String(hours).padStart(2,'0')+':'+String(minutes).padStart(2,'0')+':'+String(seconds).padStart(2,'0');
+            }
+        }
+        setInterval(updateTimer,1000);
+        updateTimer();
+    </script>
+</body>
+</html>
