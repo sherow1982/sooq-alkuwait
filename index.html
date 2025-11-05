@@ -24,8 +24,8 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer">
   
-  <!-- CSS منظم -->
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <!-- CSS مبهر بألوان علم الكويت -->
+  <link rel="stylesheet" href="assets/css/kuwait-theme.css">
   
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -63,16 +63,6 @@
         <h1>مرحباً بك في سوق الكويت 🇰🇼</h1>
         <p>متجرك الإلكتروني الموثوق للمنتجات عالية الجودة بأسعار منافسة</p>
         
-        <!-- شريط البحث -->
-        <div class="search-container">
-          <div class="search-box">
-            <input type="text" id="search-input" placeholder="ابحث عن المنتجات..." autocomplete="off">
-            <button type="button" onclick="searchProducts()">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
-        
         <a href="#products" class="cta-button">
           <i class="fas fa-shopping-bag"></i> تابع التسوق الآن
         </a>
@@ -83,7 +73,7 @@
             🔥 عروض محدودة لمدة 24 ساعة فقط!
           </div>
           <div class="hero-countdown countdown-timer">--:--:--</div>
-          <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #FFD700;">
+          <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: var(--gold-kuwait); position: relative; z-index: 2;">
             ⚡ لا تفوت الفرصة!
           </div>
         </div>
@@ -108,7 +98,7 @@
       </div>
       
       <!-- زر تحميل المزيد -->
-      <div class="load-more-container" style="display: none;">
+      <div class="load-more-container" style="display: none; text-align: center; margin: 3rem 0;">
         <button class="btn-load-more" onclick="productManager.loadMore()">
           <i class="fas fa-plus-circle"></i> تحميل المزيد
         </button>
@@ -165,19 +155,20 @@
       position: fixed;
       top: 20px;
       right: 20px;
-      background: linear-gradient(135deg, #00A651, #008a44);
-      color: white;
+      background: var(--gradient-kuwait);
+      color: var(--kuwait-white);
       padding: 1rem 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 8px 25px rgba(0,166,81,0.3);
+      border-radius: 15px;
+      box-shadow: var(--shadow-green);
       z-index: 9999;
       display: flex;
       align-items: center;
       gap: 0.8rem;
       transform: translateX(100%);
       opacity: 0;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(15px);
+      border: 2px solid var(--gold-kuwait);
     }
     
     .cart-notification.show {
@@ -186,12 +177,58 @@
     }
     
     .cart-notification i {
-      font-size: 1.2rem;
-      color: #FFD700;
+      font-size: 1.3rem;
+      color: var(--gold-kuwait);
+      animation: notificationPulse 1s infinite;
+    }
+    
+    @keyframes notificationPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
     }
     
     .search-container {
       margin: 2rem 0;
+    }
+    
+    .search-box {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 50px;
+      padding: 0.8rem;
+      display: flex;
+      max-width: 500px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-gold);
+      backdrop-filter: blur(10px);
+      border: 2px solid var(--gold-kuwait);
+    }
+    
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 0.8rem 1.2rem;
+      font-size: 1rem;
+      background: transparent;
+      color: var(--kuwait-black);
+      font-weight: 600;
+    }
+    
+    .search-box button {
+      background: var(--gradient-kuwait);
+      border: none;
+      color: var(--kuwait-white);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-green);
+    }
+    
+    .search-box button:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-glow);
     }
   </style>
 
@@ -213,9 +250,11 @@
       
       // إضافة أنيميشن للبطاقات عند الظهور
       const observeCards = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry, index) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in');
+            setTimeout(() => {
+              entry.target.classList.add('fade-in');
+            }, index * 200); // تأخير تدريجي
           }
         });
       }, { threshold: 0.1 });
@@ -230,12 +269,14 @@
         images.forEach(img => {
           img.src = img.dataset.src || img.src;
         });
-      } else {
-        // fallback للمتصفحات القديمة
-        const script = document.createElement('script');
-        script.src = 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver';
-        document.head.appendChild(script);
       }
+      
+      // إضافة تأثيرات إضافية للعناصر
+      const heroElements = document.querySelectorAll('.hero h1, .hero p, .cta-button');
+      heroElements.forEach((el, index) => {
+        el.style.animationDelay = `${index * 0.3}s`;
+        el.classList.add('fade-in');
+      });
     });
     
     // معالج الأخطاء العام
@@ -243,15 +284,15 @@
       console.error('خطأ في التطبيق:', e.error);
     });
     
-    // تحسين الأداء - تأجيل تحميل الخطوط
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(() => {
-        const fontLink = document.createElement('link');
-        fontLink.href = 'https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap';
-        fontLink.rel = 'stylesheet';
-        document.head.appendChild(fontLink);
-      });
+    // وظائف عامة
+    function searchProducts() {
+      const searchInput = document.getElementById('search-input');
+      if (searchInput && window.productManager) {
+        window.productManager.filterProducts(searchInput.value);
+      }
     }
+    
+    window.searchProducts = searchProducts;
   </script>
   
   <!-- Google Analytics (اختياري) -->
