@@ -668,7 +668,7 @@
         
         // تصنيف المنتجات حسب الكلمات المفتاحية
         function categorizeProduct(title, description) {
-            const text = (title + ' ' + description).toLowerCase();
+            const text = (title + ' ' + (description || '')).toLowerCase();
             
             if (text.includes('طفل') || text.includes('لعب') || text.includes('أطفال') || text.includes('حصالة') || text.includes('روبوت') || text.includes('لعبة')) {
                 return 'الأطفال';
@@ -685,7 +685,7 @@
             }
         }
         
-        // توليد مواصفات تلقائية للمنتج
+        // توليد مواصفات المنتج
         function generateProductSpecs(product, category) {
             const countries = ['الصين', 'تركيا', 'الصين/تركيا'];
             const randomCountry = countries[Math.floor(Math.random() * countries.length)];
@@ -715,7 +715,7 @@
             
             products.forEach((product, index) => {
                 const discount = Math.round(((product.price - product.sale_price) / product.price) * 100);
-                const category = categorizeProduct(product.title, product.description || '');
+                const category = categorizeProduct(product.title, product.description);
                 const slug = createProductSlug(product.title);
                 const specs = generateProductSpecs(product, category);
                 
@@ -749,11 +749,11 @@
                                 💬 طلب عبر واتساب
                             </a>
                             
-                            <a href="#" class="view-btn" onclick="viewProduct('${slug}', '${product.title.replace(/'/g, '\\\\\\'')}', '${product.image_link}', ${product.price}, ${product.sale_price}, '${(product.description || 'منتج عالي الجودة من سوق الكويت').replace(/'/g, '\\\\\\'')}', '${category}', ${product.id}, event)">
+                            <a href="#" class="view-btn" onclick="viewProduct('${slug}', '${product.title.replace(/'/g, "\\\\'")}', '${product.image_link}', ${product.price}, ${product.sale_price}, '${(product.description || 'منتج عالي الجودة من سوق الكويت').replace(/'/g, "\\\\'")}', '${category}', ${product.id}, event)">
                                 👁️ عرض تفاصيل المنتج
                             </a>
                             
-                            <button class="cart-btn" onclick="addToCart({id: ${product.id}, title: '${product.title.replace(/'/g, '\\\\\\'')}', price: ${product.price}, sale_price: ${product.sale_price}, image_link: '${product.image_link}'})">
+                            <button class="cart-btn" onclick="addToCart({id: ${product.id}, title: '${product.title.replace(/'/g, "\\\\'")}', price: ${product.price}, sale_price: ${product.sale_price}, image_link: '${product.image_link}'})">
                                 🛒 أضف إلى السلة
                             </button>
                         </div>
