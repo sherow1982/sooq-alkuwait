@@ -381,7 +381,7 @@
             
             <div class="hero-stats">
                 <div class="stat">
-                    <div class="num" id="total-products">374</div>
+                    <div class="num" id="total-products">100</div>
                     <div>منتج متاح</div>
                 </div>
                 <div class="stat">
@@ -512,16 +512,16 @@
     <script>
         // بيانات المنتجات المدمجة كـ fallback
         const fallbackProducts = [
-            {"id": 1, "title": "حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg", "description": "لعبة تعليمية وترفيهية آمنة للأطفال تساعد في تطوير القدرات الذهنية والحركية. مصنوعة من مواد عالية الجودة وآمنة تماماً للاستخدام."},
-            {"id": 2, "title": "صفاية سلطة دوّارة متعددة الوظائف", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3710/Wb0quKAvoB677UBgtCjZiyrSBPEbi3vJQIgo2usj.jpg", "description": "منتج عالي الجودة يتميز بالتصميم المتطور والأداء الممتاز. مناسب للاستخدام اليومي ويوفر قيمة ممتازة مقابل السعر."},
-            {"id": 3, "title": "عرض قطعتين من شورت نسائي لشد الجسم وتحديد القوام ببطانة ناعمة", "price": 20, "sale_price": 15, "image_link": "https://ecomerg.com/uploads/products_images/3709/1a7mTVkaKmAoEwCH8xKScYqiEqI2PGkVdNoxwsdC.jpg", "description": "منتج عالي الجودة يتميز بالتصميم المتطور والأداء الممتاز. مناسب للاستخدام اليومي ويوفر قيمة ممتازة مقابل السعر."},
-            {"id": 4, "title": "شورت نسائي لشد الجسم وتحديد القوام ببطانة ناعمة", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3708/amoikhxD7TbPnUdUOruMVdv4aQjZr6t91AofyS2J.jpg", "description": "منتج عالي الجودة يتميز بالتصميم المتطور والأداء الممتاز. مناسب للاستخدام اليومي ويوفر قيمة ممتازة مقابل السعر."},
-            {"id": 5, "title": "محول كهرباء 220 فولت إلى 12 فولت لأجهزة السيارات", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3707/dn7pad0vVoy7IWU2SR44OV23VAge2fpMFIjVsoto.jpg", "description": "منتج سيارة متطور يجمع بين الوظائف العملية والتصميم الأنيق. يساعد في تحسين أداء السيارة وراحة الركاب."},
-            {"id": 6, "title": "شامبو صلب طبيعي من Nature Triangle", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3706/9OXos2uBDi3ppfQTkYK7kto3ctR0xQ3wGaCpiwJT.jpg", "description": "تركيبة مبتكرة للعناية بالشعر تحتوي على مكونات طبيعية تساعد في تقوية الشعر وإصلاح التلف. يمنح الشعر لمعاناً طبيعياً ونعومة فائقة."},
-            {"id": 7, "title": "سيروم الأرز والهيالورونيك أسيد من BIOAQUA", "price": 17, "sale_price": 12, "image_link": "https://ecomerg.com/uploads/products_images/3700/LjlQjSyR8qdpjsOyvWxGo5VPLJUXzGBDrxFnCvDl.jpg", "description": "كريم عناية متطور يوفر ترطيباً عميقاً وحماية فائقة للبشرة. مناسب لجميع أنواع البشرة ويساعد في الحفاظ على إشراق البشرة الطبيعي."},
-            {"id": 8, "title": "جهاز تنظيف السجاد المحمول من raf", "price": 43, "sale_price": 35, "image_link": "https://ecomerg.com/uploads/products_images/3699/KJYO8WjQgK0XH4DrsKG6WPj2qXVtxNv0ZbIfCYvb.jpg", "description": "منتج تنظيف فعال وآمن يوفر نظافة عميقة وشاملة. مناسب للاستخدام المنزلي اليومي ويساعد في الحفاظ على بيئة نظيفة وصحية."},
-            {"id": 9, "title": "صانعة القهوة التركية من سوكاني", "price": 44, "sale_price": 36, "image_link": "https://ecomerg.com/uploads/products_images/3698/nMFRdBWdC8Z1ALEXbM5iBZ5wl8RNXca9FgjOYCFu.jpg", "description": "جهاز مطبخ متطور يجمع بين الأداء العالي وسهولة الاستخدام. يساعد في إعداد وجبات لذيذة وصحية بطريقة سريعة وعملية."},
-            {"id": 10, "title": "روبوت كهربائي للحيوانات الأليفة يعمل بجهاز تحكم عن بعد", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3697/bY4I5rg81UW2x1sANRVweB5O6CwD4PrvUPU7Qo5f.jpg", "description": "جهاز إلكتروني متطور يتميز بالأداء العالي والجودة الممتازة. مصمم ليناسب احتياجات المستخدمين في الكويت ويوفر حلولاً تقنية عملية ومبتكرة."}
+            {"id": 1, "title": "حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg", "description": "لعبة تعليمية وترفيهية آمنة للأطفال تساعد في تطوير القدرات الذهنية والحركية."},
+            {"id": 2, "title": "صفاية سلطة دوّارة متعددة الوظائف للمطبخ", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3710/Wb0quKAvoB677UBgtCjZiyrSBPEbi3vJQIgo2usj.jpg", "description": "أداة مطبخ عملية تساعد في تحضير السلطات الطازجة بسرعة وسهولة."},
+            {"id": 3, "title": "عرض قطعتين من شورت نسائي لشد الجسم وتحديد القوام ببطانة ناعمة", "price": 20, "sale_price": 15, "image_link": "https://ecomerg.com/uploads/products_images/3709/1a7mTVkaKmAoEwCH8xKScYqiEqI2PGkVdNoxwsdC.jpg", "description": "ملابس داخلية نسائية مريحة مصممة لتوفر الدعم والراحة طوال اليوم."},
+            {"id": 4, "title": "شورت نسائي لشد الجسم وتحديد القوام ببطانة ناعمة", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3708/amoikhxD7TbPnUdUOruMVdv4aQjZr6t91AofyS2J.jpg", "description": "قطعة ملابس داخلية نسائية عالية الجودة توفر الراحة والدعم المطلوبين."},
+            {"id": 5, "title": "محول كهرباء 220 فولت إلى 12 فولت لأجهزة السيارات", "price": 25, "sale_price": 18, "image_link": "https://ecomerg.com/uploads/products_images/3707/dn7pad0vVoy7IWU2SR44OV23VAge2fpMFIjVsoto.jpg", "description": "محول كهرباء عالي الكفاءة لتشغيل أجهزة السيارات في المنزل."},
+            {"id": 6, "title": "شامبو صلب طبيعي من Nature Triangle للعناية بالشعر", "price": 22, "sale_price": 16, "image_link": "https://ecomerg.com/uploads/products_images/3706/9OXos2uBDi3ppfQTkYK7kto3ctR0xQ3wGaCpiwJT.jpg", "description": "شامبو طبيعي صلب يحتوي على مكونات طبيعية مغذية للشعر."},
+            {"id": 7, "title": "سيروم الأرز والهيالورونيك أسيد من BIOAQUA المضاد للشيخوخة", "price": 28, "sale_price": 20, "image_link": "https://ecomerg.com/uploads/products_images/3700/LjlQjSyR8qdpjsOyvWxGo5VPLJUXzGBDrxFnCvDl.jpg", "description": "سيروم عناية متقدم للبشرة يحتوي على مكونات طبيعية فعالة ضد علامات الشيخوخة."},
+            {"id": 8, "title": "جهاز تنظيف السجاد المحمول من raf عالي الكفاءة", "price": 45, "sale_price": 35, "image_link": "https://ecomerg.com/uploads/products_images/3699/KJYO8WjQgK0XH4DrsKG6WPj2qXVtxNv0ZbIfCYvb.jpg", "description": "جهاز تنظيف محمول متطور يوفر تنظيفاً عميقاً للسجاد والمفروشات."},
+            {"id": 9, "title": "صانعة القهوة التركية الكهربائية من سوكاني", "price": 50, "sale_price": 38, "image_link": "https://ecomerg.com/uploads/products_images/3698/nMFRdBWdC8Z1ALEXbM5iBZ5wl8RNXca9FgjOYCFu.jpg", "description": "آلة صنع القهوة التركية الأصيلة بطعم مميز."},
+            {"id": 10, "title": "روبوت كهربائي تفاعلي للحيوانات الأليفة بجهاز تحكم", "price": 32, "sale_price": 24, "image_link": "https://ecomerg.com/uploads/products_images/3697/bY4I5rg81UW2x1sANRVweB5O6CwD4PrvUPU7Qo5f.jpg", "description": "لعبة إلكترونية تفاعلية للأطفال تحاكي الحيوانات الأليفة الحقيقية."}
         ];
         
         let allProducts = [];
@@ -600,6 +600,15 @@
             return allProducts;
         }
         
+        // إنشاء رابط صفحة المنتج
+        function createProductSlug(title) {
+            // إزالة الأحرف الخاصة والمسافات وتحويلها لـ slug
+            return title.replace(/[\s\u00A0]+/g, '-')
+                      .replace(/[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFFa-zA-Z0-9\-]/g, '')
+                      .replace(/-+/g, '-')
+                      .replace(/^-|-$/g, '');
+        }
+        
         // تصنيف المنتجات
         function categorizeProduct(title, description) {
             const text = (title + ' ' + (description || '')).toLowerCase();
@@ -634,6 +643,10 @@
             products.forEach(product => {
                 const discount = Math.round(((product.price - product.sale_price) / product.price) * 100);
                 const category = categorizeProduct(product.title, product.description);
+                const slug = createProductSlug(product.title);
+                
+                // إنشاء مسار الصفحة الفعلي
+                const productPagePath = `products-pages/product-${product.id}-${slug}.html`;
                 
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
@@ -665,11 +678,11 @@
                                 💬 طلب عبر واتساب
                             </a>
                             
-                            <button class="view-btn" onclick="viewProduct(${product.id})">
+                            <a href="${productPagePath}" class="view-btn" target="_blank">
                                 👁️ عرض تفاصيل المنتج
-                            </button>
+                            </a>
                             
-                            <button class="cart-btn" onclick="addToCart({id: ${product.id}, title: '${product.title.replace(/'/g, "\\")}', price: ${product.price}, sale_price: ${product.sale_price}, image_link: '${product.image_link}'})">
+                            <button class="cart-btn" onclick="addToCart({id: ${product.id}, title: '${product.title.replace(/'/g, "\\\\'")}', price: ${product.price}, sale_price: ${product.sale_price}, image_link: '${product.image_link}'})">
                                 🛒 أضف إلى السلة
                             </button>
                         </div>
@@ -684,82 +697,6 @@
             if (countEl) {
                 countEl.textContent = products.length.toLocaleString('ar');
             }
-        }
-        
-        // عرض تفاصيل المنتج
-        function viewProduct(productId) {
-            const product = allProducts.find(p => p.id === productId);
-            if (!product) {
-                alert('تفاصيل المنتج غير متاحة');
-                return;
-            }
-            
-            const discount = Math.round(((product.price - product.sale_price) / product.price) * 100);
-            const category = categorizeProduct(product.title, product.description);
-            
-            const specs = {
-                'العلامة التجارية': 'سوق الكويت',
-                'بلد الصنع': 'الصين/تركيا',
-                'ضمان المنتج': 'سنة واحدة',
-                'حالة المنتج': 'جديد',
-                'الشحن': 'مجاني لجميع أنحاء الكويت',
-                'المواد': 'عالية الجودة',
-                'الاستخدام': 'سهل ومريح',
-                'المتانة': 'طويلة الأمد',
-                'التصميم': 'عصري وأنيق'
-            };
-            
-            let specsHTML = '';
-            Object.entries(specs).forEach(([key, value]) => {
-                specsHTML += `<div style="display: flex; justify-content: space-between; padding: 8px; margin-bottom: 5px; background: white; border-radius: 8px;"><span style="font-weight: bold; color: #666;">${key}:</span><span style="color: var(--ku-green); font-weight: bold;">${value}</span></div>`;
-            });
-            
-            const productHTML = `
-                <!DOCTYPE html>
-                <html lang="ar" dir="rtl">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>${product.title} - سوق الكويت</title>
-                    <link rel="stylesheet" href="assets/css/kuwait-modern.css">
-                    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-                </head>
-                <body style="background: #f8f9fa;">
-                    <div class="section" style="padding-top: 50px;">
-                        <div class="container">
-                            <div class="card" style="max-width: 800px; margin: 0 auto;">
-                                <img src="${product.image_link}" alt="${product.title}" style="width: 100%; height: 400px; object-fit: cover; border-radius: 15px;">
-                                <div style="padding: 40px;">
-                                    <h1 style="color: var(--ku-green); font-size: 28px; margin-bottom: 20px;">${product.title}</h1>
-                                    <p style="color: #666; margin-bottom: 25px; line-height: 1.6;">${product.description}</p>
-                                    
-                                    <div style="background: linear-gradient(135deg, var(--ku-red), #e74c3c); color: white; padding: 25px; border-radius: 15px; text-align: center; margin: 25px 0;">
-                                        <div style="font-size: 18px; opacity: 0.9; text-decoration: line-through; margin-bottom: 5px;">${product.price} د.ك</div>
-                                        <div style="font-size: 32px; font-weight: bold; margin-bottom: 8px;">${product.sale_price} د.ك</div>
-                                        <div style="background: var(--ku-gold); color: var(--ku-black); padding: 8px 15px; border-radius: 12px; margin-top: 10px; display: inline-block; font-weight: bold;">خصم ${discount}%</div>
-                                    </div>
-                                    
-                                    <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; margin: 25px 0;">
-                                        <h3 style="color: var(--ku-green); margin-bottom: 20px; text-align: center;">📋 المواصفات التفصيلية</h3>
-                                        ${specsHTML}
-                                    </div>
-                                    
-                                    <div style="text-align: center; margin: 30px 0;">
-                                        <a href="https://wa.me/201110760081?text=مرحباً، أريد طلب: ${encodeURIComponent(product.title)} - السعر: ${product.sale_price} د.ك - رقم المنتج: SOOQ-${product.id.toString().padStart(4, '0')}" 
-                                           class="cta" target="_blank" style="font-size: 18px; padding: 15px 30px; margin-left: 10px;">💬 اطلب عبر واتساب</a>
-                                        <a href="tel:+201110760081" class="cta" style="font-size: 18px; padding: 15px 30px; background: linear-gradient(135deg, var(--ku-green), #27ae60);">📞 اتصل الآن</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </body>
-                </html>
-            `;
-            
-            const newWindow = window.open('', '_blank');
-            newWindow.document.write(productHTML);
-            newWindow.document.close();
         }
         
         // البحث والتصفية
