@@ -1,95 +1,116 @@
 /**
- * هيدر احترافي مع قائمة صفحات كاملة على الديسكتوب، وقائمة جانبية على الموبايل/التابلت
- * دون المساس بالألوان الأساسية، مع تحسين تباين الألوان وإضافة حالة active
+ * هيدر مخصص ألوان علم الكويت لجميع الصفحات القانونية وروابطها.
  */
-class HeaderComponent{
-  constructor(){this.isMenuOpen=false;this.init();}
-  init(){this.render();this.styles();this.events();this.updateCartCount();}
-  render(){const root=document.getElementById('site-header');if(!root)return;root.innerHTML=`
-  <header class="hk-header" role="banner">
-    <div class="hk-wrap">
-      <a class="hk-brand" href="index.html" aria-label="سوق الكويت">
-        <span class="hk-flag">🇰🇼</span>
-        <span class="hk-name">سوق الكويت</span>
-      </a>
-      <!-- قائمة الديسكتوب الكاملة -->
-      <nav class="hk-desktop-nav" aria-label="القائمة الرئيسية">
-        <a href="#home" class="nav-link">الرئيسية</a>
-        <a href="#products" class="nav-link">المنتجات</a>
-        <a href="cart.html" class="nav-link">السلة</a>
-        <a href="about.html" class="nav-link">من نحن</a>
-        <a href="contact.html" class="nav-link">اتصل بنا</a>
-        <a href="shipping.html" class="nav-link">الشحن والتوصيل</a>
-        <a href="privacy.html" class="nav-link">سياسة الخصوصية</a>
-        <a href="terms.html" class="nav-link">الشروط والأحكام</a>
-        <a href="refund.html" class="nav-link">سياسة الاسترجاع</a>
-      </nav>
-      <div class="hk-actions">
-        <button class="hk-cart" onclick="location.href='cart.html'" aria-label="السلة">
-          <i class="fas fa-shopping-cart"></i>
-          <span class="hk-badge" id="cart-count">0</span>
-        </button>
-        <button class="hk-burger" onclick="headerComponent.toggle()" aria-label="فتح القائمة" aria-controls="hk-mobile" aria-expanded="false">
-          <span class="b1"></span><span class="b2"></span><span class="b3"></span>
-        </button>
-      </div>
-    </div>
-    <!-- قائمة الموبايل -->
-    <aside class="hk-drawer" id="hk-mobile" aria-hidden="true">
-      <div class="hk-drawer-head">
-        <div class="hk-brand mini"><span class="hk-flag">🇰🇼</span><span class="hk-name">سوق الكويت</span></div>
-        <button class="hk-close" onclick="headerComponent.close()" aria-label="إغلاق"><i class="fas fa-times"></i></button>
-      </div>
-      <nav class="hk-nav" aria-label="قائمة الجوال">
-        <a href="#home" onclick="headerComponent.close()"><i class="fas fa-home"></i> الرئيسية</a>
-        <a href="#products" onclick="headerComponent.close()"><i class="fas fa-shopping-bag"></i> المنتجات</a>
-        <a href="cart.html" onclick="headerComponent.close()"><i class="fas fa-shopping-cart"></i> السلة</a>
-        <a href="about.html" onclick="headerComponent.close()"><i class="fas fa-info-circle"></i> من نحن</a>
-        <a href="contact.html" onclick="headerComponent.close()"><i class="fas fa-phone"></i> اتصل بنا</a>
-        <hr>
-        <a href="shipping.html" onclick="headerComponent.close()"><i class="fas fa-truck"></i> الشحن والتوصيل</a>
-        <a href="privacy.html" onclick="headerComponent.close()"><i class="fas fa-shield-alt"></i> سياسة الخصوصية</a>
-        <a href="terms.html" onclick="headerComponent.close()"><i class="fas fa-file-contract"></i> الشروط والأحكام</a>
-        <a href="refund.html" onclick="headerComponent.close()"><i class="fas fa-undo"></i> سياسة الاسترجاع</a>
-      </nav>
-    </aside>
-  </header>`}
-  styles(){const s=document.createElement('style');s.id='hk-header-styles';s.textContent=`
-    .hk-header{position:sticky;top:0;z-index:1000;background:linear-gradient(135deg,var(--kuwait-green) 0%, #0c8b4f 60%, #087341 100%);box-shadow:0 6px 18px rgba(0,0,0,.15)}
-    .hk-wrap{max-width:1200px;margin:0 auto;padding:8px 14px;display:flex;align-items:center;gap:14px}
-    .hk-brand{display:flex;align-items:center;gap:.5rem;text-decoration:none}
-    .hk-flag{filter:drop-shadow(0 0 4px rgba(255,215,0,.35))}
-    .hk-name{font-weight:900;font-size:clamp(1rem,2.2vw,1.25rem);background:linear-gradient(45deg,var(--luxury-gold),#fff,var(--luxury-gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    /* قائمة الديسكتوب */
-    .hk-desktop-nav{display:flex;align-items:center;gap:.6rem;margin-inline-start:auto}
-    .hk-desktop-nav .nav-link{color:#f2f7f3;text-decoration:none;padding:.45rem .8rem;border-radius:10px;font-weight:700;letter-spacing:.2px;position:relative;transition:all .25s ease;border:1px solid rgba(255,255,255,.08)}
-    .hk-desktop-nav .nav-link:hover{color:#111;background:linear-gradient(135deg,#ffd54a,#ffc107);box-shadow:0 6px 16px rgba(255,193,7,.35)}
-    .hk-desktop-nav .nav-link.active{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35)}
-    /* تحسين التباين لسهولة القراءة */
-    .hk-header, .hk-desktop-nav .nav-link{text-shadow:0 1px 1px rgba(0,0,0,.12)}
-    /* أزرار الإجراءات */
-    .hk-actions{display:flex;align-items:center;gap:.5rem;margin-inline-start:.5rem}
-    .hk-cart{width:42px;height:42px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--luxury-gold),#ffbf00);color:#000;box-shadow:0 8px 20px rgba(255,215,0,.35);position:relative;cursor:pointer}
-    .hk-badge{position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:var(--kuwait-red);color:#fff;font-size:.7rem;font-weight:800;display:none;align-items:center;justify-content:center}
-    .hk-burger{display:none;width:44px;height:44px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.12);backdrop-filter:blur(6px);cursor:pointer;align-items:center;justify-content:center}
-    .hk-burger .b1,.hk-burger .b2,.hk-burger .b3{display:block;width:18px;height:2px;background:#fff;border-radius:2px;margin:2px 0}
-    /* Drawer للموبايل */
-    .hk-drawer{position:fixed;top:0;right:-100%;width:min(320px,85vw);height:100vh;background:linear-gradient(180deg,#0f5132,var(--kuwait-green));color:#fff;box-shadow:-12px 0 30px rgba(0,0,0,.35);transition:right .35s ease;display:flex;flex-direction:column}
-    .hk-drawer.active{right:0}
-    .hk-drawer-head{display:flex;justify-content:space-between;align-items:center;padding:12px;border-bottom:1px solid rgba(255,255,255,.15)}
-    .hk-close{background:rgba(255,255,255,.15);color:#fff;border:none;border-radius:10px;width:36px;height:36px;cursor:pointer}
-    .hk-nav{display:flex;flex-direction:column;padding:8px}
-    .hk-nav a{display:flex;align-items:center;gap:.6rem;padding:12px;border-radius:10px;color:#fff;text-decoration:none;transition:all .25s ease}
-    .hk-nav a:hover{background:rgba(255,255,255,.1);transform:translateX(-4px)}
-    .hk-nav hr{border:none;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);margin:8px 0}
-    /* استجابة: زر الهامبرجر يظهر تحت 1024px */
-    @media(max-width:1023.98px){.hk-burger{display:flex}.hk-desktop-nav{display:none}}
-  `;const old=document.getElementById('hk-header-styles');if(old)old.remove();document.head.appendChild(s)}
-  events(){// تحديد الرابط النشط
-    const setActive=()=>{const links=document.querySelectorAll('.hk-desktop-nav .nav-link');links.forEach(a=>a.classList.remove('active'));const path=location.pathname.split('/').pop();links.forEach(a=>{const href=a.getAttribute('href');if(href && href.endsWith(path)){a.classList.add('active');}});};setActive();
-    let last=window.scrollY,ticking=false;const run=()=>{const y=window.scrollY;const h=document.querySelector('.hk-header');if(!h)return;h.classList.toggle('scrolled',y>40);if(y>last&&y>140&&!this.isMenuOpen){h.style.transform='translateY(-100%)'}else{h.style.transform='translateY(0)'}last=y;ticking=false};window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(run);ticking=true}}, {passive:true});document.addEventListener('click',e=>{const d=document.getElementById('hk-mobile');const b=document.querySelector('.hk-burger');if(this.isMenuOpen&&d&&!d.contains(e.target)&&(!b||!b.contains(e.target)))this.close();});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&this.isMenuOpen)this.close();});}
-  toggle(){const d=document.getElementById('hk-mobile');if(!d)return;this.isMenuOpen=!this.isMenuOpen;d.classList.toggle('active',this.isMenuOpen);d.setAttribute('aria-hidden',(!this.isMenuOpen).toString());const b=document.querySelector('.hk-burger');if(b)b.setAttribute('aria-expanded',this.isMenuOpen.toString());document.body.style.overflow=this.isMenuOpen?'hidden':''}
-  close(){const d=document.getElementById('hk-mobile');if(!d)return;this.isMenuOpen=false;d.classList.remove('active');d.setAttribute('aria-hidden','true');const b=document.querySelector('.hk-burger');if(b)b.setAttribute('aria-expanded','false');document.body.style.overflow=''}
-  updateCartCount(){setTimeout(()=>{if(typeof cartManager!=='undefined'&&cartManager.getCartItemCount){const n=cartManager.getCartItemCount();const el=document.getElementById('cart-count');if(el){el.textContent=n;el.style.display=n>0?'flex':'none';}}},120)}
+class HeaderComponent {
+  constructor() { this.isMenuOpen=false; this.init(); }
+  init() { this.render(); this.styles(); this.events(); this.updateCartCount(); }
+  render() {
+    const root = document.getElementById('site-header');
+    if (!root) return;
+    root.innerHTML = `
+      <header class="kw-flag-header" role="banner">
+        <div class="kw-flag-bar"></div>
+        <div class="container">
+          <div class="nav-wrapper kw-flag-nav">
+            <div class="logo"><span class="kw-flag-logo">🇰🇼</span><span class="site-name">سوق الكويت</span></div>
+            <nav class="nav kw-flag-links" aria-label="روابط رئيسية">
+              <a href="index.html" class="nav-link">الرئيسية</a>
+              <a href="about.html" class="nav-link">من نحن</a>
+              <a href="contact.html" class="nav-link">اتصل بنا</a>
+              <a href="privacy.html" class="nav-link">سياسة الخصوصية</a>
+              <a href="terms.html" class="nav-link">الشروط والأحكام</a>
+              <a href="refund.html" class="nav-link">سياسة الاسترجاع</a>
+              <a href="shipping.html" class="nav-link">الشحن والتوصيل</a>
+            </nav>
+            <button class="kw-flag-burger" onclick="headerComponent.toggle()" aria-label="قائمة الجوال" aria-controls="kw-mobile-nav" aria-expanded="false"><span></span><span></span><span></span></button>
+          </div>
+        </div>
+        <aside class="kw-mobile-drawer" id="kw-mobile-nav" aria-hidden="true">
+          <nav aria-label="القائمة الجانبية">
+            <a href="index.html" onclick="headerComponent.close()">الرئيسية</a>
+            <a href="about.html" onclick="headerComponent.close()">من نحن</a>
+            <a href="contact.html" onclick="headerComponent.close()">اتصل بنا</a>
+            <a href="privacy.html" onclick="headerComponent.close()">سياسة الخصوصية</a>
+            <a href="terms.html" onclick="headerComponent.close()">الشروط والأحكام</a>
+            <a href="refund.html" onclick="headerComponent.close()">سياسة الاسترجاع</a>
+            <a href="shipping.html" onclick="headerComponent.close()">الشحن والتوصيل</a>
+          </nav>
+        </aside>
+      </header>`;
+  }
+  styles() {
+    const style = document.createElement('style');
+    style.id = 'kw-flag-header-style';
+    style.textContent = `
+      .kw-flag-header {
+        background: linear-gradient(to bottom, #009344 0 30%, #fff 30% 65%, #e92429 65% 100%);
+        box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+        position: sticky; top:0; z-index:1000;
+        min-height:80px; margin:0;
+      }
+      .kw-flag-bar {
+        width:100vw; height:7px;
+        background: linear-gradient(90deg, black 0 20%, #009344 20% 50%, white 50% 80%, red 80%);
+        box-shadow:0 4px 20px rgba(0,0,0,.11); margin-bottom:0.5rem;
+      }
+      .kw-flag-nav {display: flex; align-items: center; justify-content: space-between;}
+      .kw-flag-logo {font-size: 2rem; margin-left: .6rem;}
+      .site-name {font-weight:900;font-size:1.25rem;background:linear-gradient(45deg,#009344,#fff,#e92429);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+      .kw-flag-links {display:flex;gap:.7rem;align-items:center;}
+      .kw-flag-links .nav-link {
+        color:#111;background:rgba(255,255,255,.80);padding:.43rem 1.1rem;border-radius:13px;font-weight:800;text-decoration:none;transition:all .22s;border:2px solid transparent;font-size:1.02rem;box-shadow:0 3px 9px rgba(0,0,0,.06);
+      }
+      .kw-flag-links .nav-link.active, .kw-flag-links .nav-link:hover {
+        background: linear-gradient(90deg, #009344 40%, #e92429 80%);
+        color:#fff; border-color:#ffd600; box-shadow:0 6px 18px rgba(0,147,68,.13);
+        transform: scale(1.07);
+      }
+      .kw-flag-burger {display:none; flex-direction:column;gap:4px;background:rgba(0,147,68,.13);border-radius:10px;border:none;cursor:pointer; padding:8px; }
+      .kw-flag-burger span {display:block;width:24px;height:3px;background:#111;border-radius:2px;}
+      @media (max-width: 1024px) { .kw-flag-links { display: none; } .kw-flag-burger { display: flex; } }
+      .kw-mobile-drawer { position: fixed; top: 0; right: -100vw; width: min(330px, 90vw); height: 100vh; background: linear-gradient(to bottom, #009344, #fff, #e92429); box-shadow: -12px 0 26px rgba(0,0,0,0.13); z-index: 2000; transition: right 0.32s; display: flex; flex-direction: column; padding: 2rem 1.5rem; }
+      .kw-mobile-drawer.active { right: 0; }
+      .kw-mobile-drawer nav { display: flex; flex-direction: column; gap: 1.5rem; }
+      .kw-mobile-drawer nav a { font-weight: 800; color: #009344; background: #fff; border-radius: 11px; padding: 1.1rem 1.2rem; text-decoration: none; font-size: 1.2rem; box-shadow: 0 3px 12px rgba(0,0,0,0.07); transition: all .22s; }
+      .kw-mobile-drawer nav a:active, .kw-mobile-drawer nav a:hover { color: #fff; background: #009344; }
+      @media (max-width: 690px) { .kw-flag-logo {font-size:1.3rem;} .site-name {font-size:.87rem;}}
+    `;
+    const old = document.getElementById('kw-flag-header-style');
+    if (old) old.remove();
+    document.head.appendChild(style);
+  }
+  events() {
+    /* burger show/hide drawer */
+    const header = this;
+    let last = window.scrollY, ticking = false;
+    const handleScroll = () => {
+      const h = document.querySelector('.kw-flag-header');
+      if (!h) return;
+      const y = window.scrollY;
+      h.classList.toggle('scrolled', y>40);
+      if (y>last && y>120 && !header.isMenuOpen) {
+        h.style.transform='translateY(-100%)';
+      } else {
+        h.style.transform='translateY(0)';
+      }
+      last = y; ticking = false;
+    };
+    window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(handleScroll);ticking=true;}}, {passive:true});
+    document.addEventListener('click',e=>{
+      const d=document.getElementById('kw-mobile-nav');
+      const b=document.querySelector('.kw-flag-burger');
+      if(this.isMenuOpen&&d&&!d.contains(e.target)&&(!b||!b.contains(e.target)))this.close();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&this.isMenuOpen)this.close();});
+    this.setActive();
+  }
+  setActive() {
+    const links=document.querySelectorAll('.kw-flag-links .nav-link');
+    links.forEach(a=>a.classList.remove('active'));
+    const path=location.pathname.split('/').pop();
+    links.forEach(a=>{const href=a.getAttribute('href');if(href && href.endsWith(path)){a.classList.add('active');}});
+  }
+  toggle(){const d=document.getElementById('kw-mobile-nav');if(!d)return;this.isMenuOpen=!this.isMenuOpen;d.classList.toggle('active',this.isMenuOpen);d.setAttribute('aria-hidden',(!this.isMenuOpen).toString());const b=document.querySelector('.kw-flag-burger');if(b)b.setAttribute('aria-expanded',this.isMenuOpen.toString());document.body.style.overflow=this.isMenuOpen?'hidden':''}
+  close(){const d=document.getElementById('kw-mobile-nav');if(!d)return;this.isMenuOpen=false;d.classList.remove('active');d.setAttribute('aria-hidden','true');const b=document.querySelector('.kw-flag-burger');if(b)b.setAttribute('aria-expanded','false');document.body.style.overflow=''}
+  updateCartCount(){}
 }
 if(typeof module!=='undefined'&&module.exports){module.exports=HeaderComponent}else{window.HeaderComponent=HeaderComponent}
