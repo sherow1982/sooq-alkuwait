@@ -7,6 +7,10 @@
   <meta name="description" content="متجر إلكتروني كويتي للمنتجات المتنوعة - موقع تجاري يقدم تشكيلة واسعة من المنتجات عالية الجودة بأسعار منافسة وتوصيل مجاني داخل الكويت">
   <meta name="keywords" content="سوق الكويت, متجر إلكتروني, منتجات عالية الجودة, توصيل مجاني, الكويت">
   <link rel="canonical" href="https://sooq-alkuwait.arabsad.com/">
+  <meta property="og:title" content="سوق الكويت - متجر إلكتروني موثوق">
+  <meta property="og:description" content="منتجات عالية الجودة بأسعار منافسة في الكويت">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sooq-alkuwait.arabsad.com/">
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -18,11 +22,40 @@
   <section id="home" class="hero">
     <div class="container">
       <div class="hero-content">
-        <h1>مرحباً بك في سوق الكويت</h1>
+        <h1>مرحباً بك في سوق الكويت 🇰🇼</h1>
         <p>متجرك الإلكتروني الموثوق للمنتجات عالية الجودة بأسعار منافسة</p>
         <a href="#products" class="cta-button">
           <i class="fas fa-shopping-bag"></i> تابع التسوق الآن
         </a>
+        
+        <!-- عداد تنازلي للصفحة الرئيسية -->
+        <div style="
+          background: linear-gradient(135deg, #dc2626, #991b1b);
+          color: white;
+          text-align: center;
+          padding: 16px 20px;
+          border-radius: 12px;
+          margin-top: 24px;
+          border: 2px solid #FFD700;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        ">
+          <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">
+            🔥 عروض محدودة لمدة 24 ساعة فقط!
+          </div>
+          <div class="hero-countdown" style="
+            background: rgba(0,0,0,0.3);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: 900;
+            color: #FFD700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+          ">--:--:--</div>
+          <div style="font-size: 14px; margin-top: 8px; opacity: 0.9;">
+            ⚡ لا تفوت الفرصة!
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -30,12 +63,12 @@
   <!-- Products Section -->
   <section id="products" class="products-section">
     <div class="container">
-      <h2>منتجاتنا المميزة</h2>
+      <h2>منتجاتنا المميزة 🎆</h2>
       <div class="products-grid" id="products-grid">
         <!-- سيتم تحميل المنتجات هنا -->
       </div>
       <div class="loading" id="loading" style="text-align: center; padding: 2rem;">
-        <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--kuwait-green);"></i>
+        <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--kuwait-green, #007A3D);"></i>
         <p>جاري تحميل المنتجات...</p>
       </div>
     </div>
@@ -84,7 +117,57 @@
   <script src="script.js"></script>
   <script src="partials/partials-loader.js" defer></script>
   <script src="cart-core.js" defer></script>
-  <script src="countdown-timer.js" defer></script>
+  <script src="homepage-countdown.js" defer></script>
   <script src="purchase-notifications.js" defer></script>
+  <script src="dynamic-schema.js" defer></script>
+  
+  <script>
+  // عداد تنازلي للهيرو في الصفحة الرئيسية
+  document.addEventListener('DOMContentLoaded', () => {
+    function updateHeroCountdown() {
+      const display = document.querySelector('.hero-countdown');
+      if (!display) return;
+      
+      const now = new Date();
+      const tomorrow = new Date(now);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(0, 0, 0, 0);
+      
+      const timeLeft = tomorrow - now;
+      
+      if (timeLeft <= 0) {
+        display.textContent = '00:00:00';
+        return;
+      }
+      
+      const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+      
+      display.textContent = 
+        String(hours).padStart(2, '0') + ':' +
+        String(minutes).padStart(2, '0') + ':' +
+        String(seconds).padStart(2, '0');
+      
+      // تأثير نبض عندما يقل الوقت عن ساعة
+      if (timeLeft < 3600000) {
+        display.style.animation = 'pulse 1s infinite';
+      }
+    }
+    
+    // إضافة أنيميشن النبض
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    updateHeroCountdown();
+    setInterval(updateHeroCountdown, 1000);
+  });
+  </script>
 </body>
 </html>
