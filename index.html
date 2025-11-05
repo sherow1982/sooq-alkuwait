@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>سوق الكويت 🇰🇼 - Kuwait Modern Theme | 1977 منتج</title>
-  <meta name="description" content="تصميم مودرن مبهر بألوان علم الكويت مع تجربة تسوّق سريعة متجاوبة - أكثر من 1977 منتج بأفضل الأسعار.">
-  <meta name="keywords" content="سوق الكويت, تسوق إلكتروني, Kuwait Modern Theme, ألوان علم الكويت">
+  <title>سوق الكويت 🇰🇼 - Kuwait Modern Theme | 374 منتج</title>
+  <meta name="description" content="متجر إلكتروني عصري بتصميم فاخر من ألوان علم الكويت مع أكثر من 374 منتج عالي الجودة بأفضل الأسعار.">
+  <meta name="keywords" content="سوق الكويت, Kuwait Modern Theme, ألوان علم الكويت">
   
   <!-- ربط CSS الجديد -->
   <link rel="stylesheet" href="assets/css/kuwait-modern.css">
@@ -13,8 +13,78 @@
   
   <!-- Open Graph -->
   <meta property="og:title" content="سوق الكويت 🇰🇼 - Kuwait Modern Theme">
-  <meta property="og:description" content="تصميم جديد مبهر بألوان علم الكويت - 1977 منتج متاح">
+  <meta property="og:description" content="متجر عصري بألوان علم الكويت - 374 منتج عالي الجودة">
   <meta property="og:image" content="https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg">
+  
+  <style>
+  .whatsapp-hero {
+    background: linear-gradient(135deg, var(--ku-green) 0%, var(--ku-red) 50%, var(--ku-black) 100%);
+    color: var(--ku-white);
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
+  }
+  
+  .whatsapp-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 30px 0;
+  }
+  
+  .whatsapp-btn {
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .whatsapp-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+  }
+  
+  .email-btn {
+    background: linear-gradient(135deg, var(--ku-red), #c0392b);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(192, 57, 43, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .email-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(192, 57, 43, 0.5);
+  }
+  
+  @media (max-width: 768px) {
+    .whatsapp-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .whatsapp-btn, .email-btn {
+      width: 280px;
+      justify-content: center;
+    }
+  }
+  </style>
 </head>
 <body>
   <!-- الهيدر الثابت -->
@@ -30,20 +100,20 @@
         <a href="about.html">من نحن</a>
         <a href="contact.html">اتصل بنا</a>
       </nav>
-      <a class="cta" href="tel:+96590000000">اطلب الآن</a>
+      <a class="cta" href="tel:+201110760081">اطلب الآن</a>
     </div>
   </header>
 
-  <!-- القسم الرئيسي -->
-  <section class="hero-kuwait">
+  <!-- قسم أزرار الواتساب -->
+  <section class="whatsapp-hero">
     <div class="container">
-      <h1 class="brand">🇰🇼 سوق الكويت — Kuwait Modern</h1>
-      <p class="tag">تصميم جديد بالكامل مستوحى من ألوان العلم — سريع، متجاوب، وأنيق</p>
+      <h1 class="brand">🇰🇼 سوق الكويت</h1>
+      <p class="tag">متجر إلكتروني عصري بتصميم فاخر من ألوان علم الكويت</p>
       
       <!-- الإحصائيات -->
       <div class="hero-stats">
         <div class="stat">
-          <div class="num">1,977</div>
+          <div class="num">374</div>
           <div>منتج</div>
         </div>
         <div class="stat">
@@ -63,10 +133,21 @@
       <!-- العداد التنازلي -->
       <div class="count">⏰ العرض ينتهي خلال <span id="heroTimer">23:59:45</span></div>
       
-      <!-- أزرار العمل -->
-      <div style="margin-top:24px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <!-- أزرار التواصل -->
+      <div class="whatsapp-buttons">
+        <a href="https://wa.me/201110760081" class="whatsapp-btn" target="_blank">
+          💬 محادثة واتساب فورية
+        </a>
+        <a href="https://wa.me/201110760081?text=مرحباً، أريد الاستفسار عن المنتجات المتاحة" class="whatsapp-btn" target="_blank">
+          📞 استفسار عام
+        </a>
+        <a href="mailto:sooqalkuwait2010@gmail.com" class="email-btn">
+          📧 البريد الإلكتروني
+        </a>
+      </div>
+      
+      <div style="margin-top:30px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
         <a class="cta" href="products-catalog.html">تصفح المنتجات</a>
-        <a class="cta" href="https://wa.me/96590000000" style="background:linear-gradient(135deg,#25d366,#128c7e)">واتساب</a>
       </div>
     </div>
   </section>
@@ -132,14 +213,14 @@
         </div>
         <p>تجربة تسوّق حديثة بألوان العلم — سرعة، أمان، أناقة.</p>
         <div style="margin-top:20px">
-          <a class="cta" href="https://wa.me/96590000000">محادثة واتساب</a>
+          <a class="cta" href="https://wa.me/201110760081">محادثة واتساب</a>
         </div>
       </div>
       
       <div>
         <h4 style="color:#c9d1d9;margin-bottom:12px">الروابط السريعة</h4>
         <ul style="list-style:none;line-height:2.2">
-          <li><a href="products-catalog.html">📦 المنتجات (1977)</a></li>
+          <li><a href="products-catalog.html">📦 المنتجات (374)</a></li>
           <li><a href="about.html">📋 من نحن</a></li>
           <li><a href="contact.html">📞 اتصل بنا</a></li>
           <li><a href="delivery.html">🚚 الشحن والتوصيل</a></li>
@@ -157,8 +238,8 @@
       
       <div>
         <h4 style="color:#c9d1d9;margin-bottom:12px">تواصل مباشر</h4>
-        <p style="color:#8b949e;line-height:1.8">📱 الهاتف: +965 9000 0000</p>
-        <p style="color:#8b949e;line-height:1.8">📧 البريد: info@sooq-alkuwait.com</p>
+        <p style="color:#8b949e;line-height:1.8">📱 الهاتف: +201110760081</p>
+        <p style="color:#8b949e;line-height:1.8">📧 البريد: sooqalkuwait2010@gmail.com</p>
         <p style="color:#f4d03f;font-weight:bold;margin-top:8px">⏰ خدمة 24/7</p>
       </div>
     </div>
@@ -172,7 +253,7 @@
   
   <!-- زر WhatsApp العائم -->
   <div style="position:fixed;bottom:20px;right:20px;z-index:999">
-    <a href="https://wa.me/96590000000" 
+    <a href="https://wa.me/201110760081" 
        style="display:flex;align-items:center;justify-content:center;width:58px;height:58px;background:linear-gradient(135deg,#25d366,#128c7e);border-radius:50%;color:white;font-size:22px;text-decoration:none;box-shadow:0 6px 18px rgba(37,211,102,.4);animation:bounce 2s infinite"
        title="محادثة واتساب فورية">💬</a>
   </div>
