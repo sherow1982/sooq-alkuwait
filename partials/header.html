@@ -1,86 +1,153 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>رأس الموقع</title>
-  <link rel="stylesheet" href="../styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <style>
-    .mobile-nav-toggle { display: none; }
-    @media (max-width: 768px) {
-      .nav ul { display: none; }
-      .mobile-nav-toggle { display: flex; align-items: center; gap: 8px; background: var(--luxury-gold); color: var(--kuwait-black); border: none; padding: 10px 14px; border-radius: 10px; font-weight: 800; }
-      .mobile-menu { position: fixed; top: 60px; right: 12px; left: 12px; background: #111; border: 2px solid var(--luxury-gold); border-radius: 14px; padding: 12px; display: none; z-index: 2000; box-shadow: 0 12px 30px rgba(0,0,0,.5); }
-      .mobile-menu a { display: block; color: white; padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,.08); text-decoration: none; font-weight: 700; }
-      .mobile-menu a:last-child { border-bottom: none; }
-      .mobile-menu a:hover { background: rgba(255,215,0,.08); }
-    }
-  </style>
-</head>
-<body>
-  <header class="header">
-    <div class="container">
-      <div class="nav-wrapper">
-        <div class="logo">
-          <h1><a href="../index.html" style="color: var(--luxury-gold); text-decoration: none;"><i class="fas fa-shopping-bag"></i> سوق الكويت</a></h1>
-        </div>
-        <nav class="nav">
-          <button class="mobile-nav-toggle" id="mobileNavBtn"><i class="fas fa-bars"></i> القائمة</button>
-          <ul>
-            <li><a href="../index.html#home">الرئيسية</a></li>
-            <li><a href="../index.html#products">المنتجات</a></li>
-            <li><a href="../cart.html"><i class="fas fa-shopping-cart"></i> السلة (<span id="cart-count">0</span>)</a></li>
-            <li><a href="../shipping.html">الشحن</a></li>
-            <li><a href="../refund.html">الإرجاع</a></li>
-            <li><a href="../terms.html">الشروط</a></li>
-            <li><a href="../privacy.html">الخصوصية</a></li>
-            <li><a href="../contact.html">اتصل بنا</a></li>
-          </ul>
-        </nav>
+<header class="header">
+  <div class="container">
+    <div class="nav-wrapper">
+      <div class="logo">
+        <h1>
+          <a href="../index.html" style="color: #FFD700; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+            <i class="fas fa-shopping-bag"></i> سوق الكويت
+          </a>
+        </h1>
+        <p style="font-size: 12px; opacity: 0.9; margin-top: 4px;">متجرك الموثوق في الكويت 🇰🇼</p>
       </div>
+      <nav class="nav">
+        <ul>
+          <li><a href="../index.html">الرئيسية</a></li>
+          <li><a href="../index.html#products">المنتجات</a></li>
+          <li>
+            <a href="../cart.html" class="cart-link" style="position: relative; display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 12px;">
+              <i class="fas fa-shopping-cart"></i> السلة
+              <span id="cart-count" class="cart-badge" style="
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                background: linear-gradient(135deg, #dc2626, #991b1b);
+                color: white;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                font-size: 11px;
+                font-weight: 900;
+                border: 2px solid white;
+              ">0</span>
+            </a>
+          </li>
+          <li><a href="../contact.html">اتصل بنا</a></li>
+        </ul>
+      </nav>
     </div>
-  </header>
-
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="../index.html#home">الرئيسية</a>
-    <a href="../index.html#products">المنتجات</a>
-    <a href="../cart.html"><i class="fas fa-shopping-cart"></i> السلة</a>
-    <a href="../shipping.html">سياسة الشحن</a>
-    <a href="../refund.html">سياسة الإرجاع</a>
-    <a href="../terms.html">الشروط والأحكام</a>
-    <a href="../privacy.html">سياسة الخصوصية</a>
-    <a href="../contact.html">اتصل بنا</a>
   </div>
+</header>
 
-  <script>
-    // تحديث عدد عناصر السلة
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-      const countElement = document.getElementById('cart-count');
-      if (countElement) {
-        countElement.textContent = totalItems;
+<style>
+.header {
+  background: linear-gradient(135deg, #007A3D 0%, #00a651 50%, #FFD700 100%);
+  color: white;
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border-bottom: 3px solid #FFD700;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo h1 {
+  font-size: clamp(18px, 4.5vw, 26px);
+  font-weight: 900;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.nav ul {
+  display: flex;
+  list-style: none;
+  gap: clamp(12px, 3vw, 24px);
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: clamp(12px, 2.8vw, 15px);
+  transition: all 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.nav a:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+}
+
+.cart-link:hover {
+  background: rgba(255,255,255,0.25) !important;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-3px); }
+  60% { transform: translateY(-1px); }
+}
+
+@media (max-width: 768px) {
+  .nav ul {
+    gap: 8px;
+  }
+  
+  .nav a {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+}
+</style>
+
+<script>
+// تحديث عداد السلة عند التحميل
+document.addEventListener('DOMContentLoaded', () => {
+  function updateCartCount() {
+    try {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+      const badge = document.getElementById('cart-count');
+      
+      if (badge) {
+        badge.textContent = totalItems;
+        badge.style.display = totalItems > 0 ? 'flex' : 'none';
+        
+        if (totalItems > 0) {
+          badge.style.animation = 'bounce 0.6s ease';
+          setTimeout(() => {
+            if (badge) badge.style.animation = '';
+          }, 600);
+        }
       }
+    } catch (e) {
+      console.log('Cart count update error:', e);
     }
-    
-    // تشغيل التحديث عند تحميل الصفحة
-    document.addEventListener('DOMContentLoaded', updateCartCount);
-    
-    // تبديل القائمة في الموبايل
-    document.getElementById('mobileNavBtn')?.addEventListener('click', () => {
-      const menu = document.getElementById('mobileMenu');
-      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    });
-
-    // إغلاق القائمة عند النقر خارجها
-    window.addEventListener('click', (e) => {
-      const btn = document.getElementById('mobileNavBtn');
-      const menu = document.getElementById('mobileMenu');
-      if (menu && btn && !btn.contains(e.target) && !menu.contains(e.target)) {
-        menu.style.display = 'none';
-      }
-    });
-  </script>
-</body>
-</html>
+  }
+  
+  // تحديث فوري
+  updateCartCount();
+  
+  // استماع لتحديثات السلة
+  window.addEventListener('cart:updated', updateCartCount);
+});
+</script>
