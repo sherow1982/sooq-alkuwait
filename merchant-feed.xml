@@ -1,30 +1,43 @@
-<?xml version="1.0" ?>
-<rss xmlns:ns0="http://base.google.com/ns/1.0" xmlns:g="http://base.google.com/ns/1.0" version="2.0">
-  <channel>
-    <title>سوق الكويت - 1977 منتج</title>
-    <link>https://sherow1982.github.io/sooq-alkuwait/</link>
-    <description>أكثر من 1977 منتج عالي الجودة في سوق الكويت</description>
-    <language>ar</language>
-    <item>
-      <ns0:id>SOOQ-0001</ns0:id>
-      <ns0:title>شاحن لاسلكي 3 فى 1</ns0:title>
-      <ns0:description>شاحن لاسلكي 3 فى 1 من سوق الكويت - إلكترونيات. منتج عالي الجودة بأفضل الأسعار وشحن مجاني داخل الكويت.</ns0:description>
-      <ns0:link>https://sherow1982.github.io/sooq-alkuwait/products-pages/product-1-شاحن-لاسلكي-3-فى-1.html</ns0:link>
-      <ns0:image_link>https://via.placeholder.com/600x600/2d5230/ffffff?text=إلكترونيات</ns0:image_link>
-      <ns0:condition>new</ns0:condition>
-      <ns0:availability>in stock</ns0:availability>
-      <ns0:price>15 KWD</ns0:price>
-      <ns0:sale_price>10 KWD</ns0:sale_price>
-      <ns0:brand>سوق الكويت</ns0:brand>
-      <ns0:product_category>Electronics</ns0:product_category>
-      <ns0:custom_label_0>إلكترونيات</ns0:custom_label_0>
-      <ns0:gtin>123450000001</ns0:gtin>
-      <ns0:mpn>SOOQ-MPN-0001</ns0:mpn>
-      <ns0:shipping>
-        <ns0:country>KW</ns0:country>
-        <ns0:service>Standard</ns0:service>
-        <ns0:price>0 KWD</ns0:price>
-      </ns0:shipping>
-    </item>
-  </channel>
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+<channel>
+<title>سوق الكويت - 1977 منتج</title>
+<link>https://sooq-alkuwait.arabsad.com/</link>
+<description>أكثر من 1977 منتج عالي الجودة</description>
+<language>ar</language>
+<item>
+<g:id>SOOQ-0001</g:id>
+<g:title>شاحن لاسلكي</g:title>
+<g:description>شاحن لاسلكي من سوق الكويت - إلكترونيات</g:description>
+<g:link>https://sooq-alkuwait.arabsad.com/products-pages/product-1-شاحن-لاسلكي.html</g:link>
+<g:image_link>https://via.placeholder.com/600x600/2d5230/ffffff?text=إلكترونيات</g:image_link>
+<g:condition>new</g:condition>
+<g:availability>in stock</g:availability>
+<g:price>15 KWD</g:price>
+<g:sale_price>10 KWD</g:sale_price>
+<g:brand>سوق الكويت</g:brand>
+<g:product_category>Electronics</g:product_category>
+<g:custom_label_0>إلكترونيات</g:custom_label_0>
+<g:gtin>123450000001</g:gtin>
+<g:mpn>SOOQ-MPN-0001</g:mpn>
+<g:shipping><g:country>KW</g:country><g:service>Standard</g:service><g:price>0 KWD</g:price></g:shipping>
+</item>
+<item>
+<g:id>SOOQ-0002</g:id>
+<g:title>سوبر شاحن لاسلكي</g:title>
+<g:description>سوبر شاحن لاسلكي من سوق الكويت - مطبخ</g:description>
+<g:link>https://sooq-alkuwait.arabsad.com/products-pages/product-2-سوبر-شاحن-لاسلكي.html</g:link>
+<g:image_link>https://via.placeholder.com/600x600/2d5230/ffffff?text=مطبخ</g:image_link>
+<g:condition>new</g:condition>
+<g:availability>in stock</g:availability>
+<g:price>16 KWD</g:price>
+<g:sale_price>11 KWD</g:sale_price>
+<g:brand>سوق الكويت</g:brand>
+<g:product_category>Kitchen</g:product_category>
+<g:custom_label_0>مطبخ</g:custom_label_0>
+<g:gtin>123450000002</g:gtin>
+<g:mpn>SOOQ-MPN-0002</g:mpn>
+<g:shipping><g:country>KW</g:country><g:service>Standard</g:service><g:price>0 KWD</g:price></g:shipping>
+</item>
+</channel>
 </rss>
