@@ -207,6 +207,7 @@
         transition: all 0.3s ease;
         cursor: pointer;
         border: 2px solid transparent;
+        position: relative;
     }
     
     .product-card:hover {
@@ -298,6 +299,8 @@
         display: block;
         text-align: center;
         transition: all 0.3s ease;
+        z-index: 2;
+        position: relative;
     }
     
     .whatsapp-order-btn:hover {
@@ -319,6 +322,8 @@
         display: block;
         text-align: center;
         transition: all 0.3s ease;
+        z-index: 2;
+        position: relative;
     }
     
     .view-btn:hover {
@@ -336,15 +341,140 @@
         cursor: pointer;
         font-size: 13px;
         font-weight: bold;
-        text-decoration: none;
-        display: block;
-        text-align: center;
         transition: all 0.3s ease;
+        z-index: 2;
+        position: relative;
     }
     
     .cart-btn:hover {
         transform: translateY(-1px);
         box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
+    }
+
+    /* السلة المنبثقة */
+    .cart-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        z-index: 1000;
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cart-content {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        max-width: 600px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        position: relative;
+        direction: rtl;
+    }
+
+    .close-cart {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: var(--ku-red);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    .cart-item {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        gap: 15px;
+    }
+
+    .cart-item img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .cart-item-details {
+        flex: 1;
+    }
+
+    .cart-item-title {
+        font-weight: bold;
+        color: var(--ku-green);
+        margin-bottom: 5px;
+    }
+
+    .cart-item-price {
+        color: var(--ku-red);
+        font-weight: bold;
+    }
+
+    .quantity-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .quantity-btn {
+        background: var(--ku-green);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .quantity-display {
+        font-weight: bold;
+        min-width: 30px;
+        text-align: center;
+    }
+
+    .cart-total {
+        text-align: center;
+        margin: 20px 0;
+        padding: 20px;
+        background: linear-gradient(135deg, var(--ku-green), #27ae60);
+        color: white;
+        border-radius: 15px;
+    }
+
+    .cart-total-amount {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .checkout-btn {
+        background: linear-gradient(135deg, var(--ku-red), #e74c3c);
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 25px;
+        width: 100%;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .checkout-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
     }
     
     @media (max-width: 768px) {
@@ -352,6 +482,7 @@
         .filter-tabs { justify-content: center; }
         .products-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
         .whatsapp-buttons { flex-direction: column; align-items: center; }
+        .cart-content { width: 95%; padding: 20px; }
     }
     </style>
 </head>
@@ -460,6 +591,22 @@
             </div>
         </div>
     </section>
+
+    <!-- مودال السلة -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <button class="close-cart" onclick="closeCart()">×</button>
+            <h2 style="color: var(--ku-green); text-align: center; margin-bottom: 20px;">🛒 سلة التسوق</h2>
+            <div id="cart-items"></div>
+            <div class="cart-total" id="cart-total-section" style="display: none;">
+                <div style="font-size: 18px; margin-bottom: 10px;">المجموع الكلي:</div>
+                <div class="cart-total-amount" id="cart-total-amount">0 د.ك</div>
+                <button class="checkout-btn" onclick="proceedToCheckout()">
+                    📞 إتمام الطلب عبر واتساب
+                </button>
+            </div>
+        </div>
+    </div>
     
     <!-- الفوتر -->
     <footer class="footer">
@@ -518,10 +665,7 @@
             {"id": 4, "title": "شورت نسائي لشد الجسم وتحديد القوام ببطانة ناعمة", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3708/amoikhxD7TbPnUdUOruMVdv4aQjZr6t91AofyS2J.jpg", "description": "قطعة ملابس داخلية نسائية عالية الجودة توفر الراحة والدعم المطلوبين."},
             {"id": 5, "title": "محول كهرباء 220 فولت إلى 12 فولت لأجهزة السيارات", "price": 25, "sale_price": 18, "image_link": "https://ecomerg.com/uploads/products_images/3707/dn7pad0vVoy7IWU2SR44OV23VAge2fpMFIjVsoto.jpg", "description": "محول كهرباء عالي الكفاءة لتشغيل أجهزة السيارات في المنزل."},
             {"id": 6, "title": "شامبو صلب طبيعي من Nature Triangle للعناية بالشعر", "price": 22, "sale_price": 16, "image_link": "https://ecomerg.com/uploads/products_images/3706/9OXos2uBDi3ppfQTkYK7kto3ctR0xQ3wGaCpiwJT.jpg", "description": "شامبو طبيعي صلب يحتوي على مكونات طبيعية مغذية للشعر."},
-            {"id": 7, "title": "سيروم الأرز والهيالورونيك أسيد من BIOAQUA المضاد للشيخوخة", "price": 28, "sale_price": 20, "image_link": "https://ecomerg.com/uploads/products_images/3700/LjlQjSyR8qdpjsOyvWxGo5VPLJUXzGBDrxFnCvDl.jpg", "description": "سيروم عناية متقدم للبشرة يحتوي على مكونات طبيعية فعالة ضد علامات الشيخوخة."},
-            {"id": 8, "title": "جهاز تنظيف السجاد المحمول من raf عالي الكفاءة", "price": 45, "sale_price": 35, "image_link": "https://ecomerg.com/uploads/products_images/3699/KJYO8WjQgK0XH4DrsKG6WPj2qXVtxNv0ZbIfCYvb.jpg", "description": "جهاز تنظيف محمول متطور يوفر تنظيفاً عميقاً للسجاد والمفروشات."},
-            {"id": 9, "title": "صانعة القهوة التركية الكهربائية من سوكاني", "price": 50, "sale_price": 38, "image_link": "https://ecomerg.com/uploads/products_images/3698/nMFRdBWdC8Z1ALEXbM5iBZ5wl8RNXca9FgjOYCFu.jpg", "description": "آلة صنع القهوة التركية الأصيلة بطعم مميز."},
-            {"id": 10, "title": "روبوت كهربائي تفاعلي للحيوانات الأليفة بجهاز تحكم", "price": 32, "sale_price": 24, "image_link": "https://ecomerg.com/uploads/products_images/3697/bY4I5rg81UW2x1sANRVweB5O6CwD4PrvUPU7Qo5f.jpg", "description": "لعبة إلكترونية تفاعلية للأطفال تحاكي الحيوانات الأليفة الحقيقية."}
+            {"id": 7, "title": "سيروم الأرز والهيالورونيك أسيد من BIOAQUA المضاد للشيخوخة", "price": 28, "sale_price": 20, "image_link": "https://ecomerg.com/uploads/products_images/3700/LjlQjSyR8qdpjsOyvWxGo5VPLJUXzGBDrxFnCvDl.jpg", "description": "سيروم عناية متقدم للبشرة يحتوي على مكونات طبيعية فعالة ضد علامات الشيخوخة."}
         ];
         
         let allProducts = [];
@@ -547,24 +691,111 @@
             localStorage.setItem('sooq-cart', JSON.stringify(cart));
             updateCartCount();
             
-            alert(`تمت إضافة "${product.title}" إلى السلة!`);
+            // تأثير بصري
+            const addedMessage = document.createElement('div');
+            addedMessage.style.cssText = `
+                position: fixed; 
+                top: 20px; 
+                right: 20px; 
+                background: linear-gradient(135deg, #27ae60, #2ecc71);
+                color: white; 
+                padding: 15px 25px; 
+                border-radius: 10px; 
+                z-index: 1001; 
+                font-weight: bold;
+                box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+            `;
+            addedMessage.textContent = `✅ تمت إضافة المنتج للسلة!`;
+            document.body.appendChild(addedMessage);
+            
+            setTimeout(() => {
+                document.body.removeChild(addedMessage);
+            }, 3000);
         }
         
         // فتح السلة
         function openCart() {
+            const modal = document.getElementById('cart-modal');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotalSection = document.getElementById('cart-total-section');
+            const cartTotalAmount = document.getElementById('cart-total-amount');
+            
             if (cart.length === 0) {
-                alert('السلة فارغة! أضف بعض المنتجات أولاً.');
+                cartItems.innerHTML = '<div style="text-align: center; padding: 40px; color: #666;">🛒 السلة فارغة! أضف بعض المنتجات أولاً.</div>';
+                cartTotalSection.style.display = 'none';
+            } else {
+                let total = 0;
+                cartItems.innerHTML = cart.map(item => {
+                    total += item.sale_price * item.quantity;
+                    return `
+                        <div class="cart-item">
+                            <img src="${item.image_link}" alt="${item.title}">
+                            <div class="cart-item-details">
+                                <div class="cart-item-title">${item.title}</div>
+                                <div class="cart-item-price">${item.sale_price} د.ك</div>
+                            </div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
+                                <span class="quantity-display">${item.quantity}</span>
+                                <button class="quantity-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
+                                <button class="quantity-btn" style="background: var(--ku-red);" onclick="removeFromCart(${item.id})">🗑️</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                cartTotalAmount.textContent = `${total.toFixed(2)} د.ك`;
+                cartTotalSection.style.display = 'block';
+            }
+            
+            modal.style.display = 'flex';
+        }
+        
+        // إغلاق السلة
+        function closeCart() {
+            document.getElementById('cart-modal').style.display = 'none';
+        }
+        
+        // تغيير الكمية
+        function changeQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    localStorage.setItem('sooq-cart', JSON.stringify(cart));
+                    updateCartCount();
+                    openCart(); // إعادة عرض السلة
+                }
+            }
+        }
+        
+        // حذف من السلة
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('sooq-cart', JSON.stringify(cart));
+            updateCartCount();
+            openCart(); // إعادة عرض السلة
+        }
+        
+        // إتمام الطلب
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                alert('السلة فارغة!');
                 return;
             }
             
             let total = 0;
-            let cartDetails = cart.map(item => {
+            let cartDetails = cart.map((item, index) => {
                 total += item.sale_price * item.quantity;
-                return `${item.title} - الكمية: ${item.quantity} - السعر: ${item.sale_price} د.ك`;
+                return `${index + 1}. ${item.title}%0A   الكمية: ${item.quantity}%0A   السعر: ${item.sale_price} د.ك%0A   المجموع: ${(item.sale_price * item.quantity).toFixed(2)} د.ك%0A`;
             }).join('%0A');
             
-            const whatsappMessage = `مرحباً، أريد طلب هذه المنتجات:%0A${cartDetails}%0A%0Aالمجموع الكلي: ${total.toFixed(2)} د.ك`;
-            window.open(`https://wa.me/201110760081?text=${whatsappMessage}`, '_blank');
+            const orderSummary = `🛒 طلب جديد من سوق الكويت:%0A%0A${cartDetails}%0A📊 المجموع الكلي: ${total.toFixed(2)} د.ك%0A%0A📦 شحن مجاني لجميع أنحاء الكويت%0A⏰ التوصيل خلال 24-48 ساعة%0A%0A📱 يرجى تأكيد الطلب وإرسال عنوان التوصيل`;
+            
+            window.open(`https://wa.me/201110760081?text=${orderSummary}`, '_blank');
+            closeCart();
         }
         
         // تحميل بيانات المنتجات
@@ -602,7 +833,6 @@
         
         // إنشاء رابط صفحة المنتج
         function createProductSlug(title) {
-            // إزالة الأحرف الخاصة والمسافات وتحويلها لـ slug
             return title.replace(/[\s\u00A0]+/g, '-')
                       .replace(/[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFFa-zA-Z0-9\-]/g, '')
                       .replace(/-+/g, '-')
@@ -651,6 +881,14 @@
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
                 
+                // جعل البطاقة كاملة قابلة للنقر
+                productCard.addEventListener('click', function(e) {
+                    // التأكد من أن النقر ليس على الأزرار
+                    if (!e.target.closest('button') && !e.target.closest('a')) {
+                        window.open(productPagePath, '_blank');
+                    }
+                });
+                
                 productCard.innerHTML = `
                     <img src="${product.image_link}" alt="${product.title}" class="product-image" loading="lazy" 
                          onerror="this.src='https://via.placeholder.com/300x220/2d5230/ffffff?text=منتج+سوق+الكويت'">
@@ -674,15 +912,15 @@
                         
                         <div class="product-buttons">
                             <a href="https://wa.me/201110760081?text=مرحباً، أريد طلب: ${encodeURIComponent(product.title)} - السعر: ${product.sale_price} د.ك - رقم المنتج: SOOQ-${product.id.toString().padStart(4, '0')}" 
-                               class="whatsapp-order-btn" target="_blank">
+                               class="whatsapp-order-btn" target="_blank" onclick="event.stopPropagation()">
                                 💬 طلب عبر واتساب
                             </a>
                             
-                            <a href="${productPagePath}" class="view-btn" target="_blank">
+                            <a href="${productPagePath}" class="view-btn" target="_blank" onclick="event.stopPropagation()">
                                 👁️ عرض تفاصيل المنتج
                             </a>
                             
-                            <button class="cart-btn" onclick="addToCart({id: ${product.id}, title: '${product.title.replace(/'/g, "\\\\'")}', price: ${product.price}, sale_price: ${product.sale_price}, image_link: '${product.image_link}'})">
+                            <button class="cart-btn" onclick="event.stopPropagation(); addToCart({id: ${product.id}, title: '${product.title.replace(/'/g, "\\'")}', price: ${product.price}, sale_price: ${product.sale_price}, image_link: '${product.image_link}'})">
                                 🛒 أضف إلى السلة
                             </button>
                         </div>
@@ -816,6 +1054,13 @@
         document.addEventListener('keypress', function(e) {
             if (e.key === 'Enter' && document.activeElement && document.activeElement.id === 'search-input') {
                 performSearch();
+            }
+        });
+
+        // إغلاق السلة عند النقر خارجها
+        document.getElementById('cart-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCart();
             }
         });
     </script>
