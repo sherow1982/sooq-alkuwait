@@ -15,11 +15,328 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
-    /* ... نفس الستايلات الحالية بدون تغيير ... */
+        .catalog-page {
+            padding-top: 100px;
+            min-height: 100vh;
+            background: #f8f9fa;
+        }
+        
+        .catalog-header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--ku-green), var(--ku-red));
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .catalog-header h1 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+        
+        .catalog-header p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+        
+        .search-and-filter {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--ku-green);
+        }
+        
+        .filter-tabs {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .filter-tab {
+            background: #f0f0f0;
+            color: #666;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            border: none;
+            font-size: 14px;
+        }
+        
+        .filter-tab.active {
+            background: var(--ku-green);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(45, 82, 48, 0.3);
+        }
+        
+        .filter-tab:hover {
+            background: var(--ku-green);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 25px;
+        }
+        
+        .product-title {
+            color: var(--ku-green);
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .price-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .original-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 16px;
+        }
+        
+        .current-price {
+            color: var(--ku-red);
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .product-meta {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .product-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .whatsapp-order-btn, .view-btn, .cart-btn {
+            padding: 12px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-order-btn {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+        }
+        
+        .whatsapp-order-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+        
+        .view-btn {
+            background: var(--ku-green);
+            color: white;
+        }
+        
+        .view-btn:hover {
+            background: #1e3d20;
+            transform: translateY(-2px);
+        }
+        
+        .cart-btn {
+            background: var(--ku-gold);
+            color: var(--ku-black);
+        }
+        
+        .cart-btn:hover {
+            background: #e6c200;
+            transform: translateY(-2px);
+        }
+        
+        .results-info {
+            text-align: center;
+            margin: 30px 0;
+            color: #666;
+            font-size: 18px;
+        }
+        
+        @media (max-width: 768px) {
+            .catalog-header h1 {
+                font-size: 32px;
+            }
+            
+            .filter-tabs {
+                justify-content: center;
+            }
+            
+            .filter-tab {
+                font-size: 13px;
+                padding: 10px 20px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- ... نفس الهيكل مع tabs ... -->
+    <!-- Header -->
+    <header class="header">
+        <div class="container nav">
+            <a class="logo" href="index.html">
+                <span class="logo-badge"></span>
+                <span>سوق الكويت</span>
+            </a>
+            <nav class="menu">
+                <a href="index.html">الرئيسية</a>
+                <a href="#products">المنتجات</a>
+                <a href="cart.html">السلة <span id="cart-count">0</span></a>
+                <a href="about.html">من نحن</a>
+            </nav>
+            <a class="cta" href="https://wa.me/201110760081">واتساب</a>
+        </div>
+    </header>
+    
+    <!-- Catalog Page -->
+    <main class="catalog-page">
+        <!-- Header Section -->
+        <section class="catalog-header">
+            <div class="container">
+                <h1>🛍️ كتالوج المنتجات الشامل</h1>
+                <p>اكتشف <span id="total-products">1977</span> منتج بأفضل الأسعار في الكويت</p>
+            </div>
+        </section>
+        
+        <div class="container">
+            <!-- Search and Filter -->
+            <div class="search-and-filter">
+                <input type="text" id="search-input" class="search-input" 
+                       placeholder="🔍 ابحث عن منتجك المفضل...">
+                
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-category="الكل">الكل</button>
+                    <button class="filter-tab" data-category="الأطفال">🧸 الأطفال</button>
+                    <button class="filter-tab" data-category="المطبخ">🍽️ المطبخ</button>
+                    <button class="filter-tab" data-category="الملابس">👕 الملابس</button>
+                    <button class="filter-tab" data-category="السيارات">🚗 السيارات</button>
+                    <button class="filter-tab" data-category="العناية">💄 العناية</button>
+                </div>
+            </div>
+            
+            <!-- Results Info -->
+            <div class="results-info">
+                📊 عرض <span id="products-count">1977</span> منتج من إجمالي <span id="total-products-display">1977</span> منتج
+            </div>
+            
+            <!-- Products Grid -->
+            <div id="products-container" class="products-grid">
+                <!-- المنتجات ستظهر هنا -->
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container cols">
+            <div>
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+                    <span class="logo-badge"></span>
+                    <strong style="font-size:20px">سوق الكويت</strong>
+                </div>
+                <p>تجربة تسوّق حديثة بألوان العلم — سرعة، أمان، أناقة.</p>
+                <div style="margin-top:20px">
+                    <a class="cta" href="https://wa.me/201110760081">محادثة واتساب</a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 style="color:#c9d1d9;margin-bottom:12px">الروابط السريعة</h4>
+                <ul style="list-style:none;line-height:2.2">
+                    <li><a href="products-catalog.html">📦 المنتجات (1977)</a></li>
+                    <li><a href="cart.html">🛍️ سلة التسوق</a></li>
+                    <li><a href="about.html">📋 من نحن</a></li>
+                    <li><a href="delivery.html">🚚 الشحن والتوصيل</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 style="color:#c9d1d9;margin-bottom:12px">الصفحات القانونية</h4>
+                <ul style="list-style:none;line-height:2.2">
+                    <li><a href="privacy.html">🔒 سياسة الخصوصية</a></li>
+                    <li><a href="terms.html">📄 الشروط والأحكام</a></li>
+                    <li><a href="refund.html">💰 سياسة الاسترداد</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 style="color:#c9d1d9;margin-bottom:12px">تواصل مباشر</h4>
+                <p style="color:#8b949e;line-height:1.8">📱 الهاتف: +201110760081</p>
+                <p style="color:#8b949e;line-line:1.8">📧 البريد: sooqalkuwait2010@gmail.com</p>
+                <p style="color:#f4d03f;font-weight:bold;margin-top:8px">⏰ خدمة 24/7</p>
+            </div>
+        </div>
+        
+        <div class="copy">
+            <div class="container" style="text-align:center">
+                <p>© 2025 سوق الكويت — Kuwait Modern Theme | جميع الحقوق محفوظة 🇰🇼</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // تحميل كامل المنتجات من JSON (1977)
@@ -58,6 +375,23 @@
                 const data = await res.json();
                 allProducts = data;
                 document.getElementById('total-products').textContent = allProducts.length;
+                document.getElementById('total-products-display').textContent = allProducts.length;
+                
+                // التحقق من وجود فلتر محفوظ من الصفحة الرئيسية
+                const savedCategory = localStorage.getItem('selectedCategory');
+                if (savedCategory && savedCategory !== 'الكل') {
+                    // تفعيل التبويب المطلوب
+                    const tabs = document.querySelectorAll('.filter-tab');
+                    tabs.forEach(tab => {
+                        tab.classList.remove('active');
+                        if (tab.dataset.category === savedCategory) {
+                            tab.classList.add('active');
+                        }
+                    });
+                    // حذف الفلتر المحفوظ
+                    localStorage.removeItem('selectedCategory');
+                }
+                
                 render(allProducts);
                 setupSearchAndFilter();
             }catch(e){
@@ -100,7 +434,7 @@
         function setupSearchAndFilter(){
             const searchInput = document.getElementById('search-input');
             const tabs = document.querySelectorAll('.filter-tab');
-            let currentCategory = 'الكل';
+            let currentCategory = document.querySelector('.filter-tab.active')?.dataset.category || 'الكل';
 
             const run = () => {
                 const q = (searchInput?.value || '').toLowerCase();
