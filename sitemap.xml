@@ -51,33 +51,36 @@
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
+
+    <!-- جميع صفحات المنتجات (1977 منتج) -->
     <url>
         <loc>https://sherow1982.github.io/sooq-alkuwait/products-pages/product-1-شاحن-لاسلكي-3-فى-1.html</loc>
         <lastmod>2025-11-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://sherow1982.github.io/sooq-alkuwait/products-pages/product-2-ميزان-الكتروني-200-كجم-HD.html</loc>
         <lastmod>2025-11-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://sherow1982.github.io/sooq-alkuwait/products-pages/product-3-ميزان-رقمي.html</loc>
         <lastmod>2025-11-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://sherow1982.github.io/sooq-alkuwait/products-pages/product-4-مضخات-المياه.html</loc>
         <lastmod>2025-11-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://sherow1982.github.io/sooq-alkuwait/products-pages/product-5-مروحة-رذاذ-مزدوجة-قابلة-للنقل.html</loc>
         <lastmod>2025-11-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
+</urlset>
