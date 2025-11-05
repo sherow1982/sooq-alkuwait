@@ -6,53 +6,84 @@
   <title>سوق الكويت - متجر إلكتروني موثوق للمنتجات عالية الجودة</title>
   <meta name="description" content="متجر إلكتروني كويتي للمنتجات المتنوعة - موقع تجاري يقدم تشكيلة واسعة من المنتجات عالية الجودة بأسعار منافسة وتوصيل مجاني داخل الكويت">
   <meta name="keywords" content="سوق الكويت, متجر إلكتروني, منتجات عالية الجودة, توصيل مجاني, الكويت">
+  
+  <!-- Meta Tags للـ SEO -->
   <link rel="canonical" href="https://sooq-alkuwait.arabsad.com/">
   <meta property="og:title" content="سوق الكويت - متجر إلكتروني موثوق">
   <meta property="og:description" content="منتجات عالية الجودة بأسعار منافسة في الكويت">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sooq-alkuwait.arabsad.com/">
-  <link rel="stylesheet" href="styles.css">
+  <meta property="og:image" content="https://sooq-alkuwait.arabsad.com/assets/images/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <!-- خطوط Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  
+  <!-- CSS منظم -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "سوق الكويت",
+    "description": "متجر إلكتروني كويتي للمنتجات المتنوعة",
+    "url": "https://sooq-alkuwait.arabsad.com",
+    "logo": "https://sooq-alkuwait.arabsad.com/assets/images/logo.png",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+201110760081",
+      "contactType": "customer service",
+      "availableLanguage": ["Arabic", "English"]
+    },
+    "sameAs": [
+      "https://wa.me/201110760081"
+    ]
+  }
+  </script>
 </head>
 <body>
+  <!-- رأس الصفحة -->
   <div id="site-header"></div>
 
-  <!-- Hero Section -->
+  <!-- قسم البطل الرئيسي -->
   <section id="home" class="hero">
     <div class="container">
       <div class="hero-content">
         <h1>مرحباً بك في سوق الكويت 🇰🇼</h1>
         <p>متجرك الإلكتروني الموثوق للمنتجات عالية الجودة بأسعار منافسة</p>
+        
+        <!-- شريط البحث -->
+        <div class="search-container">
+          <div class="search-box">
+            <input type="text" id="search-input" placeholder="ابحث عن المنتجات..." autocomplete="off">
+            <button type="button" onclick="searchProducts()">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+        
         <a href="#products" class="cta-button">
           <i class="fas fa-shopping-bag"></i> تابع التسوق الآن
         </a>
         
         <!-- عداد تنازلي للصفحة الرئيسية -->
-        <div style="
-          background: linear-gradient(135deg, #dc2626, #991b1b);
-          color: white;
-          text-align: center;
-          padding: 16px 20px;
-          border-radius: 12px;
-          margin-top: 24px;
-          border: 2px solid #FFD700;
-          box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-        ">
-          <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">
+        <div class="countdown-container">
+          <div class="countdown-label">
             🔥 عروض محدودة لمدة 24 ساعة فقط!
           </div>
-          <div class="hero-countdown" style="
-            background: rgba(0,0,0,0.3);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 24px;
-            font-weight: 900;
-            color: #FFD700;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-          ">--:--:--</div>
-          <div style="font-size: 14px; margin-top: 8px; opacity: 0.9;">
+          <div class="hero-countdown countdown-timer">--:--:--</div>
+          <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #FFD700;">
             ⚡ لا تفوت الفرصة!
           </div>
         </div>
@@ -60,47 +91,61 @@
     </div>
   </section>
 
-  <!-- Products Section -->
+  <!-- قسم المنتجات -->
   <section id="products" class="products-section">
     <div class="container">
       <h2>منتجاتنا المميزة 🎆</h2>
+      
+      <!-- شبكة المنتجات -->
       <div class="products-grid" id="products-grid">
-        <!-- سيتم تحميل المنتجات هنا -->
+        <!-- سيتم تحميل المنتجات هنا ديناميكياً -->
       </div>
-      <div class="loading" id="loading" style="text-align: center; padding: 2rem;">
-        <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--kuwait-green, #007A3D);"></i>
+      
+      <!-- حالة التحميل -->
+      <div class="loading" id="loading">
+        <i class="fas fa-spinner fa-spin"></i>
         <p>جاري تحميل المنتجات...</p>
+      </div>
+      
+      <!-- زر تحميل المزيد -->
+      <div class="load-more-container" style="display: none;">
+        <button class="btn-load-more" onclick="productManager.loadMore()">
+          <i class="fas fa-plus-circle"></i> تحميل المزيد
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- Features Section -->
+  <!-- قسم الميزات -->
   <section class="features-section">
     <div class="container">
       <h2>لماذا تختار سوق الكويت؟</h2>
       <div class="features-grid">
-        <div class="feature-card">
+        <div class="feature-card slide-up">
           <div class="feature-icon">
             <i class="fas fa-shipping-fast"></i>
           </div>
           <h3>توصيل مجاني وسريع</h3>
           <p>توصيل مجاني لجميع محافظات الكويت خلال 24 ساعة</p>
         </div>
-        <div class="feature-card">
+        
+        <div class="feature-card slide-up">
           <div class="feature-icon">
             <i class="fas fa-shield-alt"></i>
           </div>
           <h3>ضمان الجودة</h3>
           <p>جميع منتجاتنا مضمونة وتأتي بأعلى معايير الجودة</p>
         </div>
-        <div class="feature-card">
+        
+        <div class="feature-card slide-up">
           <div class="feature-icon">
             <i class="fas fa-headset"></i>
           </div>
           <h3>خدمة عملاء متميزة</h3>
           <p>فريق خدمة العملاء متاح 24/7 لمساعدتك</p>
         </div>
-        <div class="feature-card">
+        
+        <div class="feature-card slide-up">
           <div class="feature-icon">
             <i class="fas fa-money-bill-wave"></i>
           </div>
@@ -111,63 +156,120 @@
     </div>
   </section>
 
+  <!-- تذييل الصفحة -->
   <div id="site-footer"></div>
 
-  <script src="router.js"></script>
-  <script src="script.js"></script>
-  <script src="partials/partials-loader.js" defer></script>
-  <script src="cart-core.js" defer></script>
-  <script src="homepage-countdown.js" defer></script>
-  <script src="purchase-notifications.js" defer></script>
-  <script src="dynamic-schema.js" defer></script>
-  
-  <script>
-  // عداد تنازلي للهيرو في الصفحة الرئيسية
-  document.addEventListener('DOMContentLoaded', () => {
-    function updateHeroCountdown() {
-      const display = document.querySelector('.hero-countdown');
-      if (!display) return;
-      
-      const now = new Date();
-      const tomorrow = new Date(now);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      tomorrow.setHours(0, 0, 0, 0);
-      
-      const timeLeft = tomorrow - now;
-      
-      if (timeLeft <= 0) {
-        display.textContent = '00:00:00';
-        return;
-      }
-      
-      const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-      
-      display.textContent = 
-        String(hours).padStart(2, '0') + ':' +
-        String(minutes).padStart(2, '0') + ':' +
-        String(seconds).padStart(2, '0');
-      
-      // تأثير نبض عندما يقل الوقت عن ساعة
-      if (timeLeft < 3600000) {
-        display.style.animation = 'pulse 1s infinite';
-      }
+  <!-- إشعارات السلة -->
+  <style>
+    .cart-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #00A651, #008a44);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,166,81,0.3);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transform: translateX(100%);
+      opacity: 0;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
     }
     
-    // إضافة أنيميشن النبض
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-      }
-    `;
-    document.head.appendChild(style);
+    .cart-notification.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
     
-    updateHeroCountdown();
-    setInterval(updateHeroCountdown, 1000);
-  });
+    .cart-notification i {
+      font-size: 1.2rem;
+      color: #FFD700;
+    }
+    
+    .search-container {
+      margin: 2rem 0;
+    }
+  </style>
+
+  <!-- JavaScript منظم -->
+  <!-- الملفات الأساسية -->
+  <script src="assets/js/core.js" defer></script>
+  <script src="assets/js/utils/countdown.js" defer></script>
+  
+  <!-- المكونات -->
+  <script src="assets/js/components/header.js" defer></script>
+  <script src="assets/js/components/footer.js" defer></script>
+  
+  <!-- تهيئة التطبيق -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // تهيئة المكونات
+      window.headerComponent = new HeaderComponent();
+      window.footerComponent = new FooterComponent();
+      
+      // إضافة أنيميشن للبطاقات عند الظهور
+      const observeCards = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in');
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      document.querySelectorAll('.feature-card').forEach(card => {
+        observeCards.observe(card);
+      });
+      
+      // تحسين الأداء - lazy loading للصور
+      if ('loading' in HTMLImageElement.prototype) {
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        images.forEach(img => {
+          img.src = img.dataset.src || img.src;
+        });
+      } else {
+        // fallback للمتصفحات القديمة
+        const script = document.createElement('script');
+        script.src = 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver';
+        document.head.appendChild(script);
+      }
+    });
+    
+    // معالج الأخطاء العام
+    window.addEventListener('error', (e) => {
+      console.error('خطأ في التطبيق:', e.error);
+    });
+    
+    // تحسين الأداء - تأجيل تحميل الخطوط
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        const fontLink = document.createElement('link');
+        fontLink.href = 'https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap';
+        fontLink.rel = 'stylesheet';
+        document.head.appendChild(fontLink);
+      });
+    }
+  </script>
+  
+  <!-- Google Analytics (اختياري) -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script> -->
+  
+  <!-- Service Worker للـ PWA (اختياري) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('SW registered: ', registration);
+          })
+          .catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
   </script>
 </body>
 </html>
