@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>سوق الكويت 🇰🇼 - Kuwait Modern Theme | 374 منتج</title>
-  <meta name="description" content="متجر إلكتروني عصري بتصميم فاخر من ألوان علم الكويت مع أكثر من 374 منتج عالي الجودة بأفضل الأسعار.">
-  <meta name="keywords" content="سوق الكويت, Kuwait Modern Theme, ألوان علم الكويت">
+  <title>سوق الكويت 🇫🇼 - فئات منتجات عالية الجودة</title>
+  <meta name="description" content="استكشف فئات متنوعة من المنتجات عالية الجودة في سوق الكويت. ألعاب أطفال، مطبخ، ملابس، اكسسوارات، عناية شخصية وأكثر.">
+  <meta name="keywords" content="سوق الكويت, فئات منتجات, ألعاب أطفال, مطبخ, ملابس, عناية شخصية, تسوق الكتروني">
   
   <!-- ربط CSS الجديد -->
   <link rel="stylesheet" href="assets/css/kuwait-modern.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
   
   <!-- Open Graph -->
-  <meta property="og:title" content="سوق الكويت 🇰🇼 - Kuwait Modern Theme">
-  <meta property="og:description" content="متجر عصري بألوان علم الكويت - 374 منتج عالي الجودة">
+  <meta property="og:title" content="سوق الكويت 🇫🇼 - فئات منتجات عالية الجودة">
+  <meta property="og:description" content="استكشف فئات متنوعة من المنتجات عالية الجودة">
   <meta property="og:image" content="https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg">
+  <meta property="og:type" content="website">
   
   <style>
   .whatsapp-hero {
@@ -25,7 +26,7 @@
     position: relative;
   }
   
-  .whatsapp-buttons {
+  .contact-buttons {
     display: flex;
     gap: 20px;
     justify-content: center;
@@ -51,6 +52,7 @@
   .whatsapp-btn:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+    color: white;
   }
   
   .email-btn {
@@ -71,10 +73,86 @@
   .email-btn:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(192, 57, 43, 0.5);
+    color: white;
+  }
+  
+  .category-section {
+    padding: 60px 0;
+    background: #f8f9fa;
+  }
+  
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+  }
+  
+  .category-card {
+    background: white;
+    padding: 40px 25px;
+    border-radius: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .category-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    color: inherit;
+  }
+  
+  .category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--ku-green), var(--ku-red));
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .category-card:hover::before {
+    transform: translateX(0);
+  }
+  
+  .category-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    display: block;
+  }
+  
+  .category-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--ku-green);
+    margin-bottom: 15px;
+  }
+  
+  .category-description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .category-count {
+    background: var(--ku-gold);
+    color: var(--ku-black);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
   }
   
   @media (max-width: 768px) {
-    .whatsapp-buttons {
+    .contact-buttons {
       flex-direction: column;
       align-items: center;
     }
@@ -82,6 +160,19 @@
     .whatsapp-btn, .email-btn {
       width: 280px;
       justify-content: center;
+    }
+    
+    .category-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    
+    .category-icon {
+      font-size: 3rem;
+    }
+    
+    .category-title {
+      font-size: 20px;
     }
   }
   </style>
@@ -97,23 +188,23 @@
       <nav class="menu">
         <a href="products-catalog.html">المنتجات</a>
         <a href="#categories">الفئات</a>
+        <a href="cart.html">السلة</a>
         <a href="about.html">من نحن</a>
-        <a href="contact.html">اتصل بنا</a>
       </nav>
-      <a class="cta" href="tel:+201110760081">اطلب الآن</a>
+      <a class="cta" href="https://wa.me/201110760081">واتساب</a>
     </div>
   </header>
 
-  <!-- قسم أزرار الواتساب -->
+  <!-- قسم أزرار التواصل -->
   <section class="whatsapp-hero">
     <div class="container">
-      <h1 class="brand">🇰🇼 سوق الكويت</h1>
+      <h1 class="brand">🇫🇼 سوق الكويت</h1>
       <p class="tag">متجر إلكتروني عصري بتصميم فاخر من ألوان علم الكويت</p>
       
       <!-- الإحصائيات -->
       <div class="hero-stats">
         <div class="stat">
-          <div class="num">374</div>
+          <div class="num">1977</div>
           <div>منتج</div>
         </div>
         <div class="stat">
@@ -134,7 +225,7 @@
       <div class="count">⏰ العرض ينتهي خلال <span id="heroTimer">23:59:45</span></div>
       
       <!-- أزرار التواصل -->
-      <div class="whatsapp-buttons">
+      <div class="contact-buttons">
         <a href="https://wa.me/201110760081" class="whatsapp-btn" target="_blank">
           💬 محادثة واتساب فورية
         </a>
@@ -145,59 +236,91 @@
           📧 البريد الإلكتروني
         </a>
       </div>
-      
-      <div style="margin-top:30px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-        <a class="cta" href="products-catalog.html">تصفح المنتجات</a>
-      </div>
     </div>
   </section>
 
   <!-- فئات المنتجات -->
-  <section class="section categories" id="categories">
+  <section class="category-section" id="categories">
     <div class="container">
-      <h2 style="text-align:center;color:#2d5230;font-size:34px;margin-bottom:32px;font-weight:900">🏷️ فئات المنتجات</h2>
+      <h2 style="text-align:center;color:#2d5230;font-size:36px;margin-bottom:20px;font-weight:900">🏷️ فئات المنتجات</h2>
+      <p style="text-align:center;color:#666;font-size:18px;margin-bottom:50px">استكشف مجموعات متنوعة من المنتجات عالية الجودة بأفضل الأسعار</p>
       
-      <div class="cat-grid">
-        <a class="cat card" href="products-catalog.html?category=ألعاب%20الأطفال">
-          <div class="cat-head">
-            <div class="cat-title">🧸 ألعاب ولوازم الأطفال</div>
-          </div>
-          <div class="cat-body">حصالات • ألعاب تعليمية • روبوتات تفاعلية • أدوات آمنة</div>
+      <div class="category-grid">
+        <a class="category-card" href="products-catalog.html?category=ألعاب%20الأطفال">
+          <div class="category-icon">🧸</div>
+          <div class="category-title">ألعاب ولوازم الأطفال</div>
+          <div class="category-description">حصالات • ألعاب تعليمية • روبوتات تفاعلية • أدوات آمنة • مسدسات فقاعات</div>
+          <div class="category-count">عدد كبير من المنتجات</div>
         </a>
         
-        <a class="cat card" href="products-catalog.html?category=المطبخ">
-          <div class="cat-head">
-            <div class="cat-title">🍽️ المنزل والمطبخ</div>
-          </div>
-          <div class="cat-body">أدوات مطبخ • أجهزة صغيرة • معدات طبخ • لوازم منزلية</div>
+        <a class="category-card" href="products-catalog.html?category=المطبخ">
+          <div class="category-icon">🍽️</div>
+          <div class="category-title">المنزل والمطبخ</div>
+          <div class="category-description">أدوات مطبخ • أجهزة صغيرة • معدات طبخ • لوازم منزلية • غلايات قابلة للطي</div>
+          <div class="category-count">عدد كبير من المنتجات</div>
         </a>
         
-        <a class="cat card" href="products-catalog.html?category=الملابس">
-          <div class="cat-head">
-            <div class="cat-title">👕 الملابس والاكسسوارات</div>
-          </div>
-          <div class="cat-body">ملابس أساسية • رياضي • اكسسوارات • قطع مختارة</div>
+        <a class="category-card" href="products-catalog.html?category=الملابس">
+          <div class="category-icon">👕</div>
+          <div class="category-title">الملابس والاكسسوارات</div>
+          <div class="category-description">ملابس أساسية • رياضي • اكسسوارات • قبعات • حقائب يد • نظارات</div>
+          <div class="category-count">عدد كبير من المنتجات</div>
         </a>
         
-        <a class="cat card" href="products-catalog.html?category=السيارات">
-          <div class="cat-head">
-            <div class="cat-title">🚗 السيارات واكسسواراتها</div>
-          </div>
-          <div class="cat-body">محولات • قطع غيار • أدوات تنظيف • اكسسوارات</div>
+        <a class="category-card" href="products-catalog.html?category=السيارات">
+          <div class="category-icon">🚗</div>
+          <div class="category-title">السيارات واكسسواراتها</div>
+          <div class="category-description">حوامل هواتف • شواحن بطارية • مظلات شمس • مناديل • منظفات</div>
+          <div class="category-count">عدد كبير من المنتجات</div>
         </a>
         
-        <a class="cat card" href="products-catalog.html?category=العناية%20الشخصية">
-          <div class="cat-head">
-            <div class="cat-title">💄 العناية الشخصية</div>
-          </div>
-          <div class="cat-body">سيروم • شامبو • عناية طبيعية • مستحضرات</div>
+        <a class="category-card" href="products-catalog.html?category=العناية%20الشخصية">
+          <div class="category-icon">💄</div>
+          <div class="category-title">العناية الشخصية والجمال</div>
+          <div class="category-description">سيروم • شامبو • عناية طبيعية • مستحضرات • عطور • أدوات حلاقة</div>
+          <div class="category-count">عدد كبير من المنتجات</div>
         </a>
         
-        <a class="cat card" href="products-catalog.html?special=offers">
-          <div class="cat-head">
-            <div class="cat-title">🎆 عروض خاصة</div>
-          </div>
-          <div class="cat-body">خصومات حتى 50% • كميات محدودة • عروض موسمية</div>
+        <a class="category-card" href="products-catalog.html?category=الصحة">
+          <div class="category-icon">🏥</div>
+          <div class="category-title">الصحة والعافية</div>
+          <div class="category-description">مقاييس ضغط • جهاز حرارة • ميزان • جهاز تدليك • وسائد طبية</div>
+          <div class="category-count">عدد كبير من المنتجات</div>
+        </a>
+        
+        <a class="category-card" href="products-catalog.html?category=الإضاءة">
+          <div class="category-icon">💡</div>
+          <div class="category-title">الإضاءة والفوانيس</div>
+          <div class="category-description">مصابيح LED • فوانيس • إضاءة طارئة • أضواء شمسية • كشافات</div>
+          <div class="category-count">عدد كبير من المنتجات</div>
+        </a>
+        
+        <a class="category-card" href="products-catalog.html?category=الإلكترونيات">
+          <div class="category-icon">📱</div>
+          <div class="category-title">الإلكترونيات والتكنولوجيا</div>
+          <div class="category-description">سماعات بلوتوث • شواحن لاسلكية • مكبرات صوت • ساعات ذكية</div>
+          <div class="category-count">عدد كبير من المنتجات</div>
+        </a>
+        
+        <a class="category-card" href="products-catalog.html?category=الأدوات">
+          <div class="category-icon">🔧</div>
+          <div class="category-title">الأدوات والمعدات</div>
+          <div class="category-description">مثاقيب • طاحونة زاوية • مبراة سكاكين • خطافات • منفاخات هواء</div>
+          <div class="category-count">عدد كبير من المنتجات</div>
+        </a>
+        
+        <a class="category-card" href="products-catalog.html?special=offers">
+          <div class="category-icon">🎆</div>
+          <div class="category-title">عروض خاصة وخصومات</div>
+          <div class="category-description">خصومات حتى 50% • عروض موسمية • مجموعات مخفضة • كميات محدودة</div>
+          <div class="category-count">عروض محدودة</div>
+        </a>
+      </div>
+      
+      <!-- زر عرض جميع المنتجات -->
+      <div style="text-align:center;margin-top:50px">
+        <a href="products-catalog.html" class="cta" style="font-size:20px;padding:20px 50px">
+          📋 عرض جميع المنتجات (1977 منتج)
         </a>
       </div>
     </div>
@@ -220,9 +343,9 @@
       <div>
         <h4 style="color:#c9d1d9;margin-bottom:12px">الروابط السريعة</h4>
         <ul style="list-style:none;line-height:2.2">
-          <li><a href="products-catalog.html">📦 المنتجات (374)</a></li>
+          <li><a href="products-catalog.html">📦 المنتجات (1977)</a></li>
+          <li><a href="cart.html">🛍️ سلة التسوق</a></li>
           <li><a href="about.html">📋 من نحن</a></li>
-          <li><a href="contact.html">📞 اتصل بنا</a></li>
           <li><a href="delivery.html">🚚 الشحن والتوصيل</a></li>
         </ul>
       </div>
@@ -246,7 +369,7 @@
     
     <div class="copy">
       <div class="container" style="text-align:center">
-        <p>© 2025 سوق الكويت — Kuwait Modern Theme | جميع الحقوق محفوظة 🇰🇼</p>
+        <p>© 2025 سوق الكويت — Kuwait Modern Theme | جميع الحقوق محفوظة 🇫🇼</p>
       </div>
     </div>
   </footer>
@@ -289,13 +412,20 @@
     `;
     document.head.appendChild(style);
     
-    // معالجة البارامترات من URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('category');
-    if (category) {
-      console.log('تصفية حسب الفئة:', category);
-      // يمكن إضافة منطق تصفية هنا لاحقاً
-    }
+    // تأثيرات تفاعلية للفئات
+    document.addEventListener('DOMContentLoaded', function() {
+      const categoryCards = document.querySelectorAll('.category-card');
+      
+      categoryCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-15px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+    });
   </script>
 </body>
 </html>
