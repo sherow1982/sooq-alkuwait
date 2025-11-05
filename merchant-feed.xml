@@ -3,14 +3,14 @@
 <channel>
 <title>سوق الكويت - 1977 منتج</title>
 <link>https://sooq-alkuwait.arabsad.com/</link>
-<description>أكثر من 1977 منتج عالي الجودة</description>
+<description>1977 منتج عالي الجودة</description>
 <language>ar</language>
 <item>
-<g:id>SOOQ-0001</g:id>
+<g:id>S0001</g:id>
 <g:title>شاحن لاسلكي</g:title>
-<g:description>شاحن لاسلكي من سوق الكويت - إلكترونيات</g:description>
-<g:link>https://sooq-alkuwait.arabsad.com/products-pages/product-1-شاحن-لاسلكي.html</g:link>
-<g:image_link>https://via.placeholder.com/600x600/2d5230/ffffff?text=إلكترونيات</g:image_link>
+<g:description>شاحن لاسلكي - إلكترونيات</g:description>
+<g:link>https://sooq-alkuwait.arabsad.com/product-1-شاحن-لاسلكي.html</g:link>
+<g:image_link>https://via.placeholder.com/400x400/2d5230/fff?text=إلك</g:image_link>
 <g:condition>new</g:condition>
 <g:availability>in stock</g:availability>
 <g:price>15 KWD</g:price>
@@ -18,25 +18,8 @@
 <g:brand>سوق الكويت</g:brand>
 <g:product_category>Electronics</g:product_category>
 <g:custom_label_0>إلكترونيات</g:custom_label_0>
-<g:gtin>123450000001</g:gtin>
-<g:mpn>SOOQ-MPN-0001</g:mpn>
-<g:shipping><g:country>KW</g:country><g:service>Standard</g:service><g:price>0 KWD</g:price></g:shipping>
-</item>
-<item>
-<g:id>SOOQ-0002</g:id>
-<g:title>سوبر شاحن لاسلكي</g:title>
-<g:description>سوبر شاحن لاسلكي من سوق الكويت - مطبخ</g:description>
-<g:link>https://sooq-alkuwait.arabsad.com/products-pages/product-2-سوبر-شاحن-لاسلكي.html</g:link>
-<g:image_link>https://via.placeholder.com/600x600/2d5230/ffffff?text=مطبخ</g:image_link>
-<g:condition>new</g:condition>
-<g:availability>in stock</g:availability>
-<g:price>16 KWD</g:price>
-<g:sale_price>11 KWD</g:sale_price>
-<g:brand>سوق الكويت</g:brand>
-<g:product_category>Kitchen</g:product_category>
-<g:custom_label_0>مطبخ</g:custom_label_0>
-<g:gtin>123450000002</g:gtin>
-<g:mpn>SOOQ-MPN-0002</g:mpn>
+<g:gtin>1234500000001</g:gtin>
+<g:mpn>S0001</g:mpn>
 <g:shipping><g:country>KW</g:country><g:service>Standard</g:service><g:price>0 KWD</g:price></g:shipping>
 </item>
 </channel>
