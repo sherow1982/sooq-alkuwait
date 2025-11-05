@@ -1,0 +1,9 @@
+{
+  "name": "sooq-alkuwait-generator",
+  "version": "1.1.0",
+  "description": "مولد صفحات المنتجات - مسار products-pages متجاوب وSEO",
+  "main": "generate_all_products.js",
+  "scripts": {
+    "generate": "node generate_all_products.js"
+  }
+}
