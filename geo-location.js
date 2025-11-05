@@ -27,7 +27,7 @@ function showGeoWarning() {
     warning.id = 'geoWarning';
     warning.innerHTML = `
         <div style="background: var(--kuwait-red); color: white; padding: 15px; text-align: center; font-weight: 700; position: fixed; top: 0; left: 0; right: 0; z-index: 2000; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
-            <i class="fas fa-exclamation-triangle"></i> عفواً، أنت مقيم خارج الكويت. لن يتم إرسال طلبك
+            <i class="fas fa-exclamation-triangle"></i>  عفواً، أنت مقيم خارج الكويت. لن يتم إرسال طلبك - قم بايقاف ال VPN
         </div>
     `;
     document.body.insertBefore(warning, document.body.firstChild);
