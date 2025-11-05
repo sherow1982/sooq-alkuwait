@@ -6,53 +6,74 @@
   <title>سوق الكويت - متجر إلكتروني موثوق للمنتجات عالية الجودة</title>
   <meta name="description" content="متجر إلكتروني كويتي للمنتجات المتنوعة - موقع تجاري يقدم تشكيلة واسعة من المنتجات عالية الجودة بأسعار منافسة وتوصيل مجاني داخل الكويت">
   <meta name="keywords" content="سوق الكويت, متجر إلكتروني, منتجات عالية الجودة, توصيل مجاني, الكويت">
+  
+  <!-- Meta Tags للـ SEO -->
   <link rel="canonical" href="https://sooq-alkuwait.arabsad.com/">
   <meta property="og:title" content="سوق الكويت - متجر إلكتروني موثوق">
   <meta property="og:description" content="منتجات عالية الجودة بأسعار منافسة في الكويت">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sooq-alkuwait.arabsad.com/">
-  <link rel="stylesheet" href="styles.css">
+  <meta property="og:image" content="https://sooq-alkuwait.arabsad.com/assets/images/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <!-- خطوط Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  
+  <!-- CSS مبهر بألوان علم الكويت -->
+  <link rel="stylesheet" href="assets/css/kuwait-theme.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "سوق الكويت",
+    "description": "متجر إلكتروني كويتي للمنتجات المتنوعة",
+    "url": "https://sooq-alkuwait.arabsad.com",
+    "logo": "https://sooq-alkuwait.arabsad.com/assets/images/logo.png",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+201110760081",
+      "contactType": "customer service",
+      "availableLanguage": ["Arabic", "English"]
+    },
+    "sameAs": [
+      "https://wa.me/201110760081"
+    ]
+  }
+  </script>
 </head>
 <body>
+  <!-- رأس الصفحة -->
   <div id="site-header"></div>
 
-  <!-- Hero Section -->
+  <!-- قسم البطل الرئيسي -->
   <section id="home" class="hero">
     <div class="container">
       <div class="hero-content">
         <h1>مرحباً بك في سوق الكويت 🇰🇼</h1>
         <p>متجرك الإلكتروني الموثوق للمنتجات عالية الجودة بأسعار منافسة</p>
+        
         <a href="#products" class="cta-button">
           <i class="fas fa-shopping-bag"></i> تابع التسوق الآن
         </a>
         
         <!-- عداد تنازلي للصفحة الرئيسية -->
-        <div style="
-          background: linear-gradient(135deg, #dc2626, #991b1b);
-          color: white;
-          text-align: center;
-          padding: 16px 20px;
-          border-radius: 12px;
-          margin-top: 24px;
-          border: 2px solid #FFD700;
-          box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-        ">
-          <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">
+        <div class="countdown-container">
+          <div class="countdown-label">
             🔥 عروض محدودة لمدة 24 ساعة فقط!
           </div>
-          <div class="hero-countdown" style="
-            background: rgba(0,0,0,0.3);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 24px;
-            font-weight: 900;
-            color: #FFD700;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-          ">--:--:--</div>
-          <div style="font-size: 14px; margin-top: 8px; opacity: 0.9;">
+          <div class="hero-countdown countdown-timer">--:--:--</div>
+          <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: var(--gold-kuwait); position: relative; z-index: 2;">
             ⚡ لا تفوت الفرصة!
           </div>
         </div>
@@ -60,47 +81,61 @@
     </div>
   </section>
 
-  <!-- Products Section -->
+  <!-- قسم المنتجات -->
   <section id="products" class="products-section">
     <div class="container">
       <h2>منتجاتنا المميزة 🎆</h2>
+      
+      <!-- شبكة المنتجات -->
       <div class="products-grid" id="products-grid">
-        <!-- سيتم تحميل المنتجات هنا -->
+        <!-- سيتم تحميل المنتجات هنا ديناميكياً -->
       </div>
-      <div class="loading" id="loading" style="text-align: center; padding: 2rem;">
-        <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--kuwait-green, #007A3D);"></i>
+      
+      <!-- حالة التحميل -->
+      <div class="loading" id="loading">
+        <i class="fas fa-spinner fa-spin"></i>
         <p>جاري تحميل المنتجات...</p>
+      </div>
+      
+      <!-- زر تحميل المزيد -->
+      <div class="load-more-container" style="display: none; text-align: center; margin: 3rem 0;">
+        <button class="btn-load-more" onclick="productManager.loadMore()">
+          <i class="fas fa-plus-circle"></i> تحميل المزيد
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- Features Section -->
+  <!-- قسم الميزات -->
   <section class="features-section">
     <div class="container">
       <h2>لماذا تختار سوق الكويت؟</h2>
       <div class="features-grid">
-        <div class="feature-card">
+        <div class="feature-card slide-up">
           <div class="feature-icon">
             <i class="fas fa-shipping-fast"></i>
           </div>
           <h3>توصيل مجاني وسريع</h3>
           <p>توصيل مجاني لجميع محافظات الكويت خلال 24 ساعة</p>
         </div>
-        <div class="feature-card">
+        
+        <div class="feature-card slide-up">
           <div class="feature-icon">
             <i class="fas fa-shield-alt"></i>
           </div>
           <h3>ضمان الجودة</h3>
           <p>جميع منتجاتنا مضمونة وتأتي بأعلى معايير الجودة</p>
         </div>
-        <div class="feature-card">
+        
+        <div class="feature-card slide-up">
           <div class="feature-icon">
             <i class="fas fa-headset"></i>
           </div>
           <h3>خدمة عملاء متميزة</h3>
           <p>فريق خدمة العملاء متاح 24/7 لمساعدتك</p>
         </div>
-        <div class="feature-card">
+        
+        <div class="feature-card slide-up">
           <div class="feature-icon">
             <i class="fas fa-money-bill-wave"></i>
           </div>
@@ -111,63 +146,171 @@
     </div>
   </section>
 
+  <!-- تذييل الصفحة -->
   <div id="site-footer"></div>
 
-  <script src="router.js"></script>
-  <script src="script.js"></script>
-  <script src="partials/partials-loader.js" defer></script>
-  <script src="cart-core.js" defer></script>
-  <script src="homepage-countdown.js" defer></script>
-  <script src="purchase-notifications.js" defer></script>
-  <script src="dynamic-schema.js" defer></script>
+  <!-- إشعارات السلة -->
+  <style>
+    .cart-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--gradient-kuwait);
+      color: var(--kuwait-white);
+      padding: 1rem 1.5rem;
+      border-radius: 15px;
+      box-shadow: var(--shadow-green);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transform: translateX(100%);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(15px);
+      border: 2px solid var(--gold-kuwait);
+    }
+    
+    .cart-notification.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .cart-notification i {
+      font-size: 1.3rem;
+      color: var(--gold-kuwait);
+      animation: notificationPulse 1s infinite;
+    }
+    
+    @keyframes notificationPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    
+    .search-container {
+      margin: 2rem 0;
+    }
+    
+    .search-box {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 50px;
+      padding: 0.8rem;
+      display: flex;
+      max-width: 500px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-gold);
+      backdrop-filter: blur(10px);
+      border: 2px solid var(--gold-kuwait);
+    }
+    
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 0.8rem 1.2rem;
+      font-size: 1rem;
+      background: transparent;
+      color: var(--kuwait-black);
+      font-weight: 600;
+    }
+    
+    .search-box button {
+      background: var(--gradient-kuwait);
+      border: none;
+      color: var(--kuwait-white);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-green);
+    }
+    
+    .search-box button:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-glow);
+    }
+  </style>
+
+  <!-- JavaScript منظم -->
+  <!-- الملفات الأساسية -->
+  <script src="assets/js/core.js" defer></script>
+  <script src="assets/js/utils/countdown.js" defer></script>
   
+  <!-- المكونات -->
+  <script src="assets/js/components/header.js" defer></script>
+  <script src="assets/js/components/footer.js" defer></script>
+  
+  <!-- تهيئة التطبيق -->
   <script>
-  // عداد تنازلي للهيرو في الصفحة الرئيسية
-  document.addEventListener('DOMContentLoaded', () => {
-    function updateHeroCountdown() {
-      const display = document.querySelector('.hero-countdown');
-      if (!display) return;
+    document.addEventListener('DOMContentLoaded', () => {
+      // تهيئة المكونات
+      window.headerComponent = new HeaderComponent();
+      window.footerComponent = new FooterComponent();
       
-      const now = new Date();
-      const tomorrow = new Date(now);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      tomorrow.setHours(0, 0, 0, 0);
+      // إضافة أنيميشن للبطاقات عند الظهور
+      const observeCards = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('fade-in');
+            }, index * 200); // تأخير تدريجي
+          }
+        });
+      }, { threshold: 0.1 });
       
-      const timeLeft = tomorrow - now;
+      document.querySelectorAll('.feature-card').forEach(card => {
+        observeCards.observe(card);
+      });
       
-      if (timeLeft <= 0) {
-        display.textContent = '00:00:00';
-        return;
+      // تحسين الأداء - lazy loading للصور
+      if ('loading' in HTMLImageElement.prototype) {
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        images.forEach(img => {
+          img.src = img.dataset.src || img.src;
+        });
       }
       
-      const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-      
-      display.textContent = 
-        String(hours).padStart(2, '0') + ':' +
-        String(minutes).padStart(2, '0') + ':' +
-        String(seconds).padStart(2, '0');
-      
-      // تأثير نبض عندما يقل الوقت عن ساعة
-      if (timeLeft < 3600000) {
-        display.style.animation = 'pulse 1s infinite';
+      // إضافة تأثيرات إضافية للعناصر
+      const heroElements = document.querySelectorAll('.hero h1, .hero p, .cta-button');
+      heroElements.forEach((el, index) => {
+        el.style.animationDelay = `${index * 0.3}s`;
+        el.classList.add('fade-in');
+      });
+    });
+    
+    // معالج الأخطاء العام
+    window.addEventListener('error', (e) => {
+      console.error('خطأ في التطبيق:', e.error);
+    });
+    
+    // وظائف عامة
+    function searchProducts() {
+      const searchInput = document.getElementById('search-input');
+      if (searchInput && window.productManager) {
+        window.productManager.filterProducts(searchInput.value);
       }
     }
     
-    // إضافة أنيميشن النبض
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-      }
-    `;
-    document.head.appendChild(style);
-    
-    updateHeroCountdown();
-    setInterval(updateHeroCountdown, 1000);
-  });
+    window.searchProducts = searchProducts;
+  </script>
+  
+  <!-- Google Analytics (اختياري) -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script> -->
+  
+  <!-- Service Worker للـ PWA (اختياري) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('SW registered: ', registration);
+          })
+          .catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
   </script>
 </body>
 </html>
