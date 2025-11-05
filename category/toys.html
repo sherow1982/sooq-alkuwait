@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ألعاب - سوق الكويت | منتجات ألعاب عالية الجودة</title>
-    <meta name="description" content="تسوق أفضل منتجات ألعاب في سوق الكويت. أسعار تنافسية وجودة عالية وشحن مجاني داخل الكويت.">
-    <meta name="keywords" content="ألعاب, سوق الكويت, منتجات ألعاب, تسوق اونلاين">
+    <title>ألعاب الأطفال - سوق الكويت | ألعاب تعليمية وترفيهية آمنة</title>
+    <meta name="description" content="تسوق أفضل ألعاب الأطفال في سوق الكويت. أسعار تنافسية وجودة عالية وشحن مجاني داخل الكويت.">
+    <meta name="keywords" content="ألعاب الأطفال, سوق الكويت, تسوق اونلاين">
     <link rel="canonical" href="https://sherow1982.github.io/sooq-alkuwait/category/toys/">
-    <link rel="preload" href="../style.css" as="style">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="preload" href="../assets/css/kuwait-modern.css" as="style">
+    <link rel="stylesheet" href="../assets/css/kuwait-modern.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         .category-header {
             background: linear-gradient(135deg, #2d5230, #4a7c59);
@@ -117,16 +118,35 @@
     </style>
 </head>
 <body>
+    <!-- الهيدر الثابت -->
+    <header class="header">
+        <div class="container nav">
+            <a class="logo" href="../index.html">
+                <span class="logo-badge"></span>
+                <span>سوق الكويت</span>
+            </a>
+            <nav class="menu">
+                <a href="../index.html">الرئيسية</a>
+                <a href="../products-catalog.html">المنتجات</a>
+                <a href="../about.html">من نحن</a>
+                <a href="../contact.html">اتصل بنا</a>
+            </nav>
+            <div class="cart-icon">
+                <a href="../cart.html">🛒 السلة <span id="cart-count">0</span></a>
+            </div>
+        </div>
+    </header>
+
     <div class="breadcrumb">
-        <a href="../">الرئيسية</a> > <span>ألعاب</span>
+        <a href="../">الرئيسية</a> > <span>ألعاب الأطفال</span>
     </div>
     
     <div class="category-header">
-        <div class="category-title">ألعاب</div>
-        <div class="category-subtitle">منتجات ألعاب عالية الجودة</div>
+        <div class="category-title">🧸 ألعاب الأطفال</div>
+        <div class="category-subtitle">ألعاب تعليمية وترفيهية آمنة</div>
     </div>
     
-    <div class="loading" id="loading">جاري تحميل المنتجات...</div>
+    <div class="loading" id="loading">جاري تحميل ألعاب الأطفال...</div>
     <div class="product-count" id="productCount" style="display:none"></div>
     <div class="products-grid" id="productsGrid" style="display:none"></div>
     <div class="no-products" id="noProducts" style="display:none">
@@ -135,39 +155,47 @@
     </div>
 
     <script>
-        const CATEGORY_FILTER = 'Toys';
-        const FEED_URL = 'https://sherow1982.github.io/sooq-alkuwait/merchant-feed.xml';
-        
-        // التحقق من الكاش أولاً
-        const cacheKey = 'sooq_feed_cache';
-        const cacheExpiry = 'sooq_feed_expiry';
-        const CACHE_DURATION = 10 * 60 * 1000; // 10 دقائق
+        // تحديث عداد السلة
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('sooq-cart')) || [];
+            const cartCountEl = document.getElementById('cart-count');
+            if (cartCountEl) {
+                cartCountEl.textContent = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            }
+        }
         
         async function loadCategoryProducts() {
             try {
-                let xmlText;
+                const PRODUCTS_URL = 'https://sherow1982.github.io/sooq-alkuwait/products_data.json';
+                
+                // التحقق من الكاش أولاً
+                const cacheKey = 'sooq_products_cache';
+                const cacheExpiry = 'sooq_products_expiry';
+                const CACHE_DURATION = 10 * 60 * 1000; // 10 دقائق
+                
+                let products;
                 const cached = sessionStorage.getItem(cacheKey);
                 const expiry = sessionStorage.getItem(cacheExpiry);
                 
                 if (cached && expiry && Date.now() < parseInt(expiry)) {
-                    xmlText = cached;
+                    products = JSON.parse(cached);
                 } else {
-                    const response = await fetch(FEED_URL);
-                    if (!response.ok) throw new Error('فشل تحميل الفييد');
-                    xmlText = await response.text();
-                    sessionStorage.setItem(cacheKey, xmlText);
+                    const response = await fetch(PRODUCTS_URL);
+                    if (!response.ok) throw new Error('فشل تحميل البيانات');
+                    products = await response.json();
+                    sessionStorage.setItem(cacheKey, JSON.stringify(products));
                     sessionStorage.setItem(cacheExpiry, (Date.now() + CACHE_DURATION).toString());
                 }
                 
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(xmlText, 'application/xml');
-                const items = Array.from(xmlDoc.querySelectorAll('item'));
+                // تصنيف المنتجات حسب الكلمات المفتاحية
+                function categorizeProduct(product) {
+                    const text = `${product.title} ${product.description}`.toLowerCase();
+                    const keywords = ['طفل', 'أطفال', 'لعب', 'لعبة', 'حصالة', 'روبوت', 'تعليمية', 'ترفيهية', 'كرتوني', 'للأطفال', 'فقاعات', 'مسدس', 'تحكم عن بعد', 'موسيقية', 'كهربائية'];
+                    return keywords.some(keyword => text.includes(keyword.toLowerCase()));
+                }
                 
                 // فلترة المنتجات حسب الفئة
-                const categoryProducts = items.filter(item => {
-                    const category = item.querySelector('g\\:product_category, product_category');
-                    return category && category.textContent.trim() === CATEGORY_FILTER;
-                });
+                const categoryProducts = products.filter(categorizeProduct);
                 
                 // إخفاء شاشة التحميل
                 document.getElementById('loading').style.display = 'none';
@@ -178,7 +206,7 @@
                 }
                 
                 // إظهار عدد المنتجات
-                document.getElementById('productCount').textContent = `تم العثور على ${categoryProducts.length} منتج في فئة ألعاب`;
+                document.getElementById('productCount').textContent = `تم العثور على ${categoryProducts.length} منتج في فئة ألعاب الأطفال`;
                 document.getElementById('productCount').style.display = 'block';
                 
                 // إظهار الشبكة
@@ -186,24 +214,22 @@
                 grid.style.display = 'grid';
                 
                 // إنشاء كروت المنتجات
-                categoryProducts.forEach(item => {
-                    const id = item.querySelector('g\\:id, id')?.textContent || '';
-                    const title = item.querySelector('g\\:title, title')?.textContent || 'منتج';
-                    const description = item.querySelector('g\\:description, description')?.textContent || '';
-                    const link = item.querySelector('g\\:link, link')?.textContent || '#';
-                    const imageLink = item.querySelector('g\\:image_link, image_link')?.textContent || '';
-                    const price = item.querySelector('g\\:price, price')?.textContent || '';
-                    const salePrice = item.querySelector('g\\:sale_price, sale_price')?.textContent || '';
+                categoryProducts.forEach(product => {
+                    // إنشاء رابط صفحة المنتج بنفس النمط المعطى
+                    const productLink = `../products-pages/product-${product.id}-${encodeURIComponent(product.title.replace(/[\s\u00A0]+/g, '-'))}.html`;
                     
                     const card = document.createElement('a');
-                    card.href = link;
+                    card.href = productLink;
                     card.className = 'product-card';
                     card.innerHTML = `
-                        <img src="${imageLink}" alt="${title}" class="product-image" loading="lazy">
+                        <img src="${product.image_link}" alt="${product.title}" class="product-image" loading="lazy" 
+                             onerror="this.src='https://via.placeholder.com/300x220/2d5230/ffffff?text=لعبة+أطفال'">
                         <div class="product-info">
-                            <h3 class="product-title">${title}</h3>
+                            <h3 class="product-title">${product.title}</h3>
                             <div class="product-price">
-                                ${salePrice ? `<span class="product-sale-price">${price}</span>${salePrice}` : price}
+                                ${product.sale_price && product.sale_price < product.price ? 
+                                    `<span class="product-sale-price">${product.price} د.ك</span>${product.sale_price} د.ك` : 
+                                    `${product.price} د.ك`}
                             </div>
                         </div>
                     `;
@@ -222,7 +248,10 @@
         }
         
         // تحميل المنتجات عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', loadCategoryProducts);
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            loadCategoryProducts();
+        });
     </script>
 </body>
 </html>
