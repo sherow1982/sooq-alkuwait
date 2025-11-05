@@ -2,46 +2,8 @@
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
 <channel>
   <title>سوق الكويت - منتجات عالية الجودة</title>
-  <link>https://sooq-alkuwait.arabsad.com/sooq-alkuwait/</link>
+  <link>https://sooq-alkuwait.arabsad.com/</link>
   <description>كتالوج شامل لأفضل المنتجات في الكويت بأسعار تنافسية وتوصيل مجاني</description>
-  <lastBuildDate>2025-11-05T12:40:00</lastBuildDate>
-  <!-- المنتج الأول -->
-  <item>
-    <g:id>SOOQ-0001</g:id>
-    <g:title><![CDATA[منتج 1 - سوق الكويت]]></g:title>
-    <g:description><![CDATA[منتج عالي الجودة متوفر في الكويت بأفضل سعر مع التوصيل المجاني]]></g:description>
-    <g:link>https://sooq-alkuwait.arabsad.com/sooq-alkuwait/products-pages/product-1-sample.html</g:link>
-    <g:image_link>https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg</g:image_link>
-    <g:condition>new</g:condition>
-    <g:availability>in stock</g:availability>
-    <g:price>15 KWD</g:price>
-    <g:brand>سوق الكويت</g:brand>
-    <g:product_type>عام</g:product_type>
-    <g:google_product_category>Home &amp; Garden</g:google_product_category>
-    <g:shipping>
-      <g:country>KW</g:country>
-      <g:service>Free Shipping</g:service>
-      <g:price>0 KWD</g:price>
-    </g:shipping>
-  </item>
-  <!-- ... (تكرار للـ 1976 منتج الباقي) -->
-  <item>
-    <g:id>SOOQ-1977</g:id>
-    <g:title><![CDATA[منتج 1977 - سوق الكويت]]></g:title>
-    <g:description><![CDATA[منتج عالي الجودة متوفر في الكويت بأفضل سعر مع التوصيل المجاني]]></g:description>
-    <g:link>https://sooq-alkuwait.arabsad.com/sooq-alkuwait/products-pages/product-1977-sample.html</g:link>
-    <g:image_link>https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg</g:image_link>
-    <g:condition>new</g:condition>
-    <g:availability>in stock</g:availability>
-    <g:price>15 KWD</g:price>
-    <g:brand>سوق الكويت</g:brand>
-    <g:product_type>عام</g:product_type>
-    <g:google_product_category>Home &amp; Garden</g:google_product_category>
-    <g:shipping>
-      <g:country>KW</g:country>
-      <g:service>Free Shipping</g:service>
-      <g:price>0 KWD</g:price>
-    </g:shipping>
-  </item>
+  <lastBuildDate>2025-11-05T12:50:00</lastBuildDate>
 </channel>
 </rss>
