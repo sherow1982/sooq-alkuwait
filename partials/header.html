@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>رأس الموقع</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .mobile-nav-toggle { display: none; }
+    @media (max-width: 768px) {
+      .nav ul { display: none; }
+      .mobile-nav-toggle { display: flex; align-items: center; gap: 8px; background: var(--luxury-gold); color: var(--kuwait-black); border: none; padding: 10px 14px; border-radius: 10px; font-weight: 800; }
+      .mobile-menu { position: fixed; top: 60px; right: 12px; left: 12px; background: #111; border: 2px solid var(--luxury-gold); border-radius: 14px; padding: 12px; display: none; z-index: 2000; box-shadow: 0 12px 30px rgba(0,0,0,.5); }
+      .mobile-menu a { display: block; color: white; padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,.08); text-decoration: none; font-weight: 700; }
+      .mobile-menu a:last-child { border-bottom: none; }
+      .mobile-menu a:hover { background: rgba(255,215,0,.08); }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <div class="logo">
+          <h1><a href="../index.html" style="color: var(--luxury-gold); text-decoration: none;"><i class="fas fa-shopping-bag"></i> سوق الكويت</a></h1>
+        </div>
+        <nav class="nav">
+          <button class="mobile-nav-toggle" id="mobileNavBtn"><i class="fas fa-bars"></i> القائمة</button>
+          <ul>
+            <li><a href="../index.html#home">الرئيسية</a></li>
+            <li><a href="../index.html#products">المنتجات</a></li>
+            <li><a href="../cart.html"><i class="fas fa-shopping-cart"></i> السلة (<span id="cart-count">0</span>)</a></li>
+            <li><a href="../shipping.html">الشحن</a></li>
+            <li><a href="../refund.html">الإرجاع</a></li>
+            <li><a href="../terms.html">الشروط</a></li>
+            <li><a href="../privacy.html">الخصوصية</a></li>
+            <li><a href="../contact.html">اتصل بنا</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#home">الرئيسية</a>
+    <a href="../index.html#products">المنتجات</a>
+    <a href="../cart.html"><i class="fas fa-shopping-cart"></i> السلة</a>
+    <a href="../shipping.html">سياسة الشحن</a>
+    <a href="../refund.html">سياسة الإرجاع</a>
+    <a href="../terms.html">الشروط والأحكام</a>
+    <a href="../privacy.html">سياسة الخصوصية</a>
+    <a href="../contact.html">اتصل بنا</a>
+  </div>
+
+  <script>
+    // تحديث عدد عناصر السلة
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const countElement = document.getElementById('cart-count');
+      if (countElement) {
+        countElement.textContent = totalItems;
+      }
+    }
+    
+    // تشغيل التحديث عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', updateCartCount);
+    
+    // تبديل القائمة في الموبايل
+    document.getElementById('mobileNavBtn')?.addEventListener('click', () => {
+      const menu = document.getElementById('mobileMenu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // إغلاق القائمة عند النقر خارجها
+    window.addEventListener('click', (e) => {
+      const btn = document.getElementById('mobileNavBtn');
+      const menu = document.getElementById('mobileMenu');
+      if (menu && btn && !btn.contains(e.target) && !menu.contains(e.target)) {
+        menu.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
