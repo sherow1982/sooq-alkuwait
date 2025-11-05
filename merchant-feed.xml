@@ -3,21 +3,23 @@
   <channel>
     <title>سوق الكويت - 1977 منتج</title>
     <link>https://sherow1982.github.io/sooq-alkuwait/</link>
-    <description>أكثر من 1977 منتج عالي الجودة</description>
+    <description>أكثر من 1977 منتج عالي الجودة في سوق الكويت</description>
     <language>ar</language>
     <item>
       <ns0:id>SOOQ-0001</ns0:id>
-      <ns0:title>ميزان الكتروني 200 كجم HD</ns0:title>
-      <ns0:description>ميزان الكتروني 200 كجم HD من سوق الكويت - مطبخ</ns0:description>
-      <ns0:link>https://sherow1982.github.io/sooq-alkuwait/products-pages/product-1-ميزان-الكتروني-200-كجم-HD.html</ns0:link>
-      <ns0:image_link>https://via.placeholder.com/600x600/2d5230/ffffff?text=مطبخ</ns0:image_link>
+      <ns0:title>شاحن لاسلكي 3 فى 1</ns0:title>
+      <ns0:description>شاحن لاسلكي 3 فى 1 من سوق الكويت - إلكترونيات. منتج عالي الجودة بأفضل الأسعار وشحن مجاني داخل الكويت.</ns0:description>
+      <ns0:link>https://sherow1982.github.io/sooq-alkuwait/products-pages/product-1-شاحن-لاسلكي-3-فى-1.html</ns0:link>
+      <ns0:image_link>https://via.placeholder.com/600x600/2d5230/ffffff?text=إلكترونيات</ns0:image_link>
       <ns0:condition>new</ns0:condition>
       <ns0:availability>in stock</ns0:availability>
-      <ns0:price>16 KWD</ns0:price>
-      <ns0:sale_price>11 KWD</ns0:sale_price>
+      <ns0:price>15 KWD</ns0:price>
+      <ns0:sale_price>10 KWD</ns0:sale_price>
       <ns0:brand>سوق الكويت</ns0:brand>
-      <ns0:product_category>Kitchen</ns0:product_category>
-      <ns0:custom_label_0>مطبخ</ns0:custom_label_0>
+      <ns0:product_category>Electronics</ns0:product_category>
+      <ns0:custom_label_0>إلكترونيات</ns0:custom_label_0>
+      <ns0:gtin>123450000001</ns0:gtin>
+      <ns0:mpn>SOOQ-MPN-0001</ns0:mpn>
       <ns0:shipping>
         <ns0:country>KW</ns0:country>
         <ns0:service>Standard</ns0:service>
