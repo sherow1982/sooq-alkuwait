@@ -167,11 +167,13 @@
         font-size: 14px;
         font-weight: bold;
         transition: all 0.3s ease;
+        text-decoration: none;
     }
     
     .cart-icon:hover {
         transform: scale(1.05);
         box-shadow: 0 4px 15px rgba(45, 82, 48, 0.3);
+        color: white;
     }
     
     .cart-count {
@@ -344,137 +346,14 @@
         transition: all 0.3s ease;
         z-index: 2;
         position: relative;
+        text-decoration: none;
+        display: block;
+        text-align: center;
     }
     
     .cart-btn:hover {
         transform: translateY(-1px);
         box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
-    }
-
-    /* السلة المنبثقة */
-    .cart-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.7);
-        z-index: 1000;
-        display: none;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .cart-content {
-        background: white;
-        padding: 30px;
-        border-radius: 20px;
-        max-width: 600px;
-        width: 90%;
-        max-height: 80vh;
-        overflow-y: auto;
-        position: relative;
-        direction: rtl;
-    }
-
-    .close-cart {
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        background: var(--ku-red);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 35px;
-        height: 35px;
-        cursor: pointer;
-        font-size: 18px;
-    }
-
-    .cart-item {
-        display: flex;
-        align-items: center;
-        padding: 15px;
-        border-bottom: 1px solid #eee;
-        gap: 15px;
-    }
-
-    .cart-item img {
-        width: 60px;
-        height: 60px;
-        object-fit: cover;
-        border-radius: 10px;
-    }
-
-    .cart-item-details {
-        flex: 1;
-    }
-
-    .cart-item-title {
-        font-weight: bold;
-        color: var(--ku-green);
-        margin-bottom: 5px;
-    }
-
-    .cart-item-price {
-        color: var(--ku-red);
-        font-weight: bold;
-    }
-
-    .quantity-controls {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .quantity-btn {
-        background: var(--ku-green);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    .quantity-display {
-        font-weight: bold;
-        min-width: 30px;
-        text-align: center;
-    }
-
-    .cart-total {
-        text-align: center;
-        margin: 20px 0;
-        padding: 20px;
-        background: linear-gradient(135deg, var(--ku-green), #27ae60);
-        color: white;
-        border-radius: 15px;
-    }
-
-    .cart-total-amount {
-        font-size: 24px;
-        font-weight: bold;
-    }
-
-    .checkout-btn {
-        background: linear-gradient(135deg, var(--ku-red), #e74c3c);
-        color: white;
-        padding: 15px 30px;
-        border: none;
-        border-radius: 25px;
-        width: 100%;
-        cursor: pointer;
-        font-size: 18px;
-        font-weight: bold;
-        margin-top: 20px;
-        transition: all 0.3s ease;
-    }
-
-    .checkout-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
     }
     
     @media (max-width: 768px) {
@@ -482,7 +361,6 @@
         .filter-tabs { justify-content: center; }
         .products-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
         .whatsapp-buttons { flex-direction: column; align-items: center; }
-        .cart-content { width: 95%; padding: 20px; }
     }
     </style>
 </head>
@@ -577,9 +455,9 @@
     <section class="section">
         <div class="container">
             <div class="products-stats">
-                <div class="cart-icon" onclick="openCart()">
+                <a href="cart.html" class="cart-icon">
                     🛒 السلة <span class="cart-count" id="cart-count">0</span>
-                </div>
+                </a>
                 <p class="products-count">عرض <span id="products-count">0</span> منتج</p>
             </div>
             
@@ -591,22 +469,6 @@
             </div>
         </div>
     </section>
-
-    <!-- مودال السلة -->
-    <div class="cart-modal" id="cart-modal">
-        <div class="cart-content">
-            <button class="close-cart" onclick="closeCart()">×</button>
-            <h2 style="color: var(--ku-green); text-align: center; margin-bottom: 20px;">🛒 سلة التسوق</h2>
-            <div id="cart-items"></div>
-            <div class="cart-total" id="cart-total-section" style="display: none;">
-                <div style="font-size: 18px; margin-bottom: 10px;">المجموع الكلي:</div>
-                <div class="cart-total-amount" id="cart-total-amount">0 د.ك</div>
-                <button class="checkout-btn" onclick="proceedToCheckout()">
-                    📞 إتمام الطلب عبر واتساب
-                </button>
-            </div>
-        </div>
-    </div>
     
     <!-- الفوتر -->
     <footer class="footer">
@@ -680,8 +542,8 @@
             }
         }
         
-        // إضافة إلى السلة
-        function addToCart(product) {
+        // إضافة إلى السلة والتوجيه إلى cart.html
+        function addToCartAndRedirect(product) {
             const existingItem = cart.find(item => item.id === product.id);
             if (existingItem) {
                 existingItem.quantity += 1;
@@ -691,111 +553,8 @@
             localStorage.setItem('sooq-cart', JSON.stringify(cart));
             updateCartCount();
             
-            // تأثير بصري
-            const addedMessage = document.createElement('div');
-            addedMessage.style.cssText = `
-                position: fixed; 
-                top: 20px; 
-                right: 20px; 
-                background: linear-gradient(135deg, #27ae60, #2ecc71);
-                color: white; 
-                padding: 15px 25px; 
-                border-radius: 10px; 
-                z-index: 1001; 
-                font-weight: bold;
-                box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
-            `;
-            addedMessage.textContent = `✅ تمت إضافة المنتج للسلة!`;
-            document.body.appendChild(addedMessage);
-            
-            setTimeout(() => {
-                document.body.removeChild(addedMessage);
-            }, 3000);
-        }
-        
-        // فتح السلة
-        function openCart() {
-            const modal = document.getElementById('cart-modal');
-            const cartItems = document.getElementById('cart-items');
-            const cartTotalSection = document.getElementById('cart-total-section');
-            const cartTotalAmount = document.getElementById('cart-total-amount');
-            
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<div style="text-align: center; padding: 40px; color: #666;">🛒 السلة فارغة! أضف بعض المنتجات أولاً.</div>';
-                cartTotalSection.style.display = 'none';
-            } else {
-                let total = 0;
-                cartItems.innerHTML = cart.map(item => {
-                    total += item.sale_price * item.quantity;
-                    return `
-                        <div class="cart-item">
-                            <img src="${item.image_link}" alt="${item.title}">
-                            <div class="cart-item-details">
-                                <div class="cart-item-title">${item.title}</div>
-                                <div class="cart-item-price">${item.sale_price} د.ك</div>
-                            </div>
-                            <div class="quantity-controls">
-                                <button class="quantity-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
-                                <span class="quantity-display">${item.quantity}</span>
-                                <button class="quantity-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
-                                <button class="quantity-btn" style="background: var(--ku-red);" onclick="removeFromCart(${item.id})">🗑️</button>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-                
-                cartTotalAmount.textContent = `${total.toFixed(2)} د.ك`;
-                cartTotalSection.style.display = 'block';
-            }
-            
-            modal.style.display = 'flex';
-        }
-        
-        // إغلاق السلة
-        function closeCart() {
-            document.getElementById('cart-modal').style.display = 'none';
-        }
-        
-        // تغيير الكمية
-        function changeQuantity(productId, change) {
-            const item = cart.find(item => item.id === productId);
-            if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) {
-                    removeFromCart(productId);
-                } else {
-                    localStorage.setItem('sooq-cart', JSON.stringify(cart));
-                    updateCartCount();
-                    openCart(); // إعادة عرض السلة
-                }
-            }
-        }
-        
-        // حذف من السلة
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            localStorage.setItem('sooq-cart', JSON.stringify(cart));
-            updateCartCount();
-            openCart(); // إعادة عرض السلة
-        }
-        
-        // إتمام الطلب
-        function proceedToCheckout() {
-            if (cart.length === 0) {
-                alert('السلة فارغة!');
-                return;
-            }
-            
-            let total = 0;
-            let cartDetails = cart.map((item, index) => {
-                total += item.sale_price * item.quantity;
-                return `${index + 1}. ${item.title}%0A   الكمية: ${item.quantity}%0A   السعر: ${item.sale_price} د.ك%0A   المجموع: ${(item.sale_price * item.quantity).toFixed(2)} د.ك%0A`;
-            }).join('%0A');
-            
-            const orderSummary = `🛒 طلب جديد من سوق الكويت:%0A%0A${cartDetails}%0A📊 المجموع الكلي: ${total.toFixed(2)} د.ك%0A%0A📦 شحن مجاني لجميع أنحاء الكويت%0A⏰ التوصيل خلال 24-48 ساعة%0A%0A📱 يرجى تأكيد الطلب وإرسال عنوان التوصيل`;
-            
-            window.open(`https://wa.me/201110760081?text=${orderSummary}`, '_blank');
-            closeCart();
+            // التوجيه إلى صفحة السلة مع إشعار
+            window.location.href = 'cart.html?added=1';
         }
         
         // تحميل بيانات المنتجات
@@ -920,9 +679,9 @@
                                 👁️ عرض تفاصيل المنتج
                             </a>
                             
-                            <button class="cart-btn" onclick="event.stopPropagation(); addToCart({id: ${product.id}, title: '${product.title.replace(/'/g, "\\'")}', price: ${product.price}, sale_price: ${product.sale_price}, image_link: '${product.image_link}'})">
+                            <a href="javascript:void(0)" class="cart-btn" onclick="event.stopPropagation(); addToCartAndRedirect({id: ${product.id}, title: '${product.title.replace(/'/g, "\\'")}', price: ${product.price}, sale_price: ${product.sale_price}, image_link: '${product.image_link}'})">
                                 🛒 أضف إلى السلة
-                            </button>
+                            </a>
                         </div>
                     </div>
                 `;
@@ -1054,13 +813,6 @@
         document.addEventListener('keypress', function(e) {
             if (e.key === 'Enter' && document.activeElement && document.activeElement.id === 'search-input') {
                 performSearch();
-            }
-        });
-
-        // إغلاق السلة عند النقر خارجها
-        document.getElementById('cart-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeCart();
             }
         });
     </script>
