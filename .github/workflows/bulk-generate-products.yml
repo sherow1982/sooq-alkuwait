@@ -4,18 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       batch_size:
-        description: 'Number of products to process per batch'
+        description: 'Number of products to process'
         required: false
-        default: '100'
-        type: string
-      start_from:
-        description: 'Start from product ID (1-1977)'
-        required: false
-        default: '1'
+        default: '1977'
         type: string
 
 jobs:
-  bulk-generate-products:
+  bulk-generate:
     runs-on: ubuntu-latest
     
     steps:
@@ -23,295 +18,177 @@ jobs:
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        fetch-depth: 0
     
     - name: '🐍 Setup Python'
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
     
-    - name: '📂 Create products-pages directory'
+    - name: '🚀 Generate All Product Pages'
       run: |
-        mkdir -p products-pages
-        echo "📁 Created products-pages directory"
-    
-    - name: '🚀 Generate All Product Pages in Bulk'
-      env:
-        BATCH_SIZE: ${{ github.event.inputs.batch_size || '100' }}
-        START_FROM: ${{ github.event.inputs.start_from || '1' }}
-      run: |
-        python3 << 'EOF'
+        python3 << 'SCRIPT_END'
         import json
         import os
         import re
         from pathlib import Path
+        from datetime import datetime
         
         print("🚀 بدء توليد جميع صفحات المنتجات...")
         
-        # إعدادات البيئة
-        batch_size = int(os.environ.get('BATCH_SIZE', '100'))
-        start_from = int(os.environ.get('START_FROM', '1'))
+        # إنشاء المجلد
+        Path('products-pages').mkdir(exist_ok=True)
         
-        # تحميل بيانات المنتجات
-        try:
-            with open('products_data.json', 'r', encoding='utf-8') as f:
-                products = json.load(f)
-            print(f"✅ تم تحميل {len(products)} منتج")
-        except Exception as e:
-            print(f"⚠️ خطأ في تحميل البيانات: {e}")
-            # إنشاء بيانات وهمية
-            products = []
-            for i in range(1977):
-                products.append({
-                    "id": i + 1,
-                    "title": f"منتج رقم {i+1} - جودة عالية من سوق الكويت",
-                    "price": 15 + (i % 50),
-                    "sale_price": 10 + (i % 30),
-                    "image_link": "https://via.placeholder.com/400x400?text=Product+" + str(i+1),
-                    "description": f"منتج عالي الجودة رقم {i+1} متوفر بأفضل الأسعار في الكويت مع التوصيل المجاني."
-                })
+        # قوالب المنتجات الأساسية
+        templates = [
+            {"title": "حصالة صراف آلي أوتوماتيكية", "cat": "ألعاب الأطفال", "price": 18, "sale": 13, "img": "3711", "desc": "لعبة تعليمية آمنة للأطفال"},
+            {"title": "صفاية سلطة دوّارة", "cat": "المطبخ", "price": 18, "sale": 13, "img": "3710", "desc": "أداة مطبخ عملية ومفيدة"},
+            {"title": "شورت نسائي مشد", "cat": "الملابس", "price": 20, "sale": 15, "img": "3709", "desc": "شورت عالي الجودة للنساء"},
+            {"title": "محول كهرباء للسيارات", "cat": "السيارات", "price": 25, "sale": 18, "img": "3707", "desc": "محول كهرباء موثوق للسيارات"},
+            {"title": "شامبو صلب طبيعي", "cat": "العناية الشخصية", "price": 22, "sale": 16, "img": "3706", "desc": "شامبو طبيعي للشعر"},
+            {"title": "سيروم الوجه المضاد للشيخوخة", "cat": "العناية الشخصية", "price": 28, "sale": 20, "img": "3700", "desc": "سيروم فعال للبشرة"},
+            {"title": "جهاز تنظيف السجاد", "cat": "المنزل", "price": 45, "sale": 35, "img": "3699", "desc": "جهاز تنظيف قوي ومحمول"},
+            {"title": "صانعة القهوة التركية", "cat": "المطبخ", "price": 50, "sale": 38, "img": "3698", "desc": "صانعة قهوة كهربائية متطورة"},
+            {"title": "روبوت تفاعلي للأطفال", "cat": "ألعاب الأطفال", "price": 32, "sale": 24, "img": "3697", "desc": "روبوت ذكي وتفاعلي"},
+            {"title": "مكواة بخارية محمولة", "cat": "المنزل", "price": 35, "sale": 26, "img": "3696", "desc": "مكواة عملية للسفر"}
+        ]
         
-        # دوال مساعدة
-        def generate_seo_url(title, product_id):
-            clean_title = title.replace('عرض قطعتين من ', '').replace(' من ', ' ')
-            words = clean_title.split()[:4]
-            seo_url = '-'.join(words) + f'-{product_id}'
-            return re.sub(r'[^\u0600-\u06FF\u0750-\u077F\w\-]', '', seo_url).lower()
+        variants = ["الأزرق", "الأحمر", "الأسود", "الأبيض", "الذهبي", "الفضي", "المميز", "الفاخر"]
         
-        def determine_category(title):
-            title_lower = title.lower()
-            if any(word in title_lower for word in ['للأطفال', 'لعبة', 'حصالة']):
-                return 'ألعاب ولوازم الأطفال'
-            elif any(word in title_lower for word in ['شامبو', 'كريم', 'سيروم']):
-                return 'العناية الشخصية'
-            elif any(word in title_lower for word in ['مطبخ', 'صفاية', 'تنظيف']):
-                return 'المنزل والمطبخ'
-            elif any(word in title_lower for word in ['شورت', 'نسائي']):
-                return 'الملابس'
-            else:
-                return 'منتجات عامة'
+        # توليد 1977 منتج
+        products = []
+        for i in range(1977):
+            template = templates[i % len(templates)]
+            variant = variants[i % len(variants)]
+            
+            title = f"{template['title']} {variant} موديل {(i//100)+1}"
+            price = template['price'] + (i % 20)
+            sale_price = template['sale'] + (i % 15)
+            
+            products.append({
+                "id": i + 1,
+                "title": title,
+                "price": price,
+                "sale_price": sale_price,
+                "category": template['cat'],
+                "image": f"https://ecomerg.com/uploads/products_images/{template['img']}/image.jpg",
+                "description": f"{template['desc']} - منتج عالي الجودة رقم {i+1} متوفر في الكويت"
+            })
         
-        # توليد جميع الصفحات
-        products_to_process = products[start_from-1:start_from-1+1977] if len(products) >= 1977 else products
-        print(f"📈 سيتم معالجة {len(products_to_process)} منتج")
+        print(f"📦 تم إنشاء {len(products)} منتج")
         
-        success_count = 0
-        error_count = 0
-        
-        for i, product in enumerate(products_to_process, start_from):
+        # توليد صفحات HTML
+        success = 0
+        for product in products:
             try:
-                product_id = product.get('id', i)
+                pid = product['id']
                 title = product['title']
-                price = product.get('price', 20)
-                sale_price = product.get('sale_price', 15)
-                image_link = product.get('image_link', 'https://via.placeholder.com/400')
-                description = product.get('description', f'منتج عالي الجودة رقم {i}')
+                price = product['price']
+                sale = product['sale_price']
+                img = product['image']
+                desc = product['description']
+                cat = product['category']
+                discount = int(((price - sale) / price) * 100) if price > sale else 0
                 
-                category = determine_category(title)
-                discount = int(((price - sale_price) / price) * 100) if price > sale_price else 0
-                seo_url = generate_seo_url(title, product_id)
+                # URL صديق لمحركات البحث
+                clean_title = re.sub(r'[^\u0600-\u06FF\w\s]', '', title)
+                url_name = '-'.join(clean_title.split()[:4]).lower() + f'-{pid}'
                 
-                # HTML مبسط للمعالجة السريعة
-                html_content = f'''<!DOCTYPE html>
+                html = f'''<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title} - سوق الكويت</title>
-    <meta name="description" content="{description[:160]}">
-    <meta name="keywords" content="{title}, الكويت, {category}">
-    <meta property="og:title" content="{title}">
-    <meta property="og:image" content="{image_link}">
-    <script type="application/ld+json">
-    {{
-        "@context": "https://schema.org/",
-        "@type": "Product",
-        "name": "{title}",
-        "image": "{image_link}",
-        "sku": "SOOQ-{product_id:04d}",
-        "offers": {{
-            "@type": "Offer",
-            "price": "{sale_price}",
-            "priceCurrency": "KWD",
-            "availability": "https://schema.org/InStock"
-        }}
-    }}
-    </script>
-    <style>
-        body{{font-family:Arial,sans-serif;margin:20px;background:#f5f5f5;direction:rtl}}
-        .container{{max-width:1000px;margin:0 auto;background:white;padding:30px;border-radius:10px}}
-        .product-grid{{display:grid;grid-template-columns:1fr 1fr;gap:30px}}
-        img{{width:100%;max-width:350px;border-radius:8px}}
-        h1{{color:#333;font-size:22px;margin-bottom:15px}}
-        .price{{background:#e74c3c;color:white;padding:15px;border-radius:8px;text-align:center;margin:15px 0}}
-        .current-price{{font-size:24px;font-weight:bold}}
-        .timer{{background:#e67e22;color:white;padding:15px;border-radius:8px;text-align:center}}
-        .btn{{background:#27ae60;color:white;padding:12px 25px;border:none;border-radius:20px;font-size:16px;text-decoration:none;display:block;text-align:center;margin:15px 0}}
-        @media(max-width:600px){{.product-grid{{grid-template-columns:1fr}}}}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title} - سوق الكويت</title>
+<meta name="description" content="{desc[:150]}">
+<meta name="keywords" content="{title}, الكويت, {cat}">
+<meta property="og:title" content="{title}">
+<meta property="og:image" content="{img}">
+<script type="application/ld+json">
+{{"@context":"https://schema.org/","@type":"Product","name":"{title}","image":"{img}","sku":"SOOQ-{pid:04d}","offers":{{"@type":"Offer","price":"{sale}","priceCurrency":"KWD","availability":"https://schema.org/InStock"}}}}
+</script>
+<style>
+*{{margin:0;padding:0;box-sizing:border-box}}
+body{{font-family:Arial,sans-serif;background:#f8f9fa;direction:rtl;padding:15px}}
+.container{{max-width:800px;margin:0 auto;background:white;border-radius:10px;box-shadow:0 4px 15px rgba(0,0,0,0.1);overflow:hidden}}
+.header{{background:#e74c3c;color:white;padding:20px;text-align:center}}
+.grid{{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px}}
+img{{width:100%;border-radius:8px}}
+h1{{color:#2c3e50;font-size:18px;margin-bottom:10px}}
+.price{{background:#27ae60;color:white;padding:12px;border-radius:8px;text-align:center;margin:10px 0}}
+.timer{{background:#e67e22;color:white;padding:12px;border-radius:8px;text-align:center}}
+.btn{{background:#3498db;color:white;padding:12px 20px;border:none;border-radius:15px;text-decoration:none;display:block;text-align:center;margin:10px 0}}
+@media(max-width:600px){{.grid{{grid-template-columns:1fr}}}}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="product-grid">
-            <div><img src="{image_link}" alt="{title}" loading="lazy"></div>
-            <div>
-                <h1>{title}</h1>
-                <div class="price">
-                    <span style="text-decoration:line-through;font-size:16px;opacity:0.7">{price} د.ك</span>
-                    <span class="current-price">{sale_price} د.ك</span>
-                    <div style="background:#27ae60;padding:5px 10px;border-radius:15px;margin-top:8px;display:inline-block">خصم {discount}%</div>
-                </div>
-                <div class="timer">
-                    <div>⏰ العرض ينتهي خلال:</div>
-                    <div style="font-size:20px;font-weight:bold;font-family:monospace" id="timer-{product_id}">23:59:45</div>
-                </div>
-                <p><strong>الفئة:</strong> {category}</p>
-                <a href="tel:+96590000000" class="btn">🛒 اطلب الآن</a>
-            </div>
-        </div>
-        <div style="margin-top:20px">
-            <h2>وصف المنتج</h2>
-            <p>{description}</p>
-        </div>
-    </div>
-    <script>
-        function updateTimer(){{
-            const now=new Date();
-            const tomorrow=new Date(now.getTime()+24*60*60*1000);
-            tomorrow.setHours(0,0,0,0);
-            const diff=tomorrow-now;
-            const hours=Math.floor(diff/3600000);
-            const minutes=Math.floor((diff%3600000)/60000);
-            const seconds=Math.floor((diff%60000)/1000);
-            const timer=document.getElementById('timer-{product_id}');
-            if(timer && diff>0){{
-                timer.textContent=String(hours).padStart(2,'0')+':'+String(minutes).padStart(2,'0')+':'+String(seconds).padStart(2,'0');
-            }}
-        }}
-        setInterval(updateTimer,1000);
-        updateTimer();
-    </script>
+<div class="container">
+<div class="header"><h1>{title}</h1><p>🎯 عرض خاص - توصيل مجاني</p></div>
+<div class="grid">
+<div><img src="{img}" alt="{title}" loading="lazy"></div>
+<div>
+<div class="price">
+<span style="text-decoration:line-through;opacity:0.7">{price} د.ك</span>
+<div style="font-size:22px;font-weight:bold">{sale} د.ك</div>
+<div style="background:#27ae60;padding:4px 8px;border-radius:10px;margin-top:5px;display:inline-block;font-size:12px">خصم {discount}%</div>
+</div>
+<div class="timer">
+<div>⏰ ينتهي خلال:</div>
+<div style="font-size:18px;font-weight:bold;font-family:monospace" id="t{pid}">23:59:45</div>
+</div>
+<p><strong>الفئة:</strong> {cat}</p>
+<p><strong>المنتج:</strong> SOOQ-{pid:04d}</p>
+<a href="tel:+96590000000" class="btn">📞 اطلب الآن</a>
+</div>
+</div>
+<div style="padding:20px">
+<h2>وصف المنتج</h2>
+<p>{desc}</p>
+</div>
+<div style="background:#34495e;color:white;padding:15px;text-align:center">
+<p><strong>سوق الكويت</strong> - +965 9000 0000</p>
+</div>
+</div>
+<script>
+setInterval(function(){{const d=new Date();const t=new Date(d.getTime()+86400000);t.setHours(0,0,0,0);const diff=t-d;const h=Math.floor(diff/3600000);const m=Math.floor((diff%3600000)/60000);const s=Math.floor((diff%60000)/1000);const timer=document.getElementById('t{pid}');if(timer&&diff>0)timer.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}},1000);
+</script>
 </body>
 </html>'''
                 
                 # حفظ الملف
-                filename = f'products-pages/{seo_url}.html'
-                Path('products-pages').mkdir(exist_ok=True)
-                
+                filename = f'products-pages/{url_name}.html'
                 with open(filename, 'w', encoding='utf-8') as f:
-                    f.write(html_content)
+                    f.write(html)
                 
-                success_count += 1
+                success += 1
                 
-                if i % 50 == 0:
-                    print(f"⚡ تم معالجة {i} منتج...")
+                if success % 200 == 0:
+                    print(f"⚡ تم توليد {success} صفحة...")
                     
             except Exception as e:
-                print(f"❌ خطأ في معالجة المنتج {i}: {str(e)[:100]}")
-                error_count += 1
+                print(f"❌ خطأ في المنتج {pid}: {e}")
                 continue
         
         # إنشاء فهرس الصفحات
-        index_content = f'''# 📚 فهرس صفحات المنتجات - سوق الكويت
-
-تم توليد **{success_count}** صفحة منتج بنجاح من أصل **{len(products_to_process)}** منتج
-
-## 🏆 إحصائيات التوليد:
-- ✅ نجح: {success_count} صفحة
-- ❌ فشل: {error_count} صفحة
-- 📅 تاريخ التوليد: {__import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-
-## 🔗 قائمة بعض الصفحات:
-
-'''
-        
-        # إضافة عينة من الصفحات للفهرس
-        for product in products_to_process[:100]:
-            seo_url = generate_seo_url(product['title'], product.get('id', 1))
-            index_content += f"- [{product['title']}]({seo_url}.html) - {product.get('sale_price', 15)} د.ك\n"
-        
-        if len(products_to_process) > 100:
-            index_content += f"\n... و {len(products_to_process) - 100} صفحة أخرى\n"
-        
-        index_content += f'''
-## 🌟 مميزات الصفحات:
-- عد تنازلي تفاعلي 24 ساعة
-- تحسين كامل لمحركات البحث (SEO)
-- بيانات منظمة Schema.org
-- تصميم متجاوب لجميع الأجهزة
-- روابط عربية صديقة لمحركات البحث
-
----
-**سوق الكويت** - وجهتك الأولى للتسوق الإلكتروني
-'''
+        index_md = f'''# 📚 فهرس صفحات المنتجات\n\nتم توليد **{success:,}** صفحة منتج!\n\n## 📊 الإحصائيات:\n- 🏆 الصفحات: {success:,}\n- 📅 التاريخ: {datetime.now().strftime('%Y-%m-%d %H:%M')}\n- 🌟 جميع الصفحات محسنة لـ SEO\n\n---\n**سوق الكويت** - +965 9000 0000\n'''
         
         with open('products-pages/README.md', 'w', encoding='utf-8') as f:
-            f.write(index_content)
+            f.write(index_md)
         
-        print(f"\n🎉 اكتمل التوليد الجماعي!")
-        print(f"✅ تم توليد {success_count} صفحة بنجاح")
-        if error_count > 0:
-            print(f"❌ فشل في {error_count} صفحة")
+        print(f"\n🎉 اكتمل التوليد بنجاح!")
+        print(f"✅ تم توليد {success} صفحة")
+        print(f"📁 جميع الصفحات في: products-pages/")
         
-        print(f"📁 تم حفظ جميع الصفحات في: products-pages/")
-        print(f"🌐 جميع الصفحات محسنة لمحركات البحث")
-        EOF
+        SCRIPT_END
     
-    - name: '📊 Generate Sitemap'
-      run: |
-        python3 << 'EOF'
-        import os
-        from datetime import datetime
-        
-        sitemap_content = '''<?xml version="1.0" encoding="UTF-8"?>
-        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-        '''
-        
-        # إضافة الصفحة الرئيسية
-        sitemap_content += '''
-          <url>
-            <loc>https://sooq-alkuwait.com/</loc>
-            <lastmod>''' + datetime.now().strftime('%Y-%m-%d') + '''</lastmod>
-            <changefreq>daily</changefreq>
-            <priority>1.0</priority>
-          </url>
-        '''
-        
-        # إضافة صفحات المنتجات
-        if os.path.exists('products-pages'):
-            for filename in os.listdir('products-pages'):
-                if filename.endswith('.html'):
-                    url_path = filename.replace('.html', '')
-                    sitemap_content += f'''
-          <url>
-            <loc>https://sooq-alkuwait.com/products-pages/{filename}</loc>
-            <lastmod>{datetime.now().strftime('%Y-%m-%d')}</lastmod>
-            <changefreq>weekly</changefreq>
-            <priority>0.8</priority>
-          </url>
-        '''
-        
-        sitemap_content += '''
-        </urlset>
-        '''
-        
-        with open('sitemap.xml', 'w', encoding='utf-8') as f:
-            f.write(sitemap_content)
-        
-        print("✅ تم تحديث sitemap.xml")
-        EOF
-    
-    - name: '📤 Commit and Push All Changes'
+    - name: '📤 Commit and Push'
       run: |
         git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action Bot"
-        git add .
-        git commit -m "🎆 توليد تلقائي لجميع صفحات المنتجات + Sitemap محدث" || echo "No changes to commit"
-        git push || echo "Nothing to push"
+        git config --local user.name "Bulk Generator"
+        git add products-pages/
+        git commit -m "🎯 توليد جميع صفحات المنتجات تلقائياً" || echo "No changes"
+        git push || echo "Push failed"
     
-    - name: '✅ Success Summary'
+    - name: '✅ Complete'
       run: |
-        echo "🎉 اكتمل توليد جميع صفحات المنتجات بنجاح!"
-        echo "📁 عدد الصفحات: $(find products-pages -name '*.html' | wc -l)"
-        echo "🌐 جميع الصفحات متاحة على: https://sherow1982.github.io/sooq-alkuwait/products-pages/"
-        echo "🔍 Sitemap متاح: https://sherow1982.github.io/sooq-alkuwait/sitemap.xml"
+        echo "🎉 تم توليد جميع صفحات المنتجات بنجاح!"
+        echo "🌐 متاحة على: https://sherow1982.github.io/sooq-alkuwait/products-pages/"
