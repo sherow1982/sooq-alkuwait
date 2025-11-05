@@ -1,91 +1,85 @@
 /**
- * مكون التذييل المحسن (Footer) - إزالة زر Robots.txt من التذييل
+ * فوتر متناسق مع الهيدر (KF: Kuwait Footer)
+ * - نفس تباين الألوان والتدرجات
+ * - روابط كاملة + حالة Active مماثلة
+ * - تخطيط مرن للديسكتوب والموبايل
  */
-class FooterComponent {
-    constructor() { this.init(); }
-    init() { this.createFooterHTML(); this.addFooterStyles(); this.bindEvents(); }
-    createFooterHTML() {
-        const footerContainer = document.getElementById('site-footer');
-        if (!footerContainer) return;
-        const currentYear = new Date().getFullYear();
-        footerContainer.innerHTML = `
-            <footer class="footer enhanced-footer">
-                <div class="container">
-                    <div class="footer-main">
-                        <div class="footer-content">
-                            <div class="footer-section brand-section">
-                                <div class="footer-logo">
-                                    <h3><span class="kuwait-flag">🇰🇼</span> سوق الكويت</h3>
-                                </div>
-                                <p class="brand-description">متجرك الإلكتروني الموثوق للمنتجات عالية الجودة. نخدم عملاءنا بشغف وحب منذ عام 2024.</p>
-                                <div class="social-links-enhanced">
-                                    <a href="#" aria-label="فيسبوك" class="social-btn facebook"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#" aria-label="إنستغرام" class="social-btn instagram"><i class="fab fa-instagram"></i></a>
-                                    <a href="https://wa.me/201110760081" target="_blank" aria-label="واتساب" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
-                                    <a href="#" aria-label="تيك توك" class="social-btn tiktok"><i class="fab fa-tiktok"></i></a>
-                                </div>
-                            </div>
-                            <div class="footer-section">
-                                <h4>روابط سريعة</h4>
-                                <ul class="footer-links">
-                                    <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
-                                    <li><a href="#products"><i class="fas fa-shopping-bag"></i> المنتجات</a></li>
-                                    <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة</a></li>
-                                    <li><a href="checkout.html"><i class="fas fa-credit-card"></i> إتمام الطلب</a></li>
-                                </ul>
-                            </div>
-                            <div class="footer-section">
-                                <h4>الصفحات القانونية</h4>
-                                <ul class="footer-links">
-                                    <li><a href="about.html"><i class="fas fa-info-circle"></i> من نحن</a></li>
-                                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> سياسة الخصوصية</a></li>
-                                    <li><a href="terms.html"><i class="fas fa-file-contract"></i> الشروط والأحكام</a></li>
-                                    <li><a href="refund.html"><i class="fas fa-undo"></i> سياسة الاسترجاع</a></li>
-                                    <li><a href="shipping.html"><i class="fas fa-truck"></i> الشحن والتوصيل</a></li>
-                                </ul>
-                            </div>
-                            <div class="footer-section contact-section">
-                                <h4>تواصل معنا</h4>
-                                <div class="contact-info-enhanced">
-                                    <a href="tel:+201110760081" class="contact-item"><i class="fas fa-phone"></i><div class="contact-details"><span class="contact-label">هاتف</span><span class="contact-value" dir="ltr">+20 111 076 0081</span></div></a>
-                                    <a href="https://wa.me/201110760081" target="_blank" class="contact-item whatsapp-item"><i class="fab fa-whatsapp"></i><div class="contact-details"><span class="contact-label">واتساب</span><span class="contact-value">اتصل الآن</span></div></a>
-                                    <a href="mailto:support@sooq-alkuwait.com" class="contact-item"><i class="fas fa-envelope"></i><div class="contact-details"><span class="contact-label">إيميل</span><span class="contact-value">support@sooq-alkuwait.com</span></div></a>
-                                    <div class="contact-item"><i class="fas fa-clock"></i><div class="contact-details"><span class="contact-label">ساعات العمل</span><span class="contact-value">24/7 طوال الأسبوع</span></div></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="footer-features-bar">
-                        <div class="feature-highlight"><i class="fas fa-shield-alt"></i><span>مدفوعات آمنة</span></div>
-                        <div class="feature-highlight"><i class="fas fa-truck"></i><span>توصيل مجاني</span></div>
-                        <div class="feature-highlight"><i class="fas fa-undo"></i><span>ارتجاع مجاني</span></div>
-                        <div class="feature-highlight"><i class="fas fa-headset"></i><span>دعم 24/7</span></div>
-                        <div class="feature-highlight"><i class="fas fa-certificate"></i><span>منتجات أصلية</span></div>
-                    </div>
-                    <div class="footer-bottom">
-                        <div class="footer-bottom-content">
-                            <div class="copyright">
-                                <p>&copy; ${currentYear} سوق الكويت. جميع الحقوق محفوظة.</p>
-                                <p class="made-in-kuwait">🇰🇼 صنع بحب في الكويت</p>
-                            </div>
-                            <div class="footer-actions">
-                                <div class="footer-links-inline">
-                                    <a href="sitemap.xml" class="footer-link-btn">خريطة الموقع</a>
-                                    <!-- تمت إزالة رابط robots.txt بناء على طلب العميل -->
-                                </div>
-                                <button onclick="footerComponent.scrollToTop()" class="scroll-top-btn enhanced-scroll-btn" title="العودة لأعلى"><i class="fas fa-rocket"></i><span class="scroll-text">أعلى</span></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-background-animation"></div>
-            </footer>`;
-    }
-    addFooterStyles(){/* تبقى كما هي - الأنماط محمّلة سابقاً */}
-    bindEvents(){this.setupScrollToTop();this.setupScrollAnimation();this.enhanceSocialLinks();}
-    setupScrollToTop(){let btn=document.querySelector('.enhanced-scroll-btn');if(!btn)return;let v=false;window.addEventListener('scroll',()=>{const s=window.scrollY>300;if(s&&!v){btn.style.opacity='1';btn.style.pointerEvents='auto';btn.style.transform='scale(1)';v=true;}else if(!s&&v){btn.style.opacity='0.7';btn.style.transform='scale(0.9)';v=false;}},{passive:true});}
-    scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});const b=document.querySelector('.enhanced-scroll-btn');if(b){b.style.transform='scale(0.9)';setTimeout(()=>b.style.transform='',200);}}
-    setupScrollAnimation(){const f=document.querySelector('.enhanced-footer');if(!f)return;const o=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('footer-animate-in');const ss=e.target.querySelectorAll('.footer-section');ss.forEach((s,i)=>{setTimeout(()=>{s.style.animation='slideInUp .6s ease-out'},i*200);});}});},{threshold:.1,rootMargin:'0px 0px -50px 0px'});o.observe(f);}
-    enhanceSocialLinks(){document.querySelectorAll('.social-btn').forEach(l=>{l.addEventListener('mouseenter',()=>{if(navigator.vibrate)navigator.vibrate(50);});});}
+class FooterComponent{
+  constructor(){this.init();}
+  init(){this.render();this.styles();this.events();this.setActive();}
+  render(){const root=document.getElementById('site-footer');if(!root)return;const y=new Date().getFullYear();root.innerHTML=`
+  <footer class="kf" role="contentinfo">
+    <div class="kf-wrap">
+      <div class="kf-col brand">
+        <a class="kf-brand" href="index.html" aria-label="سوق الكويت">
+          <span class="flag">🇰🇼</span><span class="name">سوق الكويت</span>
+        </a>
+        <p class="desc">متجرك الإلكتروني الموثوق للمنتجات عالية الجودة، بخدمة عملاء 24/7 داخل الكويت.</p>
+        <div class="social">
+          <a href="#" aria-label="Facebook" class="s fb"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram" class="s ig"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/201110760081" target="_blank" aria-label="WhatsApp" class="s wa"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" aria-label="TikTok" class="s tk"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <nav class="kf-col links" aria-label="روابط سريعة">
+        <h4>روابط سريعة</h4>
+        <a href="index.html" class="f-link">الرئيسية</a>
+        <a href="#products" class="f-link">المنتجات</a>
+        <a href="cart.html" class="f-link">السلة</a>
+        <a href="checkout.html" class="f-link">إتمام الطلب</a>
+      </nav>
+      <nav class="kf-col legal" aria-label="الصفحات القانونية">
+        <h4>الصفحات القانونية</h4>
+        <a href="about.html" class="f-link">من نحن</a>
+        <a href="privacy.html" class="f-link">سياسة الخصوصية</a>
+        <a href="terms.html" class="f-link">الشروط والأحكام</a>
+        <a href="refund.html" class="f-link">سياسة الاسترجاع</a>
+        <a href="shipping.html" class="f-link">الشحن والتوصيل</a>
+      </nav>
+      <div class="kf-col contact">
+        <h4>تواصل معنا</h4>
+        <a href="tel:+201110760081" class="ct"><i class="fas fa-phone"></i><span dir="ltr">+20 111 076 0081</span></a>
+        <a href="mailto:support@sooq-alkuwait.com" class="ct"><i class="fas fa-envelope"></i> support@sooq-alkuwait.com</a>
+        <div class="ct"><i class="fas fa-clock"></i> متاح 24/7</div>
+      </div>
+    </div>
+    <div class="kf-bar">
+      <div class="feats">
+        <span><i class="fas fa-shield-alt"></i> مدفوعات آمنة</span>
+        <span><i class="fas fa-truck"></i> توصيل مجاني</span>
+        <span><i class="fas fa-undo"></i> ارتجاع مجاني</span>
+        <span><i class="fas fa-headset"></i> دعم 24/7</span>
+      </div>
+      <div class="copy">© ${y} سوق الكويت — جميع الحقوق محفوظة</div>
+      <button class="to-top" onclick="footerComponent.scrollTop()" aria-label="العودة لأعلى"><i class="fas fa-arrow-up"></i></button>
+    </div>
+  </footer>`}
+  styles(){const s=document.createElement('style');s.id='kf-styles';s.textContent=`
+    .kf{margin-top:3rem;background:linear-gradient(135deg,#0b0b0b 0%, #111 45%, var(--kuwait-green) 100%);color:#e9f6ef}
+    .kf-wrap{max-width:1200px;margin:0 auto;padding:28px 14px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:24px}
+    .kf-brand{display:flex;align-items:center;gap:.5rem;text-decoration:none}
+    .flag{filter:drop-shadow(0 0 4px rgba(255,215,0,.4))}
+    .name{font-weight:900;font-size:1.2rem;background:linear-gradient(45deg,var(--luxury-gold),#fff,var(--luxury-gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .desc{opacity:.9;line-height:1.7;margin-top:8px}
+    .social{display:flex;gap:10px;margin-top:12px}
+    .s{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;transition:transform .25s, box-shadow .25s}
+    .fb{background:#1877f2}.ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}.wa{background:#25d366}.tk{background:#000}
+    .s:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(0,0,0,.25)}
+    .links h4,.legal h4,.contact h4{color:var(--luxury-gold);margin:0 0 10px}
+    .f-link,.ct{color:#dbe7e2;text-decoration:none;padding:6px 0;border-radius:8px;transition:background .25s,color .25s}
+    .f-link:hover,.ct:hover{background:rgba(255,255,255,.08);color:#fff}
+    .ct i{color:var(--kuwait-green)}
+    .kf-bar{border-top:1px solid rgba(255,255,255,.15);padding:14px 12px;background:rgba(0,0,0,.25);backdrop-filter:blur(6px)}
+    .feats{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-bottom:6px}
+    .feats span{display:flex;align-items:center;gap:6px;opacity:.95}
+    .copy{text-align:center;opacity:.9}
+    .to-top{position:fixed;bottom:18px;left:18px;width:46px;height:46px;border:none;border-radius:50%;background:linear-gradient(135deg,var(--luxury-gold),#ffbf00);color:#111;box-shadow:0 10px 24px rgba(255,215,0,.35);cursor:pointer;display:none}
+    @media(max-width:1024px){.kf-wrap{grid-template-columns:1fr 1fr}}
+    @media(max-width:768px){.kf-wrap{grid-template-columns:1fr;text-align:center}.social{justify-content:center}}
+  `;const old=document.getElementById('kf-styles');if(old)old.remove();document.head.appendChild(s)}
+  events(){window.addEventListener('scroll',()=>{const b=document.querySelector('.to-top');if(!b)return;b.style.display=window.scrollY>300?'block':'none'},{passive:true});}
+  scrollTop(){window.scrollTo({top:0,behavior:'smooth'})}
+  setActive(){const path=location.pathname.split('/').pop();document.querySelectorAll('.kf a.f-link').forEach(a=>{a.classList.toggle('active',(a.getAttribute('href')||'').endsWith(path));});}
 }
 if(typeof module!=='undefined'&&module.exports){module.exports=FooterComponent}else{window.FooterComponent=FooterComponent}
