@@ -21,6 +21,8 @@
         .whatsapp-button:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5); color: white; }
         .phone-button { background: linear-gradient(45deg, #007bff, #0056b3); border: none; padding: 15px 35px; font-size: 1.1em; font-weight: 600; border-radius: 30px; color: white; width: 100%; margin: 10px 0; transition: all 0.4s ease; box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3); text-decoration: none; display: block; text-align: center; }
         .phone-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5); color: white; }
+        .buy-button { background: linear-gradient(45deg, #28a745, #20c997); border: none; padding: 18px 40px; font-size: 1.3em; font-weight: 600; border-radius: 50px; color: white; width: 100%; margin: 15px 0; transition: all 0.4s ease; box-shadow: 0 5px 20px rgba(40, 167, 69, 0.3); }
+        .buy-button:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(40, 167, 69, 0.5); background: linear-gradient(45deg, #20c997, #28a745); }
         .specifications { background: white; padding: 30px; border-radius: 20px; margin: 25px 0; box-shadow: 0 3px 15px rgba(0,0,0,0.08); }
         .spec-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #f0f0f0; }
         .spec-item:last-child { border-bottom: none; }
@@ -31,6 +33,7 @@
         .review-item { border-bottom: 1px solid #eee; padding: 25px 0; }
         .review-item:last-child { border-bottom: none; }
         .verified-badge { background: linear-gradient(45deg, #28a745, #20c997); color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.85em; font-weight: 500; }
+        .cart-count { background: #dc3545 !important; color: white; padding: 2px 8px; border-radius: 50%; font-size: 0.8em; font-weight: bold; min-width: 20px; display: inline-flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
@@ -42,6 +45,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" href="../index.html"><i class="fas fa-home me-1"></i>الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../cart.html"><i class="fas fa-shopping-cart me-1"></i>السلة <span class="badge bg-danger cart-count" id="cart-count" style="display: none;">0</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="https://wa.me/201110760081" target="_blank"><i class="fab fa-whatsapp me-1"></i>واتساب</a></li>
                 </ul>
                 <ul class="navbar-nav">
@@ -86,6 +90,11 @@
                     <h3><i class="fas fa-info-circle text-info me-2"></i>وصف المنتج</h3>
                     <p class="lead text-muted">لعبة تعليمية وترفيهية آمنة للأطفال تساعد في تطوير القدرات الذهنية والحركية. مصنوعة من مواد عالية الجودة وآمنة تماماً للاستخدام. سهل الاستخدام والصيانة. متوفر في الكويت.</p>
                 </div>
+                
+                <!-- زر الشراء المحسن -->
+                <button class="buy-button" data-product-id="1" type="button">
+                    <i class="fas fa-shopping-cart me-2"></i>أضف للسلة - 13.00 د.ك
+                </button>
                 
                 <a href="https://wa.me/201110760081?text=%F0%9F%9B%8D%EF%B8%8F%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%B7%D9%84%D8%A8%20%D9%87%D8%B0%D8%A7%20%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%20%D9%85%D9%86%20%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D9%83%D9%88%D9%8A%D8%AA%3A%0A%0A%F0%9F%93%A6%20%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%3A%20%D8%AD%D8%B5%D8%A7%D9%84%D8%A9%20%D8%B5%D8%B1%D8%A7%D9%81%20%D8%A2%D9%84%D9%8A%20%D8%A3%D9%88%D8%AA%D9%88%D9%85%D8%A7%D8%AA%D9%8A%D9%83%D9%8A%D8%A9%20%D8%A8%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D9%83%D8%B1%D8%AA%D9%88%D9%86%D9%8A%20%D9%84%D9%84%D8%A3%D8%B7%D9%81%D8%A7%D9%84%0A%F0%9F%92%B0%20%D8%A7%D9%84%D8%B3%D8%B9%D8%B1%3A%2013%20%D8%AF.%D9%83%20%28%D8%A8%D8%AF%D9%84%D8%A7%D9%8B%20%D9%85%D9%86%2018%20%D8%AF.%D9%83%29%0A%F0%9F%94%A5%20%D8%A7%D9%84%D9%88%D9%81%D9%8A%D8%B1%3A%205%20%D8%AF.%D9%83%20%2828%25%20%D8%AE%D8%B5%D9%85%29%0A%F0%9F%86%94%20%D8%B1%D9%82%D9%85%20%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%3A%20SOOQ-0001" class="whatsapp-button" target="_blank">
                     <i class="fab fa-whatsapp me-2"></i>اطلب عبر الواتساب - شحن مجاني
@@ -280,6 +289,8 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- تحميل نظام السلة المحسن -->
+    <script src="../assets/js/cart-fixed.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const reviewItems = document.querySelectorAll('.review-item');
