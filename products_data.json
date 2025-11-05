@@ -1,1 +1,26 @@
-[2]
+[
+  {
+    "id": 1,
+    "title": "حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال",
+    "price": 18,
+    "sale_price": 13,
+    "image_link": "https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg",
+    "description": "لعبة تعليمية وترفيهية آمنة للأطفال تساعد في تطوير القدرات الذهنية والحركية. مصنوعة من مواد عالية الجودة وآمنة تماماً للاستخدام."
+  },
+  {
+    "id": 2,
+    "title": "صفاية سلطة دوّارة متعددة الوظائف",
+    "price": 18,
+    "sale_price": 13,
+    "image_link": "https://ecomerg.com/uploads/products_images/3710/Wb0quKAvoB677UBgtCjZiyrSBPEbi3vJQIgo2usj.jpg",
+    "description": "صفاية سلطة دوّارة متعددة الوظائف"
+  },
+  {
+    "id": 3,
+    "title": "عرض قطعتين من شورت نسائي لشد الجسم وتحديد القوام ببطانة ناعمة",
+    "price": 20,
+    "sale_price": 15,
+    "image_link": "https://ecomerg.com/uploads/products_images/3709/1a7mTVkaKmAoEwCH8xKScYqiEqI2PGkVdNoxwsdC.jpg",
+    "description": "عرض قطعتين من شورت نسائي لشد الجسم وتحديد القوام ببطانة ناعمة"
+  }
+]
