@@ -1,1 +1,120 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,viewport-fit=cover"><title>سلة التسوق | سوق الكويت</title><meta name="robots" content="noindex"><style>:root{--g:#007A3D;--r:#CE1126}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Cairo',sans-serif;background:linear-gradient(135deg,#f8fafc,#e2e8f0)}.fab{position:fixed;right:14px;bottom:14px;z-index:1000;width:60px;height:60px;border:none;border-radius:50%;background:linear-gradient(135deg,var(--g),#00a651);color:#fff;font-size:20px;box-shadow:0 10px 28px rgba(0,122,61,.35)}.badge{position:absolute;top:-6px;right:-6px;background:var(--r);color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}header{background:linear-gradient(135deg,var(--g),#00a651);color:#fff;text-align:center;padding:20px 12px}.container{max-width:1100px;margin:0 auto;padding:16px}.card{background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.08);overflow:hidden;margin:16px 0}.row{display:grid;grid-template-columns:80px 1fr auto;gap:10px;padding:14px;border-bottom:1px solid #eef2f7;align-items:center}.thumb{width:80px;height:80px;border-radius:12px;object-fit:cover}.title{font-weight:800;color:#111827}.meta{font-size:12px;color:#6b7280}.price{color:var(--g);font-weight:900}.qty{display:flex;gap:8px;align-items:center;background:#f1f5f9;border-radius:999px;padding:4px 8px}.qty button{width:30px;height:30px;border:none;border-radius:50%;background:var(--g);color:#fff;font-weight:900}.remove{border:none;background:var(--r);color:#fff;padding:6px 10px;border-radius:10px}#totals{background:#111827;color:#fff;text-align:center;padding:22px;border-radius:14px}.amount{font-size:32px;font-weight:900;color:#ffd700}.cta{background:#fff;border:3px solid var(--g);border-radius:16px;text-align:center;padding:22px;box-shadow:0 14px 40px rgba(0,122,61,.15)}.cta h2{color:var(--g);margin-bottom:6px}.checkout{background:linear-gradient(135deg,var(--g),#00a651,#ffd700);color:#fff;border:none;border-radius:14px;padding:16px 22px;font-weight:900;box-shadow:0 18px 60px rgba(0,122,61,.35)}@media(min-width:640px){.row{grid-template-columns:100px 1fr auto auto auto}.thumb{width:100px;height:100px}}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/></head><body><button class="fab" onclick="location.href='/cart.html'">🛒<span id="b" class="badge" style="display:none">0</span></button><header><h1>🛒 سلة التسوق</h1><p>تجاوب كامل • دفع مُشجّع</p></header><main class="container"><section class="card" id="list"><div id="items"></div></section><section id="totals" class="card" style="display:none"><div>إجمالي الطلب</div><div id="amount" class="amount">0 د.ك</div><div id="ship" style="opacity:.9;margin-top:6px">🚚 الشحن مجاني فوق 100 د.ك</div></section><section id="cta" class="card cta" style="display:none"><h2>🎉 اتمم طلبك الآن</h2><p>توصيل 24 ساعة • دفع عند الاستلام • ضمان</p><button class="checkout" onclick="go()">اتمام الطلب الآن</button></section><section id="empty" class="card" style="display:none;text-align:center;padding:28px 16px;color:#6b7280"><i class="fa fa-shopping-basket" style="font-size:44px;color:#cbd5e1"></i><h3>سلة التسوق فارغة</h3><a href="/" style="display:inline-block;margin-top:10px;background:var(--g);color:#fff;padding:10px 16px;border-radius:12px;font-weight:800;text-decoration:none">ابدأ التسوق</a></section></main><script>const FREE=100,b=document.getElementById('b'),items=document.getElementById('items'),tot=document.getElementById('totals'),amt=document.getElementById('amount'),ship=document.getElementById('ship'),cta=document.getElementById('cta'),empty=document.getElementById('empty');function load(){const c=JSON.parse(localStorage.getItem('cart')||'[]');const k=c.reduce((s,i)=>s+i.quantity,0);b.style.display=k?'flex':'none';b.textContent=k;if(!c.length){empty.style.display='block';tot.style.display='none';cta.style.display='none';items.innerHTML='';return}empty.style.display='none';tot.style.display='block';cta.style.display='block';let html='',t=0;c.forEach((p,i)=>{const it=(p.sale_price||p.price)*p.quantity;t+=it;html+=`<div class='row'><img class='thumb' src='${p.image}' alt='${p.title}'/><div><div class='title'>${p.title}</div><div class='meta'>${p.category||'منتجات عامة'}</div></div><div class='price'>${p.sale_price||p.price} د.ك</div><div class='qty'><button onclick='qty(${i},-1)'>-</button><span>${p.quantity}</span><button onclick='qty(${i},1)'>+</button></div><button class='remove' onclick='rm(${i})'>حذف</button></div>`});items.innerHTML=html;amt.textContent=t.toFixed(1)+' د.ك';if(t>=FREE){ship.innerHTML='✅ <b>الشحن مجاني</b>';ship.style.color='#10b981'}else{ship.innerHTML=`🚛 أضف ${(FREE-t).toFixed(1)} د.ك لتحصل على <b>الشحن المجاني</b>`;ship.style.color='#d97706'}}function qty(i,d){let c=JSON.parse(localStorage.getItem('cart')||'[]');c[i].quantity+=d;if(c[i].quantity<=0)c.splice(i,1);localStorage.setItem('cart',JSON.stringify(c));load()}function rm(i){let c=JSON.parse(localStorage.getItem('cart')||'[]');c.splice(i,1);localStorage.setItem('cart',JSON.stringify(c));load()}function go(){const c=JSON.parse(localStorage.getItem('cart')||'[]');if(!c.length)return;let m='🇰🇼 *طلب جديد*\n\n',t=0;c.forEach((p,i)=>{const it=(p.sale_price||p.price)*p.quantity;t+=it;m+=`${i+1}. *${p.title}*\n   ${p.sale_price||p.price} د.ك × ${p.quantity} = ${it.toFixed(1)} د.ك\n\n`});m+=`الإجمالي: ${t.toFixed(1)} د.ك\nالشحن: ${t>=FREE?'مجاني ✅':'2 د.ك'}\n\nالاسم:\nالهاتف:\nالمنطقة:\nالعنوان:\n`;window.open('https://wa.me/201110760081?text='+encodeURIComponent(m),'_blank')}document.addEventListener('DOMContentLoaded',load)</script></body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سلة التسوق - سوق الكويت</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <main class="container" style="padding: 140px 0 80px;">
+        <div style="max-width: 800px; margin: 0 auto; background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <h2 style="color: var(--kuwait-black); margin-bottom: 2rem; text-align: center;">
+                <i class="fas fa-shopping-cart" style="color: var(--kuwait-green);"></i> سلة التسوق
+            </h2>
+
+            <div id="cartItems"></div>
+            
+            <div id="cartSummary" style="background: rgba(0,166,81,0.1); padding: 1.5rem; border-radius: 15px; margin-top: 2rem; display: none;">
+                <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 1.2rem; margin-bottom: 1rem;">
+                    <span>الإجمالي:</span>
+                    <span id="cartTotal">0 د.ك</span>
+                </div>
+                <a href="checkout.html" style="display: block; width: 100%; padding: 1.5rem; background: var(--kuwait-green); color: white; text-decoration: none; text-align: center; border-radius: 15px; font-size: 1.3rem; font-weight: 700;">
+                    <i class="fas fa-credit-card"></i> إتمام الطلب
+                </a>
+            </div>
+
+            <div id="emptyCart" style="text-align: center; padding: 3rem 0; color: #666;">
+                <i class="fas fa-shopping-cart" style="font-size: 4rem; color: #ddd; margin-bottom: 1rem;"></i>
+                <h3>سلة التسوق فارغة</h3>
+                <p>قم بإضافة بعض المنتجات للبدء بالتسوق</p>
+                <a href="/" style="display: inline-block; margin-top: 1rem; padding: 1rem 2rem; background: var(--kuwait-green); color: white; text-decoration: none; border-radius: 10px; font-weight: 600;">
+                    <i class="fas fa-shopping-bag"></i> تابع التسوق
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script>
+        function renderCart() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartSummary = document.getElementById('cartSummary');
+            const emptyCart = document.getElementById('emptyCart');
+            const cartTotal = document.getElementById('cartTotal');
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '';
+                cartSummary.style.display = 'none';
+                emptyCart.style.display = 'block';
+                return;
+            }
+
+            emptyCart.style.display = 'none';
+            cartSummary.style.display = 'block';
+
+            let total = 0;
+            let itemsHtml = '';
+
+            cart.forEach((item, index) => {
+                const itemTotal = (item.sale_price || item.price) * (item.quantity || 1);
+                total += itemTotal;
+                
+                itemsHtml += `
+                    <div class="cart-item" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 1rem; background: #f9f9f9;">
+                        <img src="${item.image}" alt="${item.title}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+                        <div style="flex: 1;">
+                            <h4 style="margin: 0 0 0.5rem 0; color: var(--kuwait-black);">${item.title}</h4>
+                            <div style="font-weight: 600; color: var(--kuwait-green); font-size: 1.1rem;">${item.sale_price || item.price} د.ك</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <button onclick="updateQuantity(${index}, -1)" style="width: 30px; height: 30px; border: 1px solid #ddd; background: white; border-radius: 5px; cursor: pointer;">-</button>
+                            <span style="min-width: 30px; text-align: center; font-weight: 600;">${item.quantity || 1}</span>
+                            <button onclick="updateQuantity(${index}, 1)" style="width: 30px; height: 30px; border: 1px solid #ddd; background: white; border-radius: 5px; cursor: pointer;">+</button>
+                        </div>
+                        <button onclick="removeItem(${index})" style="background: #dc2626; color: white; border: none; padding: 0.5rem; border-radius: 5px; cursor: pointer;">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            });
+
+            cartItemsContainer.innerHTML = itemsHtml;
+            cartTotal.textContent = total.toFixed(2) + ' د.ك';
+        }
+
+        function updateQuantity(index, change) {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            if (cart[index]) {
+                cart[index].quantity = Math.max(1, (cart[index].quantity || 1) + change);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+                window.dispatchEvent(new CustomEvent('cart:updated'));
+            }
+        }
+
+        function removeItem(index) {
+            if (confirm('هل تريد حذف هذا المنتج من السلة؟')) {
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                cart.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+                window.dispatchEvent(new CustomEvent('cart:updated'));
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', renderCart);
+    </script>
+    <script src="partials/partials-loader.js" defer></script>
+    <script src="cart-core.js" defer></script>
+    <script src="countdown-timer.js" defer></script>
+    <script src="purchase-notifications.js" defer></script>
+</body>
+</html>

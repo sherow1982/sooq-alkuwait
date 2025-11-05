@@ -1,168 +1,90 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="سوق الكويت - متجرك الإلكتروني لأفضل المنتجات بأسعار مميزة. توصيل مجاني ودفع عند الاستلام" />
-  <title>سوق الكويت - تسوق إلكتروني بتوصيل مجاني</title>
-  
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-MSZDN3ZJ');</script>
-  <!-- End Google Tag Manager -->
-  
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YQW5LL476X"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-YQW5LL476X');
-  </script>
-  
-  <link rel="stylesheet" href="/styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سوق الكويت - متجر إلكتروني موثوق للمنتجات عالية الجودة</title>
+  <meta name="description" content="متجر إلكتروني كويتي للمنتجات المتنوعة - موقع تجاري يقدم تشكيلة واسعة من المنتجات عالية الجودة بأسعار منافسة وتوصيل مجاني داخل الكويت">
+  <meta name="keywords" content="سوق الكويت, متجر إلكتروني, منتجات عالية الجودة, توصيل مجاني, الكويت">
+  <link rel="canonical" href="https://sooq-alkuwait.arabsad.com/">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <script src="/geo-location.js"></script>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MSZDN3ZJ"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  
-  <header class="header">
-    <div class="container">
-      <div class="nav-wrapper">
-        <div class="logo">
-          <h1><a href="/" style="color: var(--luxury-gold); text-decoration: none;"><i class="fas fa-shopping-bag"></i> سوق الكويت</a></h1>
-        </div>
-        
-        <!-- Desktop Navigation -->
-        <nav class="nav">
-          <ul>
-            <li><a href="/">الرئيسية</a></li>
-            <li><a href="/#products">المنتجات</a></li>
-            <li><a href="/cart.html">سلة التسوق</a></li>
-            <li><a href="/checkout.html">إتمام الطلب</a></li>
-            <li><a href="/contact.html">اتصل بنا</a></li>
-            <li><a href="/refund.html">سياسة الارجاع</a></li>
-          </ul>
-        </nav>
-        
-        <!-- Mobile Menu Button -->
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-          <i class="fas fa-bars"></i> القائمة
-        </button>
-      </div>
-    </div>
-  </header>
-  
-  <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <button class="mobile-menu-close" onclick="toggleMobileMenu()">×</button>
-    <ul>
-      <li><a href="/" onclick="toggleMobileMenu()">🏠 الرئيسية</a></li>
-      <li><a href="/#products" onclick="toggleMobileMenu()">🛍️ المنتجات</a></li>
-      <li><a href="/cart.html" onclick="toggleMobileMenu()">🛒 سلة التسوق</a></li>
-      <li><a href="/checkout.html" onclick="toggleMobileMenu()">💳 إتمام الطلب</a></li>
-      <li><a href="/contact.html" onclick="toggleMobileMenu()">📧 اتصل بنا</a></li>
-      <li><a href="/terms.html" onclick="toggleMobileMenu()">📄 الشروط</a></li>
-      <li><a href="/privacy.html" onclick="toggleMobileMenu()">🔒 الخصوصية</a></li>
-      <li><a href="/refund.html" onclick="toggleMobileMenu()">🔄 سياسة الارجاع</a></li>
-    </ul>
-  </div>
+  <div id="site-header"></div>
 
+  <!-- Hero Section -->
   <section id="home" class="hero">
     <div class="container">
       <div class="hero-content">
-        <h2>مرحباً بك في <span style="color: var(--luxury-gold);">سوق الكويت</span></h2>
-        <p>أفضل المنتجات بأسعار مميزة مع توصيل مجاني ودفع عند الاستلام</p>
-        <div class="search-box">
-          <input type="text" id="searchInput" placeholder="ابحث عن المنتجات..." />
-          <button id="searchBtn"><i class="fas fa-search"></i></button>
-          <button class="cart-icon" onclick="window.location.href='/cart.html'">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="cart-count">0</span>
-          </button>
-        </div>
+        <h1>مرحباً بك في سوق الكويت</h1>
+        <p>متجرك الإلكتروني الموثوق للمنتجات عالية الجودة بأسعار منافسة</p>
+        <a href="#products" class="cta-button">
+          <i class="fas fa-shopping-bag"></i> تابع التسوق الآن
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="filters">
-    <div class="container">
-      <div class="filter-buttons">
-        <button class="filter-btn active" onclick="filterProducts('all')">كل المنتجات</button>
-        <button class="filter-btn" onclick="filterProducts('أطفال')">أطفال</button>
-        <button class="filter-btn" onclick="filterProducts('مطبخ')">مطبخ</button>
-        <button class="filter-btn" onclick="filterProducts('ملابس')">ملابس</button>
-        <button class="filter-btn" onclick="filterProducts('إلكترونيات')">إلكترونيات</button>
-        <button class="filter-btn" onclick="filterProducts('تجميل')">تجميل</button>
-      </div>
-    </div>
-  </section>
-
+  <!-- Products Section -->
   <section id="products" class="products-section">
     <div class="container">
-      <h2 class="section-title">منتجاتنا المميزة</h2>
-      <div class="products-grid" id="productsGrid"></div>
-      <div class="load-more-container">
-        <button id="loadMoreBtn" class="btn-load-more" onclick="loadMore()" style="display: none;">
-          <i class="fas fa-plus-circle"></i> عرض المزيد
-        </button>
+      <h2>منتجاتنا المميزة</h2>
+      <div class="products-grid" id="products-grid">
+        <!-- سيتم تحميل المنتجات هنا -->
+      </div>
+      <div class="loading" id="loading" style="text-align: center; padding: 2rem;">
+        <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--kuwait-green);"></i>
+        <p>جاري تحميل المنتجات...</p>
       </div>
     </div>
   </section>
 
-  <footer class="footer">
+  <!-- Features Section -->
+  <section class="features-section">
     <div class="container">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h3><i class="fas fa-shopping-bag"></i> سوق الكويت</h3>
-          <p>متجرك الإلكتروني الموثوق لأفضل المنتجات بأسعار تنافسية</p>
+      <h2>لماذا تختار سوق الكويت؟</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shipping-fast"></i>
+          </div>
+          <h3>توصيل مجاني وسريع</h3>
+          <p>توصيل مجاني لجميع محافظات الكويت خلال 24 ساعة</p>
         </div>
-        <div class="footer-section">
-          <h3>روابط سريعة</h3>
-          <ul>
-            <li><a href="/shipping.html">توصيل مجاني</a></li>
-            <li><a href="/terms.html">الشروط والأحكام</a></li>
-            <li><a href="/privacy.html">سياسة الخصوصية</a></li>
-            <li><a href="/refund.html">سياسة الارجاع</a></li>
-          </ul>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>ضمان الجودة</h3>
+          <p>جميع منتجاتنا مضمونة وتأتي بأعلى معايير الجودة</p>
         </div>
-        <div class="footer-section">
-          <h3>تواصل معنا</h3>
-          <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/201110760081">+20 111 076 0081</a></p>
-          <p><i class="fas fa-envelope"></i> <a href="mailto:sooqalkuwait2010@gmail.com">sooqalkuwait2010@gmail.com</a></p>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h3>خدمة عملاء متميزة</h3>
+          <p>فريق خدمة العملاء متاح 24/7 لمساعدتك</p>
         </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 سوق الكويت. جميع الحقوق محفوظة.</p>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-money-bill-wave"></i>
+          </div>
+          <h3>أسعار منافسة</h3>
+          <p>أفضل الأسعار في السوق مع عروض وخصومات مستمرة</p>
+        </div>
       </div>
     </div>
-  </footer>
+  </section>
 
-  <script>
-    // Mobile Menu Toggle
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobileMenu');
-      menu.classList.toggle('active');
-    }
-    
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(e) {
-      const menu = document.getElementById('mobileMenu');
-      const btn = document.querySelector('.mobile-menu-btn');
-      
-      if (!menu.contains(e.target) && !btn.contains(e.target)) {
-        menu.classList.remove('active');
-      }
-    });
-  </script>
-  <script src="/script.js"></script>
+  <div id="site-footer"></div>
+
+  <script src="router.js"></script>
+  <script src="script.js"></script>
+  <script src="partials/partials-loader.js" defer></script>
+  <script src="cart-core.js" defer></script>
+  <script src="countdown-timer.js" defer></script>
+  <script src="purchase-notifications.js" defer></script>
 </body>
 </html>
