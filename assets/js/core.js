@@ -52,6 +52,8 @@ class ProductManager {
             this.products = await response.json();
             this.filteredProducts = [...this.products];
             
+            console.log(`تم تحميل ${this.products.length} منتج بنجاح`);
+            
             this.renderProducts();
             this.showLoading(false);
         } catch (error) {
@@ -93,25 +95,33 @@ class ProductManager {
             ? Math.round(((product.price - product.sale_price) / product.price) * 100)
             : 0;
 
+        // التأكد من وجود رابط الصورة الحقيقي من الملف المحدث
+        const imageUrl = product.image_link || 'assets/img/placeholder-300x220.jpg';
+        const productTitle = product.title || 'منتج غير محدد';
+        const productDescription = product.description || 'وصف غير متوفر';
+        const currentPrice = product.sale_price || product.price || 0;
+        const originalPrice = product.price || currentPrice;
+
         card.innerHTML = `
             <div class="product-image">
-                <img src="${product.image_link}" alt="${product.title}" loading="lazy">
+                <img src="${imageUrl}" alt="${productTitle}" loading="lazy" onerror="this.src='assets/img/placeholder-300x220.jpg'">
                 ${discount > 0 ? `<span class="discount">خصم ${discount}%</span>` : ''}
             </div>
             <div class="product-info">
                 <h3 class="product-title" onclick="goToProduct('${this.generateProductUrl(product)}')">
-                    ${product.title}
+                    ${productTitle}
                 </h3>
+                <p class="product-description">${productDescription.substring(0, 100)}${productDescription.length > 100 ? '...' : ''}</p>
                 <div class="product-price">
-                    <span class="current-price">${product.sale_price} ${CONFIG.CURRENCY}</span>
-                    ${product.price > product.sale_price ? 
-                        `<span class="original-price">${product.price} ${CONFIG.CURRENCY}</span>` : ''}
+                    <span class="current-price">${currentPrice} ${CONFIG.CURRENCY}</span>
+                    ${originalPrice > currentPrice ? 
+                        `<span class="original-price">${originalPrice} ${CONFIG.CURRENCY}</span>` : ''}
                 </div>
                 <div class="product-actions">
                     <button class="btn-cart" onclick="cartManager.addToCart(${product.id})">
                         <i class="fas fa-shopping-cart"></i> أضف للسلة
                     </button>
-                    <button class="btn-whatsapp" onclick="contactWhatsApp('${product.title}', '${product.sale_price}')">
+                    <button class="btn-whatsapp" onclick="contactWhatsApp('${productTitle}', '${currentPrice}')">
                         <i class="fab fa-whatsapp"></i> واتساب
                     </button>
                 </div>
@@ -135,7 +145,24 @@ class ProductManager {
             'شامبو': 'shampoo',
             'سيروم': 'serum',
             'روبوت': 'robot',
-            'قهوة': 'coffee'
+            'قهوة': 'coffee',
+            'جهاز': 'device',
+            'منتج': 'product',
+            'كريم': 'cream',
+            'زيت': 'oil',
+            'عطر': 'perfume',
+            'لعبة': 'toy',
+            'ماكينة': 'machine',
+            'مروحة': 'fan',
+            'مصباح': 'lamp',
+            'حقيبة': 'bag',
+            'ساعة': 'watch',
+            'كاميرا': 'camera',
+            'سيارة': 'car',
+            'طائرة': 'plane',
+            'مكنسة': 'vacuum',
+            'خلاط': 'blender',
+            'كشاف': 'flashlight'
         };
 
         const cleanTitle = product.title.replace(/[^\w\s\u0600-\u06FF]/g, ' ').trim();
@@ -160,12 +187,15 @@ class ProductManager {
             this.filteredProducts = [...this.products];
         } else {
             this.filteredProducts = this.products.filter(product => 
-                product.title.toLowerCase().includes(searchTerm.toLowerCase())
+                product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase()))
             );
         }
         
         this.currentPage = 1;
         this.renderProducts();
+        
+        console.log(`تمت فلترة ${this.filteredProducts.length} منتج من أصل ${this.products.length}`);
     }
 
     updateLoadMoreButton() {
@@ -239,7 +269,7 @@ class CartManager {
 
         this.saveCartToStorage();
         this.updateCartDisplay();
-        this.showAddToCartAnimation();
+        this.showAddToCartAnimation(product.title);
     }
 
     removeFromCart(productId) {
@@ -263,7 +293,7 @@ class CartManager {
 
     getCartTotal() {
         return this.cart.reduce((total, item) => {
-            return total + (parseFloat(item.sale_price) * item.quantity);
+            return total + (parseFloat(item.sale_price || item.price) * item.quantity);
         }, 0);
     }
 
@@ -283,13 +313,13 @@ class CartManager {
         }
     }
 
-    showAddToCartAnimation() {
+    showAddToCartAnimation(productTitle = 'المنتج') {
         // إنشاء إشعار مؤقت
         const notification = document.createElement('div');
         notification.className = 'cart-notification';
         notification.innerHTML = `
             <i class="fas fa-check-circle"></i>
-            <span>تم إضافة المنتج إلى السلة</span>
+            <span>تم إضافة "${productTitle}" إلى السلة</span>
         `;
         
         document.body.appendChild(notification);
@@ -301,7 +331,7 @@ class CartManager {
         setTimeout(() => {
             notification.classList.remove('show');
             setTimeout(() => notification.remove(), 300);
-        }, 2000);
+        }, 3000);
     }
 
     loadCartFromStorage() {
@@ -330,8 +360,59 @@ class CartManager {
 }
 
 /**
- * فئة إدارة العد التنازلي
+ * وظائف مساعدة
  */
-class CountdownManager { /* كما هو */ }
+function goToProduct(url) {
+    if (url && url !== '#') {
+        window.location.href = url;
+    }
+}
 
-/** وظائف المساعدة وباقي الكود كما هو بدون تغيير **/
+function contactWhatsApp(productName, price) {
+    const message = `مرحباً، أود الاستفسار عن: ${productName} بسعر ${price} ${CONFIG.CURRENCY}`;
+    const whatsappUrl = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+}
+
+function showCart() {
+    // إظهار نافذة السلة
+    console.log('عرض السلة');
+}
+
+// تهيئة المدراء عند تحميل الصفحة
+let productManager, cartManager;
+
+document.addEventListener('DOMContentLoaded', function() {
+    productManager = new ProductManager();
+    cartManager = new CartManager();
+    
+    // تحميل المنتجات إذا كان هناك شبكة منتجات
+    if (document.getElementById('products-grid')) {
+        productManager.loadProducts();
+    }
+    
+    // إعداد البحث
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            productManager.filterProducts(this.value);
+        });
+    }
+    
+    // إعداد زر تحميل المزيد
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+            productManager.loadMore();
+        });
+    }
+    
+    console.log('تم تهيئة التطبيق بنجاح');
+});
+
+// تصدير المدراء للاستخدام العام
+window.productManager = productManager;
+window.cartManager = cartManager;
+window.goToProduct = goToProduct;
+window.contactWhatsApp = contactWhatsApp;
+window.showCart = showCart;
