@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفاية سلطة دوّارة متعددة الوظائف | سوق الكويت 🇰🇼</title>
-    <meta name="description" content="حصالة نقود ممتازة للأطفال تساعد على تعلم الأطفال عادة الإدخار وتوفير المال. مصنوعة من مواد عالية الجودة وآمنة تماماً على الأطفال. منتج تعليمي مفيد وسهل الا... تسوق من سوق الكويت بأفضل الأسعار مع شحن مجاني لجميع أنحاء الكويت.">
+    <meta name="description" content="حصالة نقود ممتازة للأطفال تساعد على تعلم الأطفال عادة الإدخار وتوفير المال. مصنوعة من مواد عالية الجودة وآمنة تماماً على الأطفال. منتج تعليمي مفيد وسهل الا... تسوق من سوق الكويت بأفضل الأسعار مع شحن مجاني">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -15,7 +15,7 @@
         .whatsapp-nav { background: rgba(37,211,102,0.15); color: var(--whatsapp-green); padding: 8px 16px; border-radius: 25px; border: 2px solid var(--whatsapp-green); font-weight: 700; text-decoration: none; transition: all 0.3s ease; display: inline-flex; align-items: center; }
         .whatsapp-nav:hover { background: var(--whatsapp-green); color: white; transform: translateY(-2px); }
         
-        /* نظام الصور - فقط من ملف المنتجات */
+        /* نظام الصور المحسن مع إصلاح ecomerg.com */
         .product-img-container { 
             position: relative; 
             border-radius: 20px; 
@@ -54,28 +54,15 @@
         }
         
         .spinner { 
-            width: 30px; height: 30px; 
-            border: 3px solid rgba(255,255,255,0.3); 
+            width: 35px; height: 35px; 
+            border: 4px solid rgba(255,255,255,0.3); 
             border-radius: 50%; 
-            border-top: 3px solid white; 
-            animation: spin 1s linear infinite; 
-            margin-bottom: 15px;
+            border-top: 4px solid white; 
+            animation: spin 1.2s linear infinite; 
+            margin-bottom: 20px;
         }
         
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .img-placeholder {
-            width: 100%; 
-            height: 400px; 
-            background: linear-gradient(135deg, #667eea, #764ba2); 
-            display: flex; 
-            flex-direction: column;
-            align-items: center; 
-            justify-content: center; 
-            color: white; 
-            text-align: center;
-            border-radius: 20px;
-        }
         
         .price-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 25px; text-align: center; margin: 25px 0; box-shadow: 0 12px 35px rgba(102,126,234,0.3); }
         .old-price { text-decoration: line-through; opacity: 0.85; font-size: 1.4em; display: block; margin-bottom: 8px; }
@@ -84,7 +71,7 @@
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
         .wa-btn { background: linear-gradient(45deg, var(--whatsapp-green), #128c7e); color: white; padding: 20px 45px; border-radius: 50px; text-decoration: none; display: block; text-align: center; margin: 22px 0; font-size: 1.35em; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(37,211,102,0.4); }
         .wa-btn:hover { transform: translateY(-4px); box-shadow: 0 15px 40px rgba(37,211,102,0.6); color: white; }
-        .cart-btn { background: linear-gradient(45deg, #ff9a56, #ff6b35); color: white; padding: 18px 38px; border-radius: 45px; text-decoration: none; display: block; text-align: center; margin: 18px 0; font-size: 1.25em; font-weight: 600; transition: all 0.3s ease; }
+        .cart-btn { background: linear-gradient(45deg, #ff9a56, #ff6b35); color: white; padding: 18px 38px; border-radius: 45px; text-decoration: none; display: block; text-align: center; margin: 18px 0; font-size: 1.25em; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(255,154,86,0.4); }
         .cart-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(255,154,86,0.6); color: white; }
         .quick-btn { background: linear-gradient(45deg, #a55eea, #8854d0); color: white; padding: 14px 28px; border-radius: 30px; text-decoration: none; display: inline-block; font-weight: 600; transition: all 0.3s ease; }
         .quick-btn:hover { transform: translateY(-2px); color: white; }
@@ -134,12 +121,15 @@
                 <div class="product-img-container">
                     <div class="img-loading" id="imgLoading">
                         <div class="spinner"></div>
-                        <div>جاري تحميل الصورة...</div>
-                        <small style="opacity: 0.8; margin-top: 8px;">من ملف المنتجات</small>
+                        <div>جاري إصلاح تحميل الصورة...</div>
+                        <small style="opacity: 0.8; margin-top: 8px;">محاولة متعددة المصادر</small>
                     </div>
                     
                     <img id="productImg" 
-                         src="https://ecomerg.com/uploads/products_images/3710/Wb0quKAvoB677UBgtCjZiyrSBPEbi3vJQIgo2usj.jpg"
+                         data-original="https://ecomerg.com/uploads/products_images/3710/Wb0quKAvoB677UBgtCjZiyrSBPEbi3vJQIgo2usj.jpg"
+                         data-proxy1="https://images.weserv.nl/?url=https%3A%2F%2Fecomerg.com%2Fuploads%2Fproducts_images%2F3710%2FWb0quKAvoB677UBgtCjZiyrSBPEbi3vJQIgo2usj.jpg&w=500&h=400&fit=cover&a=center"
+                         data-proxy2="https://imageproxy.io/https%3A%2F%2Fecomerg.com%2Fuploads%2Fproducts_images%2F3710%2FWb0quKAvoB677UBgtCjZiyrSBPEbi3vJQIgo2usj.jpg"
+                         data-proxy3="https://corsproxy.io/?https%3A%2F%2Fecomerg.com%2Fuploads%2Fproducts_images%2F3710%2FWb0quKAvoB677UBgtCjZiyrSBPEbi3vJQIgo2usj.jpg"
                          alt="صفاية سلطة دوّارة متعددة الوظائف" 
                          class="product-img" 
                          style="display: none;"
@@ -219,11 +209,11 @@
                 </div>
 
                 <div class="d-grid gap-3">
-                    <a href="https://wa.me/201110760081?text=%F0%9F%9B%92%20%D8%A5%D8%B6%D8%A7%D9%81%D8%A9%20%D9%84%D9%84%D8%B3%D9%84%D8%A9%20-%20%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D9%83%D9%88%D9%8A%D8%AA%3A%0A%0A%F0%9F%93%A6%20%D8%B5%D9%81%D8%A7%D9%8A%D8%A9%20%D8%B3%D9%84%D8%B7%D8%A9%20%D8%AF%D9%88%D9%91%D8%A7%D8%B1%D8%A9%20%D9%85%D8%AA%D8%B9%D8%AF%D8%AF%D8%A9%20%D8%A7%D9%84%D9%88%D8%B8%D8%A7%D8%A6%D9%81%0A%F0%9F%92%B0%2013.0%20%D8%AF.%D9%83%0A%F0%9F%8E%AF%20%D9%83%D9%88%D8%AF%20%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%3A%20SOOQ-0002%0A%F0%9F%9A%9A%20%D8%B4%D8%AD%D9%86%20%D9%85%D8%AC%D8%A7%D9%86%D9%8A%0A%E2%AD%90%204.8%2F5%20%2831%20%D8%AA%D9%82%D9%8A%D9%8A%D9%85%29%0A%0A%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A5%D8%B6%D8%A7%D9%81%D8%A9%20%D9%87%D8%B0%D8%A7%20%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%20%D9%84%D9%84%D8%B3%D9%84%D8%A9%3A" class="cart-btn" target="_blank">
+                    <a href="https://wa.me/201110760081?text=%F0%9F%9B%92%20%D8%A5%D8%B6%D8%A7%D9%81%D8%A9%20%D9%84%D9%84%D8%B3%D9%84%D8%A9%20-%20%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D9%83%D9%88%D9%8A%D8%AA%3A%0A%0A%F0%9F%93%A6%20%D8%B5%D9%81%D8%A7%D9%8A%D8%A9%20%D8%B3%D9%84%D8%B7%D8%A9%20%D8%AF%D9%88%D9%91%D8%A7%D8%B1%D8%A9%20%D9%85%D8%AA%D8%B9%D8%AF%D8%AF%D8%A9%20%D8%A7%D9%84%D9%88%D8%B8%D8%A7%D8%A6%D9%81%0A%F0%9F%92%B0%2013.0%20%D8%AF.%D9%83%0A%F0%9F%8E%AF%20%D9%83%D9%88%D8%AF%20%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%3A%20SOOQ-0002%0A%F0%9F%9A%9A%20%D8%B4%D8%AD%D9%86%20%D9%85%D8%AC%D8%A7%D9%86%D9%8A%0A%E2%AD%90%204.8%2F5%20%2831%20%D8%AA%D9%82%D9%8A%D9%85%29%0A%0A%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A5%D8%B6%D8%A7%D9%81%D8%A9%20%D9%87%D8%B0%D8%A7%20%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%20%D9%84%D9%84%D8%B3%D9%84%D8%A9%3A" class="cart-btn" target="_blank">
                         <i class="fas fa-shopping-cart me-2"></i>أضف للسلة - شحن مجاني
                     </a>
                     
-                    <a href="https://wa.me/201110760081?text=%F0%9F%9B%8D%EF%B8%8F%20%D8%B7%D9%84%D8%A8%20%D9%85%D9%86%20%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D9%83%D9%88%D9%8A%D8%AA%3A%0A%0A%F0%9F%93%A6%20%D8%B5%D9%81%D8%A7%D9%8A%D8%A9%20%D8%B3%D9%84%D8%B7%D8%A9%20%D8%AF%D9%88%D9%91%D8%A7%D8%B1%D8%A9%20%D9%85%D8%AA%D8%B9%D8%AF%D8%AF%D8%A9%20%D8%A7%D9%84%D9%88%D8%B8%D8%A7%D8%A6%D9%81%0A%F0%9F%92%B0%2013.0%20%D8%AF.%D9%83%20%28%D8%A8%D8%AF%D9%84%D8%A7%D9%8B%20%D9%85%D9%86%2018.0%20%D8%AF.%D9%83%29%0A%F0%9F%94%A5%20%D9%88%D9%81%D8%B1%205.0%20%D8%AF.%D9%83%20%2828%25%20%D8%AE%D8%B5%D9%85%29%0A%F0%9F%86%94%20SOOQ-0002%0A%E2%AD%90%20%D8%AA%D9%82%D9%8A%D9%8A%D9%85%3A%204.8%2F5%20%2831%20%D8%AA%D9%82%D9%8A%D9%8A%D9%85%29%0A%0A%D8%A7%D9%84%D8%B9%D9%86%D9%88%D8%A7%D9%86%20%D9%84%D9%84%D8%B4%D8%AD%D9%86%20%D8%A7%D9%84%D9%85%D8%AC%D8%A7%D9%86%D9%8A%20%D8%AF%D8%A7%D8%AE%D9%84%20%D8%A7%D9%84%D9%83%D9%88%D9%8A%D8%AA%3A" class="wa-btn" target="_blank">
+                    <a href="https://wa.me/201110760081?text=%F0%9F%9B%8D%EF%B8%8F%20%D8%B7%D9%84%D8%A8%20%D9%85%D9%86%20%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D9%83%D9%88%D9%8A%D8%AA%3A%0A%0A%F0%9F%93%A6%20%D8%B5%D9%81%D8%A7%D9%8A%D8%A9%20%D8%B3%D9%84%D8%B7%D8%A9%20%D8%AF%D9%88%D9%91%D8%A7%D8%B1%D8%A9%20%D9%85%D8%AA%D8%B9%D8%AF%D8%AF%D8%A9%20%D8%A7%D9%84%D9%88%D8%B8%D8%A7%D8%A6%D9%81%0A%F0%9F%92%B0%2013.0%20%D8%AF.%D9%83%20%28%D8%A8%D8%AF%D9%84%D8%A7%D9%8B%20%D9%85%D9%86%2018.0%20%D8%AF.%D9%83%29%0A%F0%9F%94%A5%20%D9%88%D9%81%D8%B1%205.0%20%D8%AF.%D9%83%20%2828%25%20%D8%AE%D8%B5%D9%85%29%0A%F0%9F%86%94%20SOOQ-0002%0A%E2%AD%90%20%D8%AA%D9%82%D9%8A%D9%85%3A%204.8%2F5%20%2831%20%D8%AA%D9%82%D9%8A%D9%85%29%0A%0A%D8%A7%D9%84%D8%B9%D9%86%D9%88%D8%A7%D9%86%20%D9%84%D9%84%D8%B4%D8%AD%D9%86%20%D8%A7%D9%84%D9%85%D8%AC%D8%A7%D9%86%D9%8A%20%D8%AF%D8%A7%D8%AE%D9%84%20%D8%A7%D9%84%D9%83%D9%88%D9%8A%D8%AA%3A" class="wa-btn" target="_blank">
                         <i class="fab fa-whatsapp me-2"></i>اطلب الآن عبر الواتساب
                     </a>
                 </div>
@@ -270,7 +260,7 @@
                 </div>
                 <div class="col-md-6 text-end">
                     <p>كود المنتج: <span class="text-primary fw-bold">SOOQ-0002</span></p>
-                    <small class="text-info">الصور من: ملف المنتجات فقط</small>
+                    <small class="text-warning">إصلاح متقدم لروابط الصور</small>
                 </div>
             </div>
             <div class="text-center pt-4 border-top">
@@ -281,69 +271,84 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // نظام الصور - فقط من ملف المنتجات
+        // نظام الإصلاح المتقدم لروابط ecomerg.com
         document.addEventListener('DOMContentLoaded', function() {
             const img = document.getElementById('productImg');
             const loading = document.getElementById('imgLoading');
             
             let imageLoaded = false;
+            let currentAttempt = 0;
+            const maxAttempts = 4;
             
-            function showLoadedImage() {
+            const imageSources = [
+                img.dataset.original,    // الأصلي من ملف المنتجات
+                img.dataset.proxy1,      // weserv.nl proxy
+                img.dataset.proxy2,      // imageproxy.io
+                img.dataset.proxy3       // corsproxy.io
+            ];
+            
+            function showSuccessImage() {
                 loading.style.display = 'none';
                 img.style.display = 'block';
                 img.style.opacity = '0';
                 setTimeout(() => {
-                    img.style.transition = 'opacity 0.6s ease';
+                    img.style.transition = 'opacity 0.8s ease';
                     img.style.opacity = '1';
-                }, 50);
+                }, 100);
                 imageLoaded = true;
-                console.log('✅ تم تحميل الصورة من ملف المنتجات:', img.src);
+                console.log('✅ نجح تحميل الصورة من المحاولة', currentAttempt + 1);
+                console.log('📸 المصدر النهائي:', img.src.substring(0, 80) + '...');
             }
             
-            function showSimplePlaceholder() {
-                console.log('🖼️ عرض placeholder بسيط...');
+            function tryNextSource() {
+                if (imageLoaded) return;
+                if (currentAttempt >= maxAttempts) { showFinalPlaceholder(); return; }
+                
+                const source = imageSources[currentAttempt];
+                console.log('🔄 المحاولة', currentAttempt + 1, 'من', maxAttempts, ':', source.substring(0, 60) + '...');
+                
+                const attempts = ['الأصلي', 'Proxy 1', 'Proxy 2', 'Proxy 3'];
+                loading.innerHTML = `
+                    <div class="spinner"></div>
+                    <div>جاري إصلاح تحميل الصورة...</div>
+                    <small style="opacity: 0.8; margin-top: 8px;">المحاولة ${currentAttempt + 1}: ${attempts[currentAttempt]}</small>
+                    <div style="margin-top: 10px; opacity: 0.6;">
+                        <small>${Math.round((currentAttempt + 1) / maxAttempts * 100)}% مكتمل</small>
+                    </div>
+                `;
+                
+                img.onload = showSuccessImage;
+                img.onerror = function() {
+                    console.log('❌ فشلت المحاولة', currentAttempt + 1);
+                    currentAttempt++;
+                    setTimeout(tryNextSource, 1200);
+                };
+                
+                img.src = source;
+            }
+            
+            function showFinalPlaceholder() {
+                if (imageLoaded) return;
+                console.log('🖼️ عرض placeholder بعد فشل كل المحاولات...');
                 loading.innerHTML = `
                     <div style="text-align: center; padding: 30px;">
-                        <i class="fas fa-image" style="font-size: 4em; margin-bottom: 20px; opacity: 0.9;"></i>
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3em; margin-bottom: 20px; opacity: 0.8; color: #ffc107;"></i>
                         <h6 style="margin: 15px 0; font-weight: 600; line-height: 1.3;">صفاية سلطة دوّارة متعددة الوظائف</h6>
-                        <div style="background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 15px; margin-top: 15px;">
+                        <div style="background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 15px; margin: 15px 0;">
                             <small>SOOQ-0002</small>
                         </div>
-                        <div style="margin-top: 10px; opacity: 0.8;">
-                            <small>الصورة من ملف المنتجات</small>
+                        <div style="margin-top: 15px; opacity: 0.7;">
+                            <small>تم تجربة 4 طرق لتحميل الصورة</small><br>
+                            <small>من ملف المنتجات</small>
                         </div>
                     </div>
                 `;
             }
             
-            // محاولة تحميل الصورة من ملف المنتجات فقط
-            function loadImageFromFile() {
-                const jsonSrc = img.src;
-                console.log('🔗 محاولة تحميل الصورة من ملف المنتجات:', jsonSrc);
-                
-                if (jsonSrc && jsonSrc.trim() && jsonSrc !== 'null' && jsonSrc !== '') {
-                    img.onload = showLoadedImage;
-                    img.onerror = function() {
-                        console.log('❌ فشل تحميل الصورة من ملف المنتجات');
-                        showSimplePlaceholder();
-                    };
-                    // الصورة موضوعة مسبقاً في src
-                } else {
-                    console.log('⚠️ لا يوجد رابط صورة في ملف المنتجات');
-                    showSimplePlaceholder();
-                }
-            }
+            console.log('🔧 بدء نظام الإصلاح المتقدم لروابط ecomerg.com...');
+            tryNextSource();
             
-            // بدء العملية
-            loadImageFromFile();
-            
-            // Timeout للأمان (8 ثواني)
-            setTimeout(() => {
-                if (!imageLoaded) {
-                    console.log('⏰ انتهى وقت التحميل، عرض placeholder...');
-                    showSimplePlaceholder();
-                }
-            }, 8000);
+            setTimeout(() => { if (!imageLoaded) showFinalPlaceholder(); }, 15000);
         });
 
         // العداد التنازلي
@@ -360,9 +365,7 @@
         setInterval(updateTimer, 1000);
         updateTimer();
 
-        console.log('📄 صفحة منتج - الصور فقط من ملف المنتجات');
-        console.log('🆔 كود المنتج: SOOQ-0002');
-        console.log('🖼️ مصدر الصور: image_link من products_data.json');
+        console.log('🔧 نظام الإصلاح المتقدم مُفعل \n🆔 المنتج: SOOQ-0002 \n📋 المحاولات: 4 \n⏱️ المهلة: 15 ثانية');
     </script>
 </body>
 </html>
