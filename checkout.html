@@ -8,24 +8,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="geo-location.js"></script>
+    <style>
+    .checkout-note {
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+        font-weight: 600;
+    }
+    .checkout-note.success {
+        background: #dcfce7;
+        color: #166534;
+        border: 1px solid #bbf7d0;
+    }
+    .checkout-note.error {
+        background: #fecaca;
+        color: #dc2626;
+        border: 1px solid #f87171;
+    }
+    </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="nav-wrapper">
-                <div class="logo">
-                    <h1><a href="/" style="color: var(--luxury-gold); text-decoration: none;"><i class="fas fa-shopping-bag"></i> سوق الكويت</a></h1>
-                </div>
-                <nav class="nav">
-                    <ul>
-                        <li><a href="/">الرئيسية</a></li>
-                        <li><a href="cart.html">سلة التسوق</a></li>
-                        <li><a href="checkout.html">إتمام الطلب</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
+    <div id="site-header"></div>
 
     <main class="container" style="padding: 140px 0 80px;">
         <div style="max-width: 640px; margin: 0 auto; background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
@@ -33,7 +36,7 @@
                 <i class="fas fa-credit-card" style="color: var(--kuwait-green);"></i> إتمام الطلب
             </h2>
 
-            <form id="checkoutForm" style="margin-bottom: 2rem;">
+            <form id="checkout-form" style="margin-bottom: 2rem;">
                 <div class="form-group">
                     <label for="name">الاسم الكامل <span style="color: red;">*</span></label>
                     <input type="text" id="name" name="name" required style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 10px; font-family: Cairo;">
@@ -50,7 +53,7 @@
 
                 <div class="form-group">
                     <label for="governorate">المحافظة <span style="color: red;">*</span></label>
-                    <select id="governorate" required style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 10px; font-family: Cairo;">
+                    <select id="governorate" name="governorate" required style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 10px; font-family: Cairo;">
                         <option value="">اختر المحافظة</option>
                         <option value="العاصمة">العاصمة</option>
                         <option value="حولي">حولي</option>
@@ -87,6 +90,8 @@
         </div>
     </main>
 
+    <div id="site-footer"></div>
+
     <script>
         function isValidKuwaitiPhone(localPart) {
             return /^[569][0-9]{7}$/.test(localPart);
@@ -98,7 +103,7 @@
 
             let total = 0; let itemsHtml = '';
             cart.forEach(item => {
-                const itemTotal = item.sale_price * (item.quantity || 1);
+                const itemTotal = (item.sale_price || item.price) * (item.quantity || 1);
                 total += itemTotal;
                 itemsHtml += `<div style="display:flex;justify-content:space-between;margin:.5rem 0;"><span>${item.title.substring(0,30)}...</span><span>${itemTotal.toFixed(2)} د.ك</span></div>`;
             });
@@ -112,7 +117,7 @@
                 document.getElementById('geoBlockMessage').style.display = 'block';
             }
 
-            document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            document.getElementById('checkout-form').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const localPhone = document.getElementById('phone').value.trim();
                 const gov = document.getElementById('governorate').value;
@@ -125,7 +130,7 @@
                 if (!name || !address) { alert('أكمل البيانات المطلوبة'); return; }
 
                 const fullPhone = `+965${localPhone}`;
-                let orderText = `طلب جديد من سوق الكويت \ud83d\udecd\ufe0f\n\n`;
+                let orderText = `طلب جديد من سوق الكويت 🛍️\n\n`;
                 orderText += `👤 الاسم: ${name}\n`;
                 orderText += `📞 الهاتف: ${fullPhone}\n`;
                 orderText += `🏙️ المحافظة: ${gov}\n`;
@@ -133,7 +138,7 @@
                 orderText += `🛍️ تفاصيل الطلب:\n`;
                 cart.forEach((item, index) => {
                     orderText += `${index + 1}. ${item.title}\n`;
-                    orderText += `   الكمية: ${item.quantity || 1} | السعر: ${item.sale_price} د.ك\n\n`;
+                    orderText += `   الكمية: ${item.quantity || 1} | السعر: ${item.sale_price || item.price} د.ك\n\n`;
                 });
                 orderText += `💰 الإجمالي: ${total.toFixed(2)} د.ك\n`;
                 orderText += `شكراً لاختياركم سوق الكويت! 🇰🇼`;
@@ -141,10 +146,19 @@
                 const whatsappUrl = `https://wa.me/201110760081?text=${encodeURIComponent(orderText)}`;
                 window.open(whatsappUrl, '_blank');
                 localStorage.removeItem('cart');
+                
+                // تحديث عداد السلة
+                if (window.dispatchEvent) {
+                    window.dispatchEvent(new CustomEvent('cart:updated'));
+                }
+                
                 alert('تم إرسال طلبك! سنتواصل معك قريباً 🙏');
                 window.location.href = '/';
             });
         });
     </script>
+    <script src="partials/partials-loader.js" defer></script>
+    <script src="cart-core.js" defer></script>
+    <script src="checkout-ajax.js" defer></script>
 </body>
 </html>
