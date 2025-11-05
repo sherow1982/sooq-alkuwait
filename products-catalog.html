@@ -90,6 +90,7 @@
         font-size: 16px;
         outline: none;
         transition: all 0.3s ease;
+        box-sizing: border-box;
     }
     
     .search-input:focus {
@@ -346,51 +347,11 @@
         box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
     }
     
-    .specifications {
-        background: #f8f9fa;
-        padding: 20px;
-        border-radius: 12px;
-        margin: 25px 0;
-    }
-    
-    .spec-title {
-        color: var(--ku-green);
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 15px;
-    }
-    
-    .spec-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        font-size: 14px;
-    }
-    
-    .spec-item {
-        padding: 8px;
-        background: white;
-        border-radius: 8px;
-        display: flex;
-        justify-content: space-between;
-    }
-    
-    .spec-label {
-        font-weight: bold;
-        color: #666;
-    }
-    
-    .spec-value {
-        color: var(--ku-green);
-        font-weight: bold;
-    }
-    
     @media (max-width: 768px) {
         .hero-stats { grid-template-columns: repeat(2, 1fr); }
         .filter-tabs { justify-content: center; }
         .products-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
         .whatsapp-buttons { flex-direction: column; align-items: center; }
-        .spec-grid { grid-template-columns: 1fr; }
     }
     </style>
 </head>
@@ -494,7 +455,7 @@
             <!-- شبكة المنتجات -->
             <div class="products-grid" id="products-container">
                 <div style="text-align: center; padding: 50px; font-size: 18px; color: #666;">
-                    ⏳ جاري تحميل المنتجات الحقيقية...
+                    ⏳ جاري تحميل المنتجات...
                 </div>
             </div>
         </div>
@@ -549,13 +510,30 @@
     </footer>
     
     <script>
+        // بيانات المنتجات المدمجة كـ fallback
+        const fallbackProducts = [
+            {"id": 1, "title": "حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg", "description": "لعبة تعليمية وترفيهية آمنة للأطفال تساعد في تطوير القدرات الذهنية والحركية. مصنوعة من مواد عالية الجودة وآمنة تماماً للاستخدام."},
+            {"id": 2, "title": "صفاية سلطة دوّارة متعددة الوظائف", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3710/Wb0quKAvoB677UBgtCjZiyrSBPEbi3vJQIgo2usj.jpg", "description": "منتج عالي الجودة يتميز بالتصميم المتطور والأداء الممتاز. مناسب للاستخدام اليومي ويوفر قيمة ممتازة مقابل السعر."},
+            {"id": 3, "title": "عرض قطعتين من شورت نسائي لشد الجسم وتحديد القوام ببطانة ناعمة", "price": 20, "sale_price": 15, "image_link": "https://ecomerg.com/uploads/products_images/3709/1a7mTVkaKmAoEwCH8xKScYqiEqI2PGkVdNoxwsdC.jpg", "description": "منتج عالي الجودة يتميز بالتصميم المتطور والأداء الممتاز. مناسب للاستخدام اليومي ويوفر قيمة ممتازة مقابل السعر."},
+            {"id": 4, "title": "شورت نسائي لشد الجسم وتحديد القوام ببطانة ناعمة", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3708/amoikhxD7TbPnUdUOruMVdv4aQjZr6t91AofyS2J.jpg", "description": "منتج عالي الجودة يتميز بالتصميم المتطور والأداء الممتاز. مناسب للاستخدام اليومي ويوفر قيمة ممتازة مقابل السعر."},
+            {"id": 5, "title": "محول كهرباء 220 فولت إلى 12 فولت لأجهزة السيارات", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3707/dn7pad0vVoy7IWU2SR44OV23VAge2fpMFIjVsoto.jpg", "description": "منتج سيارة متطور يجمع بين الوظائف العملية والتصميم الأنيق. يساعد في تحسين أداء السيارة وراحة الركاب."},
+            {"id": 6, "title": "شامبو صلب طبيعي من Nature Triangle", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3706/9OXos2uBDi3ppfQTkYK7kto3ctR0xQ3wGaCpiwJT.jpg", "description": "تركيبة مبتكرة للعناية بالشعر تحتوي على مكونات طبيعية تساعد في تقوية الشعر وإصلاح التلف. يمنح الشعر لمعاناً طبيعياً ونعومة فائقة."},
+            {"id": 7, "title": "سيروم الأرز والهيالورونيك أسيد من BIOAQUA", "price": 17, "sale_price": 12, "image_link": "https://ecomerg.com/uploads/products_images/3700/LjlQjSyR8qdpjsOyvWxGo5VPLJUXzGBDrxFnCvDl.jpg", "description": "كريم عناية متطور يوفر ترطيباً عميقاً وحماية فائقة للبشرة. مناسب لجميع أنواع البشرة ويساعد في الحفاظ على إشراق البشرة الطبيعي."},
+            {"id": 8, "title": "جهاز تنظيف السجاد المحمول من raf", "price": 43, "sale_price": 35, "image_link": "https://ecomerg.com/uploads/products_images/3699/KJYO8WjQgK0XH4DrsKG6WPj2qXVtxNv0ZbIfCYvb.jpg", "description": "منتج تنظيف فعال وآمن يوفر نظافة عميقة وشاملة. مناسب للاستخدام المنزلي اليومي ويساعد في الحفاظ على بيئة نظيفة وصحية."},
+            {"id": 9, "title": "صانعة القهوة التركية من سوكاني", "price": 44, "sale_price": 36, "image_link": "https://ecomerg.com/uploads/products_images/3698/nMFRdBWdC8Z1ALEXbM5iBZ5wl8RNXca9FgjOYCFu.jpg", "description": "جهاز مطبخ متطور يجمع بين الأداء العالي وسهولة الاستخدام. يساعد في إعداد وجبات لذيذة وصحية بطريقة سريعة وعملية."},
+            {"id": 10, "title": "روبوت كهربائي للحيوانات الأليفة يعمل بجهاز تحكم عن بعد", "price": 18, "sale_price": 13, "image_link": "https://ecomerg.com/uploads/products_images/3697/bY4I5rg81UW2x1sANRVweB5O6CwD4PrvUPU7Qo5f.jpg", "description": "جهاز إلكتروني متطور يتميز بالأداء العالي والجودة الممتازة. مصمم ليناسب احتياجات المستخدمين في الكويت ويوفر حلولاً تقنية عملية ومبتكرة."}
+        ];
+        
         let allProducts = [];
         let filteredProducts = [];
         let cart = JSON.parse(localStorage.getItem('sooq-cart')) || [];
         
         // تحديث عداد السلة
         function updateCartCount() {
-            document.getElementById('cart-count').textContent = cart.length;
+            const cartCountEl = document.getElementById('cart-count');
+            if (cartCountEl) {
+                cartCountEl.textContent = cart.length;
+            }
         }
         
         // إضافة إلى السلة
@@ -569,7 +547,6 @@
             localStorage.setItem('sooq-cart', JSON.stringify(cart));
             updateCartCount();
             
-            // إشعار بسيط
             alert(`تمت إضافة "${product.title}" إلى السلة!`);
         }
         
@@ -580,132 +557,73 @@
                 return;
             }
             
-            let cartHTML = `
-                <!DOCTYPE html>
-                <html lang="ar" dir="rtl">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>سلة التسوق - سوق الكويت</title>
-                    <link rel="stylesheet" href="assets/css/kuwait-modern.css">
-                </head>
-                <body>
-                    <div class="section" style="padding-top: 50px;">
-                        <div class="container">
-                            <h1 style="color: var(--ku-green); text-align: center; margin-bottom: 30px;">🛒 سلة التسوق</h1>
-                            <div class="card">
-            `;
-            
             let total = 0;
-            cart.forEach(item => {
+            let cartDetails = cart.map(item => {
                 total += item.sale_price * item.quantity;
-                cartHTML += `
-                    <div style="display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee;">
-                        <img src="${item.image_link}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 10px; margin-left: 15px;">
-                        <div style="flex: 1;">
-                            <h4 style="color: var(--ku-green); margin-bottom: 5px;">${item.title}</h4>
-                            <p style="color: #666;">الكمية: ${item.quantity} | السعر: ${item.sale_price} د.ك</p>
-                        </div>
-                        <div style="font-weight: bold; color: var(--ku-red);">${(item.sale_price * item.quantity).toFixed(2)} د.ك</div>
-                    </div>
-                `;
-            });
+                return `${item.title} - الكمية: ${item.quantity} - السعر: ${item.sale_price} د.ك`;
+            }).join('%0A');
             
-            cartHTML += `
-                            <div style="text-align: center; padding: 20px;">
-                                <h3 style="color: var(--ku-green);">المجموع الكلي: ${total.toFixed(2)} د.ك</h3>
-                                <div style="margin-top: 20px;">
-                                    <a href="https://wa.me/201110760081?text=مرحباً، أريد طلب هذه المنتجات من السلة:" class="cta" target="_blank">
-                                        💬 إرسال الطلب عبر واتساب
-                                    </a>
-                                    <button onclick="window.close()" class="cta" style="background: #666; margin-right: 10px;">إغلاق</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </body>
-                </html>
-            `;
-            
-            const cartWindow = window.open('', '_blank');
-            cartWindow.document.write(cartHTML);
-            cartWindow.document.close();
+            const whatsappMessage = `مرحباً، أريد طلب هذه المنتجات:%0A${cartDetails}%0A%0Aالمجموع الكلي: ${total.toFixed(2)} د.ك`;
+            window.open(`https://wa.me/201110760081?text=${whatsappMessage}`, '_blank');
         }
         
-        // تحميل بيانات المنتجات الحقيقية من JSON
+        // تحميل بيانات المنتجات
         async function loadProductsData() {
             try {
-                console.log('📦 تحميل بيانات المنتجات الحقيقية...');
-                const response = await fetch('products_data.json');
+                console.log('📦 محاولة تحميل بيانات المنتجات من JSON...');
+                const response = await fetch('./products_data.json');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
                 const data = await response.json();
-                allProducts = data;
-                filteredProducts = [...allProducts];
-                
-                // تحديث عدد المنتجات في الهيدر
-                document.getElementById('total-products').textContent = allProducts.length;
-                
-                console.log(`✅ تم تحميل ${allProducts.length} منتج حقيقي`);
-                return allProducts;
+                if (data && Array.isArray(data) && data.length > 0) {
+                    allProducts = data;
+                    console.log(`✅ تم تحميل ${data.length} منتج من JSON`);
+                } else {
+                    throw new Error('البيانات فارغة أو غير صحيحة');
+                }
             } catch (error) {
-                console.error('❌ خطأ في تحميل بيانات المنتجات:', error);
-                document.getElementById('products-container').innerHTML = `
-                    <div style="text-align: center; padding: 50px; color: #dc3545;">
-                        ❌ خطأ في تحميل المنتجات. يرجى تحديث الصفحة أو الاتصال بنا.
-                    </div>
-                `;
-                return [];
+                console.warn('⚠️ فشل تحميل JSON، استخدام البيانات المدمجة:', error.message);
+                allProducts = [...fallbackProducts];
             }
+            
+            filteredProducts = [...allProducts];
+            
+            // تحديث عدد المنتجات في الهيدر
+            const totalEl = document.getElementById('total-products');
+            if (totalEl) {
+                totalEl.textContent = allProducts.length;
+            }
+            
+            return allProducts;
         }
         
-        // إنشاء رابط صفحة المنتج
-        function createProductSlug(title) {
-            return title.replace(/[\s\u00A0]+/g, '-')
-                      .replace(/[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFFa-zA-Z0-9\-]/g, '')
-                      .replace(/-+/g, '-')
-                      .replace(/^-|-$/g, '')
-                      .toLowerCase();
-        }
-        
-        // تصنيف المنتجات حسب الكلمات المفتاحية
+        // تصنيف المنتجات
         function categorizeProduct(title, description) {
             const text = (title + ' ' + (description || '')).toLowerCase();
             
-            if (text.includes('طفل') || text.includes('لعب') || text.includes('أطفال') || text.includes('حصالة') || text.includes('روبوت') || text.includes('لعبة')) {
+            if (text.includes('طفل') || text.includes('لعب') || text.includes('أطفال') || text.includes('حصالة') || text.includes('روبوت')) {
                 return 'الأطفال';
-            } else if (text.includes('مطبخ') || text.includes('صانعة') || text.includes('قهوة') || text.includes('طبخ') || text.includes('صفاية') || text.includes('طعام') || text.includes('أدوات')) {
+            } else if (text.includes('مطبخ') || text.includes('صانعة') || text.includes('قهوة') || text.includes('صفاية') || text.includes('طعام')) {
                 return 'المطبخ';
-            } else if (text.includes('شورت') || text.includes('ملابس') || text.includes('حقيبة') || text.includes('قميص') || text.includes('بنطال')) {
+            } else if (text.includes('شورت') || text.includes('ملابس') || text.includes('حقيبة')) {
                 return 'الملابس';
-            } else if (text.includes('سيارة') || text.includes('محول') || text.includes('كهرباء') || text.includes('سيارات') || text.includes('مركبة')) {
+            } else if (text.includes('سيارة') || text.includes('محول') || text.includes('كهرباء')) {
                 return 'السيارات';
-            } else if (text.includes('شامبو') || text.includes('سيروم') || text.includes('كريم') || text.includes('عناية') || text.includes('بشرة') || text.includes('شعر') || text.includes('جمال')) {
+            } else if (text.includes('شامبو') || text.includes('سيروم') || text.includes('كريم') || text.includes('عناية')) {
                 return 'العناية';
             } else {
                 return 'أخرى';
             }
         }
         
-        // توليد مواصفات المنتج
-        function generateProductSpecs(product, category) {
-            const countries = ['الصين', 'تركيا', 'الصين/تركيا'];
-            const randomCountry = countries[Math.floor(Math.random() * countries.length)];
-            
-            return {
-                'العلامة التجارية': 'سوق الكويت',
-                'بلد الصنع': randomCountry,
-                'ضمان المنتج': 'سنة واحدة',
-                'حالة المنتج': 'جديد',
-                'الشحن': 'مجاني لجميع أنحاء الكويت',
-                'المواد': 'عالية الجودة',
-                'الاستخدام': 'سهل ومريح',
-                'المتانة': 'طويلة الأمد',
-                'التصميم': 'عصري وأنيق'
-            };
-        }
-        
-        // عرض المنتجات مع روابط صفحات فردية
+        // عرض المنتجات
         function displayProducts(products) {
             const container = document.getElementById('products-container');
+            if (!container) return;
+            
             container.innerHTML = '';
             
             if (products.length === 0) {
@@ -713,11 +631,9 @@
                 return;
             }
             
-            products.forEach((product, index) => {
+            products.forEach(product => {
                 const discount = Math.round(((product.price - product.sale_price) / product.price) * 100);
                 const category = categorizeProduct(product.title, product.description);
-                const slug = createProductSlug(product.title);
-                const specs = generateProductSpecs(product, category);
                 
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
@@ -734,7 +650,7 @@
                             <div style="background:var(--ku-gold);color:var(--ku-black);padding:4px 8px;border-radius:8px;margin-top:6px;font-size:12px;font-weight:bold;">خصم ${discount}%</div>
                         </div>
                         
-                        <div class="countdown-timer" id="timer-${product.id}">
+                        <div class="countdown-timer">
                             ⏰ العرض ينتهي خلال: <span class="countdown-time">23:59:45</span>
                         </div>
                         
@@ -749,11 +665,11 @@
                                 💬 طلب عبر واتساب
                             </a>
                             
-                            <a href="#" class="view-btn" onclick="viewProduct('${slug}', '${product.title.replace(/'/g, "\\\\'")}', '${product.image_link}', ${product.price}, ${product.sale_price}, '${(product.description || 'منتج عالي الجودة من سوق الكويت').replace(/'/g, "\\\\'")}', '${category}', ${product.id}, event)">
+                            <button class="view-btn" onclick="viewProduct(${product.id})">
                                 👁️ عرض تفاصيل المنتج
-                            </a>
+                            </button>
                             
-                            <button class="cart-btn" onclick="addToCart({id: ${product.id}, title: '${product.title.replace(/'/g, "\\\\'")}', price: ${product.price}, sale_price: ${product.sale_price}, image_link: '${product.image_link}'})">
+                            <button class="cart-btn" onclick="addToCart({id: ${product.id}, title: '${product.title.replace(/'/g, "\\")}', price: ${product.price}, sale_price: ${product.sale_price}, image_link: '${product.image_link}'})">
                                 🛒 أضف إلى السلة
                             </button>
                         </div>
@@ -764,179 +680,85 @@
             });
             
             // تحديث عداد المنتجات
-            document.getElementById('products-count').textContent = products.length.toLocaleString('ar');
+            const countEl = document.getElementById('products-count');
+            if (countEl) {
+                countEl.textContent = products.length.toLocaleString('ar');
+            }
         }
         
         // عرض تفاصيل المنتج
-        function viewProduct(slug, title, image, originalPrice, salePrice, description, category, id, event) {
-            event.preventDefault();
+        function viewProduct(productId) {
+            const product = allProducts.find(p => p.id === productId);
+            if (!product) {
+                alert('تفاصيل المنتج غير متاحة');
+                return;
+            }
             
-            const specs = generateProductSpecs({title, category}, category);
+            const discount = Math.round(((product.price - product.sale_price) / product.price) * 100);
+            const category = categorizeProduct(product.title, product.description);
+            
+            const specs = {
+                'العلامة التجارية': 'سوق الكويت',
+                'بلد الصنع': 'الصين/تركيا',
+                'ضمان المنتج': 'سنة واحدة',
+                'حالة المنتج': 'جديد',
+                'الشحن': 'مجاني لجميع أنحاء الكويت',
+                'المواد': 'عالية الجودة',
+                'الاستخدام': 'سهل ومريح',
+                'المتانة': 'طويلة الأمد',
+                'التصميم': 'عصري وأنيق'
+            };
+            
             let specsHTML = '';
             Object.entries(specs).forEach(([key, value]) => {
-                specsHTML += `
-                    <div class="spec-item">
-                        <span class="spec-label">${key}:</span>
-                        <span class="spec-value">${value}</span>
-                    </div>
-                `;
+                specsHTML += `<div style="display: flex; justify-content: space-between; padding: 8px; margin-bottom: 5px; background: white; border-radius: 8px;"><span style="font-weight: bold; color: #666;">${key}:</span><span style="color: var(--ku-green); font-weight: bold;">${value}</span></div>`;
             });
             
-            // إنشاء محتوى صفحة المنتج في نافذة جديدة
-            const productPageContent = `
+            const productHTML = `
                 <!DOCTYPE html>
                 <html lang="ar" dir="rtl">
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>${title} - سوق الكويت</title>
-                    <meta name="description" content="${description}">
-                    <link rel="stylesheet" href="../assets/css/kuwait-modern.css">
+                    <title>${product.title} - سوق الكويت</title>
+                    <link rel="stylesheet" href="assets/css/kuwait-modern.css">
                     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-                    <style>
-                        .specifications {
-                            background: #f8f9fa;
-                            padding: 20px;
-                            border-radius: 12px;
-                            margin: 25px 0;
-                        }
-                        
-                        .spec-title {
-                            color: var(--ku-green);
-                            font-size: 18px;
-                            font-weight: bold;
-                            margin-bottom: 15px;
-                        }
-                        
-                        .spec-grid {
-                            display: grid;
-                            grid-template-columns: 1fr 1fr;
-                            gap: 10px;
-                            font-size: 14px;
-                        }
-                        
-                        .spec-item {
-                            padding: 8px;
-                            background: white;
-                            border-radius: 8px;
-                            display: flex;
-                            justify-content: space-between;
-                        }
-                        
-                        .spec-label {
-                            font-weight: bold;
-                            color: #666;
-                        }
-                        
-                        .spec-value {
-                            color: var(--ku-green);
-                            font-weight: bold;
-                        }
-                        
-                        @media (max-width: 768px) {
-                            .spec-grid { grid-template-columns: 1fr; }
-                        }
-                    </style>
                 </head>
-                <body>
-                    <!-- الهيدر -->
-                    <header class="header">
-                        <div class="container nav">
-                            <a class="logo" href="../index.html">
-                                <span class="logo-badge"></span>
-                                <span>سوق الكويت</span>
-                            </a>
-                            <nav class="menu">
-                                <a href="../index.html">الرئيسية</a>
-                                <a href="../products-catalog.html">المنتجات</a>
-                                <a href="../about.html">من نحن</a>
-                                <a href="../contact.html">اتصل بنا</a>
-                            </nav>
-                            <a class="cta" href="tel:+201110760081">اطلب الآن</a>
-                        </div>
-                    </header>
-                    
-                    <div class="section" style="padding-top: 100px;">
+                <body style="background: #f8f9fa;">
+                    <div class="section" style="padding-top: 50px;">
                         <div class="container">
                             <div class="card" style="max-width: 800px; margin: 0 auto;">
-                                <img src="${image}" alt="${title}" style="width: 100%; height: 400px; object-fit: cover; border-radius: 15px;">
+                                <img src="${product.image_link}" alt="${product.title}" style="width: 100%; height: 400px; object-fit: cover; border-radius: 15px;">
                                 <div style="padding: 40px;">
-                                    <h1 style="color: var(--ku-green); font-size: 28px; margin-bottom: 20px; line-height: 1.4;">${title}</h1>
-                                    <p style="color: #666; margin-bottom: 25px; font-size: 16px; line-height: 1.6;">${description}</p>
-                                    
-                                    <!-- العداد التنازلي -->
-                                    <div style="background: linear-gradient(135deg, #e67e22, #d35400); color: white; padding: 15px; border-radius: 12px; text-align: center; margin: 20px 0; font-size: 16px; font-weight: bold;">
-                                        ⏰ العرض ينتهي خلال: <span id="page-timer">23:59:45</span>
-                                    </div>
+                                    <h1 style="color: var(--ku-green); font-size: 28px; margin-bottom: 20px;">${product.title}</h1>
+                                    <p style="color: #666; margin-bottom: 25px; line-height: 1.6;">${product.description}</p>
                                     
                                     <div style="background: linear-gradient(135deg, var(--ku-red), #e74c3c); color: white; padding: 25px; border-radius: 15px; text-align: center; margin: 25px 0;">
-                                        <div style="font-size: 18px; opacity: 0.9; text-decoration: line-through; margin-bottom: 5px;">${originalPrice} د.ك</div>
-                                        <div style="font-size: 32px; font-weight: bold; margin-bottom: 8px;">${salePrice} د.ك</div>
-                                        <div style="background: var(--ku-gold); color: var(--ku-black); padding: 8px 15px; border-radius: 12px; margin-top: 10px; display: inline-block; font-size: 14px; font-weight: bold;">خصم ${Math.round(((originalPrice - salePrice) / originalPrice) * 100)}%</div>
+                                        <div style="font-size: 18px; opacity: 0.9; text-decoration: line-through; margin-bottom: 5px;">${product.price} د.ك</div>
+                                        <div style="font-size: 32px; font-weight: bold; margin-bottom: 8px;">${product.sale_price} د.ك</div>
+                                        <div style="background: var(--ku-gold); color: var(--ku-black); padding: 8px 15px; border-radius: 12px; margin-top: 10px; display: inline-block; font-weight: bold;">خصم ${discount}%</div>
                                     </div>
                                     
-                                    <!-- المواصفات التفصيلية -->
-                                    <div class="specifications">
-                                        <h3 class="spec-title">📋 المواصفات التفصيلية</h3>
-                                        <div class="spec-grid">
-                                            ${specsHTML}
-                                        </div>
+                                    <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; margin: 25px 0;">
+                                        <h3 style="color: var(--ku-green); margin-bottom: 20px; text-align: center;">📋 المواصفات التفصيلية</h3>
+                                        ${specsHTML}
                                     </div>
                                     
-                                    <div style="text-align: center; margin: 30px 0; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                                        <a href="https://wa.me/201110760081?text=مرحباً، أريد طلب: ${encodeURIComponent(title)} - السعر: ${salePrice} د.ك - رقم المنتج: SOOQ-${id.toString().padStart(4, '0')}" 
-                                           class="cta" target="_blank" style="font-size: 18px; padding: 15px 30px;">💬 اطلب عبر واتساب</a>
+                                    <div style="text-align: center; margin: 30px 0;">
+                                        <a href="https://wa.me/201110760081?text=مرحباً، أريد طلب: ${encodeURIComponent(product.title)} - السعر: ${product.sale_price} د.ك - رقم المنتج: SOOQ-${product.id.toString().padStart(4, '0')}" 
+                                           class="cta" target="_blank" style="font-size: 18px; padding: 15px 30px; margin-left: 10px;">💬 اطلب عبر واتساب</a>
                                         <a href="tel:+201110760081" class="cta" style="font-size: 18px; padding: 15px 30px; background: linear-gradient(135deg, var(--ku-green), #27ae60);">📞 اتصل الآن</a>
-                                    </div>
-                                    
-                                    <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-top: 25px;">
-                                        <h3 style="color: var(--ku-green); margin-bottom: 15px;">📋 تفاصيل المنتج</h3>
-                                        <p style="font-size: 14px; color: #666; line-height: 1.8;">
-                                            📂 الفئة: ${category}<br>
-                                            🏷️ رقم المنتج: SOOQ-${id.toString().padStart(4, '0')}<br>
-                                            🚚 توصيل مجاني لجميع مناطق الكويت<br>
-                                            ⏰ خدمة عملاء 24/7<br>
-                                            💰 دفع عند الاستلام متاح<br>
-                                            ✅ ضمان الجودة مدى الحياة
-                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <script>
-                        // العداد التنازلي لصفحة المنتج
-                        function updateProductPageTimer() {
-                            const now = new Date();
-                            const tomorrow = new Date(now.getTime() + 24*60*60*1000);
-                            tomorrow.setHours(0,0,0,0);
-                            
-                            const diff = tomorrow - now;
-                            const hours = Math.floor(diff / 3600000);
-                            const minutes = Math.floor((diff % 3600000) / 60000);
-                            const seconds = Math.floor((diff % 60000) / 1000);
-                            
-                            const timeString = hours.toString().padStart(2, '0') + ':' + 
-                                             minutes.toString().padStart(2, '0') + ':' + 
-                                             seconds.toString().padStart(2, '0');
-                            
-                            const timerEl = document.getElementById('page-timer');
-                            if (timerEl && diff > 0) {
-                                timerEl.textContent = timeString;
-                            }
-                        }
-                        
-                        setInterval(updateProductPageTimer, 1000);
-                        updateProductPageTimer();
-                    </script>
                 </body>
                 </html>
             `;
             
-            // فتح صفحة المنتج في نافذة/تبويب جديد
             const newWindow = window.open('', '_blank');
-            newWindow.document.write(productPageContent);
+            newWindow.document.write(productHTML);
             newWindow.document.close();
         }
         
@@ -947,20 +769,20 @@
             
             let currentCategory = 'الكل';
             
-            // البحث
-            searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase();
-                filterAndDisplay(currentCategory, searchTerm);
-            });
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    filterAndDisplay(currentCategory, searchTerm);
+                });
+            }
             
-            // التصفية حسب الفئة
             filterTabs.forEach(tab => {
                 tab.addEventListener('click', function() {
                     filterTabs.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
                     
                     currentCategory = this.dataset.category;
-                    const searchTerm = searchInput.value.toLowerCase();
+                    const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
                     
                     filterAndDisplay(currentCategory, searchTerm);
                 });
@@ -990,9 +812,9 @@
         
         // البحث من الزر
         function performSearch() {
-            const searchTerm = document.getElementById('search-input').value;
-            if (searchTerm.trim()) {
-                filterAndDisplay('الكل', searchTerm.toLowerCase());
+            const searchInput = document.getElementById('search-input');
+            if (searchInput && searchInput.value.trim()) {
+                filterAndDisplay('الكل', searchInput.value.toLowerCase());
             }
         }
         
@@ -1009,7 +831,6 @@
             
             const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             
-            // تحديث جميع العدادات
             const timers = document.querySelectorAll('.countdown-time');
             timers.forEach(timer => {
                 if (diff > 0) {
@@ -1020,51 +841,19 @@
             });
         }
         
-        // تحميل وتشغيل التطبيق
+        // تشغيل التطبيق
         document.addEventListener('DOMContentLoaded', async function() {
             console.log('📱 بدء تحميل الكتالوج...');
             
-            // تحديث عداد السلة
-            updateCartCount();
-            
-            // تحميل بيانات المنتجات الحقيقية
-            const products = await loadProductsData();
-            
-            if (products.length > 0) {
-                // معالجة URL parameters للتصفية المباشرة
-                const urlParams = new URLSearchParams(window.location.search);
-                const categoryParam = urlParams.get('category');
-                const specialParam = urlParams.get('special');
+            try {
+                // تحديث عداد السلة
+                updateCartCount();
                 
-                if (categoryParam) {
-                    // تفعيل التبويب المناسب
-                    const categoryMap = {
-                        'ألعاب%20الأطفال': 'الأطفال',
-                        'المطبخ': 'المطبخ',
-                        'الملابس': 'الملابس',
-                        'السيارات': 'السيارات',
-                        'العناية%20الشخصية': 'العناية'
-                    };
-                    
-                    const mappedCategory = categoryMap[categoryParam] || decodeURIComponent(categoryParam);
-                    const targetTab = document.querySelector(`[data-category="${mappedCategory}"]`);
-                    if (targetTab) {
-                        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-                        targetTab.classList.add('active');
-                        filterAndDisplay(mappedCategory, '');
-                    } else {
-                        displayProducts(allProducts);
-                    }
-                } else if (specialParam === 'offers') {
-                    // عرض العروض الخاصة (منتجات بخصم أكبر من 20%)
-                    const offers = allProducts.filter(p => {
-                        const discount = Math.round(((p.price - p.sale_price) / p.price) * 100);
-                        return discount >= 20;
-                    });
-                    displayProducts(offers);
-                } else {
-                    displayProducts(allProducts);
-                }
+                // تحميل بيانات المنتجات
+                await loadProductsData();
+                
+                // عرض المنتجات
+                displayProducts(allProducts);
                 
                 // إعداد البحث والتصفية
                 setupSearchAndFilter();
@@ -1074,12 +863,21 @@
                 setInterval(updateCountdown, 1000);
                 
                 console.log('🎉 تم تحميل الكتالوج بنجاح!');
+                
+            } catch (error) {
+                console.error('❌ خطأ في تشغيل التطبيق:', error);
+                document.getElementById('products-container').innerHTML = `
+                    <div style="text-align: center; padding: 50px; color: #dc3545;">
+                        ❌ خطأ في تحميل المنتجات. يرجى تحديث الصفحة.<br>
+                        <button onclick="location.reload()" class="cta" style="margin-top: 20px;">تحديث الصفحة</button>
+                    </div>
+                `;
             }
         });
         
         // Enter للبحث
         document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && document.activeElement.id === 'search-input') {
+            if (e.key === 'Enter' && document.activeElement && document.activeElement.id === 'search-input') {
                 performSearch();
             }
         });
