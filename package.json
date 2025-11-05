@@ -1,9 +1,28 @@
 {
-  "name": "sooq-alkuwait-generator",
-  "version": "1.1.0",
-  "description": "مولد صفحات المنتجات - مسار products-pages متجاوب وSEO",
-  "main": "generate_all_products.js",
+  "name": "sooq-alkuwait",
+  "version": "1.0.0",
+  "description": "متجر سوق الكويت الإلكتروني بتصميم عصري من ألوان علم الكويت",
+  "main": "index.html",
   "scripts": {
-    "generate": "node generate_all_products.js"
+    "generate-pages": "node generate-all-product-pages.js",
+    "serve": "python -m http.server 8000",
+    "start": "npm run generate-pages && npm run serve"
+  },
+  "keywords": [
+    "ecommerce",
+    "kuwait",
+    "online-store",
+    "سوق الكويت",
+    "متجر إلكتروني"
+  ],
+  "author": "Sooq AlKuwait",
+  "license": "MIT",
+  "homepage": "https://sherow1982.github.io/sooq-alkuwait/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sherow1982/sooq-alkuwait.git"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
