@@ -1,69 +1,88 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>اتصل بنا - سوق الكويت</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="kuwait-luxury.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اتصل بنا - سوق الكويت | خدمة عملاء 24/7</title>
+  <meta name="description" content="تواصل مع فريق خدمة العملاء في سوق الكويت عبر الواتساب 24/7. طرق متنوعة للتواصل وخدمة فورية.">
+  <link rel="stylesheet" href="assets/css/kuwait-theme.css">
+  <link rel="stylesheet" href="assets/css/legal-pages.css">
+  <link rel="stylesheet" href="assets/css/fixes-no-white-bars.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body>
-  <header class="header">
+<body class="legal-page">
+  <div id="site-header"></div>
+  <section class="legal-header">
     <div class="container">
-      <div class="nav-wrapper">
-        <div class="logo">
-          <h1><i class="fas fa-shopping-bag"></i> سوق الكويت</h1>
+      <div class="legal-header-content fade-in-up">
+        <h1 class="legal-title">اتصل بنا</h1>
+        <p class="legal-subtitle">فريق خدمة العملاء متاح 24/7 لمساعدتك</p>
+        <div class="legal-breadcrumb">
+          <nav class="breadcrumb-nav">
+            <a href="index.html">الرئيسية</a>
+            <span class="breadcrumb-separator">»</span>
+            <span>اتصل بنا</span>
+          </nav>
         </div>
-        <nav class="nav">
-          <ul>
-            <li><a href="/sooq-alkuwait/">الرئيسية</a></li>
-            <li><a href="about.html">من نحن</a></li>
-            <li><a href="contact.html" class="active">اتصل بنا</a></li>
-          </ul>
-        </nav>
       </div>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="hero-content container">
-      <h2>اتصل بنا</h2>
-      <p>تواصل معنا على مدار الساعة عبر واتساب أو البريد الإلكتروني.</p>
     </div>
   </section>
-
-  <main class="container" style="padding: 60px 0;">
-    <h3 class="section-title">بيانات الاتصال</h3>
-    <div class="checkout-section">
-      <p>الدولة: الكويت 🇰🇼</p>
-      <p>المدينة: الكويت</p>
-      <p>الرمز البريدي: 36320</p>
-      <p>واتساب: <a href="https://wa.me/201110760081" target="_blank">201110760081+</a></p>
-      <p>البريد: info@sooq-kw.com</p>
-      <p>الدفع: الدفع عند الاستلام</p>
-    </div>
-
-    <h3 class="section-title">أرسل رسالة</h3>
-    <div class="checkout-section">
-      <form onsubmit="event.preventDefault();window.open('https://wa.me/201110760081?text='+encodeURIComponent(document.getElementById('msg').value),'_blank');">
-        <div class="form-group">
-          <label for="msg">رسالتك</label>
-          <textarea id="msg" rows="4" placeholder="اكتب رسالتك هنا وسيتم فتح واتساب تلقائياً"></textarea>
+  <div class="legal-content">
+    <div class="legal-container fade-in-up">
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="info-card-icon"><i class="fab fa-whatsapp"></i></div>
+          <h3 class="info-card-title">واتساب فوري</h3>
+          <p class="info-card-text">رد فوري على جميع الاستفسارات</p>
+          <p class="info-card-text"><a href="https://wa.me/201110760081" target="_blank">+20 111 076 0081</a></p>
         </div>
-        <button class="btn-whatsapp-large" type="submit"><i class="fab fa-whatsapp"></i> إرسال عبر واتساب</button>
-      </form>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p>&copy; 2025 سوق الكويت. جميع الحقوق محفوظة.</p>
+        <div class="info-card">
+          <div class="info-card-icon"><i class="fas fa-envelope"></i></div>
+          <h3 class="info-card-title">بريد إلكتروني</h3>
+          <p class="info-card-text">للاستفسارات الرسمية</p>
+          <p class="info-card-text"><a href="mailto:support@sooq-alkuwait.com">support@sooq-alkuwait.com</a></p>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon"><i class="fas fa-clock"></i></div>
+          <h3 class="info-card-title">ساعات العمل</h3>
+          <p class="info-card-text">متاحون على مدار الساعة</p>
+          <p class="info-card-text">24/7 طوال الأسبوع</p>
+        </div>
+      </div>
+      <div class="legal-contact">
+        <h3><i class="fas fa-comments"></i> أرسل رسالتك الآن</h3>
+        <p>اختر طريقة التواصل المفضلة لديك</p>
+        <div class="contact-options">
+          <a href="https://wa.me/201110760081?text=مرحبا،+لدي+استفسار+حول+منتجاتكم" target="_blank" class="contact-btn whatsapp-contact">
+            <i class="fab fa-whatsapp"></i> واتساب فوري
+          </a>
+          <a href="tel:+201110760081" class="contact-btn phone-contact">
+            <i class="fas fa-phone"></i> مكالمة هاتفية
+          </a>
+          <a href="mailto:support@sooq-alkuwait.com" class="contact-btn email-contact">
+            <i class="fas fa-envelope"></i> بريد إلكتروني
+          </a>
+        </div>
+      </div>
+      <div class="legal-section">
+        <h2 class="section-title">بيانات الشركة</h2>
+        <div class="highlight-box">
+          <p class="legal-text"><strong>الدولة:</strong> دولة الكويت 🇰🇼</p>
+          <p class="legal-text"><strong>الرمز البريدي:</strong> 36320</p>
+          <p class="legal-text"><strong>طريقة الدفع:</strong> الدفع عند الاستلام (Cash on Delivery)</p>
+        </div>
+      </div>
+      <div class="legal-actions">
+        <a href="index.html" class="legal-btn"><i class="fas fa-store"></i> عودة للمتجر</a>
+        <a href="about.html" class="legal-btn secondary"><i class="fas fa-info-circle"></i> من نحن</a>
       </div>
     </div>
-  </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+  </div>
+  <div id="site-footer"></div>
+  <script src="assets/js/core.js" defer></script>
+  <script src="assets/js/components/header.js" defer></script>
+  <script src="assets/js/components/footer.js" defer></script>
 </body>
 </html>
