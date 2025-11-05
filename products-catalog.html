@@ -634,6 +634,18 @@
             
             let currentCategory = 'الكل';
             
+            // تحقق من URL parameters لفئة محددة
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialCategory = urlParams.get('category');
+            if (initialCategory && initialCategory !== 'الكل') {
+                currentCategory = initialCategory;
+                const targetTab = document.querySelector(`[data-category="${initialCategory}"]`);
+                if (targetTab) {
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    targetTab.classList.add('active');
+                }
+            }
+            
             if (searchInput) {
                 searchInput.addEventListener('input', function() {
                     const searchTerm = this.value.toLowerCase();
@@ -652,6 +664,9 @@
                     filterAndDisplay(currentCategory, searchTerm);
                 });
             });
+            
+            // طبق الفلتر الأولي
+            filterAndDisplay(currentCategory, '');
         }
         
         // دالة التصفية
@@ -693,9 +708,6 @@
                 
                 // تحميل بيانات المنتجات
                 await loadProductsData();
-                
-                // عرض المنتجات
-                displayProducts(allProducts);
                 
                 // إعداد البحث والتصفية
                 setupSearchAndFilter();
