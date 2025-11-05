@@ -38,6 +38,38 @@
         margin-bottom: 30px;
     }
     
+    .whatsapp-section {
+        background: var(--ku-white);
+        padding: 30px 0;
+        text-align: center;
+        border-bottom: 1px solid #eef2f7;
+    }
+    
+    .whatsapp-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+    
+    .whatsapp-btn {
+        background: linear-gradient(135deg, #25d366, #128c7e);
+        color: white;
+        padding: 15px 30px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    }
+    
+    .whatsapp-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    }
+    
     .search-section {
         background: var(--ku-white);
         padding: 30px 0;
@@ -119,6 +151,37 @@
         border-radius: 15px;
         margin: 20px 0;
         border: 2px solid var(--ku-gold);
+        position: relative;
+    }
+    
+    .cart-icon {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: var(--ku-green);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+    
+    .cart-icon:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(45, 82, 48, 0.3);
+    }
+    
+    .cart-count {
+        background: var(--ku-red);
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 10px;
+        margin-left: 5px;
+        min-width: 16px;
+        text-align: center;
     }
     
     .products-count {
@@ -214,15 +277,21 @@
         line-height: 1.5;
     }
     
-    .order-btn {
-        background: linear-gradient(135deg, var(--ku-green), #27ae60);
+    .product-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .whatsapp-order-btn {
+        background: linear-gradient(135deg, #25d366, #128c7e);
         color: var(--ku-white);
-        padding: 12px 20px;
+        padding: 10px 16px;
         border: none;
-        border-radius: 25px;
+        border-radius: 20px;
         width: 100%;
         cursor: pointer;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: bold;
         text-decoration: none;
         display: block;
@@ -230,9 +299,9 @@
         transition: all 0.3s ease;
     }
     
-    .order-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+    .whatsapp-order-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
     }
     
     .view-btn {
@@ -248,7 +317,6 @@
         text-decoration: none;
         display: block;
         text-align: center;
-        margin-bottom: 8px;
         transition: all 0.3s ease;
     }
     
@@ -257,10 +325,72 @@
         box-shadow: 0 4px 15px rgba(31, 111, 235, 0.3);
     }
     
+    .cart-btn {
+        background: linear-gradient(135deg, var(--ku-gold), #f39c12);
+        color: var(--ku-black);
+        padding: 8px 16px;
+        border: none;
+        border-radius: 20px;
+        width: 100%;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: bold;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    
+    .cart-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
+    }
+    
+    .specifications {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 12px;
+        margin: 25px 0;
+    }
+    
+    .spec-title {
+        color: var(--ku-green);
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+    
+    .spec-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        font-size: 14px;
+    }
+    
+    .spec-item {
+        padding: 8px;
+        background: white;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .spec-label {
+        font-weight: bold;
+        color: #666;
+    }
+    
+    .spec-value {
+        color: var(--ku-green);
+        font-weight: bold;
+    }
+    
     @media (max-width: 768px) {
         .hero-stats { grid-template-columns: repeat(2, 1fr); }
         .filter-tabs { justify-content: center; }
         .products-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+        .whatsapp-buttons { flex-direction: column; align-items: center; }
+        .spec-grid { grid-template-columns: 1fr; }
     }
     </style>
 </head>
@@ -278,7 +408,7 @@
                 <a href="about.html">من نحن</a>
                 <a href="contact.html">اتصل بنا</a>
             </nav>
-            <a class="cta" href="tel:+96590000000">اطلب الآن</a>
+            <a class="cta" href="tel:+201110760081">اطلب الآن</a>
         </div>
     </header>
     
@@ -305,6 +435,24 @@
                     <div class="num">100%</div>
                     <div>ضمان الجودة</div>
                 </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- قسم أزرار الواتساب -->
+    <section class="whatsapp-section">
+        <div class="container">
+            <h2 style="color: var(--ku-green); margin-bottom: 20px;">💬 تواصل معنا مباشرة</h2>
+            <div class="whatsapp-buttons">
+                <a href="https://wa.me/201110760081" class="whatsapp-btn" target="_blank">
+                    💬 محادثة واتساب فورية
+                </a>
+                <a href="https://wa.me/201110760081?text=مرحباً، أريد الاستفسار عن المنتجات المتاحة" class="whatsapp-btn" target="_blank">
+                    📞 استفسار عام
+                </a>
+                <a href="mailto:sooqalkuwait2010@gmail.com" class="whatsapp-btn" style="background: linear-gradient(135deg, var(--ku-red), #c0392b);">
+                    📧 البريد الإلكتروني
+                </a>
             </div>
         </div>
     </section>
@@ -337,6 +485,9 @@
     <section class="section">
         <div class="container">
             <div class="products-stats">
+                <div class="cart-icon" onclick="openCart()">
+                    🛒 السلة <span class="cart-count" id="cart-count">0</span>
+                </div>
                 <p class="products-count">عرض <span id="products-count">0</span> منتج</p>
             </div>
             
@@ -381,11 +532,11 @@
             
             <div>
                 <h4 style="color:#c9d1d9;margin-bottom:12px">تواصل مباشر</h4>
-                <p style="color:#8b949e;line-height:1.8">📱 الهاتف: +965 9000 0000</p>
-                <p style="color:#8b949e;line-height:1.8">📧 البريد: info@sooq-alkuwait.com</p>
+                <p style="color:#8b949e;line-height:1.8">📱 الهاتف: +201110760081</p>
+                <p style="color:#8b949e;line-height:1.8">📧 البريد: sooqalkuwait2010@gmail.com</p>
                 <p style="color:#f4d03f;font-weight:bold;margin-top:8px">⏰ خدمة 24/7</p>
                 <div style="margin-top:15px">
-                    <a class="cta" href="https://wa.me/96590000000">محادثة واتساب</a>
+                    <a class="cta" href="https://wa.me/201110760081">محادثة واتساب</a>
                 </div>
             </div>
         </div>
@@ -400,6 +551,86 @@
     <script>
         let allProducts = [];
         let filteredProducts = [];
+        let cart = JSON.parse(localStorage.getItem('sooq-cart')) || [];
+        
+        // تحديث عداد السلة
+        function updateCartCount() {
+            document.getElementById('cart-count').textContent = cart.length;
+        }
+        
+        // إضافة إلى السلة
+        function addToCart(product) {
+            const existingItem = cart.find(item => item.id === product.id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({...product, quantity: 1});
+            }
+            localStorage.setItem('sooq-cart', JSON.stringify(cart));
+            updateCartCount();
+            
+            // إشعار بسيط
+            alert(`تمت إضافة "${product.title}" إلى السلة!`);
+        }
+        
+        // فتح السلة
+        function openCart() {
+            if (cart.length === 0) {
+                alert('السلة فارغة! أضف بعض المنتجات أولاً.');
+                return;
+            }
+            
+            let cartHTML = `
+                <!DOCTYPE html>
+                <html lang="ar" dir="rtl">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>سلة التسوق - سوق الكويت</title>
+                    <link rel="stylesheet" href="assets/css/kuwait-modern.css">
+                </head>
+                <body>
+                    <div class="section" style="padding-top: 50px;">
+                        <div class="container">
+                            <h1 style="color: var(--ku-green); text-align: center; margin-bottom: 30px;">🛒 سلة التسوق</h1>
+                            <div class="card">
+            `;
+            
+            let total = 0;
+            cart.forEach(item => {
+                total += item.sale_price * item.quantity;
+                cartHTML += `
+                    <div style="display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee;">
+                        <img src="${item.image_link}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 10px; margin-left: 15px;">
+                        <div style="flex: 1;">
+                            <h4 style="color: var(--ku-green); margin-bottom: 5px;">${item.title}</h4>
+                            <p style="color: #666;">الكمية: ${item.quantity} | السعر: ${item.sale_price} د.ك</p>
+                        </div>
+                        <div style="font-weight: bold; color: var(--ku-red);">${(item.sale_price * item.quantity).toFixed(2)} د.ك</div>
+                    </div>
+                `;
+            });
+            
+            cartHTML += `
+                            <div style="text-align: center; padding: 20px;">
+                                <h3 style="color: var(--ku-green);">المجموع الكلي: ${total.toFixed(2)} د.ك</h3>
+                                <div style="margin-top: 20px;">
+                                    <a href="https://wa.me/201110760081?text=مرحباً، أريد طلب هذه المنتجات من السلة:" class="cta" target="_blank">
+                                        💬 إرسال الطلب عبر واتساب
+                                    </a>
+                                    <button onclick="window.close()" class="cta" style="background: #666; margin-right: 10px;">إغلاق</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            const cartWindow = window.open('', '_blank');
+            cartWindow.document.write(cartHTML);
+            cartWindow.document.close();
+        }
         
         // تحميل بيانات المنتجات الحقيقية من JSON
         async function loadProductsData() {
@@ -454,6 +685,24 @@
             }
         }
         
+        // توليد مواصفات تلقائية للمنتج
+        function generateProductSpecs(product, category) {
+            const countries = ['الصين', 'تركيا', 'الصين/تركيا'];
+            const randomCountry = countries[Math.floor(Math.random() * countries.length)];
+            
+            return {
+                'العلامة التجارية': 'سوق الكويت',
+                'بلد الصنع': randomCountry,
+                'ضمان المنتج': 'سنة واحدة',
+                'حالة المنتج': 'جديد',
+                'الشحن': 'مجاني لجميع أنحاء الكويت',
+                'المواد': 'عالية الجودة',
+                'الاستخدام': 'سهل ومريح',
+                'المتانة': 'طويلة الأمد',
+                'التصميم': 'عصري وأنيق'
+            };
+        }
+        
         // عرض المنتجات مع روابط صفحات فردية
         function displayProducts(products) {
             const container = document.getElementById('products-container');
@@ -466,9 +715,9 @@
             
             products.forEach((product, index) => {
                 const discount = Math.round(((product.price - product.sale_price) / product.price) * 100);
-                const category = categorizeProduct(product.title, product.description);
+                const category = categorizeProduct(product.title, product.description || '');
                 const slug = createProductSlug(product.title);
-                const productPageLink = `products-pages/${slug}.html`;
+                const specs = generateProductSpecs(product, category);
                 
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
@@ -494,14 +743,20 @@
                             🏷️ رقم المنتج: SOOQ-${product.id.toString().padStart(4, '0')}
                         </div>
                         
-                        <a href="${productPageLink}" class="view-btn" onclick="viewProduct('${slug}', '${product.title.replace(/'/g, '\\\'')}', '${product.image_link}', ${product.price}, ${product.sale_price}, '${product.description.replace(/'/g, '\\\'')}', '${category}', ${product.id}, event)">
-                            👁️ عرض تفاصيل المنتج
-                        </a>
-                        
-                        <a href="https://wa.me/96590000000?text=مرحباً، أريد طلب: ${encodeURIComponent(product.title)} - السعر: ${product.sale_price} د.ك - رقم المنتج: SOOQ-${product.id.toString().padStart(4, '0')}" 
-                           class="order-btn" target="_blank">
-                            💬 اطلب عبر واتساب
-                        </a>
+                        <div class="product-buttons">
+                            <a href="https://wa.me/201110760081?text=مرحباً، أريد طلب: ${encodeURIComponent(product.title)} - السعر: ${product.sale_price} د.ك - رقم المنتج: SOOQ-${product.id.toString().padStart(4, '0')}" 
+                               class="whatsapp-order-btn" target="_blank">
+                                💬 طلب عبر واتساب
+                            </a>
+                            
+                            <a href="#" class="view-btn" onclick="viewProduct('${slug}', '${product.title.replace(/'/g, '\\\\\\'')}', '${product.image_link}', ${product.price}, ${product.sale_price}, '${(product.description || 'منتج عالي الجودة من سوق الكويت').replace(/'/g, '\\\\\\'')}', '${category}', ${product.id}, event)">
+                                👁️ عرض تفاصيل المنتج
+                            </a>
+                            
+                            <button class="cart-btn" onclick="addToCart({id: ${product.id}, title: '${product.title.replace(/'/g, '\\\\\\'')}', price: ${product.price}, sale_price: ${product.sale_price}, image_link: '${product.image_link}'})">
+                                🛒 أضف إلى السلة
+                            </button>
+                        </div>
                     </div>
                 `;
                 
@@ -516,6 +771,17 @@
         function viewProduct(slug, title, image, originalPrice, salePrice, description, category, id, event) {
             event.preventDefault();
             
+            const specs = generateProductSpecs({title, category}, category);
+            let specsHTML = '';
+            Object.entries(specs).forEach(([key, value]) => {
+                specsHTML += `
+                    <div class="spec-item">
+                        <span class="spec-label">${key}:</span>
+                        <span class="spec-value">${value}</span>
+                    </div>
+                `;
+            });
+            
             // إنشاء محتوى صفحة المنتج في نافذة جديدة
             const productPageContent = `
                 <!DOCTYPE html>
@@ -527,6 +793,50 @@
                     <meta name="description" content="${description}">
                     <link rel="stylesheet" href="../assets/css/kuwait-modern.css">
                     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+                    <style>
+                        .specifications {
+                            background: #f8f9fa;
+                            padding: 20px;
+                            border-radius: 12px;
+                            margin: 25px 0;
+                        }
+                        
+                        .spec-title {
+                            color: var(--ku-green);
+                            font-size: 18px;
+                            font-weight: bold;
+                            margin-bottom: 15px;
+                        }
+                        
+                        .spec-grid {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            gap: 10px;
+                            font-size: 14px;
+                        }
+                        
+                        .spec-item {
+                            padding: 8px;
+                            background: white;
+                            border-radius: 8px;
+                            display: flex;
+                            justify-content: space-between;
+                        }
+                        
+                        .spec-label {
+                            font-weight: bold;
+                            color: #666;
+                        }
+                        
+                        .spec-value {
+                            color: var(--ku-green);
+                            font-weight: bold;
+                        }
+                        
+                        @media (max-width: 768px) {
+                            .spec-grid { grid-template-columns: 1fr; }
+                        }
+                    </style>
                 </head>
                 <body>
                     <!-- الهيدر -->
@@ -542,7 +852,7 @@
                                 <a href="../about.html">من نحن</a>
                                 <a href="../contact.html">اتصل بنا</a>
                             </nav>
-                            <a class="cta" href="tel:+96590000000">اطلب الآن</a>
+                            <a class="cta" href="tel:+201110760081">اطلب الآن</a>
                         </div>
                     </header>
                     
@@ -565,10 +875,18 @@
                                         <div style="background: var(--ku-gold); color: var(--ku-black); padding: 8px 15px; border-radius: 12px; margin-top: 10px; display: inline-block; font-size: 14px; font-weight: bold;">خصم ${Math.round(((originalPrice - salePrice) / originalPrice) * 100)}%</div>
                                     </div>
                                     
+                                    <!-- المواصفات التفصيلية -->
+                                    <div class="specifications">
+                                        <h3 class="spec-title">📋 المواصفات التفصيلية</h3>
+                                        <div class="spec-grid">
+                                            ${specsHTML}
+                                        </div>
+                                    </div>
+                                    
                                     <div style="text-align: center; margin: 30px 0; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                                        <a href="https://wa.me/96590000000?text=مرحباً، أريد طلب: ${encodeURIComponent(title)} - السعر: ${salePrice} د.ك - رقم المنتج: SOOQ-${id.toString().padStart(4, '0')}" 
+                                        <a href="https://wa.me/201110760081?text=مرحباً، أريد طلب: ${encodeURIComponent(title)} - السعر: ${salePrice} د.ك - رقم المنتج: SOOQ-${id.toString().padStart(4, '0')}" 
                                            class="cta" target="_blank" style="font-size: 18px; padding: 15px 30px;">💬 اطلب عبر واتساب</a>
-                                        <a href="tel:+96590000000" class="cta" style="font-size: 18px; padding: 15px 30px; background: linear-gradient(135deg, var(--ku-green), #27ae60);">📞 اتصل الآن</a>
+                                        <a href="tel:+201110760081" class="cta" style="font-size: 18px; padding: 15px 30px; background: linear-gradient(135deg, var(--ku-green), #27ae60);">📞 اتصل الآن</a>
                                     </div>
                                     
                                     <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-top: 25px;">
@@ -655,7 +973,7 @@
             
             if (category !== 'الكل') {
                 filtered = filtered.filter(p => {
-                    const productCategory = categorizeProduct(p.title, p.description);
+                    const productCategory = categorizeProduct(p.title, p.description || '');
                     return productCategory === category;
                 });
             }
@@ -663,7 +981,7 @@
             if (searchTerm) {
                 filtered = filtered.filter(p => 
                     p.title.toLowerCase().includes(searchTerm) ||
-                    p.description.toLowerCase().includes(searchTerm)
+                    (p.description && p.description.toLowerCase().includes(searchTerm))
                 );
             }
             
@@ -705,6 +1023,9 @@
         // تحميل وتشغيل التطبيق
         document.addEventListener('DOMContentLoaded', async function() {
             console.log('📱 بدء تحميل الكتالوج...');
+            
+            // تحديث عداد السلة
+            updateCartCount();
             
             // تحميل بيانات المنتجات الحقيقية
             const products = await loadProductsData();
