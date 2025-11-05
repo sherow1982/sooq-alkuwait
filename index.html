@@ -1,599 +1,116 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سوق الكويت 🇿🇰 - المتجر الإلكتروني الأول | 1977 منتج بأفضل الأسعار</title>
-    <meta name="description" content="سوق الكويت هو المتجر الإلكتروني الأول في دولة الكويت يضم أكثر من 1977 منتج بأفضل الأسعار مع التوصيل المجاني. جودة عالية، ضمان شامل، خدمة عملاء 24/7">
-    <meta name="keywords" content="سوق الكويت, تسوق إلكتروني, توصيل مجاني, الكويت, متجر إلكتروني, أفضل الأسعار, جودة عالية">
-    
-    <!-- Open Graph بألوان علم الكويت -->
-    <meta property="og:title" content="سوق الكويت 🇿🇰 - 1977 منتج بأفضل الأسعار">
-    <meta property="og:description" content="المتجر الإلكتروني الأول في دولة الكويت - جودة عالية وأسعار تنافسية">
-    <meta property="og:image" content="https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg">
-    
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; direction: rtl; line-height: 1.6; }
-        
-        /* ألوان علم الكويت المبهرة */
-        :root {
-            --kuwait-green: #2d5230;
-            --kuwait-white: #ffffff;
-            --kuwait-red: #d32f2f;
-            --kuwait-black: #1c1c1c;
-            --kuwait-gold: #f4d03f;
-        }
-        
-        /* الهيدر بألوان علم الكويت */
-        .kuwait-header {
-            background: linear-gradient(135deg, var(--kuwait-green) 0%, var(--kuwait-red) 50%, var(--kuwait-black) 100%);
-            color: var(--kuwait-white);
-            padding: 20px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .kuwait-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(244, 208, 63, 0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-        
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .header-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .main-logo {
-            font-size: 48px;
-            font-weight: 900;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .main-tagline {
-            font-size: 24px;
-            margin-bottom: 25px;
-            color: var(--kuwait-gold);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-        
-        /* قسم البطل */
-        .hero-section {
-            background: linear-gradient(135deg, var(--kuwait-white) 0%, #f8f9fa 100%);
-            padding: 80px 0;
-            text-align: center;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .hero-title {
-            font-size: 42px;
-            font-weight: 800;
-            color: var(--kuwait-green);
-            margin-bottom: 20px;
-        }
-        
-        .hero-subtitle {
-            font-size: 20px;
-            color: var(--kuwait-red);
-            margin-bottom: 40px;
-        }
-        
-        /* إحصائيات بألوان علم الكويت */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-            margin: 50px 0;
-        }
-        
-        .stat-card {
-            background: var(--kuwait-white);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(45, 82, 48, 0.15);
-            border: 3px solid var(--kuwait-gold);
-            transition: all 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(45, 82, 48, 0.25);
-        }
-        
-        .stat-card:nth-child(1) { border-color: var(--kuwait-green); }
-        .stat-card:nth-child(2) { border-color: var(--kuwait-red); }
-        .stat-card:nth-child(3) { border-color: var(--kuwait-black); }
-        .stat-card:nth-child(4) { border-color: var(--kuwait-gold); }
-        
-        .stat-number {
-            font-size: 36px;
-            font-weight: 900;
-            margin-bottom: 10px;
-        }
-        
-        .stat-card:nth-child(1) .stat-number { color: var(--kuwait-green); }
-        .stat-card:nth-child(2) .stat-number { color: var(--kuwait-red); }
-        .stat-card:nth-child(3) .stat-number { color: var(--kuwait-black); }
-        .stat-card:nth-child(4) .stat-number { color: var(--kuwait-gold); }
-        
-        .stat-label {
-            font-size: 16px;
-            color: #666;
-            font-weight: 600;
-        }
-        
-        /* فئات المنتجات بألوان علم الكويت */
-        .categories-section {
-            background: linear-gradient(135deg, var(--kuwait-green), #34685c);
-            padding: 80px 0;
-            color: var(--kuwait-white);
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 50px;
-            color: var(--kuwait-gold);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .category-card {
-            background: var(--kuwait-white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-        
-        .category-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        }
-        
-        .category-header {
-            padding: 25px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .category-card:nth-child(1) .category-header { background: linear-gradient(135deg, var(--kuwait-green), #2d5530); }
-        .category-card:nth-child(2) .category-header { background: linear-gradient(135deg, var(--kuwait-red), #b71c1c); }
-        .category-card:nth-child(3) .category-header { background: linear-gradient(135deg, var(--kuwait-black), #424242); }
-        .category-card:nth-child(4) .category-header { background: linear-gradient(135deg, #e67e22, #d35400); }
-        .category-card:nth-child(5) .category-header { background: linear-gradient(135deg, #8e44ad, #732d91); }
-        .category-card:nth-child(6) .category-header { background: linear-gradient(135deg, var(--kuwait-green), var(--kuwait-red)); }
-        
-        .category-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-            display: block;
-        }
-        
-        .category-name {
-            font-size: 22px;
-            font-weight: bold;
-            color: var(--kuwait-white);
-            margin-bottom: 8px;
-        }
-        
-        .category-count {
-            font-size: 14px;
-            color: var(--kuwait-gold);
-            font-weight: 600;
-        }
-        
-        .category-preview {
-            padding: 20px;
-            color: var(--kuwait-green);
-        }
-        
-        .preview-items {
-            font-size: 14px;
-            line-height: 1.8;
-            color: #666;
-        }
-        
-        /* العداد التنازلي بألوان علم الكويت */
-        .countdown-section {
-            background: linear-gradient(135deg, var(--kuwait-red) 0%, #c62828 50%, var(--kuwait-black) 100%);
-            color: var(--kuwait-white);
-            padding: 50px 0;
-            text-align: center;
-            position: relative;
-        }
-        
-        .countdown-title {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: var(--kuwait-gold);
-        }
-        
-        .countdown-display {
-            font-size: 42px;
-            font-weight: 900;
-            font-family: 'Courier New', monospace;
-            color: var(--kuwait-white);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            margin: 20px 0;
-        }
-        
-        /* أزرار العمل بألوان علم الكويت */
-        .cta-buttons {
-            margin: 50px 0;
-            text-align: center;
-        }
-        
-        .kuwait-btn {
-            display: inline-block;
-            padding: 20px 40px;
-            margin: 10px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 20px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .kuwait-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .kuwait-btn:hover::before {
-            left: 100%;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--kuwait-green), #27ae60);
-            color: var(--kuwait-white);
-            box-shadow: 0 8px 25px rgba(45, 82, 48, 0.4);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(45, 82, 48, 0.5);
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, var(--kuwait-red), #e74c3c);
-            color: var(--kuwait-white);
-            box-shadow: 0 8px 25px rgba(211, 47, 47, 0.4);
-        }
-        
-        .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(211, 47, 47, 0.5);
-        }
-        
-        /* تجاوب للجوال */
-        @media (max-width: 768px) {
-            .main-logo { font-size: 32px; }
-            .main-tagline { font-size: 18px; }
-            .hero-title { font-size: 28px; }
-            .hero-subtitle { font-size: 16px; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            .categories-grid { grid-template-columns: 1fr; }
-            .kuwait-btn { font-size: 16px; padding: 15px 25px; display: block; margin: 10px auto; max-width: 280px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سوق الكويت — Kuwait Modern</title>
+  <meta name="description" content="تصميم مودرن مبهر بألوان علم الكويت مع تجربة تسوّق سريعة متجاوبة.">
+  <link rel="stylesheet" href="assets/css/kuwait-modern.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- تضمين الهيدر -->
-    <div id="header-placeholder"></div>
-    
-    <!-- الهيدر الرئيسي بألوان علم الكويت -->
-    <header class="kuwait-header">
-        <div class="header-content">
-            <h1 class="main-logo">🇿🇰 سوق الكويت 🇿🇰</h1>
-            <p class="main-tagline">المتجر الإلكتروني الأول في دولة الكويت</p>
-            
-            <!-- عداد تنازلي مركزي -->
-            <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 15px; margin: 25px auto; max-width: 400px; backdrop-filter: blur(10px);">
-                <div style="font-size: 18px; margin-bottom: 10px; color: var(--kuwait-gold);">🔥 عروض خاصة تنتهي خلال:</div>
-                <div style="font-size: 32px; font-weight: 900; font-family: monospace; color: var(--kuwait-white); text-shadow: 2px 2px 4px rgba(0,0,0,0.5);" id="main-countdown">23:59:45</div>
-                <div style="font-size: 14px; margin-top: 8px; color: var(--kuwait-gold);">⚡ لا تفوت الفرصة!</div>
-            </div>
+  <header class="header">
+    <div class="container nav">
+      <a class="logo" href="index.html">
+        <span class="logo-badge"></span>
+        <span>سوق الكويت</span>
+      </a>
+      <nav class="menu">
+        <a href="products-catalog.html">المنتجات</a>
+        <a href="#categories">الفئات</a>
+        <a href="about.html">من نحن</a>
+        <a href="contact.html">اتصل بنا</a>
+      </nav>
+      <a class="cta" href="tel:+96590000000">اطلب الآن</a>
+    </div>
+  </header>
+
+  <section class="hero-kuwait">
+    <div class="container" style="z-index:2">
+      <h1 class="brand">🇰🇼 سوق الكويت — Kuwait Modern Theme</h1>
+      <p class="tag">تصميم جديد بالكامل مستوحى من ألوان العلم — سريع، متجاوب، وأنيق</p>
+      <div class="hero-stats">
+        <div class="stat"><div class="num">1,977</div><div>منتج</div></div>
+        <div class="stat"><div class="num">مجاني</div><div>توصيل</div></div>
+        <div class="stat"><div class="num">24/7</div><div>خدمة</div></div>
+        <div class="stat"><div class="num">100%</div><div>ضمان</div></div>
+      </div>
+      <div class="count">⏰ العرض ينتهي خلال <span id="heroTimer">23:59:45</span></div>
+      <div style="margin-top:16px">
+        <a class="cta" href="products-catalog.html">تصفح المنتجات</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section categories" id="categories">
+    <div class="container">
+      <h2 style="text-align:center;color:#2d5230;font-size:32px;margin-bottom:24px">فئات المنتجات</h2>
+      <div class="cat-grid">
+        <a class="cat card" href="products-catalog.html?category=ألعاب%20الأطفال">
+          <div class="cat-head"><div class="cat-title">🧸 ألعاب ولوازم الأطفال</div></div>
+          <div class="cat-body">حصالات • ألعاب تعليمية • روبوتات تفاعلية</div>
+        </a>
+        <a class="cat card" href="products-catalog.html?category=المطبخ">
+          <div class="cat-head"><div class="cat-title">🍽️ المنزل والمطبخ</div></div>
+          <div class="cat-body">أدوات مطبخ • أجهزة صغيرة • لوازم منزلية</div>
+        </a>
+        <a class="cat card" href="products-catalog.html?category=الملابس">
+          <div class="cat-head"><div class="cat-title">👕 الملابس والاكسسوارات</div></div>
+          <div class="cat-body">أساسيات • رياضي • اكسسوارات</div>
+        </a>
+        <a class="cat card" href="products-catalog.html?category=السيارات">
+          <div class="cat-head"><div class="cat-title">🚗 السيارات واكسسواراتها</div></div>
+          <div class="cat-body">محولات • أدوات تنظيف • اكسسوارات</div>
+        </a>
+        <a class="cat card" href="products-catalog.html?category=العناية%20الشخصية">
+          <div class="cat-head"><div class="cat-title">💄 العناية الشخصية</div></div>
+          <div class="cat-body">سيروم • شامبو • عناية طبيعية</div>
+        </a>
+        <a class="cat card" href="products-catalog.html?special=offers">
+          <div class="cat-head"><div class="cat-title">🎆 عروض خاصة</div></div>
+          <div class="cat-body">خصومات حتى 50% • كميات محدودة</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container cols">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <span class="logo-badge"></span><strong>سوق الكويت</strong>
         </div>
-    </header>
-    
-    <!-- قسم البطل -->
-    <section class="hero-section">
-        <div class="container">
-            <h2 class="hero-title">أهلاً وسهلاً بكم في سوق الكويت</h2>
-            <p class="hero-subtitle">أكثر من 1977 منتج بجودة عالية وأسعار لا تقاوم</p>
-            
-            <!-- إحصائيات بألوان علم الكويت -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">1,977</div>
-                    <div class="stat-label">📦 منتج متنوع</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">مجاني</div>
-                    <div class="stat-label">🚚 التوصيل السريع</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">📞 خدمة العملاء</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">🏆 ضمان الجودة</div>
-                </div>
-            </div>
-            
-            <!-- أزرار العمل بألوان علم الكويت -->
-            <div class="cta-buttons">
-                <a href="products-catalog.html" class="kuwait-btn btn-primary">
-                    🛒 تصفح جميع المنتجات
-                </a>
-                <a href="tel:+96590000000" class="kuwait-btn btn-secondary">
-                    📞 اتصل للطلب الفوري
-                </a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- فئات المنتجات -->
-    <section class="categories-section" id="categories">
-        <div class="container">
-            <h2 class="section-title">🏷️ فئات المنتجات المتاحة</h2>
-            
-            <div class="categories-grid">
-                <!-- فئة ألعاب الأطفال -->
-                <a href="products-catalog.html?category=ألعاب%20الأطفال" class="category-card">
-                    <div class="category-header">
-                        <span class="category-icon">🧸</span>
-                        <h3 class="category-name">ألعاب ولوازم الأطفال</h3>
-                        <p class="category-count">329+ منتج</p>
-                    </div>
-                    <div class="category-preview">
-                        <p class="preview-items">
-                            • حصالات وألعاب تعليمية<br>
-                            • روبوتات تفاعلية ذكية<br>
-                            • لعب آمنة ومفيدة<br>
-                            • أدوات تعليمية متقدمة
-                        </p>
-                    </div>
-                </a>
-                
-                <!-- فئة المنزل والمطبخ -->
-                <a href="products-catalog.html?category=المطبخ" class="category-card">
-                    <div class="category-header">
-                        <span class="category-icon">🍽️</span>
-                        <h3 class="category-name">المنزل والمطبخ</h3>
-                        <p class="category-count">395+ منتج</p>
-                    </div>
-                    <div class="category-preview">
-                        <p class="preview-items">
-                            • أدوات مطبخ عملية<br>
-                            • أجهزة كهربائية متطورة<br>
-                            • معدات طبخ عالية الجودة<br>
-                            • لوازم منزلية ضرورية
-                        </p>
-                    </div>
-                </a>
-                
-                <!-- فئة الملابس -->
-                <a href="products-catalog.html?category=الملابس" class="category-card">
-                    <div class="category-header">
-                        <span class="category-icon">👕</span>
-                        <h3 class="category-name">الملابس والاكسسوارات</h3>
-                        <p class="category-count">329+ منتج</p>
-                    </div>
-                    <div class="category-preview">
-                        <p class="preview-items">
-                            • ملابس عصرية وعملية<br>
-                            • اكسسوارات أنيقة<br>
-                            • ملابس رياضية عملية<br>
-                            • قطع مختارة بعناية
-                        </p>
-                    </div>
-                </a>
-                
-                <!-- فئة السيارات -->
-                <a href="products-catalog.html?category=السيارات" class="category-card">
-                    <div class="category-header">
-                        <span class="category-icon">🚗</span>
-                        <h3 class="category-name">السيارات واكسسواراتها</h3>
-                        <p class="category-count">263+ منتج</p>
-                    </div>
-                    <div class="category-preview">
-                        <p class="preview-items">
-                            • قطع غيار أصلية<br>
-                            • محولات كهربائية آمنة<br>
-                            • اكسسوارات داخلية<br>
-                            • معدات عناية وتنظيف
-                        </p>
-                    </div>
-                </a>
-                
-                <!-- فئة العناية الشخصية -->
-                <a href="products-catalog.html?category=العناية%20الشخصية" class="category-card">
-                    <div class="category-header">
-                        <span class="category-icon">💄</span>
-                        <h3 class="category-name">العناية الشخصية</h3>
-                        <p class="category-count">395+ منتج</p>
-                    </div>
-                    <div class="category-preview">
-                        <p class="preview-items">
-                            • منتجات عناية طبيعية<br>
-                            • شامبوهات وسيرومات<br>
-                            • منتجات مضادة للشيخوخة<br>
-                            • عناية فاخرة وآمنة
-                        </p>
-                    </div>
-                </a>
-                
-                <!-- فئة عروض خاصة -->
-                <a href="products-catalog.html?special=offers" class="category-card">
-                    <div class="category-header">
-                        <span class="category-icon">🎆</span>
-                        <h3 class="category-name">عروض خاصة محدودة</h3>
-                        <p class="category-count">266+ عرض</p>
-                    </div>
-                    <div class="category-preview">
-                        <p class="preview-items">
-                            • خصومات تصل إلى 50%<br>
-                            • عروض بندل مميزة<br>
-                            • منتجات محدودة الكمية<br>
-                            • عروض موسمية حصرية
-                        </p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- عداد تنازلي مركزي -->
-    <section class="countdown-section">
-        <div class="container">
-            <h2 class="countdown-title">🔥 عروض خاصة تنتهي قريباً!</h2>
-            <div class="countdown-display" id="hero-timer">23:59:45</div>
-            <p style="font-size: 18px; color: var(--kuwait-gold); margin-top: 15px;">
-                ⚡ احصل على خصم يصل إلى 50% على مجموعة مختارة من المنتجات
-            </p>
-            
-            <div style="margin-top: 30px;">
-                <a href="products-catalog.html" class="kuwait-btn btn-primary">
-                    ✨ اطلع على العروض الخاصة
-                </a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- تضمين الفوتر -->
-    <div id="footer-placeholder"></div>
-    
-    <!-- زر WhatsApp عائم بألوان علم الكويت -->
-    <a href="https://wa.me/96590000000" 
-       style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; 
-              background: linear-gradient(135deg, var(--kuwait-green), #25d366); 
-              color: white; width: 65px; height: 65px; border-radius: 50%; 
-              display: flex; align-items: center; justify-content: center; 
-              font-size: 26px; text-decoration: none; 
-              box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); 
-              animation: pulse 2s infinite;"
-       title="تواصل عبر واتساب">
-        💬
-    </a>
-    
-    <script>
-        // تحميل الهيدر والفوتر
-        document.addEventListener('DOMContentLoaded', async function() {
-            try {
-                // تحميل الهيدر
-                const headerResponse = await fetch('assets/components/header.html');
-                if (headerResponse.ok) {
-                    const headerHTML = await headerResponse.text();
-                    document.getElementById('header-placeholder').innerHTML = headerHTML;
-                }
-                
-                // تحميل الفوتر
-                const footerResponse = await fetch('assets/components/footer.html');
-                if (footerResponse.ok) {
-                    const footerHTML = await footerResponse.text();
-                    document.getElementById('footer-placeholder').innerHTML = footerHTML;
-                }
-            } catch (error) {
-                console.log('تعذر تحميل المكونات:', error);
-            }
-        });
-        
-        // عداد تنازلي بألوان علم الكويت
-        function updateKuwaitTimer() {
-            const now = new Date();
-            const tomorrow = new Date(now.getTime() + 24*60*60*1000);
-            tomorrow.setHours(0,0,0,0);
-            
-            const diff = tomorrow - now;
-            const hours = Math.floor(diff / 3600000);
-            const minutes = Math.floor((diff % 3600000) / 60000);
-            const seconds = Math.floor((diff % 60000) / 1000);
-            
-            const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            
-            // تحديث جميع العدادات
-            const timers = ['main-countdown', 'hero-timer'];
-            timers.forEach(timerId => {
-                const timer = document.getElementById(timerId);
-                if (timer && diff > 0) {
-                    timer.textContent = timeString;
-                }
-            });
-        }
-        
-        // تأثيرات بصرية لعلم الكويت
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6); }
-            100% { transform: scale(1); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
-        }
-        
-        // بدء العداد عند تحميل الصفحة
-        updateKuwaitTimer();
-        setInterval(updateKuwaitTimer, 1000);
-        
-        // تأثيرات الظهور للبطاقات
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-        
-        // إضافة تأثيرات للعناصر
-        const cards = document.querySelectorAll('.stat-card, .category-card');
-        cards.forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = `all 0.8s ease ${index * 0.1}s`;
-            observer.observe(card);
-        });
-    </script>
+        <p>تجربة تسوّق حديثة بألوان العلم — سرعة، أمان، أناقة.</p>
+      </div>
+      <div>
+        <h4>الروابط</h4>
+        <ul style="list-style:none;line-height:2">
+          <li><a href="products-catalog.html">المنتجات</a></li>
+          <li><a href="about.html">من نحن</a></li>
+          <li><a href="contact.html">اتصل بنا</a></li>
+          <li><a href="privacy.html">سياسة الخصوصية</a></li>
+          <li><a href="terms.html">الشروط والأحكام</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>تواصل</h4>
+        <p>الهاتف: +965 9000 0000</p>
+        <p>البريد: info@sooq-alkuwait.com</p>
+        <a class="cta" href="https://wa.me/96590000000">محادثة واتساب</a>
+      </div>
+    </div>
+    <div class="copy">
+      <div class="container">© 2025 سوق الكويت — Kuwait Modern Theme</div>
+    </div>
+  </footer>
+
+  <script>
+    function updateTimer(){
+      const now=new Date();const t=new Date(now.getTime()+24*60*60*1000);t.setHours(0,0,0,0);
+      const diff=t-now;const h=Math.floor(diff/3600000);const m=Math.floor((diff%3600000)/60000);const s=Math.floor((diff%60000)/1000);
+      const el=document.getElementById('heroTimer');if(el&&diff>0){el.textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`}
+    }
+    setInterval(updateTimer,1000);updateTimer();
+  </script>
 </body>
 </html>
