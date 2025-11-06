@@ -1,0 +1,90 @@
+name: Show Products Clean
+
+on:
+  workflow_dispatch:
+
+jobs:
+  show-products:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create product pages
+        run: |
+          echo "📦 بدء إنشاء صفحات المنتجات..."
+          
+          # إنشاء مجلد المنتجات
+          mkdir -p products-pages
+          rm -f products-pages/*.html
+          
+          # إنشاء الصفحات
+          node << 'EOF'
+          const fs = require('fs');
+          
+          const products = JSON.parse(fs.readFileSync('products_data.json', 'utf8'));
+          console.log('📊 عدد المنتجات:', products.length);
+          
+          let created = 0;
+          
+          products.forEach(product => {
+            const pageContent = `<!DOCTYPE html>
+          <html lang="ar" dir="rtl">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>${product.title} - سوق الكويت</title>
+              <style>
+              body { font-family: Arial, sans-serif; margin: 0; background: #f8f9fa; }
+              .header { background: #00843d; color: white; padding: 15px 0; text-align: center; }
+              .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+              .product { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+              .product-image { width: 100%; max-width: 400px; border-radius: 10px; margin-bottom: 20px; }
+              .title { font-size: 24px; font-weight: bold; color: #00843d; margin-bottom: 20px; }
+              .price { font-size: 28px; font-weight: bold; color: #ce1126; margin: 20px 0; }
+              .description { line-height: 1.6; margin: 20px 0; color: #333; }
+              .whatsapp-btn { background: #25d366; color: white; padding: 15px 30px; border-radius: 25px; text-decoration: none; display: inline-block; font-weight: bold; margin: 10px; }
+              .back { color: #00843d; text-decoration: none; font-weight: bold; margin: 20px 0; display: inline-block; }
+              </style>
+          </head>
+          <body>
+              <header class="header">
+                  <div class="container">
+                      <a href="../index.html" style="color: white; text-decoration: none; font-weight: bold;">سوق الكويت</a>
+                  </div>
+              </header>
+              <div class="container">
+                  <a href="../products-catalog.html" class="back">← عودة للكتالوج</a>
+                  <div class="product">
+                      <img src="${product.image_link}" alt="${product.title}" class="product-image" 
+                           onerror="this.src='https://via.placeholder.com/400x300/00843d/ffffff?text=منتج'">
+                      <h1 class="title">${product.title}</h1>
+                      <div class="price">${product.sale_price.toFixed(2)} د.ك</div>
+                      <div class="description">${product.description || product.title + ' - منتج عالي الجودة'}</div>
+                      <a href="https://wa.me/201110760081?text=أريد طلب: ${encodeURIComponent(product.title)} - السعر: ${product.sale_price.toFixed(2)} د.ك" 
+                         class="whatsapp-btn" target="_blank">📧 طلب عبر واتساب</a>
+                  </div>
+              </div>
+          </body>
+          </html>`;
+            
+            try {
+              fs.writeFileSync(`products-pages/product-${product.id}.html`, pageContent, 'utf8');
+              created++;
+            } catch (error) {
+              console.error('خطأ في المنتج', product.id, ':', error.message);
+            }
+          });
+          
+          console.log('✅ تم إنشاء', created, 'صفحة منتج');
+          EOF
+          
+          echo "✅ انتهى من إنشاء الصفحات!"
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add products-pages/
+          git commit -m "📦 Add all product pages cleanly" || echo "Nothing to commit"
+          git push
