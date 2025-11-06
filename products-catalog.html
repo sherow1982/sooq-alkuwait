@@ -47,20 +47,21 @@
   </div>
   
   <script>
-    const DATA_URL='https://raw.githubusercontent.com/sherow1982/sooq-alkuwait/main/products_data.json';
-    const stripNum=t=>(t||'').replace(/^\s*\d+\s*[-\u2013\u2014]?\s*/, '');
+    // استخدام GitHub API بدلاً من raw links لحل مشكلة CORS
+    const API_URL='https://api.github.com/repos/sherow1982/sooq-alkuwait/contents/products_data.json';
+    const stripNum=t=>(t||'').replace(/^\s*\d+\s*[-–—]?\s*/, '');
 
     // تعريف الفئات الدقيقة المتفق عليها
     const CATS=[
       {key:'all',       name:'الكل',                   test: t=>true},
       {key:'kids',      name:'الأطفال والألعاب',       test: t=>/(أطفال|طفل|لعبة|حصالة|روبوت|فقاعات|كرتوني|تعليمية|باندا|هليكوبتر|طائرة|قطار|سباق|مسدس فقاعات)/i.test(t)},
-      {key:'kitchen',   name:'المطبخ وأدوات الطعام',  test: t=>/(مطبخ|قهوة|صفاية|سلطة|خلاط|عصارة|مفرمة|طبخ|مقلاة|فرن|مطحنة|طاولة|أدوات المائدة|غلاية|كنكة|مكواة|شواية)/i.test(t)},
-      {key:'fashion',   name:'الملابس والإكسسوارات',  test: t=>/(شورت|حقيبة|حقيبه|ملابس|قميص|فستان|حذاء|نظارة|ساعة|موضة|أزياء|اكسسوار|طقم|ظهر)/i.test(t)},
-      {key:'auto',      name:'السيارات والملحقات',    test: t=>/(سيارة|سيارات|محول|كاميرا|حامل|مطفأة|فولت|ولاعة|مرآة|شاحن للسيارة|منظم|مروحة سيارة|غطاء سيارة)/i.test(t)},
+      {key:'kitchen',   name:'المطبخ وأدوات الطعام',  test: t=>/(مطبخ|قهوة|صفاية|سلطة|خلاط|عصارة|مفرمة|طبخ|مقلاة|فرن|مطحنة|طاولة|أدوات المائدة|غلاية|كنكة|شواية)/i.test(t)},
+      {key:'fashion',   name:'الملابس والإكسسوارات',  test: t=>/(شورت|حقيبة|حقيبه|ملابس|قميص|فستان|حذاء|نظارة|ساعة|موضة|اكسسوار|طقم|ظهر)/i.test(t)},
+      {key:'auto',      name:'السيارات والملحقات',    test: t=>/(سيارة|سيارات|محول|كاميرا|حامل|مطفأة|فولت|ولاعة|مرآة|شاحن للسيارة|مروحة سيارة|غطاء سيارة)/i.test(t)},
       {key:'beauty',    name:'العناية والتجميل',      test: t=>/(شامبو|سيروم|كريم|عطر|حلاقة|تجميل|بشرة|شعر|عناية|مكياج|ماسك|صابون|لوشن|زيت|بودرة|غسول)/i.test(t)},
       {key:'home',      name:'المنزل والتنظيف',       test: t=>/(منزل|حديقة|تنظيف|غسيل|مكنسة|أثاث|ديكور|إضاءة|مرتبة|مفرش|ستارة|منظف|رف|طاولة|كرسي|مصباح|مروحة)/i.test(t)},
       {key:'electronics',name:'الإلكترونيات',         test: t=>/(هاتف|شاحن|بطارية|كابل|سماعة|شاشة|إلكتروني|USB|Type-C|تلفزيون|ساعة ذكية|مثقاب|منفاخ)/i.test(t)},
-      {key:'sport',     name:'الرياضة واللياقة',      test: t=>/(رياضة|لياقة|جري|تمارين|كرة|دراجة|وزن|شد|يوغا|تدليك|مساج|طقم رياضي)/i.test(t)},
+      {key:'sport',     name:'الرياضة واللياقة',      test: t=>/(رياضة|لياقة|جري|تمارين|كرة|دراجة|وزن|شد|يوغا|طقم رياضي)/i.test(t)},
       {key:'other',     name:'منتجات متنوعة',         test: t=>true}
     ];
 
@@ -148,7 +149,7 @@
         const title=stripNum(p.title);
         const img=(p.image_link||'').trim();
         const hasDiscount=Number(p.price)>Number(p.sale_price);
-        const wa='https://wa.me/201110760081?text='+encodeURIComponent('مرحبا، أريد طلب: '+title+' - السعر: '+Number(p.sale_price).toFixed(2)+' د.ك');
+        const wa='https://wa.me/201110760081?text='+encodeURIComponent('مرحباً، أريد طلب: '+title+' - السعر: '+Number(p.sale_price).toFixed(2)+' د.ك');
         let discount='';
         if(hasDiscount){
           const d=Math.round((Number(p.price)-Number(p.sale_price))/Number(p.price)*100);
@@ -182,22 +183,28 @@
 
     async function load(){
       try{
-        console.log('Fetching products from:', DATA_URL);
-        const response = await fetch(DATA_URL, {
+        console.log('Fetching products from GitHub API...');
+        
+        // استخدام GitHub API بدلاً من raw link
+        const response = await fetch(API_URL, {
           method: 'GET',
-          cache: 'no-cache',
           headers: {
-            'Accept': 'application/json',
+            'Accept': 'application/vnd.github.v3+json',
             'Content-Type': 'application/json'
           }
         });
         
         if(!response.ok){
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          throw new Error(`GitHub API Error ${response.status}: ${response.statusText}`);
         }
         
-        const data = await response.json();
-        console.log('Products loaded:', data.length);
+        const apiResponse = await response.json();
+        
+        // فك تشفير البيانات من base64
+        const jsonContent = atob(apiResponse.content);
+        const data = JSON.parse(jsonContent);
+        
+        console.log('Products loaded successfully:', data.length);
         
         if(!Array.isArray(data) || data.length === 0){
           throw new Error('البيانات فارغة أو غير صحيحة');
