@@ -1,8 +1,75 @@
+# Site settings
 url: "https://sherow1982.github.io/sooq-alkuwait"
 baseurl: "/sooq-alkuwait"
 lang: ar
 title: "سوق الكويت - متجر إلكتروني"
-description: "تسوق اونلاين داخل الكويت - آلاف المنتجات مع توصيل سريع"
+description: "تسوق اونلاين داخل الكويت - منتجات عالية الجودة مع توصيل سريع"
+author: "Sherif Salama"
+email: "sooqalkuwait2010@gmail.com"
+phone: "+201110760081"
+whatsapp: "201110760081"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-feed
+
+# Exclude from processing
+exclude:
+  - README.md
+  - .git/
+  - .github/
+  - vendor/
+  - node_modules/
+  - '*.py'
+  - debug-*.html
+  - test-*.html
+  - universal_*.html
+  - BULK_*.txt
+  - CART*.md
+  - CLEANUP*.md
+  - DEPLOYMENT*.md
+  - EXECUTION*.md
+  - GITHUB*.md
+  - RUN*.md
+  - TRIGGER*.md
+  - WORKFLOW*.md
+  - fix*.md
+
+# Collections
+collections:
+  products:
+    output: true
+    permalink: /products/:name/
+
+# Default settings
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+      lang: "ar"
+      dir: "rtl"
+  - scope:
+      path: "products-pages"
+    values:
+      sitemap: true
+
+# Site verification
+google_site_verification: "googleb9a6323c05d3f767"
+
+# Social links
+social:
+  whatsapp: "https://wa.me/201110760081"
+  email: "mailto:sooqalkuwait2010@gmail.com"
+  phone: "tel:+201110760081"
+
+# Performance
+sass:
+  style: compressed
+
+# Timezone
+timezone: Asia/Kuwait
