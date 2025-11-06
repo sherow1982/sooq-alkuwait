@@ -263,7 +263,7 @@
             </div>
             <div class="actions">
               <a class="wa" href="${whatsappUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📱 واتساب</a>
-              <button class="cart" onclick='event.stopPropagation(); window.addToCart({id:${product.id},title:"${title.replace(/"/g, "&quot;")}",price:${product.sale_price},image:"${img}"})'>🛒 أضف للسلة</button>
+              <button class="cart" onclick='event.stopPropagation(); window.addToCart({id:${product.id},title:"${title.replace(/"/g, "&quot;")}",price:${product.sale_price},image:"${img}"})''>🛒 أضف للسلة</button>
             </div>
           </article>
         `;
@@ -290,28 +290,40 @@
         
         const apiData = await response.json();
         
-        // فك تشفير البيانات من base64
-        const jsonContent = atob(apiData.content);
-        const products = JSON.parse(jsonContent);
-        
-        if (!Array.isArray(products) || products.length === 0) {
-          throw new Error('البيانات فارغة أو غير صالحة');
+        // التأكد من وجود محتوى مُشفر بـ base64
+        if (!apiData.content) {
+          throw new Error('المحتوى غير متوفر في استجابة GitHub API');
         }
         
-        allProducts = products;
-        filteredProducts = products;
-        
-        console.log(`✅ تم تحميل ${products.length} منتج بنجاح`);
-        
-        buildFilters();
-        render();
-        
-        // إعداد البحث
-        const searchBox = document.getElementById('searchBox');
-        searchBox.addEventListener('input', applyFilters);
-        
-        // تحديث عداد السلة الأولي
-        updateCartCounter();
+        try {
+          // فك تشفير البيانات من base64
+          const jsonContent = atob(apiData.content.replace(/\s/g, ''));
+          
+          // محاولة تحويل المحتوى إلى JSON
+          const products = JSON.parse(jsonContent);
+          
+          if (!Array.isArray(products) || products.length === 0) {
+            throw new Error('البيانات فارغة أو غير صالحة');
+          }
+          
+          allProducts = products;
+          filteredProducts = products;
+          
+          console.log(`✅ تم تحميل ${products.length} منتج بنجاح`);
+          
+          buildFilters();
+          render();
+          
+          // إعداد البحث
+          const searchBox = document.getElementById('searchBox');
+          searchBox.addEventListener('input', applyFilters);
+          
+          // تحديث عداد السلة الأولي
+          updateCartCounter();
+          
+        } catch(parseError) {
+          throw new Error(`خطأ في تحليل بيانات JSON: ${parseError.message}`);
+        }
         
       } catch(error) {
         console.error('خطأ في تحميل المنتجات:', error);
