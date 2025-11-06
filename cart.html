@@ -3,409 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🛍️ سلة التسوق - سوق الكويت 🇰🇼</title>
-    <meta name="description" content="سلة التسوق في سوق الكويت - راجع منتجاتك وأتمم طلبك بسهولة">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>سلة التسوق - سوق الكويت | إنهاء الطلب بسهولة</title>
+    <meta name="description" content="إنهاء طلبك من سوق الكويت بسهولة. مراجعة مشترياتك وإرسال الطلب عبر واتساب فوراً.">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-    :root {
-        --ku-green: #00843d;
-        --ku-red: #ce1126;
-        --ku-white: #ffffff;
-        --ku-black: #000000;
-        --ku-gold: #ffcd00;
-    }
-    
-    body {
-        font-family: 'Cairo', Arial, sans-serif;
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        min-height: 100vh;
-    }
-    
-    .cart-header {
-        background: linear-gradient(135deg, var(--ku-green) 0%, var(--ku-red) 50%, var(--ku-black) 100%);
-        color: var(--ku-white);
-        padding: 60px 0;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .cart-header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff10"><polygon points="0,100 1000,0 1000,100"/></svg>');
-        pointer-events: none;
-    }
-    
-    .cart-title {
-        font-size: 42px;
-        font-weight: 900;
-        margin-bottom: 15px;
-        text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
-        position: relative;
-        z-index: 1;
-    }
-    
-    .whatsapp-cta {
-        background: linear-gradient(135deg, #25d366, #128c7e);
-        color: white;
-        padding: 25px;
-        border-radius: 20px;
-        text-align: center;
-        margin: 30px 0;
-        box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .whatsapp-cta::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-        animation: shimmer 3s ease-in-out infinite;
-    }
-    
-    @keyframes shimmer {
-        0%, 100% { transform: translateX(-100%) translateY(-100%); }
-        50% { transform: translateX(100%) translateY(100%); }
-    }
-    
-    .whatsapp-btn {
-        background: rgba(255,255,255,0.2);
-        color: white;
-        border: 2px solid rgba(255,255,255,0.3);
-        padding: 18px 40px;
-        border-radius: 25px;
-        font-size: 1.2em;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        backdrop-filter: blur(10px);
-        position: relative;
-        z-index: 2;
-    }
-    
-    .whatsapp-btn:hover {
-        background: rgba(255,255,255,0.3);
-        border-color: rgba(255,255,255,0.5);
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(255,255,255,0.2);
-        color: white;
-    }
-    
-    .cart-content {
-        background: var(--ku-white);
-        border-radius: 20px;
-        padding: 30px;
-        margin: 30px 0;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        position: relative;
-    }
-    
-    .cart-stats {
-        background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
-        border-radius: 15px;
-        padding: 20px;
-        margin: 20px 0;
-        text-align: center;
-        border: 2px solid #90caf9;
-    }
-    
-    .empty-cart {
-        text-align: center;
-        padding: 80px 20px;
-        color: #666;
-    }
-    
-    .cart-count {
-        background: #dc3545;
-        color: white;
-        border-radius: 50%;
-        padding: 4px 8px;
-        font-size: 12px;
-        margin-right: 5px;
-        transition: all 0.3s ease;
-    }
-    
-    .cart-count.updated {
-        transform: scale(1.2);
-        background: #28a745;
-    }
-    
-    .action-buttons {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin: 30px 0;
-    }
-    
-    .btn-custom {
-        padding: 12px 25px;
-        border-radius: 20px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        border: none;
-        cursor: pointer;
-    }
-    
-    .btn-custom:hover {
-        transform: translateY(-2px);
-    }
+        :root {
+            --kuwait-green: #007A3D; --kuwait-red: #CE1126; --kuwait-black: #000000; --kuwait-white: #FFFFFF;
+            --kuwait-green-light: #00B359; --kuwait-green-dark: #005A2D; --kuwait-red-dark: #A80D1F; --kuwait-gold: #FFD700;
+            --shadow-light: rgba(0, 122, 61, 0.15); --shadow-medium: rgba(0, 122, 61, 0.25); --shadow-dark: rgba(0, 122, 61, 0.35);
+            --gradient-kuwait: linear-gradient(135deg, var(--kuwait-green) 0%, var(--kuwait-red) 100%);
+            --gradient-subtle: linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(248,248,248,0.95) 100%);
+            --gradient-cards: linear-gradient(145deg, var(--kuwait-white) 0%, #f8f9fa 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cairo', sans-serif; background: var(--gradient-kuwait); min-height: 100vh; line-height: 1.7; color: var(--kuwait-black); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 30px; }
+        .header { background: var(--gradient-subtle); padding: 40px; border-radius: 25px; text-align: center; margin-bottom: 40px; box-shadow: 0 20px 40px var(--shadow-medium); border: 3px solid var(--kuwait-white); position: relative; }
+        .header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--gradient-kuwait); border-radius: 25px 25px 0 0; }
+        .back-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--kuwait-green); color: var(--kuwait-white); text-decoration: none; padding: 15px 30px; border-radius: 25px; font-weight: 700; margin-bottom: 25px; transition: all 0.3s ease; box-shadow: 0 8px 20px var(--shadow-medium); }
+        .back-btn:hover { background: var(--kuwait-green-dark); transform: translateY(-3px); }
+        h1 { font-size: 2.8em; color: var(--kuwait-black); margin-bottom: 15px; font-weight: 800; text-shadow: 3px 3px 6px var(--shadow-light); }
+        .cart-content { background: var(--gradient-subtle); padding: 50px; border-radius: 25px; box-shadow: 0 20px 40px var(--shadow-medium); border: 3px solid var(--kuwait-white); position: relative; margin-bottom: 30px; }
+        .cart-content::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-kuwait); border-radius: 25px 25px 0 0; }
+        .cart-item { display: grid; grid-template-columns: 80px 1fr auto; gap: 20px; padding: 25px; background: var(--gradient-cards); border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 25px var(--shadow-light); border: 2px solid transparent; transition: all 0.3s ease; }
+        .cart-item:hover { border-color: var(--kuwait-green); transform: translateY(-3px); }
+        .item-image { width: 80px; height: 80px; object-fit: cover; border-radius: 15px; border: 2px solid var(--kuwait-green-light); }
+        .item-info h3 { color: var(--kuwait-black); font-size: 1.3em; margin-bottom: 10px; font-weight: 700; }
+        .item-price { color: var(--kuwait-red); font-size: 1.4em; font-weight: 800; }
+        .quantity-controls { display: flex; align-items: center; gap: 15px; }
+        .qty-btn { background: var(--kuwait-green); color: var(--kuwait-white); border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 18px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; }
+        .qty-btn:hover { background: var(--kuwait-green-dark); transform: scale(1.1); }
+        .quantity { font-size: 1.3em; font-weight: 700; min-width: 40px; text-align: center; }
+        .remove-btn { background: var(--kuwait-red); color: var(--kuwait-white); border: none; border-radius: 15px; padding: 8px 15px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; }
+        .remove-btn:hover { background: var(--kuwait-red-dark); transform: translateY(-2px); }
+        .cart-summary { background: var(--gradient-cards); padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 15px 35px var(--shadow-medium); border: 3px solid var(--kuwait-green); margin-bottom: 30px; }
+        .total-amount { font-size: 2.5em; color: var(--kuwait-red); font-weight: 800; margin-bottom: 20px; text-shadow: 2px 2px 4px var(--shadow-light); }
+        .checkout-btn { background: var(--gradient-kuwait); color: var(--kuwait-white); border: 3px solid var(--kuwait-white); border-radius: 35px; padding: 20px 40px; font-size: 1.4em; font-weight: 800; cursor: pointer; transition: all 0.4s ease; text-decoration: none; display: inline-flex; align-items: center; gap: 15px; box-shadow: 0 12px 30px var(--shadow-medium); }
+        .checkout-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 20px 50px var(--shadow-dark); border-color: var(--kuwait-gold); }
+        .empty-cart { text-align: center; padding: 80px 40px; color: var(--kuwait-green-dark); font-size: 1.3em; }
+        .empty-cart-icon { font-size: 5em; margin-bottom: 25px; opacity: 0.6; }
+        .shop-now-btn { background: var(--gradient-kuwait); color: var(--kuwait-white); border: 3px solid var(--kuwait-white); border-radius: 30px; padding: 18px 35px; font-size: 1.2em; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; margin-top: 25px; transition: all 0.3s ease; box-shadow: 0 10px 25px var(--shadow-medium); }
+        .shop-now-btn:hover { transform: translateY(-4px) scale(1.05); border-color: var(--kuwait-gold); }
+        .whatsapp-btn { position: fixed; bottom: 30px; left: 30px; background: linear-gradient(135deg, #25d366 0%, #128c7e 100%); color: var(--kuwait-white); border: 3px solid var(--kuwait-white); border-radius: 60px; padding: 20px 28px; font-size: 17px; font-weight: 700; z-index: 1001; transition: all 0.4s ease; text-decoration: none; display: flex; align-items: center; gap: 12px; }
+        .whatsapp-btn:hover { background: linear-gradient(135deg, var(--kuwait-green) 0%, var(--kuwait-green-dark) 100%); transform: translateY(-5px) scale(1.08); border-color: var(--kuwait-gold); }
+        @media (max-width: 768px) { .container { padding: 20px; } .cart-item { grid-template-columns: 60px 1fr; gap: 15px; } .quantity-controls { grid-column: 1 / -1; justify-self: center; margin-top: 15px; } h1 { font-size: 2.2em; } }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold fs-4" href="index.html">
-                <i class="fas fa-store me-2"></i> سوق الكويت
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i>الرئيسية</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="cart.html"><i class="fas fa-shopping-cart me-1"></i>السلة <span class="cart-count" id="cart-count">0</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="https://wa.me/201110760081" target="_blank"><i class="fab fa-whatsapp me-1"></i>واتساب</a></li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item"><span class="navbar-text"><i class="fas fa-phone me-1"></i> +20 111 076 0081</span></li>
-                </ul>
+    <div class="container">
+        <div class="header">
+            <a href="products-catalog.html" class="back-btn">← متابعة التسوق</a>
+            <h1>🛒 سلة التسوق</h1>
+            <p>مراجعة مشترياتك وإنهاء الطلب</p>
+        </div>
+        
+        <div class="cart-content">
+            <div id="cartItems"></div>
+            
+            <div class="empty-cart" id="emptyCart" style="display: none;">
+                <div class="empty-cart-icon">🛒</div>
+                <h2>سلة التسوق فارغة</h2>
+                <p>لم تقم بإضافة أي منتجات بعد</p>
+                <a href="products-catalog.html" class="shop-now-btn">🛍️ ابدأ التسوق الآن</a>
             </div>
         </div>
-    </nav>
-    
-    <section class="cart-header">
-        <div class="container">
-            <h1 class="cart-title">🛍️ سلة التسوق</h1>
-            <p style="font-size: 20px; color: var(--ku-gold); position: relative; z-index: 1;">راجع منتجاتك وأتمم طلبك بسهولة</p>
-        </div>
-    </section>
-    
-    <!-- زر واتساب مباشر في أعلى الصفحة -->
-    <div class="container">
-        <div class="whatsapp-cta" id="whatsapp-section" style="display: none;">
-            <h3 style="margin-bottom: 15px; position: relative; z-index: 2;">
-                <i class="fab fa-whatsapp me-2"></i>أتم طلبك بضغطة زر!
-            </h3>
-            <p style="margin-bottom: 20px; opacity: 0.9; position: relative; z-index: 2;">
-                طلبك جاهز! اضغط على الزر لإرسال تفاصيل الطلب مباشرة عبر واتساب
-            </p>
-            <button onclick="proceedToWhatsAppCheckout()" class="whatsapp-btn">
-                <i class="fab fa-whatsapp me-2"></i>إرسال الطلب عبر واتساب
-            </button>
+        
+        <div class="cart-summary" id="cartSummary" style="display: none;">
+            <h2>📊 ملخص الطلب</h2>
+            <div class="total-amount" id="totalAmount">0 د.ك</div>
+            <p id="itemCount">0 منتج</p>
+            <button class="checkout-btn" onclick="proceedToWhatsAppOrder()">💬 إرسال الطلب عبر واتساب</button>
         </div>
     </div>
     
-    <section class="section">
-        <div class="container">
-            <div class="cart-content">
-                <!-- إحصائيات السلة -->
-                <div class="cart-stats" id="cart-stats" style="display: none;">
-                    <h4 style="margin-bottom: 15px; color: #007bff;">
-                        <i class="fas fa-chart-bar me-2"></i>ملخص طلبك
-                    </h4>
-                    <div class="row text-center">
-                        <div class="col-md-4">
-                            <div style="background: white; padding: 15px; border-radius: 10px; margin: 5px;">
-                                <i class="fas fa-boxes text-info fs-3"></i>
-                                <h6 class="mt-2">عدد المنتجات</h6>
-                                <strong id="total-items" class="text-info">0</strong>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div style="background: white; padding: 15px; border-radius: 10px; margin: 5px;">
-                                <i class="fas fa-calculator text-success fs-3"></i>
-                                <h6 class="mt-2">المجموع</h6>
-                                <strong id="total-amount" class="text-success">0.000 د.ك</strong>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div style="background: white; padding: 15px; border-radius: 10px; margin: 5px;">
-                                <i class="fas fa-shipping-fast text-warning fs-3"></i>
-                                <h6 class="mt-2">الشحن</h6>
-                                <strong class="text-warning">مجاني</strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- محتويات السلة -->
-                <div id="cart-items">
-                    <!-- سيتم تحميل المنتجات هنا -->
-                </div>
-                
-                <!-- المجموع -->
-                <div id="cart-total">
-                    <!-- سيتم تحميل المجموع هنا -->
-                </div>
-                
-                <!-- رسالة السلة الفارغة -->
-                <div id="empty-cart-message" class="empty-cart" style="display: none;">
-                    <div style="font-size: 100px; margin-bottom: 30px; color: var(--ku-gold);">🛍️</div>
-                    <h3 style="color: var(--ku-green); font-size: 2em; margin-bottom: 20px;">السلة فارغة!</h3>
-                    <p style="margin-bottom: 40px; font-size: 1.2em;">لم تقم بإضافة أي منتجات بعد.</p>
-                    <div class="action-buttons">
-                        <a href="products-catalog.html" class="btn btn-primary btn-lg btn-custom">
-                            🛍️ تصفح المنتجات
-                        </a>
-                        <a href="index.html" class="btn btn-outline-primary btn-lg btn-custom">
-                            🏠 العودة للرئيسية
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- أزرار إضافية -->
-                <div class="action-buttons" id="cart-actions" style="display: none;">
-                    <button onclick="clearCart()" class="btn btn-outline-danger btn-lg btn-custom">
-                        <i class="fas fa-trash me-2"></i>مسح السلة
-                    </button>
-                    <a href="products-catalog.html" class="btn btn-outline-primary btn-lg btn-custom">
-                        <i class="fas fa-plus me-2"></i>إضافة منتجات
-                    </a>
-                    <button onclick="proceedToWhatsAppCheckout()" class="btn btn-success btn-lg btn-custom" style="background: #25d366; border-color: #25d366;">
-                        <i class="fab fa-whatsapp me-2"></i>إتمام عبر واتساب
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <footer class="bg-dark text-light pt-5 pb-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3"><i class="fas fa-store me-2"></i>سوق الكويت</h5>
-                    <p class="text-muted">متجرك الإلكتروني الموثوق لأفضل المنتجات بأسعار تنافسية في الكويت</p>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3"><i class="fas fa-headset me-2"></i>خدمة العملاء</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="tel:+201110760081" class="text-light text-decoration-none"><i class="fas fa-phone me-2"></i>+20 111 076 0081</a></li>
-                        <li class="mb-2"><a href="mailto:sooqalkuwait2010@gmail.com" class="text-light text-decoration-none"><i class="fas fa-envelope me-2"></i>sooqalkuwait2010@gmail.com</a></li>
-                        <li class="mb-2"><a href="https://wa.me/201110760081" class="text-light text-decoration-none"><i class="fab fa-whatsapp me-2"></i>واتساب</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3"><i class="fas fa-map-marker-alt me-2"></i>معلومات التواصل</h5>
-                    <p class="text-muted">
-                        <i class="fas fa-map-marker-alt me-2"></i>الكويت، العاصمة<br>
-                        <i class="fas fa-clock me-2"></i>ساعات العمل: 9 ص - 9 م<br>
-                        <i class="fas fa-calendar-alt me-2"></i>7 أيام في الأسبوع
-                    </p>
-                </div>
-            </div>
-            <hr class="mt-4 mb-3">
-            <div class="text-center">
-                <p class="mb-0">&copy; 2024 سوق الكويت. جميع الحقوق محفوظة.</p>
-            </div>
-        </div>
-    </footer>
-    
-    <!-- تحميل نظام السلة المحسن -->
-    <script src="assets/js/cart-fixed.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+    <a href="https://wa.me/201110760081" target="_blank" class="whatsapp-btn">💬 تواصل معنا</a>
+
     <script>
-        // عرض صفحة السلة المحسن
-        function displayCartPage() {
-            console.log('🛍️ تحميل عرض صفحة السلة المحسن...');
-            
-            if (window.cart && window.cart.items) {
-                const cartItems = window.cart.items;
-                const whatsappSection = document.getElementById('whatsapp-section');
-                const cartStats = document.getElementById('cart-stats');
-                const cartActions = document.getElementById('cart-actions');
-                const totalItemsSpan = document.getElementById('total-items');
-                const totalAmountSpan = document.getElementById('total-amount');
-                
-                if (cartItems.length === 0) {
-                    // إخفاء العناصر التفاعلية
-                    if (whatsappSection) whatsappSection.style.display = 'none';
-                    if (cartStats) cartStats.style.display = 'none';
-                    if (cartActions) cartActions.style.display = 'none';
-                } else {
-                    // عرض العناصر التفاعلية
-                    if (whatsappSection) whatsappSection.style.display = 'block';
-                    if (cartStats) cartStats.style.display = 'block';
-                    if (cartActions) cartActions.style.display = 'flex';
-                    
-                    // تحديث الإحصائيات
-                    if (totalItemsSpan) totalItemsSpan.textContent = window.cart.count || 0;
-                    if (totalAmountSpan) totalAmountSpan.textContent = `${(window.cart.total || 0).toFixed(3)} د.ك`;
-                }
-                
-                // تفعيل عرض السلة من cart-fixed.js
-                if (window.updateCartDisplay) {
-                    window.updateCartDisplay();
-                }
-            } else {
-                console.warn('⚠️ نظام السلة غير محمل بعد, إعادة المحاولة...');
-                setTimeout(displayCartPage, 300);
+        let cart = [];
+        function loadCart() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) { cart = JSON.parse(savedCart); }
+            displayCart();
+        }
+        function displayCart() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const emptyCart = document.getElementById('emptyCart');
+            const cartSummary = document.getElementById('cartSummary');
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = ''; emptyCart.style.display = 'block'; cartSummary.style.display = 'none'; return;
+            }
+            emptyCart.style.display = 'none'; cartSummary.style.display = 'block';
+            cartItemsContainer.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <img src="${item.image_link}" alt="${item.title}" class="item-image">
+                    <div class="item-info"><h3>${item.title}</h3><div class="item-price">${item.sale_price || item.price} د.ك</div></div>
+                    <div class="quantity-controls">
+                        <button class="qty-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                        <button class="remove-btn" onclick="removeFromCart(${index})">🗑️</button>
+                    </div>
+                </div>`).join('');
+            updateCartSummary();
+        }
+        function updateQuantity(index, change) {
+            if (cart[index]) {
+                cart[index].quantity += change;
+                if (cart[index].quantity <= 0) { cart.splice(index, 1); }
+                saveCart(); displayCart();
             }
         }
-        
-        // التحميل الأولي
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🛍️ بدء تحميل صفحة السلة المحدثة...');
-            
-            // انتظار تحميل cart-fixed.js
-            setTimeout(() => {
-                displayCartPage();
-                
-                // تحديث عداد السلة
-                if (window.updateCartCounter) {
-                    window.updateCartCounter();
-                }
-            }, 200);
-        });
-        
-        // إشعار عند إضافة منتج جديد
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('added')) {
-            setTimeout(() => {
-                if (window.showNotification) {
-                    window.showNotification('✅ مرحباً! تمت إضافة المنتج بنجاح 🎉', 'success');
-                }
-                
-                // إزالة parameter من URL
-                const newUrl = window.location.pathname;
-                window.history.replaceState({}, document.title, newUrl);
-                
-                // عرض قسم واتساب فوراً
-                setTimeout(() => {
-                    const whatsappSection = document.getElementById('whatsapp-section');
-                    if (whatsappSection) {
-                        whatsappSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }, 1000);
-            }, 500);
+        function removeFromCart(index) { cart.splice(index, 1); saveCart(); displayCart(); }
+        function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
+        function updateCartSummary() {
+            const totalAmount = cart.reduce((sum, item) => sum + (item.sale_price || item.price) * item.quantity, 0);
+            const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('totalAmount').textContent = totalAmount.toFixed(2) + ' د.ك';
+            document.getElementById('itemCount').textContent = itemCount + ' منتج';
         }
-        
-        // الاستماع لتحديثات السلة
-        window.addEventListener('storage', function(e) {
-            if (e.key === 'cart_items') {
-                console.log('🔄 تم تحديث بيانات السلة من مصدر خارجي');
-                setTimeout(displayCartPage, 100);
-            }
-        });
-        
-        console.log('✅ تم تحميل صفحة السلة المحسنة بنجاح!');
+        function proceedToWhatsAppOrder() {
+            if (cart.length === 0) return;
+            let message = 'مرحباً! أريد طلب المنتجات التالية:\n\n';
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.title}\n   الكمية: ${item.quantity}\n   السعر: ${((item.sale_price || item.price) * item.quantity).toFixed(2)} د.ك\n\n`;
+            });
+            const total = cart.reduce((sum, item) => sum + (item.sale_price || item.price) * item.quantity, 0);
+            message += `إجمالي الطلب: ${total.toFixed(2)} د.ك\n\nشكراً لك!'`;
+            window.open(`https://wa.me/201110760081?text=${encodeURIComponent(message)}`, '_blank');
+            setTimeout(() => {
+                if (confirm('هل تريد مسح السلة بعد إرسال الطلب؟')) {
+                    cart = []; saveCart(); displayCart();
+                }
+            }, 2000);
+        }
+        document.addEventListener('DOMContentLoaded', loadCart);
     </script>
-    
-    <!-- Cart Notification Container -->
-    <div id="cart-notification" class="cart-notification"></div>
 </body>
 </html>
