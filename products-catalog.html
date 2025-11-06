@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سوق الكويت 🇰🇼 - الكتالوج الشامل</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--ku-green:#00843d;--ku-red:#ce1126;--ku-gold:#ffcd00}
+    body{font-family:'Cairo',sans-serif;background:#f8f9fa;margin:0}
+    .container{max-width:1200px;margin:0 auto;padding:22px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(284px,1fr));gap:24px}
+    .card{background:#fff;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.08);padding:16px;position:relative;border:2px solid transparent;transition:.2s;overflow:hidden}
+    .card:hover{transform:translateY(-6px);border-color:var(--ku-gold)}
+    .pseudo-cover{position:absolute;inset:0;z-index:2}
+    img.productimg{width:100%;height:220px;object-fit:cover;border-radius:12px;border:1px solid #eee;background:#fafafa;display:block}
+    .img-fallback{width:100%;height:220px;display:flex;align-items:center;justify-content:center;background:#e2e7ea;color:#888;border-radius:12px;font-size:18px;font-weight:bold;border:1px solid #eee;}
+    .title{margin:10px 0 6px; color:var(--ku-green); font-weight:800; font-size:18px; height:46px;overflow:hidden}
+    .price-box{margin-top:10px;text-align:center}
+    .price-current{background:#fff2f2; color:#ce1126; font-weight:bold; border-radius:9px; padding:8px 14px; font-size:20px; display:inline-block}
+    .price-orig{color:#999; font-size:14px; text-decoration:line-through; margin-left:9px}
+    .discount-badge{background:var(--ku-gold);color:#333;padding:2px 12px;border-radius:15px;font-weight:800;margin-right:7px}
+    .actions{display:flex;gap:8px;margin-top:12px;z-index:3;position:relative}
+    .wa{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;border-radius:9px;padding:10px 14px;text-decoration:none;font-weight:700;flex:1;text-align:center}
+    .cart{background:var(--ku-gold);color:#222;border:none;border-radius:9px;padding:10px 14px;font-weight:800;cursor:pointer;flex:1}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 style="text-align:center;color:var(--ku-green)">📦 الكتالوج الشامل</h1>
+    <div id="grid" class="grid"><div style="grid-column:1/-1;text-align:center">⏳ جاري التحميل...</div></div>
+  </div>
+  <script>
+    const DATA_URL='https://raw.githubusercontent.com/sherow1982/sooq-alkuwait/main/products_data.json';
+    const stripNum=t=>(t||'').replace(/^\s*\d+\s+/, '');
+    function addToCart(item){
+      const cart=JSON.parse(localStorage.getItem('sooq-cart')||'[]');
+      const i=cart.findIndex(x=>x.id===item.id);
+      if(i>-1)cart[i].quantity+=1;else cart.push({...item,quantity:1});
+      localStorage.setItem('sooq-cart',JSON.stringify(cart));
+      const n=document.createElement('div');
+      n.style.cssText='position:fixed;top:20px;right:20px;background:#00843d;color:#fff;padding:12px 18px;border-radius:10px;font-weight:700;z-index:9999;box-shadow:0 6px 18px rgba(0,0,0,.2)';
+      n.textContent='✅ تم إضافة '+item.title+' إلى السلة';
+      document.body.appendChild(n);setTimeout(()=>n.remove(),2200);
+    }
+
+    async function load(){
+      try{
+        const r=await fetch(DATA_URL,{cache:'no-cache'});
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        const items=await r.json();
+        const grid=document.getElementById('grid');
+        grid.innerHTML='';
+        items.forEach(p=>{
+          const title=stripNum(p.title);
+          const img=(p.image_link||'').trim();
+          const hasDiscount=Number(p.price)>Number(p.sale_price);
+          const wa='https://wa.me/201110760081?text='+encodeURIComponent('مرحبا، أريد طلب: '+title+' - السعر: '+Number(p.sale_price).toFixed(2)+' د.ك');
+          let discount='';
+          if(hasDiscount){
+            const d=Math.round((Number(p.price)-Number(p.sale_price))/Number(p.price)*100); 
+            discount=`<span class=\"discount-badge\">خصم ${d}%</span>`;
+          }
+          grid.innerHTML+=`
+          <article itemscope itemtype='http://schema.org/Product' class=card>
+            <a href="products-pages/product-${p.id}.html" target="_blank" rel="noopener" class="pseudo-cover" title="تفاصيل ${title}" aria-label="تفاصيل ${title}"></a>
+            <img class="productimg" itemprop="image" src="${img}"
+              alt="${title}" title="${title}"
+              loading="lazy"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="img-fallback" style="display:none">صورة المنتج غير متوفرة</div>
+            <h2 class="title" itemprop="name">${title}</h2>
+            <div class="price-box">
+              ${hasDiscount?`<span class='price-orig'>${Number(p.price).toFixed(2)} د.ك</span>`:''}
+              <span class="price-current" itemprop="price">${Number(p.sale_price).toFixed(2)} د.ك</span>
+              ${discount}
+            </div>
+            <div class="actions">
+              <a class="wa" href="${wa}" target="_blank" rel="noopener" onclick="event.stopPropagation()">واتساب</a>
+              <button class="cart" onclick='event.stopPropagation();addToCart({id:${p.id},title:"${title.replace(/"/g,"&quot;")}",price:Number(${p.sale_price}),image:"${img}"})'>أضف للسلة</button>
+            </div>
+          </article>`;
+        });
+      }catch(e){
+        document.getElementById('grid').innerHTML='<div style="grid-column:1/-1;color:#c53030;text-align:center">❌ خطأ في تحميل المنتجات</div>';
+        console.error(e);
+      }
+    }
+    document.addEventListener('DOMContentLoaded',load);
+  </script>
+</body>
+</html>
