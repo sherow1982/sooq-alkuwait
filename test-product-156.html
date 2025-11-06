@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار المنتج 156 - سوق الكويت</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f8f9fa;
+        }
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+        .product-image {
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+        .product-info {
+            padding: 2rem;
+        }
+        .product-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        .product-price {
+            font-size: 1.8rem;
+            color: #28a745;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .buy-button {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            width: 100%;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .buy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+        .navbar {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+        .cart-count {
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 4px 8px;
+            font-size: 12px;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        .cart-count.updated {
+            transform: scale(1.3);
+            background: #28a745;
+        }
+        .test-info {
+            background: #e3f2fd;
+            border: 1px solid #90caf9;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem;
+            text-align: center;
+        }
+        .feature-list {
+            text-align: right;
+            margin-top: 1rem;
+        }
+        .feature-list li {
+            margin: 0.5rem 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <h1 class="h4 mb-0 text-primary">سوق الكويت</h1>
+                <div>
+                    <a href="cart.html" class="btn btn-outline-primary">
+                        <i class="fas fa-shopping-cart me-2"></i>
+                        السلة
+                        <span class="cart-count" id="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Test Info -->
+    <div class="test-info">
+        <h5><i class="fas fa-vial me-2"></i>صفحة اختبار النظام الجديد</h5>
+        <p class="mb-2">هذه الصفحة لاختبار نظام السلة المحدث</p>
+        <small class="text-muted">جرب الضغط على زر "اشتري الآن" ولاحظ التحسينات</small>
+    </div>
+
+    <!-- Product Card -->
+    <div class="container">
+        <div class="product-card">
+            <div class="product-image">
+                <i class="fas fa-box-open"></i>
+            </div>
+            <div class="product-info">
+                <h1 class="product-title">منتج تجريبي رقم 156</h1>
+                <div class="product-price">25.750 د.ك</div>
+                
+                <ul class="feature-list">
+                    <li><i class="fas fa-check text-success me-2"></i>شحن مجاني</li>
+                    <li><i class="fas fa-check text-success me-2"></i>ضمان سنة كاملة</li>
+                    <li><i class="fas fa-check text-success me-2"></i>جودة عالية</li>
+                    <li><i class="fas fa-check text-success me-2"></i>خدمة عملاء 24/7</li>
+                </ul>
+
+                <button class="buy-button cart-btn" data-product-id="156">
+                    <i class="fas fa-shopping-cart me-2"></i>اشتري الآن - شحن مجاني
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Debug Info -->
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-bug me-2"></i>معلومات التطوير</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>معرف المنتج:</strong> 156</p>
+                <p><strong>نوع الزر:</strong> data-product-id (النظام الجديد)</p>
+                <p><strong>التخزين:</strong> LocalStorage</p>
+                <p><strong>حالة النظام:</strong> <span id="system-status" class="text-warning">جاري التحميل...</span></p>
+                
+                <div class="mt-3">
+                    <h6>إجراءات إضافية:</h6>
+                    <button onclick="clearCart()" class="btn btn-warning btn-sm me-2">
+                        <i class="fas fa-trash me-1"></i>مسح السلة
+                    </button>
+                    <button onclick="console.log(cart)" class="btn btn-info btn-sm">
+                        <i class="fas fa-eye me-1"></i>عرض بيانات السلة
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/cart-fixed.js"></script>
+    
+    <script>
+        // إضافة معلومات التطوير
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const statusElement = document.getElementById('system-status');
+                if (window.cart) {
+                    statusElement.textContent = 'نظام السلة محمل ✅';
+                    statusElement.className = 'text-success';
+                } else {
+                    statusElement.textContent = 'خطأ في تحميل النظام ❌';
+                    statusElement.className = 'text-danger';
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

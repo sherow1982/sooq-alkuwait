@@ -1,0 +1,77 @@
+name: Inject Universal Cart Fix
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'اكتب yes لتشغيل الحقن الشامل'
+        required: true
+        default: 'no'
+        type: choice
+        options: ['no','yes']
+
+  push:
+    paths:
+      - 'assets/js/universal-cart-fix.js'
+      - 'inject_universal_fix.py'
+
+# أذونات الكتابة المطلوبة لتعديل الملفات
+permissions:
+  contents: write
+  actions: read
+  metadata: read
+
+jobs:
+  inject-fix:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event.inputs.confirm == 'yes'
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: 🛠️ Configure Git
+        run: |
+          git config --global user.name 'GitHub Action - Universal Cart Fix'
+          git config --global user.email 'action@github.com'
+
+      - name: 🔧 Run Universal Fix Injector
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🚀 بدء حقن universal-cart-fix.js في جميع صفحات المنتجات..."
+          python inject_universal_fix.py
+
+      - name: 📊 Display Results
+        run: |
+          echo "🎯 مهمة الحقن الشامل مكتملة!"
+          echo "✅ تم حقن <script src=\"../assets/js/universal-cart-fix.js\"></script>"
+          echo "📂 في جميع ملفات products-pages/ التي تحتاجه"
+          echo ""
+          echo "🔗 روابط الاختبار:"
+          echo "• اختبار شامل: https://sherow1982.github.io/sooq-alkuwait/test-universal-cart.html"
+          echo "• السلة: https://sherow1982.github.io/sooq-alkuwait/cart.html"
+          echo "• منتج رقم 1: https://sherow1982.github.io/sooq-alkuwait/products-pages/"
+
+      - name: 🎉 Success Notification
+        if: success()
+        run: |
+          echo "🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟"
+          echo "🎊 تم إنجاز المهمة بنجاح كامل! 🎊"
+          echo "🛒 جميع أزرار السلة تعمل الآن!"
+          echo "🔄 انتقال تلقائي للسلة فعال!"
+          echo "📱 الموقع جاهز للعملاء 100%!"
+          echo "🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟"

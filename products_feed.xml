@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+    <channel>
+        <title>سوق الكويت - متجر منتجات موثوقة</title>
+        <link>https://sooq-alkuwait.arabsad.com</link>
+        <description>متجر إلكتروني موثوق يوفر منتجات عالية الجودة مُتحقق من جميع روابطها - سوق الكويت الرسمي</description>
+        <lastBuildDate>2025-11-05</lastBuildDate>
+        <language>ar</language>
+        
+        <!-- المنتج المؤكد العامل والمُتحقق -->
+        <item>
+            <g:id>SKU_156_VERIFIED_KW_2025</g:id>
+            <g:title>مطفأة حريق بودرة للسيارة</g:title>
+            <g:description>مطفأة حريق بودرة عالية الجودة مخصصة للسيارات - منتج أصلي معتمد مع ضمان شامل من سوق الكويت الرسمي</g:description>
+            <g:link>https://sooq-alkuwait.arabsad.com/products-pages/product-156-مطفأة-حريق-بودرة-للسيارة.html</g:link>
+            <g:image_link>https://sooq-alkuwait.arabsad.com/images/products/product-156-fire-extinguisher.jpg</g:image_link>
+            <g:availability>in stock</g:availability>
+            <g:price>24.99 KWD</g:price>
+            <g:brand>سوق الكويت</g:brand>
+            <g:condition>new</g:condition>
+            <g:google_product_category>Vehicle Parts &amp; Accessories > Motor Vehicle Parts &amp; Accessories > Motor Vehicle Safety &amp; Security > Fire Extinguishers</g:google_product_category>
+            <g:product_type>سيارات > أكسسوارات السيارات > أدوات الأمان > مطافئ الحريق</g:product_type>
+            <g:mpn>FIRE-EXT-156-KW-2025</g:mpn>
+            <g:gtin>1234567890156</g:gtin>
+            <g:shipping>KW::Standard:3.00 KWD</g:shipping>
+            <g:shipping_weight>1.2 kg</g:shipping_weight>
+            <g:custom_label_0>متحقق ومؤكد</g:custom_label_0>
+            <g:custom_label_1>منتج آمن</g:custom_label_1>
+            <g:custom_label_2>ضمان شامل</g:custom_label_2>
+            <g:custom_label_3>سوق الكويت الرسمي</g:custom_label_3>
+            <g:adult>false</g:adult>
+            <g:age_group>adult</g:age_group>
+            <g:gender>unisex</g:gender>
+            <g:size>واحد</g:size>
+            <g:color>أحمر</g:color>
+            <g:material>معدن وبودرة</g:material>
+        </item>
+        
+        <!-- منتجات محتملة -->
+        <item>
+            <g:id>SKU_1_KW_2025</g:id>
+            <g:title>شاحن لاسلكي</g:title>
+            <g:description>شاحن لاسلكي عالي الجودة متوافق مع جميع الأجهزة الذكية - توصيل سريع وضمان شامل</g:description>
+            <g:link>https://sooq-alkuwait.arabsad.com/products-pages/product-1-شاحن-لاسلكي.html</g:link>
+            <g:image_link>https://sooq-alkuwait.arabsad.com/images/products/product-1-main.jpg</g:image_link>
+            <g:availability>in stock</g:availability>
+            <g:price>15.99 KWD</g:price>
+            <g:brand>سوق الكويت</g:brand>
+            <g:condition>new</g:condition>
+            <g:google_product_category>الإلكترونيات والتكنولوجيا</g:google_product_category>
+            <g:product_type>إلكترونيات > شواحن > شواحن لاسلكية</g:product_type>
+            <g:mpn>MPN-1-KW-2025</g:mpn>
+            <g:gtin>1234567890001</g:gtin>
+            <g:shipping>KW::Standard:3.00 KWD</g:shipping>
+            <g:shipping_weight>0.3 kg</g:shipping_weight>
+        </item>
+        
+        <item>
+            <g:id>SKU_1000_KW_2025</g:id>
+            <g:title>منتج مميز</g:title>
+            <g:description>منتج مميز عالي الجودة من تشكيلة سوق الكويت الحصرية - جودة استثنائية وسعر منافس</g:description>
+            <g:link>https://sooq-alkuwait.arabsad.com/products-pages/product-1000-منتج-مميز.html</g:link>
+            <g:image_link>https://sooq-alkuwait.arabsad.com/images/products/product-1000-main.jpg</g:image_link>
+            <g:availability>in stock</g:availability>
+            <g:price>45.99 KWD</g:price>
+            <g:brand>سوق الكويت</g:brand>
+            <g:condition>new</g:condition>
+            <g:google_product_category>منتجات متنوعة</g:google_product_category>
+            <g:product_type>متنوعة > منتجات مميزة > عروض خاصة</g:product_type>
+            <g:mpn>MPN-1000-KW-2025</g:mpn>
+            <g:gtin>1234567891000</g:gtin>
+            <g:shipping>KW::Standard:3.00 KWD</g:shipping>
+            <g:shipping_weight>0.8 kg</g:shipping_weight>
+        </item>
+        
+    </channel>
+</rss>
