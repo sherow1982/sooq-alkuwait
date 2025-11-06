@@ -9,6 +9,9 @@
     :root{--ku-green:#00843d;--ku-red:#ce1126;--ku-gold:#ffcd00}
     body{font-family:'Cairo',sans-serif;background:#f8f9fa;margin:0}
     .container{max-width:1200px;margin:0 auto;padding:22px}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 16px}
+    .chip{background:#fff;border:2px solid #e9ecef;color:#333;border-radius:25px;padding:8px 14px;cursor:pointer;font-weight:700}
+    .chip.active{border-color:var(--ku-green);background:#e9f7ef;color:#0b7550}
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(284px,1fr));gap:24px}
     .card{background:#fff;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.08);padding:16px;position:relative;border:2px solid transparent;transition:.2s;overflow:hidden}
     .card:hover{transform:translateY(-6px);border-color:var(--ku-gold)}
@@ -28,11 +31,57 @@
 <body>
   <div class="container">
     <h1 style="text-align:center;color:var(--ku-green)">📦 الكتالوج الشامل</h1>
+
+    <!-- شريط التصفية بالفئات -->
+    <div id="filters" class="filters"></div>
+
     <div id="grid" class="grid"><div style="grid-column:1/-1;text-align:center">⏳ جاري التحميل...</div></div>
   </div>
   <script>
     const DATA_URL='https://raw.githubusercontent.com/sherow1982/sooq-alkuwait/main/products_data.json';
     const stripNum=t=>(t||'').replace(/^\s*\d+\s+/, '');
+
+    // تعريف الفئات الدقيقة المتفق عليها
+    const CATS=[
+      {key:'all',       name:'الكل',                   test: t=>true},
+      {key:'kids',      name:'الأطفال والألعاب',       test: t=>/(أطفال|طفل|لعبة|حصالة|روبوت|فقاعات|كرتوني|تعليمية)/i.test(t)},
+      {key:'kitchen',   name:'المطبخ وأدوات الطعام',  test: t=>/(مطبخ|قهوة|صفاية|سلطة|خلاط|عصارة|مفرمة|طبخ|مقلاة|فرن|مطحنة|طاولة)/i.test(t)},
+      {key:'fashion',   name:'الملابس والإكسسوارات',  test: t=>/(شورت|حقيبة|حقيبه|ملابس|قميص|فستان|حذاء|نظارة|ساعة|موضة|أزياء|اكسسوار)/i.test(t)},
+      {key:'auto',      name:'السيارات والملحقات',    test: t=>/(سيارة|سيارات|محول|كاميرا|حامل|مطفأة|فولت|ولاعة|مرآة)/i.test(t)},
+      {key:'beauty',    name:'العناية والتجميل',      test: t=>/(شامبو|سيروم|كريم|عطر|حلاقة|تجميل|بشرة|شعر|عناية|مكياج|ماسك)/i.test(t)},
+      {key:'home',      name:'المنزل والتنظيف',       test: t=>/(منزل|حديقة|تنظيف|غسيل|مكنسة|أثاث|ديكور|إضاءة|مرتبة|مفرش|ستارة)/i.test(t)},
+      {key:'electronics',name:'الإلكترونيات',         test: t=>/(هاتف|شاحن|بطارية|كابل|سماعة|شاشة|إلكتروني|USB|Type-C)/i.test(t)},
+      {key:'sport',     name:'الرياضة واللياقة',      test: t=>/(رياضة|لياقة|جري|تمارين|كرة|دراجة|وزن|شد|يوغا)/i.test(t)},
+      {key:'other',     name:'منتجات متنوعة',         test: t=>true} // يُستخدم لاحقاً لما لا يطابق أي فئة
+    ];
+
+    let ALL=[];     // جميع المنتجات
+    let ACTIVE='all';
+
+    function buildFilters(){
+      const f=document.getElementById('filters');
+      const btn=(key,name,count)=>`<button class="chip" data-key="${key}">${name}${count?` (${count})`:''}</button>`;
+      // حساب الأعداد لكل فئة
+      const counts={};
+      for(const c of CATS){ counts[c.key]=0; }
+      for(const p of ALL){
+        const t=p.title;
+        const c=CATS.find(cat=>cat.key!=='other' && cat.test(t));
+        counts[(c?c.key:'other')]++;
+      }
+      f.innerHTML = CATS.map(c=>btn(c.key,c.name,counts[c.key]||0)).join('');
+      f.querySelectorAll('.chip').forEach(b=>{
+        b.addEventListener('click',()=>{ setActive(b.dataset.key); });
+      });
+      setActive(ACTIVE);
+    }
+
+    function setActive(key){
+      ACTIVE=key;
+      document.querySelectorAll('.chip').forEach(b=>b.classList.toggle('active', b.dataset.key===key));
+      render();
+    }
+
     function addToCart(item){
       const cart=JSON.parse(localStorage.getItem('sooq-cart')||'[]');
       const i=cart.findIndex(x=>x.id===item.id);
@@ -44,43 +93,56 @@
       document.body.appendChild(n);setTimeout(()=>n.remove(),2200);
     }
 
+    function render(){
+      const grid=document.getElementById('grid');
+      const list=ALL.filter(p=>{
+        const t=p.title;
+        if(ACTIVE==='all') return true;
+        if(ACTIVE==='other'){
+          return !CATS.some(c=>c.key!=='other' && c.test(t));
+        }
+        return CATS.find(c=>c.key===ACTIVE)?.test(t);
+      });
+
+      grid.innerHTML='';
+      list.forEach(p=>{
+        const title=stripNum(p.title);
+        const img=(p.image_link||'').trim();
+        const hasDiscount=Number(p.price)>Number(p.sale_price);
+        const wa='https://wa.me/201110760081?text='+encodeURIComponent('مرحبا، أريد طلب: '+title+' - السعر: '+Number(p.sale_price).toFixed(2)+' د.ك');
+        let discount='';
+        if(hasDiscount){
+          const d=Math.round((Number(p.price)-Number(p.sale_price))/Number(p.price)*100);
+          discount=`<span class="discount-badge">خصم ${d}%</span>`;
+        }
+        grid.innerHTML+=`
+        <article itemscope itemtype='http://schema.org/Product' class=card>
+          <a href="products-pages/product-${p.id}.html" target="_blank" rel="noopener" class="pseudo-cover" title="تفاصيل ${title}" aria-label="تفاصيل ${title}"></a>
+          <img class="productimg" itemprop="image" src="${img}"
+            alt="${title}" title="${title}"
+            loading="lazy"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-fallback" style="display:none">صورة المنتج غير متوفرة</div>
+          <h2 class="title" itemprop="name">${title}</h2>
+          <div class="price-box">
+            ${hasDiscount?`<span class='price-orig'>${Number(p.price).toFixed(2)} د.ك</span>`:''}
+            <span class="price-current" itemprop="price">${Number(p.sale_price).toFixed(2)} د.ك</span>
+            ${discount}
+          </div>
+          <div class="actions">
+            <a class="wa" href="${wa}" target="_blank" rel="noopener" onclick="event.stopPropagation()">واتساب</a>
+            <button class="cart" onclick='event.stopPropagation();addToCart({id:${p.id},title:"${title.replace(/"/g,"&quot;")}",price:Number(${p.sale_price}),image:"${img}"})'>أضف للسلة</button>
+          </div>
+        </article>`;
+      });
+    }
+
     async function load(){
       try{
-        const r=await fetch(DATA_URL,{cache:'no-cache'});
-        if(!r.ok) throw new Error('HTTP '+r.status);
-        const items=await r.json();
-        const grid=document.getElementById('grid');
-        grid.innerHTML='';
-        items.forEach(p=>{
-          const title=stripNum(p.title);
-          const img=(p.image_link||'').trim();
-          const hasDiscount=Number(p.price)>Number(p.sale_price);
-          const wa='https://wa.me/201110760081?text='+encodeURIComponent('مرحبا، أريد طلب: '+title+' - السعر: '+Number(p.sale_price).toFixed(2)+' د.ك');
-          let discount='';
-          if(hasDiscount){
-            const d=Math.round((Number(p.price)-Number(p.sale_price))/Number(p.price)*100); 
-            discount=`<span class=\"discount-badge\">خصم ${d}%</span>`;
-          }
-          grid.innerHTML+=`
-          <article itemscope itemtype='http://schema.org/Product' class=card>
-            <a href="products-pages/product-${p.id}.html" target="_blank" rel="noopener" class="pseudo-cover" title="تفاصيل ${title}" aria-label="تفاصيل ${title}"></a>
-            <img class="productimg" itemprop="image" src="${img}"
-              alt="${title}" title="${title}"
-              loading="lazy"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-            <div class="img-fallback" style="display:none">صورة المنتج غير متوفرة</div>
-            <h2 class="title" itemprop="name">${title}</h2>
-            <div class="price-box">
-              ${hasDiscount?`<span class='price-orig'>${Number(p.price).toFixed(2)} د.ك</span>`:''}
-              <span class="price-current" itemprop="price">${Number(p.sale_price).toFixed(2)} د.ك</span>
-              ${discount}
-            </div>
-            <div class="actions">
-              <a class="wa" href="${wa}" target="_blank" rel="noopener" onclick="event.stopPropagation()">واتساب</a>
-              <button class="cart" onclick='event.stopPropagation();addToCart({id:${p.id},title:"${title.replace(/"/g,"&quot;")}",price:Number(${p.sale_price}),image:"${img}"})'>أضف للسلة</button>
-            </div>
-          </article>`;
-        });
+        const r=await fetch(DATA_URL,{cache:'no-cache'}); if(!r.ok) throw new Error('HTTP '+r.status);
+        ALL=await r.json();
+        buildFilters();
+        render();
       }catch(e){
         document.getElementById('grid').innerHTML='<div style="grid-column:1/-1;color:#c53030;text-align:center">❌ خطأ في تحميل المنتجات</div>';
         console.error(e);
