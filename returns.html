@@ -3,50 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سياسة الإرجاع - سوق الكويت 🇰🇼</title>
-    <link rel="stylesheet" href="assets/css/kuwait-modern.css">
+    <title>سياسة الاسترجاع - سوق الكويت</title>
+    <meta name="description" content="سياسة الاسترجاع والاستبدال في سوق الكويت. استرجاع مجاني خلال 7 أيام.">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --kuwait-green: #007A3D; --kuwait-red: #CE1126; --kuwait-black: #000000; --kuwait-white: #FFFFFF; --kuwait-green-dark: #005A2D; --kuwait-gold: #FFD700; --shadow-medium: rgba(0, 122, 61, 0.25); --gradient-kuwait: linear-gradient(135deg, var(--kuwait-green) 0%, var(--kuwait-red) 100%); --gradient-subtle: linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(248,248,248,0.95) 100%); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cairo', sans-serif; background: var(--gradient-kuwait); min-height: 100vh; line-height: 1.8; color: var(--kuwait-black); }
+        .container { max-width: 900px; margin: 0 auto; padding: 30px; }
+        .header { background: var(--gradient-subtle); padding: 40px; border-radius: 25px; text-align: center; margin-bottom: 40px; box-shadow: 0 20px 40px var(--shadow-medium); border: 3px solid var(--kuwait-white); position: relative; }
+        .header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--gradient-kuwait); border-radius: 25px 25px 0 0; }
+        .back-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--kuwait-green); color: var(--kuwait-white); text-decoration: none; padding: 12px 25px; border-radius: 25px; font-weight: 700; margin-bottom: 25px; transition: all 0.3s ease; }
+        .back-btn:hover { background: var(--kuwait-green-dark); transform: translateY(-3px); }
+        h1 { font-size: 2.5em; color: var(--kuwait-black); margin-bottom: 15px; font-weight: 800; }
+        .content { background: var(--gradient-subtle); padding: 50px; border-radius: 25px; box-shadow: 0 20px 40px var(--shadow-medium); border: 3px solid var(--kuwait-white); position: relative; }
+        .content::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-kuwait); border-radius: 25px 25px 0 0; }
+        h2 { color: var(--kuwait-green); font-size: 1.8em; margin: 30px 0 20px; font-weight: 700; }
+        p { margin-bottom: 20px; font-size: 1.1em; font-weight: 500; }
+        ul { margin: 20px 0; padding-right: 30px; }
+        li { margin-bottom: 12px; font-size: 1.05em; font-weight: 500; }
+        .highlight { background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1)); padding: 20px; border-radius: 15px; border-right: 5px solid var(--kuwait-gold); margin: 25px 0; font-weight: 600; }
+        .whatsapp-btn { position: fixed; bottom: 30px; left: 30px; background: linear-gradient(135deg, #25d366 0%, #128c7e 100%); color: var(--kuwait-white); border: 3px solid var(--kuwait-white); border-radius: 60px; padding: 20px 28px; font-size: 17px; font-weight: 700; z-index: 1001; transition: all 0.4s ease; text-decoration: none; display: flex; align-items: center; gap: 12px; }
+        .whatsapp-btn:hover { background: linear-gradient(135deg, var(--kuwait-green) 0%, var(--kuwait-green-dark) 100%); transform: translateY(-5px) scale(1.08); }
+    </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container nav">
-            <a class="logo" href="index.html">
-                <span class="logo-badge"></span>
-                <span>سوق الكويت</span>
-            </a>
-            <nav class="menu">
-                <a href="index.html">الرئيسية</a>
-                <a href="products-catalog.html">المنتجات</a>
-                <a href="about.html">من نحن</a>
-                <a href="contact.html">اتصل بنا</a>
-            </nav>
-            <a class="cta" href="tel:+96590000000">اطلب الآن</a>
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="back-btn">← العودة للرئيسية</a>
+            <h1>↩️ سياسة الاسترجاع</h1>
         </div>
-    </header>
-    
-    <section class="section">
-        <div class="container">
-            <div class="card" style="padding: 40px;">
-                <h1 style="color: var(--ku-green); font-size: 32px; text-align: center; margin-bottom: 30px;">🔄 سياسة الإرجاع</h1>
-                
-                <div style="background: var(--ku-green); color: white; padding: 20px; border-radius: 15px; text-align: center; margin: 25px 0;">
-                    <h3>✅ ضمان استرداد الأموال 100%</h3>
-                    <p>خلال 14 يوم من استلام الطلب</p>
-                </div>
-                
-                <h2 style="color: var(--ku-red); margin: 25px 0 15px;">شروط الإرجاع</h2>
-                <ul style="margin: 15px 0; padding-right: 25px; line-height: 2;">
-                    <li>المنتج في حالته الأصلية غير مستعمل</li>
-                    <li>التواصل خلال 14 يوم من الاستلام</li>
-                    <li>وجود فاتورة الشراء الأصلية</li>
-                    <li>المنتج في عبوته الأصلية مع الملحقات</li>
-                </ul>
-                
-                <div style="text-align: center; margin: 30px 0;">
-                    <a href="tel:+96590000000" class="cta" style="font-size: 18px;">📞 اتصل للإرجاع</a>
-                    <a href="index.html" class="cta" style="margin-right: 15px;">🏠 الرئيسية</a>
-                </div>
+        
+        <div class="content">
+            <h2>فترة الاسترجاع</h2>
+            <div class="highlight">
+                <p><strong>يمكنك استرجاع أي منتج خلال 7 أيام من تاريخ الاستلام</strong></p>
             </div>
+            
+            <h2>شروط الاسترجاع</h2>
+            <ul>
+                <li>المنتج في حالته الأصلية</li>
+                <li>عدم استخدام المنتج</li>
+                <li>وجود العبوة الأصلية</li>
+            </ul>
+
+            <h2>إجراءات الاسترجاع</h2>
+            <p>لبدء عملية الاسترجاع:</p>
+            <ul>
+                <li>تواصل معنا عبر واتساب</li>
+                <li>أرسل رقم الطلبية</li>
+                <li>بيّن سبب الاسترجاع</li>
+            </ul>
         </div>
-    </section>
+    </div>
+    <a href="https://wa.me/201110760081" target="_blank" class="whatsapp-btn">💬 تواصل معنا</a>
 </body>
 </html>
