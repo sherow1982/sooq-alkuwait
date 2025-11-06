@@ -3,95 +3,169 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>سوق الكويت 🇰🇼 - الرئيسية</title>
+  <title>سوق الكويت 🇰🇼 - التسوق الإلكتروني الأول في الكويت</title>
+  <meta name="description" content="سوق الكويت - أفضل منصة للتسوق الإلكتروني في الكويت. منتجات عالية الجودة بأفضل الأسعار مع توصيل سريع">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    :root{--ku-green:#00843d;--ku-red:#ce1126;--ku-gold:#ffcd00;--ku-black:#222}
-    body{font-family:'Cairo',sans-serif;background:#f8f9fa;margin:0}
-    .header{background:linear-gradient(135deg,var(--ku-green),var(--ku-red));color:#fff;padding:22px 0 15px;text-align:center}
-    .header-title{font-size:2.4rem;font-weight:900}
-    .container{max-width:1200px;margin:0 auto;padding:28px 12px 60px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:22px}
-    .cat{background:#fff;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.08);padding:18px;position:relative;border:2px solid transparent;transition:.25s}
-    .cat:hover{transform:translateY(-6px);border-color:var(--ku-gold)}
-    .cat h3{margin:10px 0 6px;color:var(--ku-green)}
-    .cat p{margin:0;color:#555;min-height:44px}
-    .num{display:inline-block;background:#fff2c2;color:#222;padding:4px 10px;border-radius:12px;font-weight:800;margin-top:10px}
-    .cta{display:inline-block;background:var(--ku-gold);color:#222;text-decoration:none;border-radius:10px;padding:10px 18px;margin-top:12px;font-weight:800}
+    :root{--ku-green:#00843d;--ku-red:#ce1126;--ku-gold:#ffcd00}
+    body{font-family:'Cairo',sans-serif;background:linear-gradient(135deg,#f8f9fa,#e9ecef);margin:0;padding:0}
+    .container{max-width:1200px;margin:0 auto;padding:20px}
+    
+    .hero{background:linear-gradient(135deg,var(--ku-green),#0b7550);color:white;text-align:center;padding:80px 20px;border-radius:20px;margin-bottom:40px;box-shadow:0 10px 30px rgba(0,132,61,.2)}
+    .hero h1{font-size:3em;margin:0 0 20px;font-weight:900;text-shadow:0 2px 4px rgba(0,0,0,.3)}
+    .hero p{font-size:1.4em;margin:0 0 30px;opacity:0.95}
+    
+    .nav-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;margin:40px 0}
+    
+    .nav-card{background:white;border-radius:20px;padding:30px;text-align:center;box-shadow:0 8px 25px rgba(0,0,0,.1);border:3px solid transparent;transition:all 0.3s;text-decoration:none;color:#333;position:relative;overflow:hidden}
+    .nav-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(135deg,var(--ku-green),var(--ku-gold))}
+    .nav-card:hover{transform:translateY(-8px);border-color:var(--ku-gold);box-shadow:0 15px 35px rgba(0,0,0,.15)}
+    
+    .nav-card .icon{font-size:3em;margin-bottom:20px;display:block}
+    .nav-card h2{color:var(--ku-green);margin:0 0 15px;font-size:1.5em;font-weight:800}
+    .nav-card p{color:#666;margin:0;font-size:1.1em;line-height:1.6}
+    
+    .cta-button{background:linear-gradient(135deg,var(--ku-gold),#e6b800);color:#333;padding:15px 30px;border:none;border-radius:50px;font-size:1.2em;font-weight:800;text-decoration:none;display:inline-block;margin:20px 10px;transition:all 0.3s;box-shadow:0 4px 15px rgba(255,205,0,.3)}
+    .cta-button:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(255,205,0,.4)}
+    
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin:60px 0;text-align:center}
+    .feature{background:white;padding:25px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.08)}
+    .feature .icon{font-size:2.5em;margin-bottom:15px;color:var(--ku-green)}
+    .feature h3{color:var(--ku-green);margin:0 0 10px;font-weight:700}
+    .feature p{color:#666;margin:0;font-size:0.95em}
+    
+    .stats{background:white;border-radius:20px;padding:40px;margin:40px 0;text-align:center;box-shadow:0 8px 25px rgba(0,0,0,.1)}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px}
+    .stat{border-right:2px solid #eee;padding-right:20px}
+    .stat:last-child{border:none}
+    .stat-number{font-size:2.5em;font-weight:900;color:var(--ku-green);margin-bottom:5px;display:block}
+    .stat-label{color:#666;font-weight:600}
+    
+    @media(max-width:768px){
+      .hero h1{font-size:2.2em}
+      .hero p{font-size:1.1em}
+      .nav-cards{grid-template-columns:1fr;gap:20px}
+      .stat{border:none;padding:0;margin-bottom:20px}
+    }
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="header-title">سوق الكويت 🇰🇼</div>
-    <div>استكشف فئات المنتجات بدقة وبأسعار مميزة</div>
-  </header>
-  <main class="container">
-    <section>
-      <h2 style="text-align:center;color:var(--ku-green);margin-bottom:20px">🏷️ الفئات</h2>
-      <div id="cats" class="grid"></div>
+  <div class="container">
+    <!-- القسم الترحيبي -->
+    <section class="hero">
+      <h1>🇰🇼 سوق الكويت الإلكتروني</h1>
+      <p>أفضل منصة للتسوق الإلكتروني في دولة الكويت<br>منتجات عالية الجودة • أسعار تنافسية • توصيل سريع</p>
+      <a href="products-catalog.html" class="cta-button">🛍️ تسوق الآن</a>
+      <a href="cart.html" class="cta-button">🛒 عرض السلة</a>
     </section>
-  </main>
-  <footer style="background:#222;color:#eee;text-align:center;padding:26px 0">© 2025 سوق الكويت - جميع الحقوق محفوظة</footer>
+
+    <!-- الخدمات الرئيسية -->
+    <div class="nav-cards">
+      <a href="products-catalog.html" class="nav-card">
+        <span class="icon">📦</span>
+        <h2>كتالوج المنتجات</h2>
+        <p>استعرض أكثر من 400 منتج عالي الجودة من جميع الفئات بأفضل الأسعار في الكويت</p>
+      </a>
+      
+      <a href="cart.html" class="nav-card">
+        <span class="icon">🛒</span>
+        <h2>سلة التسوق</h2>
+        <p>راجع مشترياتك وأكمل عملية الطلب بسهولة مع نظام الدفع الآمن</p>
+      </a>
+      
+      <a href="https://wa.me/201110760081" target="_blank" class="nav-card">
+        <span class="icon">💬</span>
+        <h2>واتساب للطلبات</h2>
+        <p>تواصل معنا مباشرة عبر واتساب لطلب المنتجات والاستفسارات</p>
+      </a>
+    </div>
+
+    <!-- إحصائيات الموقع -->
+    <div class="stats">
+      <h2 style="color:var(--ku-green);margin-bottom:30px;font-size:2em;">📊 إحصائيات موقعنا</h2>
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-number">400+</span>
+          <span class="stat-label">منتج متنوع</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">15</span>
+          <span class="stat-label">فئة مختلفة</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">24/7</span>
+          <span class="stat-label">خدمة العملاء</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">⚡</span>
+          <span class="stat-label">توصيل سريع</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- مميزات الخدمة -->
+    <div class="features">
+      <div class="feature">
+        <div class="icon">🚚</div>
+        <h3>توصيل سريع</h3>
+        <p>توصيل مجاني لجميع مناطق الكويت خلال 24-48 ساعة</p>
+      </div>
+      
+      <div class="feature">
+        <div class="icon">💎</div>
+        <h3>جودة عالية</h3>
+        <p>منتجات مختارة بعناية لضمان أفضل جودة وقيمة</p>
+      </div>
+      
+      <div class="feature">
+        <div class="icon">💰</div>
+        <h3>أسعار تنافسية</h3>
+        <p>أفضل الأسعار في السوق الكويتي مع عروض وخصومات مستمرة</p>
+      </div>
+      
+      <div class="feature">
+        <div class="icon">🔒</div>
+        <h3>دفع آمن</h3>
+        <p>نظام دفع آمن ومضمون مع حماية كاملة لبياناتك</p>
+      </div>
+      
+      <div class="feature">
+        <div class="icon">📞</div>
+        <h3>دعم فني</h3>
+        <p>فريق دعم فني متخصص لمساعدتك في أي وقت</p>
+      </div>
+      
+      <div class="feature">
+        <div class="icon">↩️</div>
+        <h3>إرجاع مجاني</h3>
+        <p>إمكانية إرجاع أو استبدال المنتج خلال 7 أيام</p>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin:40px 0">
+      <a href="products-catalog.html" class="cta-button" style="font-size:1.4em;padding:20px 40px">
+        🛍️ ابدأ التسوق الآن
+      </a>
+    </div>
+  </div>
 
   <script>
-    const DATA_URL='https://raw.githubusercontent.com/sherow1982/sooq-alkuwait/main/products_data.json';
-    const stripNum=t=>(t||'').replace(/^\s*\d+\s+/, '');
-
-    const rules=[
-      {name:'الأطفال', kw:['أطفال','طفل','لعبة','حصالة','روبوت','فقاعات','كرتوني','تعليمية']},
-      {name:'المطبخ', kw:['مطبخ','قهوة','صفاية','سلطة','خلاط','عصارة','مفرمة','طبخ','مطحنة','مقلاة','فرن']},
-      {name:'الملابس والإكسسوارات', kw:['شورت','حقيبة','حقيبه','ملابس','قميص','فستان','حذاء','نظارة','ساعة','موضة','اكسسوار']},
-      {name:'السيارات', kw:['سيارة','سيارات','محول','كاميرا','حامل','مطفأة','فولت','ولاعة','مرآة']},
-      {name:'العناية الشخصية', kw:['شامبو','سيروم','كريم','عطر','حلاقة','تجميل','بشرة','شعر','عناية','مكياج','ماسك']},
-      {name:'المنزل والحديقة', kw:['منزل','حديقة','تنظيف','غسيل','مكنسة','أثاث','ديكور','إضاءة','مرتبة','مفرش','ستارة']},
-      {name:'الإلكترونيات', kw:['إلكتروني','هاتف','كمبيوتر','شاحن','بطارية','كابل','سماعة','شاشة','سماعات','USB','Type-C']},
-      {name:'الرياضة واللياقة', kw:['رياضة','لياقة','جري','تمارين','كرة','دراجة','جهاز','وزن','شد','يوغا']},
-    ];
-
-    function detectCategory(title){
-      const t=title.toLowerCase();
-      for(const r of rules){ if(r.kw.some(k=>t.includes(k.toLowerCase()))) return r.name; }
-      return 'منتجات أخرى';
-    }
-
-    async function load(){
-      const catsEl=document.getElementById('cats');
-      try{
-        const r=await fetch(DATA_URL,{cache:'no-cache'}); if(!r.ok) throw new Error('HTTP '+r.status);
-        const items=await r.json();
-        // بناء خريطة الفئات
-        const map=new Map();
-        for(const it of items){
-          const name=detectCategory(it.title);
-          if(!map.has(name)) map.set(name,{count:0, samples:[]});
-          const entry=map.get(name);
-          entry.count++;
-          if(entry.samples.length<3){
-            entry.samples.push({id:it.id,title:stripNum(it.title),img:(it.image_link||'').trim(),price:Number(it.sale_price)});
-          }
-        }
-        // تحويل إلى بطاقات
-        const order=[...rules.map(r=>r.name),'منتجات أخرى'];
-        const cards=[];
-        for(const catName of order){
-          const d=map.get(catName); if(!d) continue;
-          const sampleImgs=d.samples.map(s=>`<img src="${s.img}" alt="${s.title}" loading="lazy" onerror="this.style.display='none'" style="width:64px;height:64px;object-fit:cover;border:1px solid #eee;border-radius:8px">`).join('');
-          cards.push(`
-            <article class="cat" itemscope itemtype="http://schema.org/CollectionPage">
-              <h3 itemprop="name">${catName}</h3>
-              <p>${d.samples.length? 'أمثلة: '+d.samples.map(s=>s.title).join(' • '):'منتجات متنوعة'}</p>
-              <div style="display:flex;gap:6px;margin:10px 0">${sampleImgs}</div>
-              <span class="num">${d.count.toLocaleString('ar')} منتج</span><br>
-              <a class="cta" href="products-catalog.html" title="عرض ${catName}">عرض المنتجات</a>
-            </article>`);
-        }
-        catsEl.innerHTML = cards.join('') || '<div style="grid-column:1/-1;text-align:center">لا توجد بيانات</div>';
-      }catch(e){
-        catsEl.innerHTML='<div style="grid-column:1/-1;color:#c53030;text-align:center">❌ خطأ في تحميل البيانات</div>';
-        console.error(e);
-      }
-    }
-    document.addEventListener('DOMContentLoaded',load);
+    // تتبع النقرات والتفاعلات
+    document.querySelectorAll('.nav-card, .cta-button').forEach(link => {
+      link.addEventListener('click', function(e) {
+        console.log('Navigation to:', this.href);
+      });
+    });
+    
+    // إضافة تأثيرات تفاعلية
+    document.querySelectorAll('.nav-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.background = '#f8f9ff';
+      });
+      card.addEventListener('mouseleave', function() {
+        this.style.background = 'white';
+      });
+    });
   </script>
 </body>
 </html>
