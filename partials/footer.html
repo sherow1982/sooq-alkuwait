@@ -30,10 +30,14 @@
       <div class="footer-section">
         <h4>خدمة العملاء</h4>
         <ul style="list-style: none; padding: 0;">
-          <li style="margin-bottom: 8px; opacity: 0.9;">📞 +965 1234 5678</li>
-          <li style="margin-bottom: 8px; opacity: 0.9;">📧 info@sooq-alkuwait.com</li>
+          <li style="margin-bottom: 12px;">
+            <a href="https://wa.me/201110760081" target="_blank" style="color: #25D366; text-decoration: none; font-weight: 600; transition: all 0.3s ease; display: inline-block; padding: 10px 18px; background: rgba(37, 211, 102, 0.15); border-radius: 25px; border: 2px solid #25D366;">
+              <i class="fab fa-whatsapp" style="margin-left: 8px; font-size: 18px;"></i>+20 111 076 0081
+            </a>
+          </li>
+          <li style="margin-bottom: 8px; opacity: 0.9;">📧 sooqalkuwait2010@gmail.com</li>
           <li style="margin-bottom: 8px; opacity: 0.9;">🕰️ 24/7 خدمة مستمرة</li>
-          <li style="margin-bottom: 8px; opacity: 0.9;">🚚 توصيل مجاني فوق 100 د.ك</li>
+          <li style="margin-bottom: 8px; opacity: 0.9;">🚚 توصيل مجاني لجميع الكويت</li>
         </ul>
       </div>
       
@@ -49,7 +53,7 @@
     </div>
     
     <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; text-align: center;">
-      <p style="margin: 0; opacity: 0.8;">&copy; 2025 سوق الكويت. جميع الحقوق محفوظة. 🇰🇼</p>
+      <p style="margin: 0; opacity: 0.8;">&copy; 2024 سوق الكويت. جميع الحقوق محفوظة. 🇰🇼</p>
       <p style="font-size: 12px; opacity: 0.7; margin: 4px 0 0 0;">متجر إلكتروني مرخص في دولة الكويت</p>
     </div>
   </div>
@@ -102,6 +106,13 @@
 
 .social-links a:hover {
   transform: scale(1.2);
+}
+
+/* تأثير خاص لزر الواتساب */
+.footer-section ul li a[href*="wa.me"]:hover {
+  background: rgba(37, 211, 102, 0.25) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
 }
 
 @media (max-width: 768px) {

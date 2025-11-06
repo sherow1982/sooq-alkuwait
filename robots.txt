@@ -1,3 +1,18 @@
 User-agent: *
 Allow: /
-Sitemap: https://sherow1982.github.io/sooq-alkuwait/sitemap.xml
+
+# Sitemap (مسار الجذر الصحيح)
+Sitemap: https://sooq-alkuwait.arabsad.com/feeds/sitemap.xml
+
+# ملفات مهمة للفهرسة
+Allow: /products-catalog.html
+Allow: /products-pages/
+Allow: /cart.html
+Allow: /about.html
+Allow: /delivery.html
+
+# منع فهرسة ملفات التطوير
+Disallow: /scripts/
+Disallow: /*.py$
+Disallow: /*.js$
+Disallow: /partials/

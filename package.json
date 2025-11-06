@@ -1,28 +1,28 @@
 {
   "name": "sooq-alkuwait",
-  "version": "1.0.0",
-  "description": "متجر سوق الكويت الإلكتروني بتصميم عصري من ألوان علم الكويت",
+  "version": "2.0.0",
+  "description": "متجر الكتروني عصري بألوان العلم الكويتي",
   "main": "index.html",
   "scripts": {
-    "generate-pages": "node generate-all-product-pages.js",
-    "serve": "python -m http.server 8000",
-    "start": "npm run generate-pages && npm run serve"
+    "build:pages": "node scripts/generate-all-product-pages.js",
+    "build:feeds": "node scripts/generate-feeds.js",
+    "build": "npm run build:pages && npm run build:feeds",
+    "clean": "rm -rf products-pages/*.html feeds/*.xml",
+    "dev": "npm run build && python -m http.server 8000"
   },
-  "keywords": [
-    "ecommerce",
-    "kuwait",
-    "online-store",
-    "سوق الكويت",
-    "متجر إلكتروني"
-  ],
-  "author": "Sooq AlKuwait",
-  "license": "MIT",
-  "homepage": "https://sherow1982.github.io/sooq-alkuwait/",
   "repository": {
     "type": "git",
     "url": "https://github.com/sherow1982/sooq-alkuwait.git"
   },
-  "engines": {
-    "node": ">=14.0.0"
+  "keywords": [
+    "ecommerce",
+    "kuwait",
+    "arabic",
+    "shopping"
+  ],
+  "author": "sherow1982",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^2.8.0"
   }
 }
