@@ -426,9 +426,12 @@
             <!-- شبكة المنتجات -->
             <div class="products-grid" id="products-container">
                 <div style="text-align: center; padding: 50px; font-size: 18px; color: #666;">
-                    ⏳ جاري تحميل المنتجات...
+                    ⏳ جاري تحميل المنتجات من النظام الجديد...
                 </div>
             </div>
+            
+            <!-- أدوات التصفح -->
+            <div id="pagination" class="pagination-container" style="display: none;"></div>
         </div>
     </section>
     
@@ -480,10 +483,16 @@
         </div>
     </footer>
     
+    <!-- تحميل النظام الجديد -->
+    <script src="fetch_from_json.js"></script>
+    
     <script>
         // بيانات المنتجات والمتغيرات العامة
         let allProducts = [];
+        let displayedProducts = [];
         let cart = JSON.parse(localStorage.getItem('sooq-cart')) || [];
+        let currentPage = 1;
+        const ITEMS_PER_PAGE = 24;
         
         // تحديث عداد السلة
         function updateCartCount() {
@@ -493,7 +502,7 @@
             }
         }
         
-        // إضافة إلى السلة والتوجيه إلى cart.html
+        // إضافة إلى السلة
         function addToCartAndRedirect(product) {
             const existingItem = cart.find(item => item.id === product.id);
             if (existingItem) {
@@ -503,30 +512,277 @@
             }
             localStorage.setItem('sooq-cart', JSON.stringify(cart));
             updateCartCount();
-            window.location.href = 'cart.html?added=1';
+            
+            // إشعار بصري
+            showNotification(`✅ تم إضافة "${product.title}" للسلة`);
         }
         
-        // تحميل بيانات المنتجات
+        // إشعار بصري
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+                background: var(--ku-green); color: white; padding: 15px 25px;
+                border-radius: 25px; z-index: 9999; font-weight: bold;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                animation: slideDown 0.5s ease;
+            `;
+            notification.innerHTML = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.remove(), 3000);
+        }
+        
+        // تحميل بيانات المنتجات من JSON
         async function loadProductsData() {
             try {
-                const response = await fetch('./products_data.json');
+                console.log('📥 جاري تحميل البيانات من JSON...');
+                
+                const response = await fetch('https://raw.githubusercontent.com/sherow1982/sooq-alkuwait/main/products_data.json');
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 
-                const data = await response.json();
-                if (data && Array.isArray(data) && data.length > 0) {
-                    allProducts = data;
-                    console.log(`✅ تم تحميل ${data.length} منتج`);
-                    
-                    // تحديث عدد المنتجات في الهيدر
-                    const totalEl = document.getElementById('total-products');
-                    if (totalEl) totalEl.textContent = data.length;
-                } else {
-                    throw new Error('البيانات فارغة');
-                }
+                const jsonText = await response.text();
+                allProducts = parseProductsData(jsonText);
+                
+                console.log(`✅ تم تحميل ${allProducts.length} منتج من JSON`);
+                
+                // تحديث عدد المنتجات
+                const totalEl = document.getElementById('total-products');
+                if (totalEl) totalEl.textContent = allProducts.length;
+                
+                return allProducts;
+                
             } catch (error) {
-                console.warn('⚠️ فشل تحميل JSON:', error.message);
-                allProducts = [];
+                console.error('❌ خطأ في تحميل البيانات:', error);
+                showErrorMessage('فشل في تحميل بيانات المنتجات');
+                return [];
             }
+        }
+        
+        // تحليل بيانات JSON
+        function parseProductsData(jsonText) {
+            const products = [];
+            const productPattern = /id (\d+), title ([^,]*), price ([\d.]+), saleprice ([\d.]+), imagelink ([^,\s]+)/g;
+            
+            let match;
+            let counter = 1;
+            
+            while ((match = productPattern.exec(jsonText)) !== null && products.length < 2000) {
+                const [, id, title, price, saleprice, imagelink] = match;
+                
+                const product = {
+                    id: parseInt(id) || counter,
+                    title: title?.trim() || `منتج ${counter}`,
+                    price: parseFloat(price) || 0,
+                    sale_price: parseFloat(saleprice) || parseFloat(price) || 0,
+                    image_link: cleanImageURL(imagelink),
+                    category: categorizeProduct(title || ''),
+                    description: generateDescription(title || ''),
+                    rating: (Math.random() * 2 + 3).toFixed(1),
+                    discount: calculateDiscount(price, saleprice)
+                };
+                
+                if (product.title && product.title !== 'undefined' && product.price > 0) {
+                    products.push(product);
+                }
+                counter++;
+            }
+            
+            return products.filter(p => p.title && p.title.length > 3);
+        }
+        
+        // تصنيف المنتجات
+        function categorizeProduct(title) {
+            const text = title.toLowerCase();
+            
+            if (text.includes('طفل') || text.includes('لعب') || text.includes('أطفال') || text.includes('حصالة') || text.includes('روبوت') || text.includes('تعليمية')) {
+                return 'الأطفال';
+            } else if (text.includes('مطبخ') || text.includes('صانعة') || text.includes('قهوة') || text.includes('صفاية') || text.includes('طعام') || text.includes('خلاط')) {
+                return 'المطبخ';
+            } else if (text.includes('شورت') || text.includes('ملابس') || text.includes('حقيبة') || text.includes('نسائي') || text.includes('رجالي')) {
+                return 'الملابس';
+            } else if (text.includes('سيارة') || text.includes('محول') || text.includes('كهرباء') || text.includes('220 فولت') || text.includes('حامل هاتف')) {
+                return 'السيارات';
+            } else if (text.includes('شامبو') || text.includes('سيروم') || text.includes('كريم') || text.includes('عناية') || text.includes('شعر')) {
+                return 'العناية';
+            }
+            
+            return 'الكل';
+        }
+        
+        // وظائف مساعدة
+        function cleanImageURL(imagelink) {
+            if (!imagelink || imagelink === 'undefined') {
+                return 'https://via.placeholder.com/300x220/2d5230/ffffff?text=منتج+سوق+الكويت';
+            }
+            return imagelink.replace(/^https?\s*:?\s*\/?\/?/, 'https://');
+        }
+        
+        function calculateDiscount(originalPrice, salePrice) {
+            const orig = parseFloat(originalPrice);
+            const sale = parseFloat(salePrice);
+            if (isNaN(orig) || isNaN(sale) || orig <= sale) return 0;
+            return Math.round(((orig - sale) / orig) * 100);
+        }
+        
+        function generateDescription(title) {
+            const category = categorizeProduct(title);
+            return `${title} - منتج عالي الجودة من فئة ${category}. متوفر بأفضل الأسعار مع توصيل مجاني.`;
+        }
+        
+        // عرض المنتجات مع التصفح
+        function displayProducts(products, page = 1) {
+            const container = document.getElementById('products-container');
+            if (!container) return;
+            
+            const startIndex = (page - 1) * ITEMS_PER_PAGE;
+            const endIndex = startIndex + ITEMS_PER_PAGE;
+            const pageProducts = products.slice(startIndex, endIndex);
+            
+            container.innerHTML = '';
+            
+            if (pageProducts.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 50px; font-size: 18px; color: #666;">❌ لم يتم العثور على منتجات تطابق البحث</div>';
+                return;
+            }
+            
+            pageProducts.forEach(product => {
+                const slug = createProductSlug(product.title);
+                const productPagePath = `products-pages/product-${product.id}-${slug}.html`;
+                
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                productCard.innerHTML = `
+                    <img src="${product.image_link}" alt="${product.title}" class="product-image" loading="lazy" 
+                         onerror="this.src='https://via.placeholder.com/300x220/2d5230/ffffff?text=منتج+سوق+الكويت'">
+                    <div class="product-info">
+                        <h3 class="product-title">${product.title}</h3>
+                        
+                        <div class="price-section">
+                            <div class="original-price">${product.price.toFixed(2)} د.ك</div>
+                            <div class="current-price">${product.sale_price.toFixed(2)} د.ك</div>
+                            ${product.discount > 0 ? `<div style="background:var(--ku-gold);color:var(--ku-black);padding:4px 8px;border-radius:8px;margin-top:6px;font-size:12px;font-weight:bold;">خصم ${product.discount}%</div>` : ''}
+                        </div>
+                        
+                        <div class="product-meta">
+                            📂 الفئة: ${product.category}<br>
+                            🏷️ رقم المنتج: SOOQ-${product.id.toString().padStart(4, '0')}<br>
+                            ⭐ التقييم: ${product.rating}/5
+                        </div>
+                        
+                        <div class="product-buttons">
+                            <a href="https://wa.me/201110760081?text=${encodeURIComponent('مرحباً، أريد طلب: ' + product.title + ' - السعر: ' + product.sale_price.toFixed(2) + ' د.ك - رقم: SOOQ-' + product.id.toString().padStart(4, '0'))}" 
+                               class="whatsapp-order-btn" target="_blank" onclick="event.stopPropagation()">
+                                💬 طلب عبر واتساب
+                            </a>
+                            
+                            <a href="${productPagePath}" class="view-btn" onclick="event.stopPropagation()">
+                                👁️ عرض تفاصيل المنتج
+                            </a>
+                            
+                            <button class="cart-btn" onclick="event.stopPropagation(); addToCartAndRedirect({id: ${product.id}, title: '${product.title.replace(/'/g, "\'")}', price: ${product.price}, sale_price: ${product.sale_price}, image_link: '${product.image_link}'})">
+                                🛒 أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(productCard);
+            });
+            
+            // إضافة تصفح الصفحات
+            createPagination(products.length, page);
+            
+            // تحديث عداد المنتجات
+            const countEl = document.getElementById('products-count');
+            if (countEl) {
+                countEl.textContent = products.length.toLocaleString('ar');
+            }
+            
+            // إضافة تأثيرات بصرية
+            addProductAnimations();
+        }
+        
+        // إنشاء أزرار التصفح
+        function createPagination(totalProducts, currentPage) {
+            const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
+            const paginationContainer = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                paginationContainer.style.display = 'none';
+                return;
+            }
+            
+            paginationContainer.style.display = 'block';
+            paginationContainer.innerHTML = '';
+            
+            const paginationDiv = document.createElement('div');
+            paginationDiv.style.cssText = 'display: flex; justify-content: center; gap: 10px; margin: 30px 0; flex-wrap: wrap;';
+            
+            // زر السابق
+            if (currentPage > 1) {
+                const prevBtn = createPageButton('← السابق', currentPage - 1);
+                paginationDiv.appendChild(prevBtn);
+            }
+            
+            // أرقام الصفحات
+            const startPage = Math.max(1, currentPage - 2);
+            const endPage = Math.min(totalPages, currentPage + 2);
+            
+            for (let i = startPage; i <= endPage; i++) {
+                const pageBtn = createPageButton(i, i, i === currentPage);
+                paginationDiv.appendChild(pageBtn);
+            }
+            
+            // زر التالي
+            if (currentPage < totalPages) {
+                const nextBtn = createPageButton('التالي →', currentPage + 1);
+                paginationDiv.appendChild(nextBtn);
+            }
+            
+            paginationContainer.appendChild(paginationDiv);
+        }
+        
+        // إنشاء زر صفحة
+        function createPageButton(text, page, isActive = false) {
+            const button = document.createElement('button');
+            button.textContent = text;
+            button.style.cssText = `
+                padding: 10px 15px; border: 2px solid ${isActive ? 'var(--ku-green)' : '#ddd'};
+                background: ${isActive ? 'var(--ku-green)' : 'white'}; 
+                color: ${isActive ? 'white' : 'var(--ku-black)'};
+                border-radius: 8px; cursor: pointer; font-weight: bold;
+                transition: all 0.3s ease;
+            `;
+            
+            button.onclick = () => {
+                currentPage = page;
+                displayProducts(displayedProducts, page);
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            };
+            
+            if (!isActive) {
+                button.onmouseover = () => button.style.background = '#f8f9fa';
+                button.onmouseout = () => button.style.background = 'white';
+            }
+            
+            return button;
+        }
+        
+        // إضافة تأثيرات بصرية
+        function addProductAnimations() {
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
         }
         
         // إنشاء رابط صفحة المنتج
@@ -537,119 +793,33 @@
                       .replace(/^-|-$/g, '');
         }
         
-        // تصنيف المنتجات - الفئات الصحيحة العاملة
-        function categorizeProduct(title, description) {
-            const text = (title + ' ' + (description || '')).toLowerCase();
-            
-            if (text.includes('طفل') || text.includes('لعب') || text.includes('أطفال') || text.includes('حصالة') || text.includes('روبوت') || text.includes('تعليمية') || text.includes('ترفيهية') || text.includes('كرتوني') || text.includes('للأطفال') || text.includes('فقاعات') || text.includes('مسدس')) {
-                return 'الأطفال';
-            } else if (text.includes('مطبخ') || text.includes('صانعة') || text.includes('قهوة') || text.includes('صفاية') || text.includes('طعام') || text.includes('خلاط') || text.includes('ميزان') || text.includes('مقطعة') || text.includes('عصارة') || text.includes('سكاكين') || text.includes('طبخ') || text.includes('غلاية') || text.includes('فراير') || text.includes('طاحونة') || text.includes('كسارة')) {
-                return 'المطبخ';
-            } else if (text.includes('شورت') || text.includes('ملابس') || text.includes('حقيبة') || text.includes('نسائي') || text.includes('رجالي') || text.includes('سروال') || text.includes('قبعة') || text.includes('حقائب') || text.includes('ظهر') || text.includes('يد') || text.includes('سفر') || text.includes('جلدية') || text.includes('مقاومة للماء') || text.includes('شد الجسم') || text.includes('القوام')) {
-                return 'الملابس';
-            } else if (text.includes('سيارة') || text.includes('محول') || text.includes('كهرباء') || text.includes('220 فولت') || text.includes('12 فولت') || text.includes('حامل هاتف') || text.includes('مغناطيسي') || text.includes('مرآة') || text.includes('زجاج') || text.includes('بطارية السيارة') || text.includes('شاحن بطارية') || text.includes('مساحة') || text.includes('منظف زجاج')) {
-                return 'السيارات';
-            } else if (text.includes('شامبو') || text.includes('سيروم') || text.includes('كريم') || text.includes('عناية') || text.includes('شعر') || text.includes('بشرة') || text.includes('تجميل') || text.includes('جمال') || text.includes('عطر') || text.includes('مشط') || text.includes('ماكينة حلاقة') || text.includes('أظافر') || text.includes('لحية') || text.includes('تنعيم') || text.includes('تفتيح')) {
-                return 'العناية';
-            } else {
-                return 'الكل';
-            }
-        }
-        
-        // عرض المنتجات
-        function displayProducts(products) {
-            const container = document.getElementById('products-container');
-            if (!container) return;
-            
-            container.innerHTML = '';
-            
-            if (products.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: 50px; font-size: 18px; color: #666;">❌ لم يتم العثور على منتجات تطابق البحث</div>';
-                return;
-            }
-            
-            products.forEach(product => {
-                const discount = Math.max(0, Math.round(((product.price - product.sale_price) / product.price) * 100));
-                const category = categorizeProduct(product.title, product.description);
-                const slug = createProductSlug(product.title);
-                const productPagePath = `products-pages/product-${product.id}-${slug}.html`;
-                
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
-                
-                productCard.addEventListener('click', function(e) {
-                    if (!e.target.closest('button') && !e.target.closest('a')) {
-                        window.open(productPagePath, '_blank');
-                    }
-                });
-                
-                productCard.innerHTML = `
-                    <img src="${product.image_link}" alt="${product.title}" class="product-image" loading="lazy" 
-                         onerror="this.src='https://via.placeholder.com/300x220/2d5230/ffffff?text=منتج+سوق+الكويت'">
-                    <div class="product-info">
-                        <h3 class="product-title">${product.title}</h3>
-                        
-                        <div class="price-section">
-                            <div class="original-price">${product.price} د.ك</div>
-                            <div class="current-price">${product.sale_price} د.ك</div>
-                            <div style="background:var(--ku-gold);color:var(--ku-black);padding:4px 8px;border-radius:8px;margin-top:6px;font-size:12px;font-weight:bold;">خصم ${discount}%</div>
-                        </div>
-                        
-                        <div class="product-meta">
-                            📂 الفئة: ${category}<br>
-                            🏷️ رقم المنتج: SOOQ-${product.id.toString().padStart(4, '0')}
-                        </div>
-                        
-                        <div class="product-buttons">
-                            <a href="https://wa.me/201110760081?text=${encodeURIComponent('مرحباً، أريد طلب: ' + product.title + ' - السعر: ' + product.sale_price + ' د.ك - رقم: SOOQ-' + product.id.toString().padStart(4, '0'))}" 
-                               class="whatsapp-order-btn" target="_blank" onclick="event.stopPropagation()">
-                                💬 طلب عبر واتساب
-                            </a>
-                            
-                            <a href="${productPagePath}" class="view-btn" target="_blank" onclick="event.stopPropagation()">
-                                👁️ عرض تفاصيل المنتج
-                            </a>
-                            
-                            <button class="cart-btn" onclick="event.stopPropagation(); addToCartAndRedirect({id: ${product.id}, title: '${product.title.replace(/'/g, "\\'")}'', price: ${product.price}, sale_price: ${product.sale_price}, image_link: '${product.image_link}'})">
-                                🛒 أضف إلى السلة
-                            </button>
-                        </div>
-                    </div>
-                `;
-                
-                container.appendChild(productCard);
-            });
-            
-            // تحديث عداد المنتجات
-            const countEl = document.getElementById('products-count');
-            if (countEl) {
-                countEl.textContent = products.length.toLocaleString('ar');
-            }
-        }
-        
         // البحث والتصفية
         function setupSearchAndFilter() {
             const searchInput = document.getElementById('search-input');
             const filterTabs = document.querySelectorAll('.filter-tab');
             
             let currentCategory = 'الكل';
+            let searchTimeout;
             
-            // تحقق من URL parameters لفئة محددة
-            const urlParams = new URLSearchParams(window.location.search);
-            const initialCategory = urlParams.get('category');
-            if (initialCategory && initialCategory !== 'الكل') {
-                currentCategory = initialCategory;
-                const targetTab = document.querySelector(`[data-category="${initialCategory}"]`);
+            // تحقق من localStorage للفئة المحددة من الصفحة الرئيسية
+            const savedCategory = localStorage.getItem('selectedCategory');
+            if (savedCategory) {
+                currentCategory = savedCategory;
+                const targetTab = document.querySelector(`[data-category="${savedCategory}"]`);
                 if (targetTab) {
                     filterTabs.forEach(t => t.classList.remove('active'));
                     targetTab.classList.add('active');
                 }
+                localStorage.removeItem('selectedCategory');
             }
             
             if (searchInput) {
                 searchInput.addEventListener('input', function() {
-                    const searchTerm = this.value.toLowerCase();
-                    filterAndDisplay(currentCategory, searchTerm);
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        const searchTerm = this.value.toLowerCase();
+                        filterAndDisplay(currentCategory, searchTerm);
+                    }, 300);
                 });
             }
             
@@ -665,21 +835,20 @@
                 });
             });
             
-            // طبق الفلتر الأولي
+            // تطبيق الفلتر الأولي
             filterAndDisplay(currentCategory, '');
         }
         
-        // دالة التصفية
+        // دالة التصفية والعرض
         function filterAndDisplay(category, searchTerm) {
             let filtered = [...allProducts];
             
+            // فلتر الفئة
             if (category !== 'الكل') {
-                filtered = filtered.filter(p => {
-                    const productCategory = categorizeProduct(p.title, p.description || '');
-                    return productCategory === category;
-                });
+                filtered = filtered.filter(p => p.category === category);
             }
             
+            // فلتر البحث
             if (searchTerm) {
                 filtered = filtered.filter(p => 
                     p.title.toLowerCase().includes(searchTerm) ||
@@ -687,7 +856,9 @@
                 );
             }
             
-            displayProducts(filtered);
+            displayedProducts = filtered;
+            currentPage = 1;
+            displayProducts(filtered, 1);
         }
         
         // البحث من الزر
@@ -698,9 +869,24 @@
             }
         }
         
+        // عرض رسالة خطأ
+        function showErrorMessage(message) {
+            const container = document.getElementById('products-container');
+            if (container) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 50px; color: #dc3545; background: #f8f9fa; border-radius: 15px;">
+                        ❌ ${message}<br><br>
+                        <button onclick="location.reload()" style="background: var(--ku-green); color: white; padding: 15px 30px; border: none; border-radius: 25px; cursor: pointer; font-weight: bold;">
+                            🔄 إعادة تحميل الصفحة
+                        </button>
+                    </div>
+                `;
+            }
+        }
+        
         // تشغيل التطبيق
         document.addEventListener('DOMContentLoaded', async function() {
-            console.log('📱 بدء تحميل الكتالوج...');
+            console.log('📱 بدء تحميل الكتالوج المحسن...');
             
             try {
                 // تحديث عداد السلة
@@ -716,15 +902,7 @@
                 
             } catch (error) {
                 console.error('❌ خطأ في تشغيل التطبيق:', error);
-                const container = document.getElementById('products-container');
-                if (container) {
-                    container.innerHTML = `
-                        <div style="text-align: center; padding: 50px; color: #dc3545;">
-                            ❌ خطأ في تحميل المنتجات. يرجى تحديث الصفحة.<br>
-                            <button onclick="location.reload()" class="cta" style="margin-top: 20px;">تحديث الصفحة</button>
-                        </div>
-                    `;
-                }
+                showErrorMessage('فشل في تحميل المنتجات. يرجى إعادة تحميل الصفحة.');
             }
         });
         
@@ -734,6 +912,22 @@
                 performSearch();
             }
         });
+        
+        // إضافة تأثير الإشعارات
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateX(-50%) translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(-50%) translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
