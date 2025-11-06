@@ -196,7 +196,7 @@
                     <span class="feature-tag">🇰🇼 متوفر في الكويت</span>
                 </div>
                 
-                <button class="add-to-cart" onclick="addToCart(1255)">
+                <buttonclass="cart-btn add-to-cart" data-product-id="1255">
                     🛒 إضافة إلى السلة
                 </button>
                 
@@ -267,5 +267,9 @@
         // تشغيل تحديث العداد عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', updateCartCount);
     </script>
+    <script src="../assets/js/cart-fixed.js"></script>
+
+    <!-- Cart Notification -->
+    <div id="cart-notification" class="cart-notification"></div>
 </body>
 </html>
