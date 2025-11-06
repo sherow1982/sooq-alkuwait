@@ -1,9 +1,0 @@
-{
-  "name": "Sooq AlKuwait",
-  "short_name": "SooqKW",
-  "start_url": "/sooq-alkuwait/",
-  "display": "standalone",
-  "background_color": "#f8f9fa",
-  "theme_color": "#667eea",
-  "icons": []
-}
