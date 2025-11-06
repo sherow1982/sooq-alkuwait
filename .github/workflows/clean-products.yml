@@ -1,0 +1,29 @@
+name: Clean Products Pages
+
+on:
+  workflow_dispatch:
+
+jobs:
+  clean-products:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Clean products-pages directory
+        run: |
+          # Remove all existing product pages to start fresh
+          rm -rf products-pages/*
+          
+          echo "Products pages cleaned successfully"
+          
+      - name: Commit cleanup changes
+        run: |
+          git config --local user.email "80130495+sherow1982@users.noreply.github.com"
+          git config --local user.name "Sherif Salama"
+          git add -A
+          git commit -m "Clean products-pages directory" || echo "Nothing to commit"
+          git push
