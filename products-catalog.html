@@ -80,33 +80,46 @@
     </div>
 
     <div id="grid" class="grid">
-      <div class="loading">🔄 جاري تحميل المنتجات...</div>
+      <div class="loading">🔄 جاري تحميل المنتجات من GitHub...</div>
     </div>
   </div>
   
   <script>
-    // بيانات المنتجات مدمجة مباشرة لتجنب مشكلة CORS نهائياً
-    const PRODUCTS = [
-      {"id":1,"title":"حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال","price":18,"sale_price":13,"image_link":"https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg","description":"لعبة تعليمية وترفيهية آمنة للأطفال"},
-      {"id":2,"title":"صفاية سلطة دوّارة متعددة الوظائف","price":18,"sale_price":13,"image_link":"https://ecomerg.com/uploads/products_images/3710/Wb0quKAvoB677UBgtCjZiyrSBPEbi3vJQIgo2usj.jpg","description":"منتج عالي الجودة للمطبخ"},
-      {"id":3,"title":"عرض قطعتين من شورت نسائي لشد الجسم وتحديد القوام","price":20,"sale_price":15,"image_link":"https://ecomerg.com/uploads/products_images/3709/1a7mTVkaKmAoEwCH8xKScYqiEqI2PGkVdNoxwsdC.jpg","description":"منتج عالي الجودة للملابس النسائية"},
-      {"id":4,"title":"شورت نسائي لشد الجسم وتحديد القوام ببطانة ناعمة","price":18,"sale_price":13,"image_link":"https://ecomerg.com/uploads/products_images/3708/amoikhxD7TbPnUdUOruMVdv4aQjZr6t91AofyS2J.jpg","description":"منتج عالي الجودة للملابس"},
-      {"id":5,"title":"محول كهرباء 220 فولت إلى 12 فولت لأجهزة السيارات","price":18,"sale_price":13,"image_link":"https://ecomerg.com/uploads/products_images/3707/dn7pad0vVoy7IWU2SR44OV23VAge2fpMFIjVsoto.jpg","description":"منتج للسيارات عالي الجودة"}
-    ];
-    
-    const stripNum = t => (t || '').replace(/^\s*\d+\s*[-–—]?\s*/, '');
-    
-    const CATEGORIES = [
-      {key: 'all', name: 'الكل', test: () => true},
-      {key: 'kids', name: 'الأطفال', test: t => /(أطفال|طفل|لعبة|حصالة|روبوت|فقاعات|كرتوني)/i.test(t)},
-      {key: 'kitchen', name: 'المطبخ', test: t => /(مطبخ|قهوة|صفاية|سلطة|خلاط|عصارة|مفرمة|طبخ)/i.test(t)},
-      {key: 'fashion', name: 'الملابس', test: t => /(شورت|حقيبة|ملابس|قميص|فستان|حذاء)/i.test(t)},
-      {key: 'auto', name: 'السيارات', test: t => /(سيارة|سيارات|محول|فولت)/i.test(t)},
-      {key: 'beauty', name: 'العناية', test: t => /(شامبو|سيروم|كريم|عطر|حلاقة|تجميل)/i.test(t)}
-    ];
-    
-    let currentFilter = 'all';
-    let filteredProducts = PRODUCTS;
+    // إعداد عام لدالة السلة في window للاستخدام من أي مكان
+    window.addToCart = function(item) {
+      try {
+        console.log('إضافة للسلة:', item);
+        
+        const cart = JSON.parse(localStorage.getItem('sooq-cart') || '[]');
+        const existingIndex = cart.findIndex(x => x.id === item.id);
+        
+        if (existingIndex > -1) {
+          cart[existingIndex].quantity = (cart[existingIndex].quantity || 1) + 1;
+        } else {
+          cart.push({
+            id: item.id,
+            title: item.title,
+            price: Number(item.price),
+            image: item.image || item.image_link,
+            quantity: 1
+          });
+        }
+        
+        localStorage.setItem('sooq-cart', JSON.stringify(cart));
+        
+        // إظهار إشعار النجاح
+        showNotification('✅ تم إضافة ' + item.title + ' إلى السلة');
+        
+        // تحديث عداد السلة إذا كان موجود
+        updateCartCounter();
+        
+        return true;
+      } catch(e) {
+        console.error('خطأ في إضافة المنتج للسلة:', e);
+        showNotification('❌ خطأ في إضافة المنتج للسلة');
+        return false;
+      }
+    };
     
     function showNotification(message) {
       const notification = document.createElement('div');
@@ -121,24 +134,41 @@
       }, 3000);
     }
     
-    function addToCart(item) {
+    function updateCartCounter() {
       try {
         const cart = JSON.parse(localStorage.getItem('sooq-cart') || '[]');
-        const index = cart.findIndex(x => x.id === item.id);
+        const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
         
-        if (index > -1) {
-          cart[index].quantity += 1;
-        } else {
-          cart.push({...item, quantity: 1});
-        }
-        
-        localStorage.setItem('sooq-cart', JSON.stringify(cart));
-        showNotification('✅ تم إضافة ' + item.title + ' إلى السلة');
+        // تحديث عداد السلة إذا كان موجود
+        const cartCounters = document.querySelectorAll('.cart-counter');
+        cartCounters.forEach(counter => {
+          counter.textContent = totalItems > 0 ? totalItems : '';
+          counter.style.display = totalItems > 0 ? 'inline-block' : 'none';
+        });
       } catch(e) {
-        console.error('Error adding to cart:', e);
-        showNotification('❌ خطأ في إضافة المنتج للسلة');
+        console.error('خطأ في تحديث عداد السلة:', e);
       }
     }
+    
+    const stripNum = t => (t || '').replace(/^\s*\d+\s*[-–—]?\s*/, '');
+    
+    const CATEGORIES = [
+      {key: 'all', name: 'الكل', test: () => true},
+      {key: 'kids', name: 'الأطفال والألعاب', test: t => /(أطفال|طفل|لعبة|حصالة|روبوت|فقاعات|كرتوني|تعليمية|باندا|هليكوبتر|طائرة|قطار|سباق|مسدس فقاعات)/i.test(t)},
+      {key: 'kitchen', name: 'المطبخ وأدوات الطعام', test: t => /(مطبخ|قهوة|صفاية|سلطة|خلاط|عصارة|مفرمة|طبخ|مقلاة|فرن|مطحنة|طاولة|أدوات المائدة|غلاية|كنكة|شواية)/i.test(t)},
+      {key: 'fashion', name: 'الملابس والإكسسوارات', test: t => /(شورت|حقيبة|حقيبه|ملابس|قميص|فستان|حذاء|نظارة|ساعة|موضة|اكسسوار|طقم|ظهر)/i.test(t)},
+      {key: 'auto', name: 'السيارات والملحقات', test: t => /(سيارة|سيارات|محول|كاميرا|حامل|مطفأة|فولت|ولاعة|مرآة|شاحن للسيارة|مروحة سيارة|غطاء سيارة)/i.test(t)},
+      {key: 'beauty', name: 'العناية والتجميل', test: t => /(شامبو|سيروم|كريم|عطر|حلاقة|تجميل|بشرة|شعر|عناية|مكياج|ماسك|صابون|لوشن|زيت|بودرة|غسول)/i.test(t)},
+      {key: 'home', name: 'المنزل والتنظيف', test: t => /(منزل|حديقة|تنظيف|غسيل|مكنسة|أثاث|ديكور|إضاءة|مرتبة|مفرش|ستارة|منظف|رف|طاولة|كرسي|مصباح|مروحة)/i.test(t)},
+      {key: 'electronics', name: 'الإلكترونيات', test: t => /(هاتف|شاحن|بطارية|كابل|سماعة|شاشة|إلكتروني|USB|Type-C|تلفزيون|ساعة ذكية|مثقاب|منفاخ)/i.test(t)},
+      {key: 'sport', name: 'الرياضة واللياقة', test: t => /(رياضة|لياقة|جري|تمارين|كرة|دراجة|وزن|شد|يوغا|تدليك|مساج|طقم رياضي)/i.test(t)},
+      {key: 'other', name: 'منتجات متنوعة', test: () => true}
+    ];
+    
+    let allProducts = [];
+    let filteredProducts = [];
+    let currentFilter = 'all';
+    let searchTerm = '';
     
     function buildFilters() {
       const filtersDiv = document.getElementById('filters');
@@ -146,9 +176,11 @@
       
       CATEGORIES.forEach(cat => {
         if (cat.key === 'all') {
-          counts[cat.key] = PRODUCTS.length;
+          counts[cat.key] = allProducts.length;
+        } else if (cat.key === 'other') {
+          counts[cat.key] = allProducts.filter(p => !CATEGORIES.slice(1, -1).some(c => c.test(p.title))).length;
         } else {
-          counts[cat.key] = PRODUCTS.filter(p => cat.test(p.title)).length;
+          counts[cat.key] = allProducts.filter(p => cat.test(p.title)).length;
         }
       });
       
@@ -171,13 +203,18 @@
     }
     
     function applyFilters() {
-      const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+      searchTerm = document.getElementById('searchBox').value.toLowerCase();
       
-      filteredProducts = PRODUCTS.filter(product => {
+      filteredProducts = allProducts.filter(product => {
         const matchesSearch = !searchTerm || product.title.toLowerCase().includes(searchTerm);
         
         if (currentFilter === 'all') {
           return matchesSearch;
+        }
+        
+        if (currentFilter === 'other') {
+          const matchesOtherCategories = !CATEGORIES.slice(1, -1).some(cat => cat.test(product.title));
+          return matchesSearch && matchesOtherCategories;
         }
         
         const category = CATEGORIES.find(cat => cat.key === currentFilter);
@@ -225,27 +262,74 @@
               ${discount}
             </div>
             <div class="actions">
-              <a class="wa" href="${whatsappUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">💬 واتساب</a>
-              <button class="cart" onclick='event.stopPropagation();addToCart({id:${product.id},title:"${title.replace(/"/g, "&quot;")}",price:${product.sale_price},image:"${img}"})'>🛒 أضف للسلة</button>
+              <a class="wa" href="${whatsappUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📱 واتساب</a>
+              <button class="cart" onclick='event.stopPropagation(); window.addToCart({id:${product.id},title:"${title.replace(/"/g, "&quot;")}",price:${product.sale_price},image:"${img}"})'>🛒 أضف للسلة</button>
             </div>
           </article>
         `;
       }).join('');
     }
     
-    // بدء التطبيق
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('🚀 Loading products:', PRODUCTS.length);
+    // تحميل البيانات من GitHub API بدون CORS
+    async function loadProducts() {
+      const grid = document.getElementById('grid');
       
-      buildFilters();
-      render();
-      
-      // إعداد البحث
-      const searchBox = document.getElementById('searchBox');
-      searchBox.addEventListener('input', applyFilters);
-      
-      console.log('✅ Products loaded successfully!');
-    });
+      try {
+        console.log('🚀 جاري تحميل جميع المنتجات من GitHub...');
+        
+        const response = await fetch('https://api.github.com/repos/sherow1982/sooq-alkuwait/contents/products_data.json', {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`خطأ GitHub API: ${response.status} - ${response.statusText}`);
+        }
+        
+        const apiData = await response.json();
+        
+        // فك تشفير البيانات من base64
+        const jsonContent = atob(apiData.content);
+        const products = JSON.parse(jsonContent);
+        
+        if (!Array.isArray(products) || products.length === 0) {
+          throw new Error('البيانات فارغة أو غير صالحة');
+        }
+        
+        allProducts = products;
+        filteredProducts = products;
+        
+        console.log(`✅ تم تحميل ${products.length} منتج بنجاح`);
+        
+        buildFilters();
+        render();
+        
+        // إعداد البحث
+        const searchBox = document.getElementById('searchBox');
+        searchBox.addEventListener('input', applyFilters);
+        
+        // تحديث عداد السلة الأولي
+        updateCartCounter();
+        
+      } catch(error) {
+        console.error('خطأ في تحميل المنتجات:', error);
+        
+        grid.innerHTML = `
+          <div class="error">
+            ❌ خطأ في تحميل المنتجات<br>
+            <small>${error.message}</small><br>
+            <button onclick="location.reload()" style="margin-top:15px;padding:10px 20px;background:var(--ku-green);color:white;border:none;border-radius:10px;cursor:pointer;font-weight:700">
+              🔄 إعادة المحاولة
+            </button>
+          </div>
+        `;
+      }
+    }
+    
+    // بدء التحميل عند جاهزية الصفحة
+    document.addEventListener('DOMContentLoaded', loadProducts);
   </script>
 </body>
 </html>
