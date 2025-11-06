@@ -5,79 +5,355 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سوق الكويت 🇰🇼 - الكتالوج الشامل</title>
     <meta name="description" content="كتالوج شامل للمنتجات عالية الجودة بأفضل الأسعار في الكويت">
-    <link rel="stylesheet" href="assets/css/kuwait-modern.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
     :root {
         --ku-green: #00843d;
         --ku-red: #ce1126;
-        --ku-white: #ffffff;
-        --ku-black: #000000;
         --ku-gold: #ffcd00;
+        --ku-black: #000000;
     }
-    body { font-family: 'Cairo', Arial, sans-serif; margin: 0; padding: 0; background: #f8f9fa; }
-    .header { background: linear-gradient(135deg, var(--ku-green), var(--ku-red)); color: white; padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-    .nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    .logo { color: white; text-decoration: none; font-size: 28px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-    .menu { display: flex; gap: 30px; }
-    .menu a { color: white; text-decoration: none; font-weight: 600; padding: 8px 15px; border-radius: 20px; transition: all 0.3s; }
-    .menu a:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
-    .cta { background: var(--ku-gold); color: var(--ku-black); padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; transition: all 0.3s; box-shadow: 0 4px 15px rgba(255, 205, 0, 0.3); }
-    .cta:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255, 205, 0, 0.4); }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    .catalog-header { background: linear-gradient(135deg, var(--ku-green) 0%, var(--ku-red) 50%, var(--ku-black) 100%); color: white; padding: 80px 0; text-align: center; position: relative; overflow: hidden; }
-    .catalog-header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1), transparent); }
-    .catalog-title { font-size: 48px; font-weight: 900; margin-bottom: 20px; text-shadow: 3px 3px 6px rgba(0,0,0,0.4); position: relative; z-index: 1; }
-    .catalog-subtitle { font-size: 20px; color: var(--ku-gold); margin-bottom: 40px; position: relative; z-index: 1; }
-    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 40px; position: relative; z-index: 1; }
-    .stat { background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
-    .stat-number { font-size: 32px; font-weight: 900; color: var(--ku-gold); margin-bottom: 8px; }
-    .stat-label { font-size: 16px; opacity: 0.9; }
-    .whatsapp-section { background: white; padding: 40px 0; text-align: center; border-bottom: 1px solid #eee; }
-    .whatsapp-btn { background: #25d366; color: white; padding: 15px 30px; border-radius: 25px; text-decoration: none; font-weight: bold; margin: 0 10px; transition: all 0.3s; }
-    .whatsapp-btn:hover { background: #128c7e; transform: translateY(-3px); color: white; }
-    .search-section { background: white; padding: 40px 0; border-bottom: 1px solid #eee; }
-    .search-box { max-width: 600px; margin: 0 auto; position: relative; }
-    .search-input { width: 100%; padding: 20px 60px 20px 25px; border: 3px solid var(--ku-gold); border-radius: 30px; font-size: 18px; outline: none; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-    .search-input:focus { border-color: var(--ku-green); box-shadow: 0 0 20px rgba(0, 132, 61, 0.2); }
-    .search-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: var(--ku-green); color: white; border: none; padding: 15px 20px; border-radius: 20px; cursor: pointer; font-size: 16px; }
-    .products-section { padding: 40px 0; }
-    .products-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
-    .products-count { background: white; padding: 15px 25px; border-radius: 15px; border: 2px solid var(--ku-gold); font-size: 18px; font-weight: bold; color: var(--ku-green); }
-    .cart-link { background: var(--ku-green); color: white; padding: 15px 25px; border-radius: 15px; text-decoration: none; font-weight: bold; transition: all 0.3s; position: relative; }
-    .cart-count { background: var(--ku-red); color: white; border-radius: 50%; padding: 4px 8px; font-size: 12px; margin-left: 8px; min-width: 20px; text-align: center; }
-    .cart-link:hover { background: #006b35; transform: translateY(-2px); color: white; }
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin: 30px 0; }
-    .product-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: all 0.3s ease; cursor: pointer; border: 2px solid transparent; position: relative; }
-    .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); border-color: var(--ku-gold); }
-    .product-image { width: 100%; height: 250px; object-fit: cover; border-bottom: 3px solid var(--ku-gold); }
-    .product-info { padding: 25px; }
-    .product-title { font-weight: bold; margin-bottom: 15px; color: var(--ku-green); font-size: 18px; line-height: 1.4; height: 50px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-    .price-section { background: linear-gradient(135deg, var(--ku-red), #e74c3c); color: white; padding: 15px; border-radius: 12px; text-align: center; margin: 15px 0; position: relative; overflow: hidden; }
-    .current-price { font-size: 24px; font-weight: 900; margin-bottom: 5px; position: relative; z-index: 1; }
-    .original-price { font-size: 16px; text-decoration: line-through; opacity: 0.8; position: relative; z-index: 1; }
-    .discount-badge { position: absolute; top: 15px; right: 15px; background: var(--ku-gold); color: var(--ku-black); padding: 8px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; box-shadow: 0 3px 10px rgba(255, 205, 0, 0.3); }
-    .product-actions { display: flex; flex-direction: column; gap: 10px; }
-    .whatsapp-order-btn { background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 12px 20px; border: none; border-radius: 15px; text-decoration: none; display: block; text-align: center; font-weight: bold; transition: all 0.3s; font-size: 16px; }
-    .whatsapp-order-btn:hover { background: linear-gradient(135deg, #128c7e, #25d366); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4); color: white; }
-    .cart-btn { background: linear-gradient(135deg, var(--ku-gold), #f39c12); color: var(--ku-black); padding: 12px 20px; border: none; border-radius: 15px; cursor: pointer; font-weight: bold; transition: all 0.3s; font-size: 16px; }
-    .cart-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4); }
-    .loading { text-align: center; padding: 80px; font-size: 20px; color: #666; background: white; border-radius: 15px; margin: 30px 0; }
-    .error-message { text-align: center; padding: 50px; background: #fff5f5; border: 2px solid #fed7d7; border-radius: 15px; color: #c53030; margin: 30px 0; }
-    .retry-btn { background: var(--ku-green); color: white; padding: 15px 30px; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; margin-top: 20px; font-size: 16px; }
-    .footer { background: var(--ku-black); color: white; padding: 50px 0; text-align: center; margin-top: 60px; }
-    .footer h3 { color: var(--ku-gold); margin-bottom: 20px; }
-    .footer a { color: var(--ku-gold); text-decoration: none; margin: 0 15px; font-size: 18px; }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Cairo', Arial, sans-serif;
+        background: #f8f9fa;
+        line-height: 1.6;
+    }
+    
+    .header {
+        background: linear-gradient(135deg, var(--ku-green), var(--ku-red));
+        color: white;
+        padding: 15px 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    }
+    
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .logo {
+        color: white;
+        text-decoration: none;
+        font-size: 28px;
+        font-weight: 900;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .menu {
+        display: flex;
+        gap: 30px;
+    }
+    
+    .menu a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 8px 15px;
+        border-radius: 20px;
+        transition: all 0.3s;
+    }
+    
+    .menu a:hover {
+        background: rgba(255,255,255,0.2);
+        transform: translateY(-2px);
+    }
+    
+    .cta {
+        background: var(--ku-gold);
+        color: var(--ku-black);
+        padding: 12px 25px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(255, 205, 0, 0.3);
+    }
+    
+    .hero {
+        background: linear-gradient(135deg, var(--ku-green) 0%, var(--ku-red) 50%, var(--ku-black) 100%);
+        color: white;
+        padding: 60px 0;
+        text-align: center;
+        position: relative;
+    }
+    
+    .hero h1 {
+        font-size: 42px;
+        font-weight: 900;
+        margin-bottom: 20px;
+        text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+    }
+    
+    .hero p {
+        font-size: 18px;
+        color: var(--ku-gold);
+        margin-bottom: 30px;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+    }
+    
+    .stat {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        border: 2px solid var(--ku-gold);
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    
+    .stat-number {
+        font-size: 28px;
+        font-weight: 900;
+        color: var(--ku-green);
+        margin-bottom: 8px;
+    }
+    
+    .stat-label {
+        color: #666;
+        font-weight: 600;
+    }
+    
+    .products-section {
+        padding: 40px 0;
+    }
+    
+    .section-title {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+        color: var(--ku-green);
+        margin-bottom: 40px;
+    }
+    
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+        margin: 30px 0;
+    }
+    
+    .product-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 2px solid transparent;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        border-color: var(--ku-gold);
+    }
+    
+    .product-image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-bottom: 3px solid var(--ku-gold);
+    }
+    
+    .product-info {
+        padding: 20px;
+    }
+    
+    .product-title {
+        font-weight: bold;
+        margin-bottom: 12px;
+        color: var(--ku-green);
+        font-size: 16px;
+        line-height: 1.4;
+        height: 45px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    
+    .price-section {
+        background: linear-gradient(135deg, var(--ku-red), #e74c3c);
+        color: white;
+        padding: 12px;
+        border-radius: 10px;
+        text-align: center;
+        margin: 12px 0;
+    }
+    
+    .current-price {
+        font-size: 22px;
+        font-weight: 900;
+    }
+    
+    .original-price {
+        font-size: 14px;
+        text-decoration: line-through;
+        opacity: 0.8;
+        margin-bottom: 5px;
+    }
+    
+    .discount-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: var(--ku-gold);
+        color: var(--ku-black);
+        padding: 6px 10px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: bold;
+        box-shadow: 0 2px 8px rgba(255, 205, 0, 0.4);
+    }
+    
+    .product-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .whatsapp-btn {
+        background: linear-gradient(135deg, #25d366, #128c7e);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 10px;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        font-weight: bold;
+        transition: all 0.3s;
+        font-size: 14px;
+    }
+    
+    .whatsapp-btn:hover {
+        background: linear-gradient(135deg, #128c7e, #25d366);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+        color: white;
+    }
+    
+    .cart-btn {
+        background: linear-gradient(135deg, var(--ku-gold), #f39c12);
+        color: var(--ku-black);
+        padding: 10px 15px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s;
+        font-size: 14px;
+    }
+    
+    .cart-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(243, 156, 18, 0.4);
+    }
+    
+    .loading {
+        text-align: center;
+        padding: 80px 20px;
+        font-size: 20px;
+        color: #666;
+        background: white;
+        border-radius: 15px;
+        margin: 30px 0;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .error-message {
+        text-align: center;
+        padding: 50px 20px;
+        background: #fff5f5;
+        border: 2px solid #fed7d7;
+        border-radius: 15px;
+        color: #c53030;
+        margin: 30px 0;
+    }
+    
+    .retry-btn {
+        background: var(--ku-green);
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+    
+    .footer {
+        background: var(--ku-black);
+        color: white;
+        padding: 50px 0;
+        text-align: center;
+        margin-top: 60px;
+    }
+    
+    .footer h3 {
+        color: var(--ku-gold);
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+    
+    .footer a {
+        color: var(--ku-gold);
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 18px;
+        transition: all 0.3s;
+    }
+    
+    .footer a:hover {
+        opacity: 0.8;
+    }
+    
     @media (max-width: 768px) {
-        .nav { flex-direction: column; gap: 15px; padding: 20px; }
-        .catalog-title { font-size: 36px; }
-        .products-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .products-header { flex-direction: column; text-align: center; }
+        .nav {
+            flex-direction: column;
+            gap: 15px;
+            padding: 20px;
+        }
+        
+        .hero h1 {
+            font-size: 32px;
+        }
+        
+        .products-grid {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
     }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header class="header">
         <div class="nav">
             <a class="logo" href="index.html">🇰🇼 سوق الكويت</a>
@@ -85,187 +361,280 @@
                 <a href="index.html">🏠 الرئيسية</a>
                 <a href="products-catalog.html">📦 المنتجات</a>
                 <a href="cart.html">🛒 السلة</a>
-                <a href="contact.html">📞 اتصل بنا</a>
             </nav>
             <a class="cta" href="tel:+201110760081">📱 اطلب الآن</a>
         </div>
     </header>
     
-    <section class="catalog-header">
+    <!-- Hero Section -->
+    <section class="hero">
         <div class="container">
-            <h1 class="catalog-title">🛒 الكتالوج الشامل</h1>
-            <p class="catalog-subtitle">منتجات عالية الجودة بأفضل الأسعار في الكويت</p>
-            <div class="stats-row">
-                <div class="stat"><div class="stat-number" id="total-products">1977</div><div class="stat-label">منتج متاح</div></div>
-                <div class="stat"><div class="stat-number">مجاني</div><div class="stat-label">التوصيل</div></div>
-                <div class="stat"><div class="stat-number">24/7</div><div class="stat-label">خدمة العملاء</div></div>
-                <div class="stat"><div class="stat-number">100%</div><div class="stat-label">ضمان الجودة</div></div>
+            <h1>🛒 الكتالوج الشامل</h1>
+            <p>منتجات عالية الجودة بأفضل الأسعار في الكويت</p>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number" id="total-products">1977</div>
+                    <div class="stat-label">منتج متاح</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">مجاني</div>
+                    <div class="stat-label">التوصيل</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">خدمة العملاء</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">ضمان الجودة</div>
+                </div>
             </div>
         </div>
     </section>
     
-    <section class="whatsapp-section">
-        <div class="container">
-            <h2 style="color: var(--ku-green); margin-bottom: 20px;">💬 تواصل معنا مباشرة</h2>
-            <a href="https://wa.me/201110760081" class="whatsapp-btn" target="_blank">💬 واتساب فوري</a>
-            <a href="mailto:sooqalkuwait2010@gmail.com" class="whatsapp-btn" style="background: var(--ku-red);">📧 بريد إلكتروني</a>
-        </div>
-    </section>
-    
-    <section class="search-section">
-        <div class="container">
-            <div class="search-box">
-                <input type="text" id="search-input" class="search-input" placeholder="🔍 ابحث عن المنتج الذي تريده...">
-                <button class="search-btn" onclick="performSearch()">🔍</button>
-            </div>
-        </div>
-    </section>
-    
+    <!-- Products Section -->
     <section class="products-section">
         <div class="container">
-            <div class="products-header">
-                <div class="products-count">📊 عرض <span id="products-count">0</span> منتج</div>
-                <a href="cart.html" class="cart-link">🛒 السلة <span class="cart-count" id="cart-count">0</span></a>
+            <h2 class="section-title">📦 جميع المنتجات</h2>
+            
+            <div id="products-container">
+                <div class="loading">
+                    ⏳ جاري تحميل المنتجات من GitHub...
+                </div>
             </div>
-            <div id="products-container"><div class="loading">⏳ جاري تحميل المنتجات...</div></div>
         </div>
     </section>
     
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <h3>🇰🇼 سوق الكويت</h3>
             <p>تجربة تسوق حديثة بألوان العلم</p>
             <div style="margin-top: 25px;">
-                <a href="https://wa.me/201110760081">💬 واتساب</a>
-                <a href="mailto:sooqalkuwait2010@gmail.com">📧 بريد إلكتروني</a>
+                <a href="https://wa.me/201110760081">📧 واتساب</a>
+                <a href="mailto:sooqalkuwait2010@gmail.com">📧 إيميل</a>
                 <a href="tel:+201110760081">📞 هاتف</a>
             </div>
             <p style="margin-top: 30px; opacity: 0.8;">© 2025 جميع الحقوق محفوظة</p>
         </div>
     </footer>
     
-    <script src="assets/js/cart-fixed.js"></script>
     <script>
-    let allProducts = [];
-    let displayedProducts = [];
-    const ITEMS_PER_PAGE = 50;
-    
-    async function loadProducts() {
-        try {
-            console.log('📥 تحميل من GitHub...');
-            
-            const response = await fetch('https://raw.githubusercontent.com/sherow1982/sooq-alkuwait/main/products_data.json', {
-                cache: 'no-cache',
-                mode: 'cors'
-            });
-            
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            
-            const products = await response.json();
-            console.log(`✅ تم تحميل ${products.length} منتج`);
-            
-            allProducts = products;
-            displayedProducts = products;
-            updateProductsCount(products.length);
-            displayProducts(products.slice(0, ITEMS_PER_PAGE));
-            
-        } catch (error) {
-            console.error('❌ خطأ:', error);
-            showErrorMessage('خطأ في تحميل المنتجات من GitHub');
-        }
-    }
-    
-    function displayProducts(products) {
-        const container = document.getElementById('products-container');
-        if (!container || products.length === 0) {
-            if (container) container.innerHTML = '<div class="error-message">❌ لا توجد منتجات</div>';
-            return;
+        // متغيرات النظام
+        let allProducts = [];
+        
+        // تحميل المنتجات من GitHub مباشرة
+        async function loadProducts() {
+            try {
+                console.log('📥 جاري تحميل المنتجات...');
+                
+                const response = await fetch('https://raw.githubusercontent.com/sherow1982/sooq-alkuwait/main/products_data.json', {
+                    cache: 'no-cache',
+                    mode: 'cors'
+                });
+                
+                if (!response.ok) {
+                    throw new Error('HTTP ' + response.status);
+                }
+                
+                const products = await response.json();
+                console.log('✅ تم تحميل ' + products.length + ' منتج');
+                
+                allProducts = products;
+                displayProducts(products.slice(0, 50)); // عرض أول 50 منتج
+                updateStats(products.length);
+                
+            } catch (error) {
+                console.error('❌ خطأ:', error);
+                showError('فشل في تحميل المنتجات. يرجى إعادة المحاولة.');
+            }
         }
         
-        const grid = document.createElement('div');
-        grid.className = 'products-grid';
+        // عرض المنتجات
+        function displayProducts(products) {
+            const container = document.getElementById('products-container');
+            
+            if (!products || products.length === 0) {
+                container.innerHTML = '<div class="error-message">❌ لا توجد منتجات للعرض</div>';
+                return;
+            }
+            
+            let gridHtml = '<div class="products-grid">';
+            
+            for (let i = 0; i < products.length; i++) {
+                const product = products[i];
+                
+                if (!product.id || !product.title) {
+                    continue;
+                }
+                
+                const discount = product.price > product.sale_price ? 
+                    Math.round(((product.price - product.sale_price) / product.price) * 100) : 0;
+                
+                // تنظيف العنوان للاستخدام الآمن
+                const cleanTitle = product.title.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+                const whatsappMessage = 'مرحباً، أريد طلب: ' + product.title + ' - السعر: ' + product.sale_price.toFixed(2) + ' د.ك';
+                const whatsappUrl = 'https://wa.me/201110760081?text=' + encodeURIComponent(whatsappMessage);
+                
+                gridHtml += `
+                    <div class="product-card" style="position: relative;">
+                        ${discount > 0 ? '<div class="discount-badge">خصم ' + discount + '%</div>' : ''}
+                        
+                        <img src="${product.image_link}" 
+                             alt="منتج" 
+                             class="product-image" 
+                             loading="lazy" 
+                             onerror="this.src='https://via.placeholder.com/280x220/00843d/ffffff?text=منتج+سوق+الكويت'">
+                        
+                        <div class="product-info">
+                            <h3 class="product-title">${product.title}</h3>
+                            
+                            <div class="price-section">
+                                ${product.price > product.sale_price ? '<div class="original-price">' + product.price.toFixed(2) + ' د.ك</div>' : ''}
+                                <div class="current-price">${product.sale_price.toFixed(2)} د.ك</div>
+                            </div>
+                            
+                            <div class="product-actions">
+                                <a href="${whatsappUrl}" 
+                                   class="whatsapp-btn" 
+                                   target="_blank"
+                                   onclick="event.stopPropagation()">
+                                    📧 طلب عبر واتساب
+                                </a>
+                                
+                                <button class="cart-btn" 
+                                        data-id="${product.id}"
+                                        data-title="${cleanTitle}"
+                                        data-price="${product.sale_price}"
+                                        data-image="${product.image_link}"
+                                        onclick="handleAddToCart(event)">
+                                    🛒 أضف للسلة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            gridHtml += '</div>';
+            container.innerHTML = gridHtml;
+            
+            console.log('✅ تم عرض ' + products.length + ' منتج');
+        }
         
-        products.forEach(product => {
-            if (!product.id || !product.title) return;
+        // معالجة إضافة للسلة
+        function handleAddToCart(event) {
+            event.stopPropagation();
             
-            const discount = product.price > product.sale_price ? Math.round(((product.price - product.sale_price) / product.price) * 100) : 0;
-            const card = document.createElement('div');
-            card.className = 'product-card';
+            const button = event.target;
+            const productId = parseInt(button.getAttribute('data-id'));
+            const productTitle = button.getAttribute('data-title');
+            const productPrice = parseFloat(button.getAttribute('data-price'));
+            const productImage = button.getAttribute('data-image');
             
-            card.innerHTML = `
-                ${discount > 0 ? `<div class="discount-badge">خصم ${discount}%</div>` : ''}
-                <img src="${product.image_link}" alt="${product.title}" class="product-image" loading="lazy" 
-                     onerror="this.src='https://via.placeholder.com/300x250/00843d/ffffff?text=منتج+سوق+الكويت'">
-                <div class="product-info">
-                    <h3 class="product-title">${product.title}</h3>
-                    <div class="price-section">
-                        ${product.price > product.sale_price ? `<div class="original-price">${product.price.toFixed(2)} د.ك</div>` : ''}
-                        <div class="current-price">${product.sale_price.toFixed(2)} د.ك</div>
-                    </div>
-                    <div class="product-actions">
-                        <a href="https://wa.me/201110760081?text=${encodeURIComponent('مرحبا، أريد طلب هذا المنتج:\n\n📦 ' + product.title + '\n💰 السعر: ' + product.sale_price.toFixed(2) + ' د.ك\n🆔 رقم: SOOQ-' + product.id.toString().padStart(4, '0'))}" 
-                           class="whatsapp-order-btn" target="_blank" onclick="event.stopPropagation()">💬 طلب عبر واتساب</a>
-                        <button class="cart-btn" onclick="event.stopPropagation(); addToCart(${product.id}, '${product.title.replace(/'/g, "\\'")\'}', ${product.sale_price}, '${product.image_link}')">🛒 أضف للسلة</button>
-                    </div>
+            // إضافة للسلة
+            let cart = JSON.parse(localStorage.getItem('sooq-cart') || '[]');
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    title: productTitle.replace(/&#39;/g, "'").replace(/&quot;/g, '"'),
+                    price: productPrice,
+                    image: productImage,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('sooq-cart', JSON.stringify(cart));
+            
+            // تحديث واجهة الزر
+            const originalText = button.innerHTML;
+            button.innerHTML = '✅ تم الإضافة!';
+            button.style.background = '#28a745';
+            
+            setTimeout(function() {
+                button.innerHTML = originalText;
+                button.style.background = '';
+            }, 2000);
+            
+            // إشعار
+            showNotification('✅ تم إضافة "' + productTitle + '" إلى السلة');
+            
+            console.log('➕ تمت إضافة المنتج:', productId);
+        }
+        
+        // تحديث الإحصائيات
+        function updateStats(count) {
+            const totalElement = document.getElementById('total-products');
+            if (totalElement) {
+                totalElement.textContent = count.toLocaleString('ar');
+            }
+        }
+        
+        // عرض رسالة خطأ
+        function showError(message) {
+            const container = document.getElementById('products-container');
+            container.innerHTML = `
+                <div class="error-message">
+                    ❌ ${message}<br>
+                    <button class="retry-btn" onclick="loadProducts()">
+                        🔄 إعادة المحاولة
+                    </button>
                 </div>
             `;
+        }
+        
+        // عرض إشعار
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--ku-green);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                z-index: 9999;
+                font-weight: bold;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
             
-            card.onclick = () => window.open(`products-pages/product-${product.id}.html`, '_blank');
-            grid.appendChild(card);
+            setTimeout(function() {
+                notification.remove();
+            }, 3000);
+        }
+        
+        // تشغيل النظام
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎉 بدء تحميل كتالوج سوق الكويت...');
+            loadProducts();
         });
         
-        container.innerHTML = '';
-        container.appendChild(grid);
-        addProductAnimations();
-    }
-    
-    function updateProductsCount(count) {
-        const elements = document.querySelectorAll('#total-products, #products-count');
-        elements.forEach(el => { if (el) el.textContent = count.toLocaleString('ar'); });
-    }
-    
-    function performSearch() {
-        const searchTerm = document.getElementById('search-input').value.toLowerCase();
-        if (!searchTerm.trim()) {
-            displayProducts(allProducts.slice(0, ITEMS_PER_PAGE));
-            updateProductsCount(allProducts.length);
-            return;
-        }
-        const filtered = allProducts.filter(p => p.title.toLowerCase().includes(searchTerm) || (p.description && p.description.toLowerCase().includes(searchTerm)));
-        displayProducts(filtered.slice(0, ITEMS_PER_PAGE));
-        updateProductsCount(filtered.length);
-        console.log(`🔍 بحث: "${searchTerm}" - ${filtered.length} نتيجة`);
-    }
-    
-    function addProductAnimations() {
-        const cards = document.querySelectorAll('.product-card');
-        cards.forEach((card, i) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            setTimeout(() => {
-                card.style.transition = 'all 0.6s ease';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, i * 50);
-        });
-    }
-    
-    function showErrorMessage(message) {
-        document.getElementById('products-container').innerHTML = `<div class="error-message">❌ ${message}<br><button class="retry-btn" onclick="loadProducts()">🔄 إعادة المحاولة</button></div>`;
-    }
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('🎉 بدء كتالوج سوق الكويت...');
-        if (window.updateCartCounter) window.updateCartCounter();
-        loadProducts();
+        // CSS للتأثيرات
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateX(100px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
         
-        const searchInput = document.getElementById('search-input');
-        if (searchInput) {
-            searchInput.addEventListener('keypress', e => {
-                if (e.key === 'Enter') performSearch();
-            });
-        }
-    });
+        console.log('✅ نظام الكتالوج جاهز للعمل!');
     </script>
 </body>
 </html>
