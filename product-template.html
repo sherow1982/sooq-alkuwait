@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{PRODUCT_TITLE}} - تسوق اونلاين الكويت | سعر خاص {{PRODUCT_PRICE}} د.ك | سوق الكويت</title>
+    <meta name="description" content="اشتري {{PRODUCT_TITLE}} بأفضل سعر في الكويت {{PRODUCT_PRICE}} د.ك. {{PRODUCT_DESCRIPTION}} توصيل مجاني، دفع عند الاستلام، ضمان الجودة">
+    <meta name="keywords" content="{{PRODUCT_TITLE}}, {{PRODUCT_KEYWORDS}}, اشتري اونلاين الكويت, توصيل مجاني الكويت, أفضل سعر الكويت, سوق الكويت">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large">
+    <meta name="author" content="سوق الكويت">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{PRODUCT_TITLE}} - أفضل سعر في الكويت">
+    <meta property="og:description" content="اشتري {{PRODUCT_TITLE}} بسعر {{PRODUCT_PRICE}} د.ك. {{PRODUCT_DESCRIPTION}}">
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="https://sherow1982.github.io/sooq-alkuwait/products-pages/{{PRODUCT_SLUG}}">
+    <meta property="og:image" content="{{PRODUCT_IMAGE}}">
+    <meta property="og:image:alt" content="{{PRODUCT_TITLE}} - سوق الكويت">
+    <meta property="og:site_name" content="سوق الكويت">
+    <meta property="og:locale" content="ar_KW">
+    <meta property="product:price:amount" content="{{PRODUCT_PRICE}}">
+    <meta property="product:price:currency" content="KWD">
+    <meta property="product:availability" content="in stock">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{PRODUCT_TITLE}} - أفضل سعر في الكويت">
+    <meta name="twitter:description" content="اشتري {{PRODUCT_TITLE}} بسعر {{PRODUCT_PRICE}} د.ك">
+    <meta name="twitter:image" content="{{PRODUCT_IMAGE}}">
+    
+    <link rel="canonical" href="https://sherow1982.github.io/sooq-alkuwait/products-pages/{{PRODUCT_SLUG}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* ألوان علم الكويت */
+            --kuwait-green: #007A3D;
+            --kuwait-red: #CE1126;
+            --kuwait-black: #000000;
+            --kuwait-white: #FFFFFF;
+            
+            /* تدرجات مشتقة */
+            --kuwait-green-light: #00B359;
+            --kuwait-green-dark: #005A2D;
+            --kuwait-red-light: #E7344A;
+            --kuwait-red-dark: #A80D1F;
+            --kuwait-gold: #FFD700;
+            --kuwait-gold-dark: #DAA520;
+            
+            /* ألوان مساعدة */
+            --shadow-light: rgba(0, 122, 61, 0.1);
+            --shadow-medium: rgba(0, 122, 61, 0.2);
+            --shadow-dark: rgba(0, 122, 61, 0.3);
+            --gradient-kuwait: linear-gradient(135deg, var(--kuwait-green) 0%, var(--kuwait-red) 100%);
+            --gradient-kuwait-gold: linear-gradient(135deg, var(--kuwait-gold) 0%, var(--kuwait-gold-dark) 100%);
+            --gradient-subtle: linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(248,248,248,0.95) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Arabic', 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+            background: var(--gradient-kuwait);
+            min-height: 100vh;
+            line-height: 1.6;
+            color: var(--kuwait-black);
+            font-display: swap;
+        }
+
+        /* خلفية زخرفية كويتية مبهرة */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 85%, rgba(206, 17, 38, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 85% 15%, rgba(0, 122, 61, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.04) 0%, transparent 60%),
+                linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.02) 100%);
+            z-index: -1;
+        }
+
+        /* شريط علوي ثابت */
+        .mobile-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--gradient-kuwait);
+            color: var(--kuwait-white);
+            padding: 12px 20px;
+            box-shadow: 0 4px 20px var(--shadow-dark);
+            backdrop-filter: blur(15px);
+        }
+
+        .mobile-header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .mobile-logo {
+            font-size: 1.3em;
+            font-weight: 800;
+            color: var(--kuwait-white);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .mobile-nav {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mobile-nav-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--kuwait-white);
+            padding: 8px 10px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+            min-height: 40px;
+            min-width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-nav-btn:hover, .mobile-nav-btn:active {
+            background: rgba(255,255,255,0.25);
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px 20px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: rgba(255,255,255,0.9);
+            padding: 12px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 122, 61, 0.1);
+        }
+
+        .breadcrumb a {
+            color: var(--kuwait-green);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--kuwait-red);
+        }
+
+        .breadcrumb-separator {
+            margin: 0 8px;
+            color: var(--kuwait-green);
+            font-weight: 700;
+        }
+
+        /* قسم المنتج الرئيسي */
+        .product-main {
+            background: var(--gradient-subtle);
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 
+                0 25px 50px var(--shadow-medium),
+                inset 0 1px 0 rgba(255,255,255,0.9);
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-main::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient-kuwait);
+            border-radius: 28px;
+            z-index: -1;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .product-images {
+            position: sticky;
+            top: 100px;
+        }
+
+        .main-image-container {
+            position: relative;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px var(--shadow-medium);
+        }
+
+        .main-image {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+            background: var(--kuwait-white);
+        }
+
+        .main-image:hover {
+            transform: scale(1.05);
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient-kuwait);
+            color: var(--kuwait-white);
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 700;
+            box-shadow: 0 8px 25px var(--shadow-dark);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .stock-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--kuwait-green);
+            color: var(--kuwait-white);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 122, 61, 0.4);
+        }
+
+        /* معلومات المنتج */
+        .product-info {
+            padding: 20px 0;
+        }
+
+        .product-title {
+            font-size: 2.2em;
+            font-weight: 800;
+            color: var(--kuwait-black);
+            margin-bottom: 15px;
+            line-height: 1.3;
+            text-shadow: 2px 2px 4px var(--shadow-light);
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .product-sku {
+            color: var(--kuwait-green-dark);
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .price-section {
+            background: var(--kuwait-white);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px var(--shadow-light);
+            border: 2px solid var(--kuwait-green-light);
+            position: relative;
+        }
+
+        .price-section::before {
+            content: '💰';
+            position: absolute;
+            top: -15px;
+            right: 25px;
+            background: var(--kuwait-white);
+            padding: 8px 12px;
+            border-radius: 50%;
+            font-size: 1.2em;
+            box-shadow: 0 5px 15px var(--shadow-light);
+        }
+
+        .current-price {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: var(--kuwait-red);
+            text-shadow: 3px 3px 6px var(--shadow-light);
+            margin-bottom: 10px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .original-price {
+            font-size: 1.4em;
+            text-decoration: line-through;
+            color: #999;
+            margin-left: 15px;
+            font-weight: 600;
+        }
+
+        .savings {
+            background: var(--gradient-kuwait-gold);
+            color: var(--kuwait-black);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        /* وصف المنتج */
+        .product-description {
+            background: var(--kuwait-white);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px var(--shadow-light);
+            border-right: 4px solid var(--kuwait-green);
+        }
+
+        .product-description h3 {
+            color: var(--kuwait-green);
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .product-description p {
+            font-size: 1.05em;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        .product-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .product-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 1em;
+            color: #555;
+            position: relative;
+            padding-right: 25px;
+        }
+
+        .product-features li::before {
+            content: '✅';
+            position: absolute;
+            right: 0;
+            color: var(--kuwait-green);
+            font-size: 0.9em;
+        }
+
+        /* أزرار العمل */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .add-to-cart-btn {
+            background: var(--gradient-kuwait);
+            color: var(--kuwait-white);
+            border: none;
+            padding: 20px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 12px 35px var(--shadow-medium);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            font-family: 'Cairo', sans-serif;
+            min-height: 56px;
+            touch-action: manipulation;
+        }
+
+        .add-to-cart-btn:hover, .add-to-cart-btn:active {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 45px var(--shadow-dark);
+        }
+
+        .whatsapp-order-btn {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            color: var(--kuwait-white);
+            border: 2px solid var(--kuwait-white);
+            padding: 20px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+            font-family: 'Cairo', sans-serif;
+            min-height: 56px;
+            touch-action: manipulation;
+        }
+
+        .whatsapp-order-btn:hover, .whatsapp-order-btn:active {
+            background: linear-gradient(135deg, var(--kuwait-green) 0%, var(--kuwait-green-dark) 100%);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
+        }
+
+        /* شارات الثقة */
+        .trust-section {
+            background: var(--kuwait-white);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px var(--shadow-light);
+            border: 2px solid var(--kuwait-green-light);
+        }
+
+        .trust-badges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            text-align: center;
+        }
+
+        .trust-badge {
+            background: var(--gradient-subtle);
+            padding: 15px;
+            border-radius: 15px;
+            color: var(--kuwait-green);
+            font-weight: 600;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            transition: transform 0.3s ease;
+        }
+
+        .trust-badge:hover {
+            transform: translateY(-3px);
+        }
+
+        .trust-badge .icon {
+            font-size: 1.5em;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* تقييمات ومراجعات */
+        .reviews-section {
+            background: var(--gradient-subtle);
+            padding: 30px;
+            border-radius: 25px;
+            margin-top: 30px;
+            box-shadow: 0 15px 40px var(--shadow-medium);
+            border: 2px solid var(--kuwait-white);
+            position: relative;
+        }
+
+        .reviews-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-kuwait);
+            border-radius: 25px 25px 0 0;
+        }
+
+        .reviews-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .reviews-title {
+            color: var(--kuwait-black);
+            font-size: 1.8em;
+            font-weight: 800;
+            margin-bottom: 10px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .stars-rating {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .rating-summary {
+            color: var(--kuwait-green-dark);
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .reviews-list {
+            display: grid;
+            gap: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .review-item {
+            background: var(--kuwait-white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            border-right: 3px solid var(--kuwait-green);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .reviewer-name {
+            font-weight: 700;
+            color: var(--kuwait-black);
+            font-size: 1em;
+        }
+
+        .review-date {
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .review-stars {
+            color: var(--kuwait-gold);
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .review-text {
+            line-height: 1.6;
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        /* منتجات ذات صلة */
+        .related-products {
+            margin-top: 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: var(--kuwait-black);
+            font-size: 2em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            font-family: 'Cairo', sans-serif;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-kuwait);
+            border-radius: 2px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .related-card {
+            background: var(--gradient-subtle);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px var(--shadow-light);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            overflow: hidden;
+        }
+
+        .related-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px var(--shadow-medium);
+            border-color: var(--kuwait-green);
+        }
+
+        .related-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .related-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: var(--kuwait-black);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .related-price {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--kuwait-red);
+        }
+
+        /* تحسينات الجوال */
+        @media (max-width: 768px) {
+            .container {
+                padding: 70px 15px 20px;
+            }
+            
+            .product-main {
+                padding: 20px;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .product-images {
+                position: static;
+            }
+            
+            .product-title {
+                font-size: 1.8em;
+            }
+            
+            .current-price {
+                font-size: 2.2em;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                position: sticky;
+                bottom: 20px;
+                z-index: 100;
+            }
+            
+            .trust-badges {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .related-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-title {
+                font-size: 1.5em;
+            }
+            
+            .current-price {
+                font-size: 2em;
+            }
+            
+            .trust-badges {
+                grid-template-columns: 1fr;
+            }
+            
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* تحميل ليزي */
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lazy-load.loaded {
+            opacity: 1;
+        }
+
+        /* زر العودة للكتالوج */
+        .back-to-catalog {
+            position: fixed;
+            top: 65px;
+            left: 20px;
+            background: rgba(255,255,255,0.95);
+            color: var(--kuwait-green);
+            border: 2px solid var(--kuwait-green);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 15px var(--shadow-light);
+        }
+
+        .back-to-catalog:hover {
+            background: var(--kuwait-green);
+            color: var(--kuwait-white);
+            transform: translateX(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط جوال علوي -->
+    <div class="mobile-header">
+        <div class="mobile-header-content">
+            <div class="mobile-logo">
+                🇰🇼 سوق الكويت
+            </div>
+            <nav class="mobile-nav">
+                <a href="products-catalog.html" class="mobile-nav-btn" title="المنتجات">🛍️</a>
+                <a href="cart.html" class="mobile-nav-btn" title="السلة" id="cart-icon">
+                    🛒
+                    <span id="cart-count" style="display: none; position: absolute; top: -5px; right: -5px; background: var(--kuwait-red); color: var(--kuwait-white); border-radius: 50%; width: 18px; height: 18px; font-size: 10px; display: flex; align-items: center; justify-content: center;">0</span>
+                </a>
+                <a href="index.html" class="mobile-nav-btn" title="الرئيسية">🏠</a>
+            </nav>
+        </div>
+    </div>
+
+    <a href="products-catalog.html" class="back-to-catalog">
+        ← العودة
+    </a>
+
+    <div class="container">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" aria-label="تنقل في الموقع">
+            <a href="index.html">🏠 الرئيسية</a>
+            <span class="breadcrumb-separator">›</span>
+            <a href="products-catalog.html">🛍️ المنتجات</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>{{PRODUCT_TITLE}}</span>
+        </nav>
+
+        <!-- قسم المنتج الرئيسي -->
+        <div class="product-main">
+            <div class="product-grid">
+                <!-- صور المنتج -->
+                <div class="product-images">
+                    <div class="main-image-container">
+                        {{DISCOUNT_BADGE}}
+                        <div class="stock-badge">
+                            ✅ متوفر بالمخزن
+                        </div>
+                        <img src="{{PRODUCT_IMAGE}}" 
+                             alt="{{PRODUCT_TITLE}} - اشتري اونلاين في الكويت" 
+                             class="main-image" 
+                             width="500" 
+                             height="500"
+                             loading="eager"
+                             onerror="this.src='https://via.placeholder.com/500x500/007A3D/FFFFFF?text={{PRODUCT_TITLE}}'">
+                    </div>
+                </div>
+                
+                <!-- معلومات المنتج -->
+                <div class="product-info">
+                    <h1 class="product-title">{{PRODUCT_TITLE}}</h1>
+                    <p class="product-sku">🏷️ رمز المنتج: {{PRODUCT_ID}}</p>
+                    
+                    <div class="price-section">
+                        <div class="current-price">{{PRODUCT_SALE_PRICE}} د.ك</div>
+                        {{ORIGINAL_PRICE_HTML}}
+                        {{SAVINGS_HTML}}
+                    </div>
+                    
+                    <div class="product-description">
+                        <h3>📝 وصف المنتج</h3>
+                        <p>{{PRODUCT_DESCRIPTION}}</p>
+                        
+                        <ul class="product-features">
+                            {{PRODUCT_FEATURES}}
+                        </ul>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="add-to-cart-btn" onclick="addToCart()">
+                            🛒 أضف للسلة
+                        </button>
+                        <a href="https://wa.me/+96565443322?text=مرحبا،%20أريد%20شراء:%20{{WHATSAPP_PRODUCT_TITLE}}%20-%20السعر:%20{{PRODUCT_PRICE}}%20د.ك%0Aالرابط:%20https://sherow1982.github.io/sooq-alkuwait/products-pages/{{PRODUCT_SLUG}}" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="whatsapp-order-btn">
+                            💬 اطلب فوري
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- شارات الثقة -->
+        <div class="trust-section">
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <span class="icon">🇰🇼</span>
+                    توصيل داخل الكويت
+                </div>
+                <div class="trust-badge">
+                    <span class="icon">💰</span>
+                    دفع عند الاستلام
+                </div>
+                <div class="trust-badge">
+                    <span class="icon">✅</span>
+                    ضمان الجودة
+                </div>
+                <div class="trust-badge">
+                    <span class="icon">🚚</span>
+                    شحن مجاني
+                </div>
+            </div>
+        </div>
+        
+        <!-- تقييمات العملاء -->
+        <div class="reviews-section">
+            <div class="reviews-header">
+                <h2 class="reviews-title">⭐ آراء وتقييمات العملاء</h2>
+                <div class="stars-rating">⭐⭐⭐⭐⭐</div>
+                <div class="rating-summary">متوسط 4.8 من 5 (على أساس {{REVIEWS_COUNT}} تقييم)</div>
+            </div>
+            <div class="reviews-list" id="reviews-list">
+                {{REVIEWS_HTML}}
+            </div>
+        </div>
+        
+        <!-- منتجات ذات صلة -->
+        <div class="related-products">
+            <div class="section-header">
+                <h2 class="section-title">🔥 منتجات قد تعجبك</h2>
+            </div>
+            <div class="related-grid" id="related-products">
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Schema.org JSON-LD لـ Google Merchant Center -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "{{PRODUCT_TITLE}}",
+        "description": "{{PRODUCT_DESCRIPTION}}",
+        "image": [
+            "{{PRODUCT_IMAGE}}"
+        ],
+        "sku": "{{PRODUCT_ID}}",
+        "mpn": "{{PRODUCT_ID}}",
+        "brand": {
+            "@type": "Brand",
+            "name": "سوق الكويت"
+        },
+        "offers": {
+            "@type": "Offer",
+            "url": "https://sherow1982.github.io/sooq-alkuwait/products-pages/{{PRODUCT_SLUG}}",
+            "priceCurrency": "KWD",
+            "price": "{{PRODUCT_PRICE}}",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition",
+            "seller": {
+                "@type": "Organization",
+                "name": "سوق الكويت",
+                "url": "https://sherow1982.github.io/sooq-alkuwait"
+            },
+            "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                    "@type": "MonetaryAmount",
+                    "value": "0",
+                    "currency": "KWD"
+                },
+                "deliveryTime": {
+                    "@type": "ShippingDeliveryTime",
+                    "businessDays": {
+                        "@type": "OpeningHoursSpecification",
+                        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+                    },
+                    "cutoffTime": "23:59",
+                    "handlingTime": {
+                        "@type": "QuantitativeValue",
+                        "minValue": 1,
+                        "maxValue": 2,
+                        "unitCode": "DAY"
+                    },
+                    "transitTime": {
+                        "@type": "QuantitativeValue", 
+                        "minValue": 1,
+                        "maxValue": 3,
+                        "unitCode": "DAY"
+                    }
+                },
+                "shippingDestination": {
+                    "@type": "DefinedRegion",
+                    "addressCountry": "KW"
+                }
+            }
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "{{REVIEWS_COUNT}}",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [{{REVIEWS_JSON}}]
+    }
+    </script>
+    
+    <!-- Breadcrumb JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "الرئيسية",
+                "item": "https://sherow1982.github.io/sooq-alkuwait/"
+            },
+            {
+                "@type": "ListItem", 
+                "position": 2,
+                "name": "المنتجات",
+                "item": "https://sherow1982.github.io/sooq-alkuwait/products-catalog.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "{{PRODUCT_TITLE}}",
+                "item": "https://sherow1982.github.io/sooq-alkuwait/products-pages/{{PRODUCT_SLUG}}"
+            }
+        ]
+    }
+    </script>
+
+    <script>
+        // بيانات المنتج الحالي
+        const currentProduct = {
+            id: {{PRODUCT_ID}},
+            title: '{{PRODUCT_TITLE}}',
+            price: {{PRODUCT_PRICE}},
+            image: '{{PRODUCT_IMAGE}}',
+            description: '{{PRODUCT_DESCRIPTION}}',
+            slug: '{{PRODUCT_SLUG}}'
+        };
+
+        // إضافة للسلة
+        function addToCart() {
+            try {
+                let cart = JSON.parse(localStorage.getItem('sooq-alkuwait-cart') || '[]');
+                
+                const existingIndex = cart.findIndex(item => item.id === currentProduct.id);
+                
+                if (existingIndex !== -1) {
+                    cart[existingIndex].quantity += 1;
+                } else {
+                    cart.push({
+                        id: currentProduct.id,
+                        title: currentProduct.title,
+                        price: currentProduct.price,
+                        image: currentProduct.image,
+                        quantity: 1
+                    });
+                }
+                
+                localStorage.setItem('sooq-alkuwait-cart', JSON.stringify(cart));
+                updateCartCount();
+                showAddToCartFeedback();
+                
+                // تتبع للتحليلات
+                trackEvent('add_to_cart', {
+                    item_name: currentProduct.title,
+                    item_id: currentProduct.id,
+                    price: currentProduct.price,
+                    currency: 'KWD'
+                });
+                
+            } catch (error) {
+                console.error('خطأ في إضافة المنتج للسلة:', error);
+                alert('حدث خطأ في إضافة المنتج. الرجاء المحاولة مرة أخرى.');
+            }
+        }
+
+        // تحديث عداد السلة
+        function updateCartCount() {
+            try {
+                const cart = JSON.parse(localStorage.getItem('sooq-alkuwait-cart') || '[]');
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                
+                const cartCountElement = document.getElementById('cart-count');
+                if (totalItems > 0) {
+                    cartCountElement.textContent = totalItems > 99 ? '99+' : totalItems;
+                    cartCountElement.style.display = 'flex';
+                } else {
+                    cartCountElement.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('خطأ في تحديث عداد السلة:', error);
+            }
+        }
+
+        // إظهار رسالة الإضافة
+        function showAddToCartFeedback() {
+            const feedback = document.createElement('div');
+            feedback.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: var(--kuwait-green);
+                color: var(--kuwait-white);
+                padding: 20px 30px;
+                border-radius: 25px;
+                font-weight: 700;
+                font-size: 16px;
+                z-index: 10000;
+                box-shadow: 0 15px 40px var(--shadow-dark);
+                animation: addToCartAnimation 3s ease-in-out;
+            `;
+            feedback.innerHTML = '✅ تمت إضافة المنتج للصلة!<br><small>اضغط على أيقونة السلة للمراجعة</small>';
+            document.body.appendChild(feedback);
+            setTimeout(() => feedback.remove(), 3000);
+        }
+
+        // تحميل المنتجات ذات الصلة
+        async function loadRelatedProducts() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/sherow1982/sooq-alkuwait/main/products_data.json');
+                if (!response.ok) throw new Error('فشل تحميل البيانات');
+                
+                const products = await response.json();
+                const relatedProducts = products
+                    .filter(p => p.id !== currentProduct.id)
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, 4);
+                
+                const relatedGrid = document.getElementById('related-products');
+                relatedGrid.innerHTML = relatedProducts.map(product => `
+                    <div class="related-card" onclick="window.location.href='${getProductSlug(product)}'">
+                        <img src="${product.image_link}" 
+                             alt="${product.title}" 
+                             class="related-image"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/200x200/007A3D/FFFFFF?text=صورة'">
+                        <h3 class="related-title">${product.title}</h3>
+                        <div class="related-price">${product.sale_price || product.price} د.ك</div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('خطأ في تحميل المنتجات ذات الصلة:', error);
+            }
+        }
+
+        // إنشاء رابط المنتج
+        function getProductSlug(product) {
+            const slug = product.title
+                .replace(/[\s\-\+\(\)\[\]\{\}\|\\\/:*?"<>]/g, '-')
+                .replace(/\-+/g, '-')
+                .replace(/^\-|\-$/g, '');
+            return `${slug}-${product.id}.html`;
+        }
+
+        // تتبع الأحداث
+        function trackEvent(eventName, data = {}) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', eventName, data);
+            }
+            console.log('تتبع الحدث:', eventName, data);
+        }
+
+        // CSS للأنيميشن
+        const animationStyle = document.createElement('style');
+        animationStyle.textContent = `
+            @keyframes addToCartAnimation {
+                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                15% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+                30% { transform: translate(-50%, -50%) scale(1); }
+                85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+            }
+        `;
+        document.head.appendChild(animationStyle);
+
+        // تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            loadRelatedProducts();
+            
+            // تتبع عرض المنتج
+            trackEvent('view_item', {
+                item_name: currentProduct.title,
+                item_id: currentProduct.id,
+                price: currentProduct.price,
+                currency: 'KWD'
+            });
+            
+            console.log('✅ تم تحميل صفحة المنتج بنجاح - سوق الكويت');
+        });
+
+        // تحسين الأداء - Lazy Loading
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.classList.add('loaded');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                    img.classList.add('lazy-load');
+                    imageObserver.observe(img);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
