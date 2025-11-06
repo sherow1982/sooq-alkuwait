@@ -10,12 +10,13 @@
     body{font-family:'Cairo',sans-serif;background:#f8f9fa;margin:0}
     .container{max-width:1200px;margin:0 auto;padding:22px}
     .filters{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 16px}
-    .chip{background:#fff;border:2px solid #e9ecef;color:#333;border-radius:25px;padding:8px 14px;cursor:pointer;font-weight:700}
+    .chip{background:#fff;border:2px solid #e9ecef;color:#333;border-radius:25px;padding:8px 14px;cursor:pointer;font-weight:700;transition:all 0.2s}
+    .chip:hover{border-color:var(--ku-green);background:#f8f9fa}
     .chip.active{border-color:var(--ku-green);background:#e9f7ef;color:#0b7550}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(284px,1fr));gap:24px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(284px,1fr));gap:24px;min-height:400px}
     .card{background:#fff;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.08);padding:16px;position:relative;border:2px solid transparent;transition:.2s;overflow:hidden}
     .card:hover{transform:translateY(-6px);border-color:var(--ku-gold)}
-    .pseudo-cover{position:absolute;inset:0;z-index:2}
+    .pseudo-cover{position:absolute;inset:0;z-index:2;cursor:pointer}
     img.productimg{width:100%;height:220px;object-fit:cover;border-radius:12px;border:1px solid #eee;background:#fafafa;display:block}
     .img-fallback{width:100%;height:220px;display:flex;align-items:center;justify-content:center;background:#e2e7ea;color:#888;border-radius:12px;font-size:18px;font-weight:bold;border:1px solid #eee;}
     .title{margin:10px 0 6px; color:var(--ku-green); font-weight:800; font-size:18px; height:46px;overflow:hidden}
@@ -26,54 +27,76 @@
     .actions{display:flex;gap:8px;margin-top:12px;z-index:3;position:relative}
     .wa{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;border-radius:9px;padding:10px 14px;text-decoration:none;font-weight:700;flex:1;text-align:center}
     .cart{background:var(--ku-gold);color:#222;border:none;border-radius:9px;padding:10px 14px;font-weight:800;cursor:pointer;flex:1}
+    .loading{grid-column:1/-1;text-align:center;padding:50px;color:#666;font-size:18px}
+    .error{grid-column:1/-1;text-align:center;padding:50px;color:#ce1126;font-size:18px}
+    .no-products{grid-column:1/-1;text-align:center;padding:50px;color:#666;font-size:18px}
   </style>
 </head>
 <body>
   <div class="container">
-    <h1 style="text-align:center;color:var(--ku-green)">📦 الكتالوج الشامل</h1>
+    <h1 style="text-align:center;color:var(--ku-green);margin-bottom:20px;">📦 الكتالوج الشامل</h1>
 
     <!-- شريط التصفية بالفئات -->
-    <div id="filters" class="filters"></div>
+    <div id="filters" class="filters">
+      <button class="chip active" data-key="all">الكل (جاري التحميل...)</button>
+    </div>
 
-    <div id="grid" class="grid"><div style="grid-column:1/-1;text-align:center">⏳ جاري التحميل...</div></div>
+    <div id="grid" class="grid">
+      <div class="loading">⏳ جاري تحميل المنتجات...</div>
+    </div>
   </div>
+  
   <script>
     const DATA_URL='https://raw.githubusercontent.com/sherow1982/sooq-alkuwait/main/products_data.json';
-    const stripNum=t=>(t||'').replace(/^\s*\d+\s+/, '');
+    const stripNum=t=>(t||'').replace(/^\s*\d+\s*[-\u2013\u2014]?\s*/, '');
 
     // تعريف الفئات الدقيقة المتفق عليها
     const CATS=[
       {key:'all',       name:'الكل',                   test: t=>true},
-      {key:'kids',      name:'الأطفال والألعاب',       test: t=>/(أطفال|طفل|لعبة|حصالة|روبوت|فقاعات|كرتوني|تعليمية)/i.test(t)},
-      {key:'kitchen',   name:'المطبخ وأدوات الطعام',  test: t=>/(مطبخ|قهوة|صفاية|سلطة|خلاط|عصارة|مفرمة|طبخ|مقلاة|فرن|مطحنة|طاولة)/i.test(t)},
-      {key:'fashion',   name:'الملابس والإكسسوارات',  test: t=>/(شورت|حقيبة|حقيبه|ملابس|قميص|فستان|حذاء|نظارة|ساعة|موضة|أزياء|اكسسوار)/i.test(t)},
-      {key:'auto',      name:'السيارات والملحقات',    test: t=>/(سيارة|سيارات|محول|كاميرا|حامل|مطفأة|فولت|ولاعة|مرآة)/i.test(t)},
-      {key:'beauty',    name:'العناية والتجميل',      test: t=>/(شامبو|سيروم|كريم|عطر|حلاقة|تجميل|بشرة|شعر|عناية|مكياج|ماسك)/i.test(t)},
-      {key:'home',      name:'المنزل والتنظيف',       test: t=>/(منزل|حديقة|تنظيف|غسيل|مكنسة|أثاث|ديكور|إضاءة|مرتبة|مفرش|ستارة)/i.test(t)},
-      {key:'electronics',name:'الإلكترونيات',         test: t=>/(هاتف|شاحن|بطارية|كابل|سماعة|شاشة|إلكتروني|USB|Type-C)/i.test(t)},
-      {key:'sport',     name:'الرياضة واللياقة',      test: t=>/(رياضة|لياقة|جري|تمارين|كرة|دراجة|وزن|شد|يوغا)/i.test(t)},
-      {key:'other',     name:'منتجات متنوعة',         test: t=>true} // يُستخدم لاحقاً لما لا يطابق أي فئة
+      {key:'kids',      name:'الأطفال والألعاب',       test: t=>/(أطفال|طفل|لعبة|حصالة|روبوت|فقاعات|كرتوني|تعليمية|باندا|هليكوبتر|طائرة|قطار|سباق|مسدس فقاعات)/i.test(t)},
+      {key:'kitchen',   name:'المطبخ وأدوات الطعام',  test: t=>/(مطبخ|قهوة|صفاية|سلطة|خلاط|عصارة|مفرمة|طبخ|مقلاة|فرن|مطحنة|طاولة|أدوات المائدة|غلاية|كنكة|مكواة|شواية)/i.test(t)},
+      {key:'fashion',   name:'الملابس والإكسسوارات',  test: t=>/(شورت|حقيبة|حقيبه|ملابس|قميص|فستان|حذاء|نظارة|ساعة|موضة|أزياء|اكسسوار|طقم|ظهر)/i.test(t)},
+      {key:'auto',      name:'السيارات والملحقات',    test: t=>/(سيارة|سيارات|محول|كاميرا|حامل|مطفأة|فولت|ولاعة|مرآة|شاحن للسيارة|منظم|مروحة سيارة|غطاء سيارة)/i.test(t)},
+      {key:'beauty',    name:'العناية والتجميل',      test: t=>/(شامبو|سيروم|كريم|عطر|حلاقة|تجميل|بشرة|شعر|عناية|مكياج|ماسك|صابون|لوشن|زيت|بودرة|غسول)/i.test(t)},
+      {key:'home',      name:'المنزل والتنظيف',       test: t=>/(منزل|حديقة|تنظيف|غسيل|مكنسة|أثاث|ديكور|إضاءة|مرتبة|مفرش|ستارة|منظف|رف|طاولة|كرسي|مصباح|مروحة)/i.test(t)},
+      {key:'electronics',name:'الإلكترونيات',         test: t=>/(هاتف|شاحن|بطارية|كابل|سماعة|شاشة|إلكتروني|USB|Type-C|تلفزيون|ساعة ذكية|مثقاب|منفاخ)/i.test(t)},
+      {key:'sport',     name:'الرياضة واللياقة',      test: t=>/(رياضة|لياقة|جري|تمارين|كرة|دراجة|وزن|شد|يوغا|تدليك|مساج|طقم رياضي)/i.test(t)},
+      {key:'other',     name:'منتجات متنوعة',         test: t=>true}
     ];
 
-    let ALL=[];     // جميع المنتجات
+    let ALL=[];
     let ACTIVE='all';
 
     function buildFilters(){
       const f=document.getElementById('filters');
-      const btn=(key,name,count)=>`<button class="chip" data-key="${key}">${name}${count?` (${count})`:''}</button>`;
+      const btn=(key,name,count)=>`<button class="chip ${key===ACTIVE?'active':''}" data-key="${key}">${name} (${count})</button>`;
+      
       // حساب الأعداد لكل فئة
       const counts={};
       for(const c of CATS){ counts[c.key]=0; }
+      
       for(const p of ALL){
         const t=p.title;
-        const c=CATS.find(cat=>cat.key!=='other' && cat.test(t));
-        counts[(c?c.key:'other')]++;
+        let matched = false;
+        for(const cat of CATS.slice(1, -1)){ // تجاهل 'all' و 'other'
+          if(cat.test(t)){
+            counts[cat.key]++;
+            matched = true;
+            break;
+          }
+        }
+        if(!matched) counts['other']++;
+        counts['all']++;
       }
-      f.innerHTML = CATS.map(c=>btn(c.key,c.name,counts[c.key]||0)).join('');
+      
+      f.innerHTML = CATS.filter(c => counts[c.key] > 0).map(c=>btn(c.key,c.name,counts[c.key]||0)).join('');
+      
       f.querySelectorAll('.chip').forEach(b=>{
-        b.addEventListener('click',()=>{ setActive(b.dataset.key); });
+        b.addEventListener('click',(e)=>{ 
+          e.preventDefault();
+          setActive(b.dataset.key); 
+        });
       });
-      setActive(ACTIVE);
     }
 
     function setActive(key){
@@ -83,26 +106,42 @@
     }
 
     function addToCart(item){
-      const cart=JSON.parse(localStorage.getItem('sooq-cart')||'[]');
-      const i=cart.findIndex(x=>x.id===item.id);
-      if(i>-1)cart[i].quantity+=1;else cart.push({...item,quantity:1});
-      localStorage.setItem('sooq-cart',JSON.stringify(cart));
-      const n=document.createElement('div');
-      n.style.cssText='position:fixed;top:20px;right:20px;background:#00843d;color:#fff;padding:12px 18px;border-radius:10px;font-weight:700;z-index:9999;box-shadow:0 6px 18px rgba(0,0,0,.2)';
-      n.textContent='✅ تم إضافة '+item.title+' إلى السلة';
-      document.body.appendChild(n);setTimeout(()=>n.remove(),2200);
+      try{
+        const cart=JSON.parse(localStorage.getItem('sooq-cart')||'[]');
+        const i=cart.findIndex(x=>x.id===item.id);
+        if(i>-1)cart[i].quantity+=1;else cart.push({...item,quantity:1});
+        localStorage.setItem('sooq-cart',JSON.stringify(cart));
+        
+        const n=document.createElement('div');
+        n.style.cssText='position:fixed;top:20px;right:20px;background:#00843d;color:#fff;padding:12px 18px;border-radius:10px;font-weight:700;z-index:9999;box-shadow:0 6px 18px rgba(0,0,0,.2);max-width:300px';
+        n.textContent='✅ تم إضافة '+item.title+' إلى السلة';
+        document.body.appendChild(n);
+        setTimeout(()=>n.remove(),3000);
+      }catch(e){
+        console.error('Error adding to cart:', e);
+      }
     }
 
     function render(){
       const grid=document.getElementById('grid');
-      const list=ALL.filter(p=>{
-        const t=p.title;
-        if(ACTIVE==='all') return true;
-        if(ACTIVE==='other'){
-          return !CATS.some(c=>c.key!=='other' && c.test(t));
-        }
-        return CATS.find(c=>c.key===ACTIVE)?.test(t);
-      });
+      let list;
+      
+      if(ACTIVE==='all'){
+        list = ALL;
+      } else if(ACTIVE==='other'){
+        list = ALL.filter(p=>{
+          const t=p.title;
+          return !CATS.slice(1, -1).some(c=>c.test(t));
+        });
+      } else {
+        const category = CATS.find(c=>c.key===ACTIVE);
+        list = category ? ALL.filter(p=>category.test(p.title)) : [];
+      }
+
+      if(list.length === 0){
+        grid.innerHTML='<div class="no-products">لا توجد منتجات في هذه الفئة</div>';
+        return;
+      }
 
       grid.innerHTML='';
       list.forEach(p=>{
@@ -113,11 +152,15 @@
         let discount='';
         if(hasDiscount){
           const d=Math.round((Number(p.price)-Number(p.sale_price))/Number(p.price)*100);
-          discount=`<span class="discount-badge">خصم ${d}%</span>`;
+          if(d>0) discount=`<span class="discount-badge">خصم ${d}%</span>`;
         }
+        
+        // إنشاء رابط صفحة المنتج
+        const productPageUrl = `products-pages/${title.replace(/[^a-zA-Z0-9\u0600-\u06FF\s-]/g, '').replace(/\s+/g, '-').toLowerCase()}-${p.id}.html`;
+        
         grid.innerHTML+=`
-        <article itemscope itemtype='http://schema.org/Product' class=card>
-          <a href="products-pages/product-${p.id}.html" target="_blank" rel="noopener" class="pseudo-cover" title="تفاصيل ${title}" aria-label="تفاصيل ${title}"></a>
+        <article itemscope itemtype='http://schema.org/Product' class='card'>
+          <a href="${productPageUrl}" target="_blank" rel="noopener" class="pseudo-cover" title="تفاصيل ${title}" aria-label="تفاصيل ${title}"></a>
           <img class="productimg" itemprop="image" src="${img}"
             alt="${title}" title="${title}"
             loading="lazy"
@@ -139,16 +182,50 @@
 
     async function load(){
       try{
-        const r=await fetch(DATA_URL,{cache:'no-cache'}); if(!r.ok) throw new Error('HTTP '+r.status);
-        ALL=await r.json();
+        console.log('Fetching products from:', DATA_URL);
+        const response = await fetch(DATA_URL, {
+          method: 'GET',
+          cache: 'no-cache',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        if(!response.ok){
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        console.log('Products loaded:', data.length);
+        
+        if(!Array.isArray(data) || data.length === 0){
+          throw new Error('البيانات فارغة أو غير صحيحة');
+        }
+        
+        ALL = data;
         buildFilters();
         render();
+        
       }catch(e){
-        document.getElementById('grid').innerHTML='<div style="grid-column:1/-1;color:#c53030;text-align:center">❌ خطأ في تحميل المنتجات</div>';
-        console.error(e);
+        console.error('Error loading products:', e);
+        document.getElementById('grid').innerHTML=`
+          <div class="error">
+            ❌ خطأ في تحميل المنتجات<br>
+            <small>${e.message}</small><br>
+            <button onclick="location.reload()" style="margin-top:10px;padding:8px 16px;background:var(--ku-green);color:white;border:none;border-radius:5px;cursor:pointer">
+              إعادة المحاولة
+            </button>
+          </div>`;
       }
     }
-    document.addEventListener('DOMContentLoaded',load);
+
+    // بدء التحميل عند جاهزية الصفحة
+    if(document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', load);
+    } else {
+      load();
+    }
   </script>
 </body>
 </html>
