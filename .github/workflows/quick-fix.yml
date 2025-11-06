@@ -1,0 +1,93 @@
+name: Quick Fix for Website Issues
+
+on:
+  workflow_dispatch:
+
+jobs:
+  quick-fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fix products catalog and generate clean pages
+        run: |
+          echo "🔧 بدء الإصلاح السريع..."
+          
+          # حذف الملفات المعطوبة
+          rm -rf products-pages/*
+          
+          # إنشاء صفحات منتجات نظيفة
+          node -e "
+          const fs = require('fs');
+          
+          console.log('📊 قراءة بيانات المنتجات...');
+          
+          try {
+            const productsData = JSON.parse(fs.readFileSync('products_data.json', 'utf8'));
+            console.log('✅ تم تحميل', productsData.length, 'منتج');
+            
+            // قالب صفحة منتج بسيط
+            const createProductPage = (product) => {
+              return \`<!DOCTYPE html>
+          <html lang=\"ar\" dir=\"rtl\">
+          <head>
+              <meta charset=\"UTF-8\">
+              <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+              <title>\${product.title} - سوق الكويت</title>
+              <link rel=\"stylesheet\" href=\"../assets/css/kuwait-modern.css\">
+          </head>
+          <body>
+              <div class=\"product-page\">
+                  <h1>\${product.title}</h1>
+                  <div class=\"product-details\">
+                      <img src=\"\${product.image_link}\" alt=\"\${product.title}\" loading=\"lazy\">
+                      <div class=\"price\">\${product.sale_price} د.ك</div>
+                      <div class=\"actions\">
+                          <a href=\"https://wa.me/201110760081?text=أريد طلب: \${encodeURIComponent(product.title)}\" 
+                             class=\"whatsapp-btn\" target=\"_blank\">طلب عبر واتساب</a>
+                          <button onclick=\"addToCart(\${product.id})\" class=\"cart-btn\">أضف للسلة</button>
+                      </div>
+                  </div>
+              </div>
+          </body>
+          </html>\`;
+            };
+            
+            // إنشاء الصفحات
+            let created = 0;
+            productsData.forEach(product => {
+              try {
+                const fileName = \`products-pages/product-\${product.id}.html\`;
+                fs.writeFileSync(fileName, createProductPage(product), 'utf8');
+                created++;
+              } catch (error) {
+                console.error('خطأ في المنتج', product.id, ':', error.message);
+              }
+            });
+            
+            console.log(\`✅ تم إنشاء \${created} صفحة منتج\`);
+            
+          } catch (error) {
+            console.error('❌ خطأ في قراءة البيانات:', error.message);
+            process.exit(1);
+          }
+          "
+          
+          echo "✅ تم الانتهاء من الإصلاح!"
+
+      - name: Commit fixes
+        run: |
+          git config --local user.email "80130495+sherow1982@users.noreply.github.com"
+          git config --local user.name "Sherif Salama"
+          git add products-pages/
+          git commit -m "🔧 Quick fix: Generate clean product pages" || echo "Nothing to commit"
+          git push
