@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سوق الكويت 🇰🇼 - الكتالوج الشامل</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--ku-green:#00843d;--ku-red:#ce1126;--ku-gold:#ffcd00}
+    body{font-family:'Cairo',sans-serif;background:#f8f9fa;margin:0}
+    .container{max-width:1200px;margin:0 auto;padding:22px}
+    .header{text-align:center;margin-bottom:30px}
+    .header h1{color:var(--ku-green);font-size:2.5em;margin:0 0 10px;font-weight:900}
+    .header p{color:#666;font-size:1.1em;margin:0}
+    .back-btn{display:inline-block;background:var(--ku-green);color:white;padding:8px 16px;border-radius:25px;text-decoration:none;margin-bottom:20px;font-weight:700}
+    .back-btn:hover{background:#0b7550}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}
+    .chip{background:#fff;border:2px solid #e9ecef;color:#333;border-radius:25px;padding:8px 14px;cursor:pointer;font-weight:700;transition:all 0.2s}
+    .chip:hover{border-color:var(--ku-green);background:#f8f9fa}
+    .chip.active{border-color:var(--ku-green);background:#e9f7ef;color:#0b7550}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(284px,1fr));gap:24px;min-height:400px}
+    .card{background:#fff;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.08);padding:16px;position:relative;border:2px solid transparent;transition:.2s;overflow:hidden}
+    .card:hover{transform:translateY(-6px);border-color:var(--ku-gold)}
+    .pseudo-cover{position:absolute;inset:0;z-index:2;cursor:pointer}
+    img.productimg{width:100%;height:220px;object-fit:cover;border-radius:12px;border:1px solid #eee;background:#fafafa;display:block}
+    .img-fallback{width:100%;height:220px;display:flex;align-items:center;justify-content:center;background:#e2e7ea;color:#888;border-radius:12px;font-size:18px;font-weight:bold;border:1px solid #eee}
+    .title{margin:10px 0 6px; color:var(--ku-green); font-weight:800; font-size:18px; height:46px;overflow:hidden}
+    .price-box{margin-top:10px;text-align:center}
+    .price-current{background:#fff2f2; color:#ce1126; font-weight:bold; border-radius:9px; padding:8px 14px; font-size:20px; display:inline-block}
+    .price-orig{color:#999; font-size:14px; text-decoration:line-through; margin-left:9px}
+    .discount-badge{background:var(--ku-gold);color:#333;padding:2px 12px;border-radius:15px;font-weight:800;margin-right:7px}
+    .actions{display:flex;gap:8px;margin-top:12px;z-index:3;position:relative}
+    .wa{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;border-radius:9px;padding:10px 14px;text-decoration:none;font-weight:700;flex:1;text-align:center}
+    .cart{background:var(--ku-gold);color:#222;border:none;border-radius:9px;padding:10px 14px;font-weight:800;cursor:pointer;flex:1}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <a href="index.html" class="back-btn">← العودة للرئيسية</a>
+      <h1>📦 كتالوج المنتجات</h1>
+      <p>أكثر من 400 منتج عالي الجودة بأفضل الأسعار</p>
+    </div>
+
+    <div id="filters" class="filters"></div>
+    <div id="grid" class="grid"></div>
+  </div>
+  
+  <script>
+    // بيانات المنتجات مدمجة مباشرة لتجنب مشكلة CORS
+    const PRODUCTS=[{"id":1,"title":"حصالة صراف آلي أوتوماتيكية بتصميم كرتوني للأطفال","price":18,"sale_price":13,"image_link":"https://ecomerg.com/uploads/products_images/3711/VGYHOWKJV1B2EQDm1AbQxrUkvYMQQdpzpbSxaIdC.jpg","description":"لعبة تعليمية وترفيهية آمنة للأطفال تساعد في تطوير القدرات الذهنية والحركية. مصنوعة من مواد عالية الجودة وآمنة تماماً للاستخدام. سهل الاستخدام والصيانة. متوفر في الكويت."},{"id":2,"title":"صفاية سلطة دوّارة متعددة الوظائف","price":18,"sale_price":13,"image_link":"https://ecomerg.com/uploads/products_images/3710/Wb0quKAvoB677UBgtCjZiyrSBPEbi3vJQIgo2usj.jpg","description":"منتج عالي الجودة يتميز بالتصميم المتطور والأداء الممتاز. مناسب للاستخدام اليومي ويوفر قيمة ممتازة مقابل السعر. متوفر الآن في الكويت بأفضل سعر. مصنوع من مواد عالية الجودة. خدمة عملاء متميزة."}];
+    
+    const stripNum=t=>(t||'').replace(/^\s*\d+\s*[-–—]?\s*/, '');
+
+    const CATS=[
+      {key:'all',       name:'الكل',                   test: t=>true},
+      {key:'kids',      name:'الأطفال والألعاب',       test: t=>/(أطفال|طفل|لعبة|حصالة|روبوت|فقاعات|كرتوني|تعليمية|باندا|هليكوبتر|طائرة|قطار|سباق|مسدس فقاعات)/i.test(t)},
+      {key:'kitchen',   name:'المطبخ وأدوات الطعام',  test: t=>/(مطبخ|قهوة|صفاية|سلطة|خلاط|عصارة|مفرمة|طبخ|مقلاة|فرن|مطحنة|طاولة|أدوات المائدة|غلاية|كنكة|شواية)/i.test(t)},
+      {key:'fashion',   name:'الملابس والإكسسوارات',  test: t=>/(شورت|حقيبة|حقيبه|ملابس|قميص|فستان|حذاء|نظارة|ساعة|موضة|اكسسوار|طقم|ظهر)/i.test(t)},
+      {key:'auto',      name:'السيارات والملحقات',    test: t=>/(سيارة|سيارات|محول|كاميرا|حامل|مطفأة|فولت|ولاعة|مرآة|شاحن للسيارة|مروحة سيارة|غطاء سيارة)/i.test(t)},
+      {key:'beauty',    name:'العناية والتجميل',      test: t=>/(شامبو|سيروم|كريم|عطر|حلاقة|تجميل|بشرة|شعر|عناية|مكياج|ماسك|صابون|لوشن|زيت|بودرة|غسول)/i.test(t)},
+      {key:'home',      name:'المنزل والتنظيف',       test: t=>/(منزل|حديقة|تنظيف|غسيل|مكنسة|أثاث|ديكور|إضاءة|مرتبة|مفرش|ستارة|منظف|رف|طاولة|كرسي|مصباح|مروحة)/i.test(t)},
+      {key:'electronics',name:'الإلكترونيات',         test: t=>/(هاتف|شاحن|بطارية|كابل|سماعة|شاشة|إلكتروني|USB|Type-C|تلفزيون|ساعة ذكية|مثقاب|منفاخ)/i.test(t)},
+      {key:'sport',     name:'الرياضة واللياقة',      test: t=>/(رياضة|لياقة|جري|تمارين|كرة|دراجة|وزن|شد|يوغا|طقم رياضي)/i.test(t)},
+      {key:'other',     name:'منتجات متنوعة',         test: t=>true}
+    ];
+
+    let ACTIVE='all';
+
+    function buildFilters(){
+      const f=document.getElementById('filters');
+      const btn=(key,name,count)=>`<button class="chip ${key===ACTIVE?'active':''}" data-key="${key}">${name} (${count})</button>`;
+      
+      const counts={};
+      for(const c of CATS){ counts[c.key]=0; }
+      
+      for(const p of PRODUCTS){
+        const t=p.title;
+        let matched = false;
+        for(const cat of CATS.slice(1, -1)){
+          if(cat.test(t)){
+            counts[cat.key]++;
+            matched = true;
+            break;
+          }
+        }
+        if(!matched) counts['other']++;
+        counts['all']++;
+      }
+      
+      f.innerHTML = CATS.filter(c => counts[c.key] > 0).map(c=>btn(c.key,c.name,counts[c.key]||0)).join('');
+      
+      f.querySelectorAll('.chip').forEach(b=>{
+        b.addEventListener('click',(e)=>{ 
+          e.preventDefault();
+          setActive(b.dataset.key); 
+        });
+      });
+    }
+
+    function setActive(key){
+      ACTIVE=key;
+      document.querySelectorAll('.chip').forEach(b=>b.classList.toggle('active', b.dataset.key===key));
+      render();
+    }
+
+    function addToCart(item){
+      try{
+        const cart=JSON.parse(localStorage.getItem('sooq-cart')||'[]');
+        const i=cart.findIndex(x=>x.id===item.id);
+        if(i>-1)cart[i].quantity+=1;else cart.push({...item,quantity:1});
+        localStorage.setItem('sooq-cart',JSON.stringify(cart));
+        
+        const n=document.createElement('div');
+        n.style.cssText='position:fixed;top:20px;right:20px;background:#00843d;color:#fff;padding:12px 18px;border-radius:10px;font-weight:700;z-index:9999;box-shadow:0 6px 18px rgba(0,0,0,.2);max-width:300px';
+        n.textContent='✅ تم إضافة '+item.title+' إلى السلة';
+        document.body.appendChild(n);
+        setTimeout(()=>n.remove(),3000);
+      }catch(e){
+        console.error('Error adding to cart:', e);
+      }
+    }
+
+    function render(){
+      const grid=document.getElementById('grid');
+      let list;
+      
+      if(ACTIVE==='all'){
+        list = PRODUCTS;
+      } else if(ACTIVE==='other'){
+        list = PRODUCTS.filter(p=>{
+          const t=p.title;
+          return !CATS.slice(1, -1).some(c=>c.test(t));
+        });
+      } else {
+        const category = CATS.find(c=>c.key===ACTIVE);
+        list = category ? PRODUCTS.filter(p=>category.test(p.title)) : [];
+      }
+
+      if(list.length === 0){
+        grid.innerHTML='<div class="no-products">لا توجد منتجات في هذه الفئة</div>';
+        return;
+      }
+
+      grid.innerHTML='';
+      list.forEach(p=>{
+        const title=stripNum(p.title);
+        const img=(p.image_link||'').trim();
+        const hasDiscount=Number(p.price)>Number(p.sale_price);
+        const wa='https://wa.me/201110760081?text='+encodeURIComponent('مرحباً، أريد طلب: '+title+' - السعر: '+Number(p.sale_price).toFixed(2)+' د.ك');
+        let discount='';
+        if(hasDiscount){
+          const d=Math.round((Number(p.price)-Number(p.sale_price))/Number(p.price)*100);
+          if(d>0) discount=`<span class="discount-badge">خصم ${d}%</span>`;
+        }
+        
+        const productPageUrl = `products-pages/${title.replace(/[^a-zA-Z0-9\u0600-\u06FF\s-]/g, '').replace(/\s+/g, '-').toLowerCase()}-${p.id}.html`;
+        
+        grid.innerHTML+=`
+        <article itemscope itemtype='http://schema.org/Product' class='card'>
+          <a href="${productPageUrl}" target="_blank" rel="noopener" class="pseudo-cover" title="تفاصيل ${title}" aria-label="تفاصيل ${title}"></a>
+          <img class="productimg" itemprop="image" src="${img}"
+            alt="${title}" title="${title}"
+            loading="lazy"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-fallback" style="display:none">صورة المنتج غير متوفرة</div>
+          <h2 class="title" itemprop="name">${title}</h2>
+          <div class="price-box">
+            ${hasDiscount?`<span class='price-orig'>${Number(p.price).toFixed(2)} د.ك</span>`:''}
+            <span class="price-current" itemprop="price">${Number(p.sale_price).toFixed(2)} د.ك</span>
+            ${discount}
+          </div>
+          <div class="actions">
+            <a class="wa" href="${wa}" target="_blank" rel="noopener" onclick="event.stopPropagation()">واتساب</a>
+            <button class="cart" onclick='event.stopPropagation();addToCart({id:${p.id},title:"${title.replace(/"/g,"&quot;")}",price:Number(${p.sale_price}),image:"${img}"})'>أضف للسلة</button>
+          </div>
+        </article>`;
+      });
+    }
+
+    // بدء التحميل
+    document.addEventListener('DOMContentLoaded', function(){
+      console.log('Loading products from embedded data...');
+      buildFilters();
+      render();
+    });
+  </script>
+</body>
+</html>
