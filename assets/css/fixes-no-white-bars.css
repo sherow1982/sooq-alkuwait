@@ -1,0 +1,48 @@
+/* إزالة أي أشرطة بيضاء غير مرغوبة عبر الموقع */
+:root {
+  --page-bg: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+/* إزالة هوامش ومسافات قد تُحدث شرائط بيضاء أعلى/أسفل الأقسام */
+html, body {
+  background: var(--page-bg);
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* منع ظهور شريط أبيض أعلى الهيدر عند التثبيت */
+.hk-header, .header {
+  margin-top: 0 !important;
+  border: 0;
+}
+
+/* الهيرو والصفحات القانونية: منع فجوة بين الهيدر وبداية القسم */
+.hero, .legal-header {
+  margin-top: 0 !important;
+  padding-top: clamp(32px, 6vw, 48px);
+}
+
+/* إزالة أي خلفية بيضاء ثابتة قد تضاف من أقسام قديمة */
+section, header, footer, main, .container {
+  background-color: transparent !important;
+}
+
+/* معالجة شريط أبيض بسبب box-shadow أو background-clip */
+.legal-header::before, .countdown-container::before {
+  background-clip: padding-box;
+}
+
+/* تأكيد عدم وجود فواصل خلفية بيضاء في أعلى/أسفل الصفحة */
+body::before, body::after {
+  content: none !important;
+}
+
+/* معالجة الهوامش السفلية للأقسام التي قد تصنع شريطاً أبيض قبل الفوتر */
+.hero, .products-section, .features-section, .legal-content {
+  margin-bottom: 0 !important;
+}
+
+/* تدرج خلفية موحد للأقسام الكبيرة لضمان الاستمرارية */
+.legal-page {
+  background: var(--page-bg);
+}

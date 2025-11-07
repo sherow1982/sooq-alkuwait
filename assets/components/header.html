@@ -1,0 +1,240 @@
+<!-- هيدر احترافي موحد لجميع صفحات سوق الكويت -->
+<style>
+.header-wrapper {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.top-bar {
+    background: #e74c3c;
+    color: white;
+    padding: 8px 0;
+    font-size: 14px;
+    text-align: center;
+    animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.header-main {
+    padding: 15px 0;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.logo-icon {
+    font-size: 32px;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+}
+
+.header-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.search-box {
+    position: relative;
+    display: none;
+}
+
+.search-input {
+    padding: 8px 35px 8px 15px;
+    border: none;
+    border-radius: 20px;
+    width: 200px;
+    outline: none;
+}
+
+.search-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+}
+
+.phone-btn {
+    background: #27ae60;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.phone-btn:hover {
+    background: #219a52;
+    transform: translateY(-2px);
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        grid-template-columns: auto 1fr auto;
+    }
+    
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #2c3e50;
+        flex-direction: column;
+        padding: 20px;
+        gap: 10px;
+    }
+    
+    .nav-menu.active {
+        display: flex;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .search-box {
+        display: none !important;
+    }
+}
+</style>
+
+<div class="header-wrapper">
+    <!-- شريط علوي -->
+    <div class="top-bar">
+        🔥 عروض خاصة محدودة • توصيل مجاني لجميع مناطق الكويت • خدمة عملاء 24/7
+    </div>
+    
+    <!-- الهيدر الرئيسي -->
+    <div class="header-main">
+        <div class="header-container">
+            <!-- اللوجو -->
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🛒</span>
+                <span class="logo-text">سوق الكويت</span>
+            </a>
+            
+            <!-- القائمة الرئيسية -->
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="index.html" class="nav-link">🏠 الرئيسية</a></li>
+                    <li><a href="products-catalog.html" class="nav-link">🛒 المنتجات</a></li>
+                    <li><a href="#categories" class="nav-link">📂 الفئات</a></li>
+                    <li><a href="about.html" class="nav-link">📝 من نحن</a></li>
+                    <li><a href="contact.html" class="nav-link">📞 اتصل بنا</a></li>
+                </ul>
+            </nav>
+            
+            <!-- الأجراءات -->
+            <div class="header-actions">
+                <!-- مربع بحث -->
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="ابحث عن منتج...">
+                    <button class="search-btn">🔍</button>
+                </div>
+                
+                <!-- زر الهاتف -->
+                <a href="tel:+96590000000" class="phone-btn">
+                    📞 اطلب الآن
+                </a>
+                
+                <!-- زر القائمة للجوال -->
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    ☰
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// قائمة الجوال
+document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+    const navMenu = document.getElementById('nav-menu');
+    navMenu.classList.toggle('active');
+});
+
+// إغلاق القائمة عند النقر خارجها
+document.addEventListener('click', function(e) {
+    const navMenu = document.getElementById('nav-menu');
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    
+    if (!navMenu.contains(e.target) && e.target !== mobileBtn) {
+        navMenu.classList.remove('active');
+    }
+});
+
+// تفعيل البحث
+const searchInput = document.querySelector('.search-input');
+if (searchInput) {
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            const searchTerm = this.value;
+            if (searchTerm) {
+                window.location.href = `products-catalog.html?search=${encodeURIComponent(searchTerm)}`;
+            }
+        }
+    });
+}
+</script>

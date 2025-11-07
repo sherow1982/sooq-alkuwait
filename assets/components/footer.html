@@ -1,0 +1,274 @@
+<!-- فوتر احترافي بألوان علم الكويت -->
+<style>
+.footer-wrapper {
+    background: linear-gradient(135deg, #2c5530, #1e3a20);
+    color: white;
+    margin-top: 50px;
+}
+
+.footer-top {
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+    padding: 40px 0;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-section h3 {
+    color: #f4d03f;
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(244, 208, 63, 0.3);
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-links a:hover {
+    color: #f4d03f;
+}
+
+.contact-info {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background: #f4d03f;
+    color: #2c5530;
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    background: #1e3a20;
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid rgba(244, 208, 63, 0.2);
+}
+
+.legal-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.legal-links a {
+    color: #f4d03f;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.legal-links a:hover {
+    background: rgba(244, 208, 63, 0.1);
+}
+
+.kuwait-flag {
+    display: inline-block;
+    margin: 0 5px;
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .legal-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+}
+</style>
+
+<footer class="footer-wrapper">
+    <div class="footer-top">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- معلومات الشركة -->
+                <div class="footer-section">
+                    <h3>🇿🇰 سوق الكويت</h3>
+                    <p style="line-height: 1.6; margin-bottom: 20px;">
+                        وجهتك الأولى للتسوق الإلكتروني الموثوق في دولة الكويت، نوفر أكثر من 1977 منتج بجودة عالية وأسعار تنافسية.
+                    </p>
+                    
+                    <!-- روابط اجتماعية -->
+                    <div class="social-links">
+                        <a href="https://wa.me/96590000000" title="واتساب">💬</a>
+                        <a href="tel:+96590000000" title="اتصل بنا">📞</a>
+                        <a href="mailto:info@sooq-alkuwait.com" title="البريد الإلكتروني">📧</a>
+                        <a href="#" title="فيسبوك">🔵</a>
+                        <a href="#" title="إنستقرام">🟣</a>
+                    </div>
+                </div>
+                
+                <!-- روابط سريعة -->
+                <div class="footer-section">
+                    <h3>🔗 روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">🏠 الصفحة الرئيسية</a></li>
+                        <li><a href="products-catalog.html">🛒 جميع المنتجات</a></li>
+                        <li><a href="#categories">📂 فئات المنتجات</a></li>
+                        <li><a href="about.html">📝 من نحن</a></li>
+                        <li><a href="contact.html">📞 اتصل بنا</a></li>
+                        <li><a href="shipping.html">🚚 معلومات الشحن</a></li>
+                    </ul>
+                </div>
+                
+                <!-- معلومات التواصل -->
+                <div class="footer-section">
+                    <h3>📞 معلومات التواصل</h3>
+                    <div class="contact-info">
+                        <p><strong>📱 الهاتف:</strong> +965 9000 0000</p>
+                        <p><strong>📧 البريد:</strong> info@sooq-alkuwait.com</p>
+                        <p><strong>🕐 العمل:</strong> 24 ساعة - 7 أيام</p>
+                        <p><strong>🚚 التوصيل:</strong> مجاني في الكويت</p>
+                    </div>
+                </div>
+                
+                <!-- خدمات العملاء -->
+                <div class="footer-section">
+                    <h3>🎁 خدمات العملاء</h3>
+                    <ul class="footer-links">
+                        <li><a href="help.html">❓ المساعدة والدعم</a></li>
+                        <li><a href="track-order.html">📦 تتبع طلبك</a></li>
+                        <li><a href="returns.html">🔄 سياسة الارجاع</a></li>
+                        <li><a href="warranty.html">🔒 معلومات الضمان</a></li>
+                        <li><a href="faq.html">❓ الأسئلة الشائعة</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- القسم السفلي -->
+    <div class="footer-bottom">
+        <div class="footer-container">
+            <!-- الروابط القانونية -->
+            <div class="legal-links">
+                <a href="privacy.html">🔒 سياسة الخصوصية</a>
+                <a href="terms.html">📄 الشروط والأحكام</a>
+                <a href="refund.html">💰 سياسة الاسترداد</a>
+                <a href="delivery.html">🚚 شروط التوصيل</a>
+                <a href="cookies.html">🍪 سياسة ملفات تعريف الارتباط</a>
+            </div>
+            
+            <!-- بيان حقوق الطبع -->
+            <div style="margin: 20px 0; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                <p style="font-weight: bold; color: #f4d03f;">
+                    <span class="kuwait-flag">🇿🇰</span>
+                    سوق الكويت - المتجر الإلكتروني الأول في دولة الكويت
+                    <span class="kuwait-flag">🇿🇰</span>
+                </p>
+                <p style="margin: 10px 0;">جميع الحقوق محفوظة &copy; 2024-2025</p>
+                <p style="font-size: 14px; opacity: 0.9;">
+                    جودة عالية • أسعار تنافسية • خدمة متميزة • ثقة وأمان
+                </p>
+            </div>
+            
+            <!-- شهادات واعتمادات -->
+            <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0; flex-wrap: wrap;">
+                <span style="background: rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 15px; font-size: 12px;">
+                    ✅ معتمد من وزارة التجارة
+                </span>
+                <span style="background: rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 15px; font-size: 12px;">
+                    ✅ عضو غرفة تجارة الكويت
+                </span>
+                <span style="background: rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 15px; font-size: 12px;">
+                    ✅ SSL آمن ومشفر
+                </span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+// إضافة تأثيرات بصرية للفوتر
+document.addEventListener('DOMContentLoaded', function() {
+    const footerSections = document.querySelectorAll('.footer-section');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    });
+    
+    footerSections.forEach((section, index) => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = `all 0.6s ease ${index * 0.1}s`;
+        observer.observe(section);
+    });
+});
+
+// تأثير نبضة لعلم الكويت
+setInterval(() => {
+    const flags = document.querySelectorAll('.kuwait-flag');
+    flags.forEach(flag => {
+        flag.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+            flag.style.transform = 'scale(1)';
+        }, 500);
+    });
+}, 5000);
+</script>

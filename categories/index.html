@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO محسّن -->
+    <title>🇰🇼 الفئات | سوق الكويت - تصفح حسب الفئة</title>
+    <meta name="description" content="تصفح منتجات سوق الكويت حسب الفئة - إلكترونيات، عناية بشرة، منتجات منزلية، ملابس، ألعاب أطفال وأكثر. أكثر من 1977 منتج بأفضل الأسعار.">
+    <meta name="keywords" content="فئات المنتجات, تصفح حسب الفئة, إلكترونيات, عناية بشرة, منتجات منزلية, ألعاب, ملابس">
+    <link rel="canonical" href="https://sooq-alkuwait.arabsad.com/categories/">
+    
+    <!-- Bootstrap & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- التصميم الجديد -->
+    <link href="../css/kuwait-neon-style.css" rel="stylesheet">
+    <link href="../css/ui-ux-pro.css" rel="stylesheet">
+    <link href="../css/mobile-fix.css" rel="stylesheet">
+</head>
+<body>
+    <!-- نافبار محسّن -->
+    <nav class="navbar-pro">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="../index.html" class="navbar-brand-pro">
+                    <i class="fas fa-store me-2"></i>🇰🇼 سوق الكويت
+                </a>
+                
+                <!-- بحث متقدم -->
+                <div class="search-box-pro">
+                    <input type="text" class="search-input-pro" placeholder="ابحث عن منتجات..." id="searchInput">
+                    <button class="search-btn-pro" onclick="performSearch()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <div style="display: flex; gap: 1.5rem; align-items: center;">
+                    <a href="../cart-enhanced.html" class="cart-icon-pro">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge-pro" id="cartBadge">0</span>
+                    </a>
+                    <a href="https://wa.me/201110760081?text=مرحباً!%20أريد%20الاستفسار%20عن%20سوق%20الكويت" 
+                       target="_blank" 
+                       style="color: #25D366; font-size: 2rem; transition: 0.3s;">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section style="background: linear-gradient(135deg, var(--kuwait-green), var(--kuwait-black), var(--kuwait-red)); padding: 3rem 0; text-align: center;">
+        <div class="container">
+            <h1 style="font-size: 3rem; font-weight: 900; color: var(--neon-gold); text-shadow: 0 0 30px var(--neon-gold); margin-bottom: 0.5rem;">
+                <i class="fas fa-th me-2"></i>تصفح حسب الفئة
+            </h1>
+            <p style="font-size: 1.2rem; color: white; margin-bottom: 0;">
+                اختر الفئة المناسبة لك واستمتع بالتسوق
+            </p>
+        </div>
+    </section>
+
+    <!-- قسم الفئات -->
+    <section style="padding: 4rem 0; background: var(--bg-dark);">
+        <div class="container">
+            <div id="categoriesGrid" class="products-grid-pro">
+                <!-- سيتم ملء الفئات عبر JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer محسّن -->
+    <footer style="background: linear-gradient(135deg, var(--kuwait-black), var(--bg-dark), var(--kuwait-green)); border-top: 3px solid var(--neon-green); padding: 4rem 0 1.5rem; box-shadow: 0 -5px 30px rgba(0,255,127,0.3);">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 style="color: var(--neon-gold); text-shadow: 0 0 15px var(--neon-gold);">
+                        <i class="fas fa-store me-2"></i>🇰🇼 سوق الكويت
+                    </h3>
+                    <p style="color: rgba(255,255,255,0.8);">متجرك الإلكتروني الموثوق لأفضل المنتجات بأسعار تنافسية</p>
+                </div>
+                <div class="footer-section">
+                    <h3 style="color: var(--neon-gold); text-shadow: 0 0 15px var(--neon-gold);">
+                        <i class="fas fa-headset me-2"></i>خدمة العملاء
+                    </h3>
+                    <ul>
+                        <li><a href="https://wa.me/201110760081" target="_blank" style="color: #25D366;"><i class="fab fa-whatsapp me-2"></i>+201110760081</a></li>
+                        <li><a href="../shipping.html" style="color: rgba(255,255,255,0.8);"><i class="fas fa-truck me-2"></i>سياسة الشحن</a></li>
+                        <li><a href="../returns.html" style="color: rgba(255,255,255,0.8);"><i class="fas fa-undo me-2"></i>سياسة الإرجاع</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 style="color: var(--neon-gold); text-shadow: 0 0 15px var(--neon-gold);">
+                        <i class="fas fa-link me-2"></i>روابط سريعة
+                    </h3>
+                    <ul>
+                        <li><a href="../index.html" style="color: rgba(255,255,255,0.8);"><i class="fas fa-home me-2"></i>الرئيسية</a></li>
+                        <li><a href="../products-catalog.html" style="color: rgba(255,255,255,0.8);"><i class="fas fa-shopping-bag me-2"></i>كاتالوج المنتجات</a></li>
+                        <li><a href="../contact.html" style="color: rgba(255,255,255,0.8);"><i class="fas fa-envelope me-2"></i>اتصل بنا</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="border-color: rgba(0,255,127,0.3); margin: 2rem 0;">
+            <div style="text-align: center; color: rgba(255,255,255,0.6);">
+                <p>&copy; 2024 🇰🇼 سوق الكويت - جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- زر واتساب عائم -->
+    <a href="https://wa.me/201110760081?text=مرحباً!%20أريد%20الاستفسار%20عن%20منتجات%20سوق%20الكويت" 
+       target="_blank" 
+       class="whatsapp-float-pro">
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-text-pro">طلب عبر واتساب</span>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // الفئات الرئيسية مع الأيقونات والعدد التقريبي
+        const categories = [
+            { name: 'إلكترونيات ومحمول', icon: 'fas fa-mobile-alt', count: 250, desc: 'هواتف، ساعات ذكية، سماعات وأكثر' },
+            { name: 'عناية بشرة وجمال', icon: 'fas fa-spa', count: 210, desc: 'كريمات، سيروم، ماسكات وعناية كاملة' },
+            { name: 'عطور ومستحضرات', icon: 'fas fa-spray-can', count: 150, desc: 'عطور رجالية ونسائية فاخرة' },
+            { name: 'ألعاب أطفال', icon: 'fas fa-gamepad', count: 200, desc: 'ألعاب تعليمية وترفيهية للأطفال' },
+            { name: 'منتجات منزلية', icon: 'fas fa-home', count: 220, desc: 'أدوات منزلية وديكورات عصرية' },
+            { name: 'مطبخ وأدوات طبخ', icon: 'fas fa-utensils', count: 170, desc: 'أدوات وأجهزة المطبخ الحديثة' },
+            { name: 'ملابس وإكسسوارات', icon: 'fas fa-tshirt', count: 190, desc: 'أزياء عصرية وحقائب راقية' },
+            { name: 'رياضة ولياقة', icon: 'fas fa-dumbbell', count: 140, desc: 'معدات رياضية ولياقة بدنية' },
+            { name: 'سيارات وملحقات', icon: 'fas fa-car', count: 160, desc: 'إكسسوارات وأدوات للسيارات' },
+            { name: 'صحة وعافية', icon: 'fas fa-heart', count: 180, desc: 'منتجات صحية وعلاجية طبيعية' },
+            { name: 'أجهزة كهربائية', icon: 'fas fa-plug', count: 130, desc: 'أجهزة منزلية كهربائية متنوعة' },
+            { name: 'حدائق ومعدات', icon: 'fas fa-seedling', count: 95, desc: 'أدوات ومعدات العناية بالحديقة' }
+        ];
+        
+        // عرض الفئات
+        function displayCategories() {
+            const grid = document.getElementById('categoriesGrid');
+            
+            grid.innerHTML = categories.map(cat => `
+                <div class="feature-box" style="cursor: pointer; transition: 0.3s; position: relative; overflow: hidden;" 
+                     onclick="window.location.href='../products-catalog.html?category=${encodeURIComponent(cat.name)}'">
+                    <i class="${cat.icon}" style="color: var(--neon-gold); font-size: 3.5rem; margin-bottom: 1rem;"></i>
+                    <h3 style="color: var(--neon-gold); font-weight: 700; margin: 1rem 0; font-size: 1.4rem;">
+                        ${cat.name}
+                    </h3>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-bottom: 1rem;">
+                        ${cat.desc}
+                    </p>
+                    <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem; font-weight: 600;">
+                        <i class="fas fa-box"></i> ${cat.count}+ منتج
+                    </p>
+                    <div style="margin-top: 1.5rem;">
+                        <button class="buy-button" style="width: 100%; padding: 1rem; font-size: 1.1rem;">
+                            <i class="fas fa-arrow-left me-2"></i>تصفح الفئة
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // بحث بسيط
+        function performSearch() {
+            const query = document.getElementById('searchInput').value;
+            if (query.trim()) {
+                window.location.href = `../products-catalog.html?search=${encodeURIComponent(query)}`;
+            }
+        }
+        
+        // Enter للبحث
+        document.getElementById('searchInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') performSearch();
+        });
+        
+        // تحديث عداد السلة
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('sooq_alkuwait_cart') || '[]');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const badge = document.getElementById('cartBadge');
+            if (badge && totalItems > 0) {
+                badge.textContent = totalItems;
+                badge.style.display = 'flex';
+            }
+        }
+        
+        // تحميل عند فتح الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartBadge();
+            displayCategories();
+        });
+    </script>
+</body>
+</html>

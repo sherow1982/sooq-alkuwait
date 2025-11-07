@@ -1,0 +1,72 @@
+/* Kuwait Modern Theme - Full Site Reset and Redesign */
+:root{
+  --ku-green:#2d5230;--ku-red:#d32f2f;--ku-black:#0f1113;--ku-white:#ffffff;--ku-gold:#f4d03f;--ku-gray:#f5f7fa;--ku-blue:#1f6feb;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"Cairo",system-ui,Segoe UI,Arial,sans-serif;background:var(--ku-gray);color:#222;direction:rtl}
+
+/* Global containers */
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+.section{padding:70px 0}
+.card{background:#fff;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.08);overflow:hidden}
+
+/* Kuwait Flag Hero */
+.hero-kuwait{position:relative;min-height:72vh;display:grid;place-items:center;text-align:center;color:#fff;background:
+linear-gradient(135deg,rgba(45,82,48,.95),rgba(211,47,47,.9)),
+radial-gradient(1000px 500px at -10% 120%,rgba(0,0,0,.7),transparent 60%),
+radial-gradient(900px 450px at 120% -20%,rgba(0,0,0,.5),transparent 60%);
+}
+.hero-kuwait .brand{font-weight:900;font-size:42px;letter-spacing:.5px;text-shadow:0 10px 30px rgba(0,0,0,.35)}
+.hero-kuwait .tag{margin-top:10px;font-size:18px;color:var(--ku-gold)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,minmax(160px,1fr));gap:16px;margin-top:28px}
+.stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(6px);border-radius:16px;padding:18px}
+.stat .num{font-size:28px;font-weight:800;color:var(--ku-gold)}
+
+/* Header/Nav */
+.header{position:sticky;top:0;z-index:999;background:linear-gradient(90deg,var(--ku-black),#1b1f24);border-bottom:1px solid rgba(255,255,255,.06)}
+.header .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;gap:10px;align-items:center;color:#fff;text-decoration:none;font-weight:900}
+.logo-badge{width:34px;height:34px;border-radius:10px;background:conic-gradient(from 210deg,var(--ku-black) 0 25%,var(--ku-green) 25% 55%,var(--ku-white) 55% 80%,var(--ku-red) 80% 100%);box-shadow:0 6px 16px rgba(0,0,0,.35)}
+.menu{display:flex;gap:18px}
+.menu a{color:#c9d1d9;text-decoration:none;font-weight:600;padding:9px 14px;border-radius:10px;transition:.25s}
+.menu a:hover{background:rgba(255,255,255,.08);color:#fff;transform:translateY(-1px)}
+.cta{background:linear-gradient(135deg,var(--ku-green),#25d366);color:#fff;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:800;box-shadow:0 10px 25px rgba(37,211,102,.35);transition:.25s}
+.cta:hover{transform:translateY(-2px)}
+
+/* Category tiles */
+.categories{background:linear-gradient(135deg,#ffffff, #f6f9ff)}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.cat{position:relative;border-radius:18px;overflow:hidden}
+.cat-head{padding:24px;color:#fff}
+.cat:nth-child(1) .cat-head{background:linear-gradient(135deg,var(--ku-green),#2e7d32)}
+.cat:nth-child(2) .cat-head{background:linear-gradient(135deg,var(--ku-red),#c62828)}
+.cat:nth-child(3) .cat-head{background:linear-gradient(135deg,var(--ku-black),#424242)}
+.cat:nth-child(4) .cat-head{background:linear-gradient(135deg,#e67e22,#d35400)}
+.cat:nth-child(5) .cat-head{background:linear-gradient(135deg,#8e44ad,#6c3483)}
+.cat:nth-child(6) .cat-head{background:linear-gradient(135deg,var(--ku-green),var(--ku-red))}
+.cat-title{font-size:20px;font-weight:800}
+.cat-body{background:#fff;padding:18px;color:#435}
+
+/* Product cards */
+.products .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.p{border:1px solid #eef2f7;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.05)}
+.p img{width:100%;height:180px;object-fit:cover}
+.p .info{padding:12px}
+.price{display:flex;align-items:center;gap:8px;margin-top:8px}
+.price .now{color:var(--ku-red);font-weight:900}
+.price .old{text-decoration:line-through;color:#9aa4b2;font-weight:600}
+.btn{display:inline-block;margin-top:10px;background:linear-gradient(135deg,var(--ku-green),#25d366);color:#fff;padding:10px 14px;border-radius:12px;text-decoration:none;font-weight:800}
+
+/* Footer */
+.footer{background:linear-gradient(135deg,var(--ku-black),#1b1f24);color:#c9d1d9}
+.footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;padding:40px 0}
+.footer a{color:#c9d1d9;text-decoration:none}
+.footer a:hover{color:#fff}
+.copy{border-top:1px solid rgba(255,255,255,.08);padding:14px 0;color:#8b949e}
+
+/* Countdown label */
+.count{display:inline-flex;gap:8px;align-items:center;background:linear-gradient(135deg,var(--ku-red),#e74c3c);color:#fff;padding:8px 12px;border-radius:12px;margin-top:14px;font-weight:800}
+
+/* Responsive */
+@media(max-width:768px){.hero-stats{grid-template-columns:repeat(2,1fr)}.menu{display:none}}

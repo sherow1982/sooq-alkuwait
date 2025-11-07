@@ -1,0 +1,901 @@
+/**
+ * 🇰🇼 تصميم سوق الكويت - نيون مبهر
+ * ألوان علم الكويت مع تأثيرات نيون احترافية
+ * مستوحى من إعلانات النيون في شوارع الكويت
+ * التاريخ: 2025-11-07
+ */
+
+/* ============================================
+   متغيرات ألوان علم الكويت
+   ============================================ */
+:root {
+    /* ألوان علم الكويت الرسمية */
+    --kuwait-green: #007A3D;      /* الأخضر */
+    --kuwait-white: #FFFFFF;      /* الأبيض */
+    --kuwait-red: #CE1126;        /* الأحمر */
+    --kuwait-black: #000000;      /* الأسود */
+    
+    /* ألوان نيون مشتقة */
+    --neon-green: #00FF7F;
+    --neon-red: #FF1744;
+    --neon-white: #FFFFFF;
+    --neon-gold: #FFD700;
+    --neon-cyan: #00FFFF;
+    
+    /* خلفيات */
+    --bg-dark: #0a0e27;
+    --bg-darker: #050813;
+    --bg-card: rgba(10, 14, 39, 0.95);
+    
+    /* ظلال نيون */
+    --glow-green: 0 0 10px var(--neon-green),
+                  0 0 20px var(--neon-green),
+                  0 0 30px var(--neon-green),
+                  0 0 40px var(--kuwait-green);
+    
+    --glow-red: 0 0 10px var(--neon-red),
+                0 0 20px var(--neon-red),
+                0 0 30px var(--neon-red),
+                0 0 40px var(--kuwait-red);
+    
+    --glow-gold: 0 0 10px var(--neon-gold),
+                 0 0 20px var(--neon-gold),
+                 0 0 30px var(--neon-gold),
+                 0 0 40px #FFA500;
+    
+    --glow-white: 0 0 10px var(--neon-white),
+                  0 0 20px var(--neon-white),
+                  0 0 30px var(--neon-white);
+}
+
+/* ============================================
+   الخطوط - نمط نيون
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap');
+
+body {
+    font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
+    background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 50%, #1a1f3a 100%);
+    background-attachment: fixed;
+    color: var(--neon-white);
+    line-height: 1.8;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* تأثير النجوم في الخلفية */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20% 30%, white, transparent),
+        radial-gradient(2px 2px at 60% 70%, white, transparent),
+        radial-gradient(1px 1px at 50% 50%, white, transparent),
+        radial-gradient(1px 1px at 80% 10%, white, transparent),
+        radial-gradient(2px 2px at 90% 60%, white, transparent),
+        radial-gradient(1px 1px at 33% 80%, white, transparent);
+    background-size: 200% 200%;
+    animation: stars 60s linear infinite;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes stars {
+    0%, 100% { background-position: 0 0, 40% 60%, 130% 80%, 70% 50%, 90% 30%, 20% 90%; }
+    50% { background-position: 100% 100%, 60% 40%, 50% 20%, 130% 150%, 10% 70%, 80% 10%; }
+}
+
+/* ============================================
+   شريط التنقل - نيون كويتي
+   ============================================ */
+.navbar {
+    background: linear-gradient(135deg, 
+        var(--kuwait-black) 0%,
+        var(--bg-dark) 50%,
+        var(--kuwait-green) 100%) !important;
+    border-bottom: 3px solid var(--neon-green);
+    box-shadow: 
+        0 5px 30px rgba(0, 255, 127, 0.3),
+        0 0 60px rgba(0, 122, 61, 0.2);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    animation: navPulse 3s ease-in-out infinite;
+}
+
+@keyframes navPulse {
+    0%, 100% { 
+        box-shadow: 0 5px 30px rgba(0, 255, 127, 0.3),
+                    0 0 60px rgba(0, 122, 61, 0.2);
+    }
+    50% { 
+        box-shadow: 0 5px 40px rgba(0, 255, 127, 0.5),
+                    0 0 80px rgba(0, 122, 61, 0.4);
+    }
+}
+
+.navbar-brand {
+    font-size: 2.5rem !important;
+    font-weight: 900 !important;
+    color: var(--neon-green) !important;
+    text-shadow: var(--glow-green);
+    letter-spacing: 2px;
+    animation: brandGlow 2s ease-in-out infinite;
+}
+
+@keyframes brandGlow {
+    0%, 100% { 
+        text-shadow: var(--glow-green);
+        transform: scale(1);
+    }
+    50% { 
+        text-shadow: 
+            0 0 15px var(--neon-green),
+            0 0 30px var(--neon-green),
+            0 0 45px var(--neon-green),
+            0 0 60px var(--kuwait-green);
+        transform: scale(1.05);
+    }
+}
+
+.nav-link {
+    color: var(--neon-white) !important;
+    font-weight: 600 !important;
+    padding: 0.8rem 1.5rem !important;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--neon-green) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.nav-link:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.nav-link:hover {
+    color: var(--neon-green) !important;
+    text-shadow: var(--glow-green);
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   بطاقة المنتج - نيون مبهر
+   ============================================ */
+.product-image {
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 3px solid var(--neon-green);
+    box-shadow: 
+        var(--glow-green),
+        inset 0 0 20px rgba(0, 255, 127, 0.1);
+    transition: all 0.5s ease;
+    position: relative;
+}
+
+.product-image:hover {
+    transform: scale(1.08) rotate(2deg);
+    border-color: var(--neon-gold);
+    box-shadow: 
+        var(--glow-gold),
+        0 0 60px rgba(255, 215, 0, 0.6),
+        inset 0 0 30px rgba(255, 215, 0, 0.2);
+    filter: brightness(1.1) contrast(1.1);
+}
+
+/* عنوان المنتج */
+h1, .display-6 {
+    background: linear-gradient(
+        45deg,
+        var(--neon-green) 0%,
+        var(--neon-gold) 50%,
+        var(--neon-green) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shineText 3s linear infinite;
+    font-weight: 900 !important;
+    text-shadow: none;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 127, 0.5));
+}
+
+@keyframes shineText {
+    to { background-position: 200% center; }
+}
+
+/* ============================================
+   قسم السعر - نيون احترافي
+   ============================================ */
+.price-section {
+    background: linear-gradient(
+        135deg,
+        var(--kuwait-green) 0%,
+        var(--kuwait-black) 50%,
+        var(--kuwait-green) 100%
+    ) !important;
+    border: 3px solid var(--neon-green);
+    border-radius: 25px;
+    padding: 30px;
+    margin: 25px 0;
+    box-shadow: 
+        var(--glow-green),
+        inset 0 0 30px rgba(0, 255, 127, 0.1);
+    position: relative;
+    overflow: hidden;
+    animation: priceGlow 2s ease-in-out infinite;
+}
+
+.price-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(0, 255, 127, 0.1) 50%,
+        transparent 70%
+    );
+    animation: priceShine 3s linear infinite;
+}
+
+@keyframes priceShine {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes priceGlow {
+    0%, 100% { 
+        box-shadow: var(--glow-green),
+                    inset 0 0 30px rgba(0, 255, 127, 0.1);
+    }
+    50% { 
+        box-shadow: 
+            0 0 20px var(--neon-green),
+            0 0 40px var(--neon-green),
+            0 0 60px var(--neon-green),
+            0 0 80px var(--kuwait-green),
+            inset 0 0 40px rgba(0, 255, 127, 0.2);
+    }
+}
+
+.original-price {
+    text-decoration: line-through !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 1.5em !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.sale-price {
+    font-size: 3.5em !important;
+    font-weight: 900 !important;
+    color: var(--neon-gold) !important;
+    text-shadow: var(--glow-gold);
+    animation: pricePulse 1.5s ease-in-out infinite;
+    letter-spacing: 3px;
+}
+
+@keyframes pricePulse {
+    0%, 100% { 
+        transform: scale(1);
+        text-shadow: var(--glow-gold);
+    }
+    50% { 
+        transform: scale(1.1);
+        text-shadow: 
+            0 0 15px var(--neon-gold),
+            0 0 30px var(--neon-gold),
+            0 0 45px var(--neon-gold),
+            0 0 60px #FFA500;
+    }
+}
+
+/* شارة الخصم - نيون أحمر */
+.discount-badge {
+    background: linear-gradient(
+        135deg,
+        var(--kuwait-red) 0%,
+        var(--neon-red) 50%,
+        var(--kuwait-red) 100%
+    ) !important;
+    border: 2px solid var(--neon-red);
+    color: white !important;
+    padding: 12px 30px !important;
+    border-radius: 50px !important;
+    font-weight: 900 !important;
+    font-size: 1.3em !important;
+    box-shadow: var(--glow-red);
+    animation: badgePulse 1s ease-in-out infinite;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+@keyframes badgePulse {
+    0%, 100% { 
+        transform: scale(1);
+        box-shadow: var(--glow-red);
+    }
+    50% { 
+        transform: scale(1.05);
+        box-shadow: 
+            0 0 15px var(--neon-red),
+            0 0 30px var(--neon-red),
+            0 0 45px var(--neon-red),
+            0 0 60px var(--kuwait-red);
+    }
+}
+
+/* ============================================
+   العداد التنازلي - نيون متحرك
+   ============================================ */
+.countdown-timer {
+    background: linear-gradient(
+        135deg,
+        var(--kuwait-red) 0%,
+        var(--kuwait-black) 50%,
+        var(--kuwait-red) 100%
+    ) !important;
+    border: 3px solid var(--neon-red);
+    border-radius: 20px;
+    padding: 25px;
+    margin: 20px 0;
+    text-align: center;
+    box-shadow: var(--glow-red);
+    position: relative;
+    overflow: hidden;
+}
+
+.countdown-timer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 23, 68, 0.3),
+        transparent
+    );
+    animation: countdownSweep 2s linear infinite;
+}
+
+@keyframes countdownSweep {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.timer-unit {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6) !important;
+    border: 2px solid var(--neon-gold);
+    border-radius: 15px;
+    min-width: 80px;
+    box-shadow: 
+        0 0 20px rgba(255, 215, 0, 0.4),
+        inset 0 0 20px rgba(255, 215, 0, 0.1);
+}
+
+.timer-unit div {
+    font-size: 2.5em !important;
+    font-weight: 900 !important;
+    color: var(--neon-gold) !important;
+    text-shadow: var(--glow-gold);
+    animation: timerFlicker 0.5s ease-in-out infinite;
+}
+
+@keyframes timerFlicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+/* ============================================
+   الأزرار - نيون تفاعلي
+   ============================================ */
+.buy-button {
+    background: linear-gradient(
+        135deg,
+        var(--kuwait-green) 0%,
+        var(--neon-green) 50%,
+        var(--kuwait-green) 100%
+    ) !important;
+    border: 3px solid var(--neon-green) !important;
+    padding: 20px 50px !important;
+    font-size: 1.5em !important;
+    font-weight: 900 !important;
+    border-radius: 50px !important;
+    color: var(--kuwait-black) !important;
+    width: 100%;
+    margin: 30px 0;
+    box-shadow: var(--glow-green);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.buy-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.buy-button:hover::before {
+    width: 500px;
+    height: 500px;
+}
+
+.buy-button:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 
+        0 0 20px var(--neon-green),
+        0 0 40px var(--neon-green),
+        0 0 60px var(--neon-green),
+        0 0 80px var(--kuwait-green),
+        0 10px 40px rgba(0, 0, 0, 0.5);
+    border-color: var(--neon-gold);
+}
+
+.buy-button:active {
+    transform: translateY(-2px) scale(0.98);
+}
+
+/* زر واتساب نيون */
+.whatsapp-order-button,
+.cta-button.whatsapp {
+    background: linear-gradient(
+        135deg,
+        #25D366 0%,
+        #00FF7F 50%,
+        #25D366 100%
+    ) !important;
+    border: 3px solid #00FF7F !important;
+    box-shadow: 
+        0 0 20px #25D366,
+        0 0 40px #25D366,
+        0 0 60px #25D366;
+    animation: whatsappPulse 2s ease-in-out infinite;
+}
+
+@keyframes whatsappPulse {
+    0%, 100% { 
+        box-shadow: 0 0 20px #25D366,
+                    0 0 40px #25D366,
+                    0 0 60px #25D366;
+    }
+    50% { 
+        box-shadow: 0 0 30px #25D366,
+                    0 0 60px #25D366,
+                    0 0 90px #25D366;
+    }
+}
+
+/* ============================================
+   صناديق الميزات - نيون كويتي
+   ============================================ */
+.feature-box {
+    text-align: center;
+    padding: 30px;
+    background: var(--bg-card);
+    border: 3px solid var(--kuwait-green);
+    border-radius: 20px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        var(--neon-green) 90deg,
+        transparent 180deg
+    );
+    animation: featureRotate 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.feature-box:hover::before {
+    opacity: 0.3;
+}
+
+@keyframes featureRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.feature-box:hover {
+    transform: translateY(-10px) scale(1.05);
+    border-color: var(--neon-gold);
+    box-shadow: 
+        0 0 30px var(--neon-gold),
+        0 0 60px rgba(255, 215, 0, 0.4),
+        0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.feature-box i {
+    font-size: 3.5rem !important;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 10px currentColor);
+    animation: iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* ============================================
+   النجوم والتقييمات - نيون ذهبي
+   ============================================ */
+.star-rating {
+    color: var(--neon-gold) !important;
+    text-shadow: var(--glow-gold);
+    font-size: 1.8rem !important;
+    animation: starTwinkle 1.5s ease-in-out infinite;
+}
+
+@keyframes starTwinkle {
+    0%, 100% { 
+        filter: drop-shadow(0 0 5px var(--neon-gold));
+    }
+    50% { 
+        filter: drop-shadow(0 0 15px var(--neon-gold))
+                drop-shadow(0 0 25px var(--neon-gold));
+    }
+}
+
+/* ============================================
+   المواصفات - نيون منظم
+   ============================================ */
+.specifications {
+    background: var(--bg-card);
+    border: 3px solid var(--kuwait-green);
+    border-radius: 20px;
+    padding: 35px;
+    margin: 30px 0;
+    box-shadow: 
+        0 0 30px rgba(0, 122, 61, 0.3),
+        inset 0 0 30px rgba(0, 255, 127, 0.05);
+}
+
+.spec-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 2px solid rgba(0, 255, 127, 0.2);
+    transition: all 0.3s ease;
+}
+
+.spec-item:hover {
+    padding-right: 20px;
+    border-bottom-color: var(--neon-green);
+    text-shadow: 0 0 10px rgba(0, 255, 127, 0.5);
+}
+
+.spec-item:last-child {
+    border-bottom: none;
+}
+
+/* ============================================
+   المراجعات - نيون تفاعلي
+   ============================================ */
+.reviews-section {
+    background: var(--bg-card);
+    border: 3px solid var(--kuwait-green);
+    border-radius: 20px;
+    padding: 40px;
+    margin: 35px 0;
+    box-shadow: 
+        0 0 40px rgba(0, 122, 61, 0.3),
+        inset 0 0 40px rgba(0, 255, 127, 0.05);
+}
+
+.review-item {
+    border-bottom: 2px solid rgba(0, 255, 127, 0.2);
+    padding: 30px 0;
+    transition: all 0.3s ease;
+}
+
+.review-item:hover {
+    transform: translateX(10px);
+    padding-right: 20px;
+    border-bottom-color: var(--neon-green);
+    background: rgba(0, 255, 127, 0.05);
+    border-radius: 10px;
+}
+
+.verified-badge {
+    background: linear-gradient(
+        45deg,
+        var(--kuwait-green),
+        var(--neon-green)
+    ) !important;
+    border: 2px solid var(--neon-green);
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 700;
+    box-shadow: 0 0 15px rgba(0, 255, 127, 0.4);
+}
+
+/* ============================================
+   التذييل - نيون كويتي
+   ============================================ */
+footer {
+    background: linear-gradient(
+        135deg,
+        var(--kuwait-black) 0%,
+        var(--bg-dark) 50%,
+        var(--kuwait-green) 100%
+    ) !important;
+    border-top: 3px solid var(--neon-green);
+    padding: 4rem 0 1.5rem;
+    margin-top: 4rem;
+    box-shadow: 
+        0 -5px 30px rgba(0, 255, 127, 0.3),
+        inset 0 0 60px rgba(0, 255, 127, 0.1);
+}
+
+footer h5 {
+    color: var(--neon-gold) !important;
+    text-shadow: var(--glow-gold);
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+footer a:hover {
+    color: var(--neon-green) !important;
+    text-shadow: var(--glow-green);
+    transform: translateX(5px);
+}
+
+/* أيقونات السوشيال ميديا */
+.social-links a {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border: 2px solid var(--neon-green);
+    border-radius: 50%;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background: var(--neon-green);
+    color: var(--kuwait-black) !important;
+    box-shadow: var(--glow-green);
+    transform: translateY(-5px) rotate(360deg);
+}
+
+/* ============================================
+   الزر العائم - نيون واتساب
+   ============================================ */
+.floating-whatsapp-btn {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #25D366, #00FF7F) !important;
+    border: 3px solid #00FF7F;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: white !important;
+    box-shadow: 
+        0 0 20px #25D366,
+        0 0 40px #25D366,
+        0 0 60px #25D366;
+    z-index: 9999;
+    animation: floatPulse 2s ease-in-out infinite;
+    text-decoration: none;
+}
+
+@keyframes floatPulse {
+    0%, 100% { 
+        transform: scale(1) translateY(0);
+        box-shadow: 0 0 20px #25D366,
+                    0 0 40px #25D366,
+                    0 0 60px #25D366;
+    }
+    50% { 
+        transform: scale(1.1) translateY(-5px);
+        box-shadow: 0 0 30px #25D366,
+                    0 0 60px #25D366,
+                    0 0 90px #25D366;
+    }
+}
+
+/* ============================================
+   مسار التنقل - نيون
+   ============================================ */
+.breadcrumb {
+    background: var(--bg-card) !important;
+    border: 2px solid var(--kuwait-green);
+    border-radius: 15px;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 20px rgba(0, 122, 61, 0.2);
+}
+
+.breadcrumb-item a {
+    color: var(--neon-green) !important;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    text-shadow: var(--glow-green);
+    transform: translateX(5px);
+}
+
+.breadcrumb-item.active {
+    color: var(--neon-gold) !important;
+}
+
+/* ============================================
+   تأثيرات متقدمة
+   ============================================ */
+
+/* تأثير الوهج عند التمرير */
+*:hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* شريط التمرير المخصص */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-darker);
+    border-left: 1px solid var(--kuwait-green);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+        180deg,
+        var(--kuwait-green),
+        var(--neon-green)
+    );
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--neon-green);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+        180deg,
+        var(--neon-green),
+        var(--neon-gold)
+    );
+    box-shadow: 0 0 20px var(--neon-gold);
+}
+
+/* ============================================
+   استجابة للموبايل
+   ============================================ */
+@media (max-width: 768px) {
+    .sale-price {
+        font-size: 2.5em !important;
+    }
+    
+    .timer-unit {
+        margin: 0 5px;
+        padding: 15px;
+        min-width: 65px;
+    }
+    
+    .timer-unit div {
+        font-size: 2em !important;
+    }
+    
+    .navbar-brand {
+        font-size: 1.8rem !important;
+    }
+    
+    .buy-button {
+        font-size: 1.2em !important;
+        padding: 18px 40px !important;
+    }
+    
+    .floating-whatsapp-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+        bottom: 20px;
+        left: 20px;
+    }
+}
+
+/* ============================================
+   تأثيرات خاصة - علم الكويت
+   ============================================ */
+.kuwait-flag-accent {
+    position: relative;
+}
+
+.kuwait-flag-accent::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        var(--kuwait-green) 33.33%,
+        var(--kuwait-white) 33.33%,
+        var(--kuwait-white) 66.66%,
+        var(--kuwait-red) 66.66%
+    );
+    box-shadow: 0 0 10px rgba(0, 255, 127, 0.5);
+}
+
+/* تحميل - نيون */
+@keyframes loading {
+    0%, 100% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+}
+
+.loading {
+    animation: loading 1.5s ease-in-out infinite;
+}
+
+/* نهاية التصميم - سوق الكويت 🇰🇼 */

@@ -1,0 +1,99 @@
+/* 🛍️ Floating Cart Styles */
+
+.floating-cart {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    z-index: 998;
+}
+
+.cart-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 6px 25px rgba(255, 107, 107, 0.5);
+    text-decoration: none;
+    position: relative;
+    transition: all 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.cart-button:hover {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: 0 10px 35px rgba(255, 107, 107, 0.7);
+}
+
+.cart-button i {
+    font-size: 1.8em;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ffd700;
+    color: #333;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75em;
+    font-weight: bold;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+}
+
+.notification {
+    position: fixed;
+    top: 80px;
+    right: -300px;
+    background: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    z-index: 9999;
+    transition: right 0.3s ease;
+}
+
+.notification.show {
+    right: 30px;
+}
+
+.notification-success {
+    border-left: 4px solid #28a745;
+    color: #28a745;
+}
+
+.notification-error {
+    border-left: 4px solid #dc3545;
+    color: #dc3545;
+}
+
+.notification i {
+    font-size: 1.5em;
+}
+
+@media (max-width: 768px) {
+    .floating-cart { bottom: 80px; right: 20px; }
+    .cart-button { width: 55px; height: 55px; }
+    .cart-button i { font-size: 1.6em; }
+    .cart-count { width: 22px; height: 22px; font-size: 0.7em; }
+    .notification { right: -250px; padding: 12px 20px; font-size: 0.9em; }
+    .notification.show { right: 15px; }
+}

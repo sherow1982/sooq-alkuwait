@@ -1,0 +1,7 @@
+/* استايل الهيدر والفوتر bulk: يفرض تلوين ألوان العلم على جميع الصفحات */
+.kw-flag-header{background:linear-gradient(to bottom,#009344 0 30%,#fff 30% 65%,#e92429 65% 100%)!important;box-shadow:0 6px 24px rgba(0,0,0,.12)!important}
+.kw-flag-bar{width:100vw;height:7px;background:linear-gradient(90deg,black 0 20%,#009344 20% 50%,white 50% 80%,red 80%)!important}
+.kw-flag-links .nav-link{color:#111!important;background:rgba(255,255,255,.85)!important;border-radius:13px!important;font-weight:800!important;padding:.43rem 1.1rem!important}
+.kw-flag-links .nav-link:hover,.kw-flag-links .nav-link.active{background:linear-gradient(90deg,#009344 40%,#e92429 80%)!important;color:#fff!important;border-color:#ffd600!important}
+/* فوتر: إبراز الروابط القانونية */
+.footer-links a[href*="privacy"],.footer-links a[href*="terms"],.footer-links a[href*="refund"],.footer-links a[href*="shipping"],.footer-links a[href*="about"],.footer-links a[href*="contact"]{font-weight:800!important;border-bottom:2px solid rgba(255,215,0,.4)!important;padding-bottom:2px}

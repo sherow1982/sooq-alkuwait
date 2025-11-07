@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سلة التسوق - سوق الكويت</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="site-components.css">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 20px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        
+        h1 { color: #667eea; font-size: 2.5em; margin-bottom: 30px; text-align: center; }
+        
+        .empty-cart { text-align: center; padding: 60px 20px; }
+        .empty-cart i { font-size: 5em; color: #ccc; margin-bottom: 20px; display: block; }
+        .empty-cart h2 { color: #666; margin-bottom: 20px; }
+        
+        .cart-item { display: flex; gap: 20px; padding: 20px; background: #f8f9fa; border-radius: 15px; margin-bottom: 15px; align-items: center; transition: all 0.3s; }
+        .cart-item:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2); }
+        .cart-item img { width: 100px; height: 100px; object-fit: contain; border-radius: 10px; background: white; padding: 5px; }
+        .cart-item-info { flex: 1; }
+        .cart-item-title { font-size: 1.1em; color: #333; font-weight: 600; margin-bottom: 5px; }
+        .cart-item-price { color: #667eea; font-size: 1.2em; font-weight: bold; }
+        
+        .cart-item-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .qty-btn { background: #667eea; color: white; border: none; width: 35px; height: 35px; border-radius: 8px; cursor: pointer; font-size: 1.2em; transition: all 0.3s; }
+        .qty-btn:hover { background: #5568d3; transform: scale(1.1); }
+        .qty-display { font-size: 1.2em; font-weight: bold; min-width: 40px; text-align: center; }
+        .remove-btn { background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+        .remove-btn:hover { background: #c82333; }
+        
+        .cart-summary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; margin-top: 30px; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 1.2em; }
+        .summary-total { font-size: 1.8em; font-weight: bold; border-top: 2px solid rgba(255,255,255,0.3); padding-top: 15px; margin-top: 15px; }
+        
+        .checkout-btn { background: #28a745; color: white; border: none; padding: 18px 40px; font-size: 1.3em; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; margin-top: 20px; transition: all 0.3s; }
+        .checkout-btn:hover { background: #218838; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4); }
+        
+        .clear-cart-btn { background: #dc3545; color: white; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; width: 100%; margin-top: 10px; transition: all 0.3s; }
+        .clear-cart-btn:hover { background: #c82333; }
+        
+        .continue-shopping { text-align: center; margin-top: 20px; }
+        .continue-shopping a { color: #667eea; text-decoration: none; font-weight: 600; font-size: 1.1em; }
+        .continue-shopping a:hover { text-decoration: underline; }
+        
+        @media (max-width: 768px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.8em; }
+            .cart-item { flex-direction: column; text-align: center; }
+            .cart-item img { width: 80px; height: 80px; }
+            .cart-item-actions { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div id="site-header"></div>
+    
+    <div class="container">
+        <h1><i class="fas fa-shopping-cart"></i> سلة التسوق</h1>
+        
+        <div id="cart-container"></div>
+        
+        <div class="continue-shopping">
+            <a href="products-catalog.html">
+                <i class="fas fa-arrow-right"></i> متابعة التسوق
+            </a>
+        </div>
+    </div>
+    
+    <div id="site-footer"></div>
+    
+    <script src="site-header.js"></script>
+    <script src="site-footer.js"></script>
+    <script>
+        function loadCart() {
+            console.log('🛒 تحميل السلة...');
+            
+            try {
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                console.log('📦 عدد المنتجات:', cart.length);
+                console.log('📋 السلة:', cart);
+                
+                const container = document.getElementById('cart-container');
+                
+                if (cart.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h2>سلتك فارغة</h2>
+                            <p style="color: #666; margin-bottom: 20px;">ابدأ بإضافة منتجات رائعة!</p>
+                            <a href="products-catalog.html" style="background: #667eea; color: white; padding: 15px 40px; border-radius: 50px; text-decoration: none; display: inline-block; font-weight: bold;">
+                                <i class="fas fa-store"></i> تصفح المنتجات
+                            </a>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                let cartHTML = '<div class="cart-items">';
+                let total = 0;
+                
+                cart.forEach((item, index) => {
+                    const itemTotal = (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1);
+                    total += itemTotal;
+                    
+                    const imageUrl = item.image && item.image.trim() !== '' 
+                        ? item.image 
+                        : 'https://via.placeholder.com/100x100/667eea/ffffff?text=منتج';
+                    
+                    cartHTML += `
+                        <div class="cart-item" data-index="${index}">
+                            <img src="${imageUrl}" 
+                                 alt="${item.title}" 
+                                 onerror="this.src='https://via.placeholder.com/100x100/667eea/ffffff?text=منتج'">
+                            
+                            <div class="cart-item-info">
+                                <div class="cart-item-title">${item.title}</div>
+                                <div class="cart-item-price">${parseFloat(item.price).toFixed(2)} د.ك</div>
+                            </div>
+                            
+                            <div class="cart-item-actions">
+                                <button class="qty-btn" onclick="updateQuantity(${index}, -1)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="qty-display">${item.quantity}</span>
+                                <button class="qty-btn" onclick="updateQuantity(${index}, 1)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button class="remove-btn" onclick="removeItem(${index})">
+                                    <i class="fas fa-trash"></i> حذف
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                cartHTML += '</div>';
+                
+                cartHTML += `
+                    <div class="cart-summary">
+                        <div class="summary-row">
+                            <span>المجموع الفرعي:</span>
+                            <span>${total.toFixed(2)} د.ك</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>الشحن:</span>
+                            <span style="color: #28a745; font-weight: bold;">مجاني 🎉</span>
+                        </div>
+                        <div class="summary-row summary-total">
+                            <span>المجموع الكلي:</span>
+                            <span>${total.toFixed(2)} د.ك</span>
+                        </div>
+                        
+                        <button class="checkout-btn" onclick="checkoutViaWhatsApp()">
+                            <i class="fab fa-whatsapp"></i> إتمام الطلب عبر واتساب
+                        </button>
+                        
+                        <button class="clear-cart-btn" onclick="clearCart()">
+                            <i class="fas fa-trash"></i> مسح السلة
+                        </button>
+                    </div>
+                `;
+                
+                container.innerHTML = cartHTML;
+                
+            } catch (e) {
+                console.error('❌ خطأ في تحميل السلة:', e);
+                document.getElementById('cart-container').innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-exclamation-triangle" style="color: #dc3545;"></i>
+                        <h2>حدث خطأ في تحميل السلة</h2>
+                        <button onclick="location.reload()" style="background: #667eea; color: white; padding: 15px 40px; border: none; border-radius: 50px; cursor: pointer; margin-top: 20px; font-weight: bold;">
+                            <i class="fas fa-redo"></i> إعادة المحاولة
+                        </button>
+                    </div>
+                `;
+            }
+        }
+        
+        function updateQuantity(index, change) {
+            try {
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                
+                if (cart[index]) {
+                    cart[index].quantity = Math.max(1, (cart[index].quantity || 1) + change);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    loadCart();
+                }
+            } catch (e) {
+                console.error('خطأ في تحديث الكمية:', e);
+            }
+        }
+        
+        function removeItem(index) {
+            try {
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                cart.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCart();
+            } catch (e) {
+                console.error('خطأ في حذف المنتج:', e);
+            }
+        }
+        
+        function clearCart() {
+            if (confirm('هل تريد مسح جميع المنتجات من السلة؟')) {
+                localStorage.removeItem('cart');
+                loadCart();
+            }
+        }
+        
+        function checkoutViaWhatsApp() {
+            try {
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                
+                if (cart.length === 0) {
+                    alert('السلة فارغة!');
+                    return;
+                }
+                
+                let message = '🛒 *طلب جديد من سوق الكويت*\n\n';
+                let total = 0;
+                
+                cart.forEach((item, index) => {
+                    const itemTotal = (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1);
+                    total += itemTotal;
+                    
+                    message += `${index + 1}. *${item.title}*\n`;
+                    message += `   السعر: ${parseFloat(item.price).toFixed(2)} د.ك\n`;
+                    message += `   الكمية: ${item.quantity}\n`;
+                    message += `   المجموع: ${itemTotal.toFixed(2)} د.ك\n`;
+                    if (item.link) {
+                        message += `   الرابط: ${window.location.origin}/${item.link}\n`;
+                    }
+                    message += '\n';
+                });
+                
+                message += `---\n*المجموع الكلي: ${total.toFixed(2)} د.ك*\n`;
+                message += `*الشحن: مجاني 🎉*\n\n`;
+                message += '👤 *بيانات المشتري:*\n';
+                message += 'الاسم: \n';
+                message += 'العنوان: \n';
+                message += 'الهاتف: \n';
+                message += 'ملاحظات: ';
+                
+                const whatsappLink = 'https://wa.me/201110760081?text=' + encodeURIComponent(message);
+                window.open(whatsappLink, '_blank');
+                
+            } catch (e) {
+                console.error('خطأ في إتمام الطلب:', e);
+                alert('حدث خطأ، حاول مرة أخرى');
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 تهيئة صفحة السلة...');
+            loadCart();
+        });
+    </script>
+</body>
+</html>
