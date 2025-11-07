@@ -3,8 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://sherow1982.github.io/sooq-alkuwait/sitemap.xml
-Sitemap: https://sherow1982.github.io/sooq-alkuwait/google-merchant-feed.xml
+Sitemap: https://sooq-alkuwait.arabsad.com/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 1
@@ -19,7 +18,13 @@ Allow: /
 User-agent: Slurp
 Allow: /
 
-# Disallow admin areas (if any)
+User-agent: DuckDuckBot
+Allow: /
+
+# Disallow admin and temp areas
 User-agent: *
 Disallow: /admin/
 Disallow: /temp/
+Disallow: /*.json$
+Disallow: /*.py$
+Disallow: /*.js$
