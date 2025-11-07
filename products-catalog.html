@@ -10,8 +10,19 @@
     <link rel="stylesheet" href="catalog-styles.css">
 </head>
 <body>
+    <!-- شريط البحث العلوي الثابت -->
+    <div class="top-search-bar">
+        <div class="top-search-wrapper">
+            <div class="site-logo">🛍️ سوق الكويت</div>
+            <div class="global-search">
+                <input type="search" id="global-search-input" placeholder="ابحث عن منتج..." autocomplete="off">
+                <i class="fas fa-search global-search-icon"></i>
+            </div>
+        </div>
+    </div>
+    
     <section class="hero">
-        <h1>🛍️ كاتالوج منتجاتنا المميز</h1>
+        <h1>كاتالوج منتجاتنا المميز</h1>
         <p>اكتشف أكثر من 1977 منتج أصلي بأفضل الأسعار في الكويت</p>
         <div class="hero-stats">
             <div class="stat-item"><span class="stat-number" id="total-products">1977</span><span>منتج متنوع</span></div>
@@ -20,14 +31,13 @@
             <div class="stat-item"><span class="stat-number">شحن مجاني</span><span>لجميع الكويت</span></div>
         </div>
     </section>
+    
     <div class="container">
+        <!-- شريط الفئات الثابت -->
         <div class="filter-bar">
-            <div class="search-wrapper">
-                <i class="fas fa-search search-icon"></i>
-                <input type="search" class="search-input" id="search-input" placeholder="ابحث عن منتج..." autocomplete="off">
-            </div>
             <div class="categories-grid" id="categories"></div>
         </div>
+        
         <div class="toolbar">
             <div class="results-count">عرض <span id="showing-count">0</span> من <span id="total-count">0</span> منتج</div>
             <select class="sort-select" id="sort-select">
@@ -36,12 +46,21 @@
                 <option value="price-high">السعر: من الأعلى للأقل</option>
             </select>
         </div>
+        
         <div class="products-grid" id="products-container">
             <div class="loading"><div class="spinner"></div><p>جاري تحميل المنتجات...</p></div>
         </div>
+        
         <div class="pagination" id="pagination" style="display:none"></div>
     </div>
+    
     <button class="back-to-top" id="back-to-top"><i class="fas fa-arrow-up"></i></button>
     <script src="catalog-products.js"></script>
+    <script>
+        // ربط البحث العلوي بالبحث الرئيسي
+        document.getElementById("global-search-input").addEventListener("input",function(e){
+            searchProducts(e.target.value);
+        });
+    </script>
 </body>
 </html>
