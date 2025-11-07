@@ -1,203 +1,237 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+سكريبت لإنشاء ملفات SEO (Sitemap, Google Merchant Feed, Robots.txt)
+من ملفات المنتجات الموجودة في مجلد products-pages
+
+الاستخدام:
+    python generate_seo_files.py
+"""
 
 import os
-import json
+import re
 from datetime import datetime
+from pathlib import Path
 
-print("=" * 80)
-print("🌐 إنشاء ملفات SEO")
-print("=" * 80)
+def clean_xml_text(text):
+    """تنظيف النص من الرموز الخاصة في XML"""
+    if text is None:
+        return ""
+    text = str(text)
+    # استبدال الرموز الخاصة بالترتيب الصحيح (& أولاً ثم الباقي)
+    text = text.replace("&", "&amp;")
+    text = text.replace("<", "&lt;")
+    text = text.replace(">", "&gt;")
+    text = text.replace('"', "&quot;")
+    text = text.replace("'", "&apos;")
+    return text
 
-print("\n📦 قراءة البيانات...")
+def extract_product_info(html_file):
+    """استخراج معلومات المنتج من ملف HTML"""
+    try:
+        with open(html_file, 'r', encoding='utf-8') as f:
+            content = f.read()
 
-try:
-    with open('products_data.json', 'r', encoding='utf-8') as f:
-        products = json.load(f)
-    print(f"✅ {len(products)} منتج")
-except Exception as e:
-    print(f"❌ خطأ: {e}")
-    exit(1)
+        # استخراج العنوان
+        title_match = re.search(r'<title>(.*?)</title>', content)
+        title = title_match.group(1) if title_match else "منتج"
 
-base_url = "https://sherow1982.github.io/sooq-alkuwait"
-current_date = datetime.now().strftime('%Y-%m-%d')
+        # استخراج الوصف
+        desc_match = re.search(r'<meta name="description" content="(.*?)"', content)
+        description = desc_match.group(1) if desc_match else "منتج عالي الجودة"
 
-# ==========================================
-# Sitemap الرئيسي
-# ==========================================
+        # استخراج السعر
+        price_match = re.search(r'<span class="price[^"]*"[^>]*>([\d.]+)\s*KWD</span>', content)
+        price = price_match.group(1) if price_match else "13.00"
 
-print("\n🗺️  إنشاء sitemap.xml...")
+        # استخراج رابط الصورة
+        img_match = re.search(r'<img[^>]+src="([^"]+)"[^>]*class="product-image', content)
+        image = img_match.group(1) if img_match else ""
 
-sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n'
-sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
-sitemap += '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n\n'
+        return {
+            'title': title.replace(' - سوق الكويت', ''),
+            'description': description[:500],  # أول 500 حرف
+            'price': price,
+            'image': image
+        }
+    except Exception as e:
+        print(f"خطأ في قراءة {html_file}: {e}")
+        return None
 
-# الصفحات الأساسية
-pages = [
-    ('index.html', '1.0', 'daily'),
-    ('products-catalog.html', '0.9', 'daily'),
-    ('cart.html', '0.7', 'weekly')
-]
+def create_sitemap(products_dir="products-pages", base_url="https://sherow1982.github.io/sooq-alkuwait"):
+    """إنشاء ملف sitemap.xml"""
+    print("🔨 إنشاء sitemap.xml...")
 
-for page, priority, changefreq in pages:
-    sitemap += f'    <url>\n'
-    sitemap += f'        <loc>{base_url}/{page}</loc>\n'
-    sitemap += f'        <lastmod>{current_date}</lastmod>\n'
-    sitemap += f'        <changefreq>{changefreq}</changefreq>\n'
-    sitemap += f'        <priority>{priority}</priority>\n'
-    sitemap += f'    </url>\n\n'
+    sitemap = ['<?xml version="1.0" encoding="UTF-8"?>']
+    sitemap.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')
+    sitemap.append('        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">')
 
-# المنتجات
-for product in products:
-    product_url = base_url + '/' + product.get('product_link', '')
-    sitemap += f'    <url>\n'
-    sitemap += f'        <loc>{product_url}</loc>\n'
-    sitemap += f'        <lastmod>{current_date}</lastmod>\n'
-    sitemap += f'        <priority>0.8</priority>\n'
+    # الصفحات الرئيسية
+    today = datetime.now().strftime("%Y-%m-%d")
 
-    if product.get('image_link'):
-        sitemap += f'        <image:image>\n'
-        sitemap += f'            <image:loc>{product["image_link"]}</image:loc>\n'
-        sitemap += f'            <image:title>{product.get("title", "منتج")}</image:title>\n'
-        sitemap += f'        </image:image>\n'
+    main_pages = [
+        (f"{base_url}/", "daily", "1.0"),
+        (f"{base_url}/index.html", "daily", "1.0"),
+        (f"{base_url}/products-catalog.html", "daily", "0.9"),
+        (f"{base_url}/cart.html", "weekly", "0.7"),
+    ]
 
-    sitemap += f'    </url>\n\n'
+    for url, changefreq, priority in main_pages:
+        sitemap.append('    <url>')
+        sitemap.append(f'        <loc>{clean_xml_text(url)}</loc>')
+        sitemap.append(f'        <lastmod>{today}</lastmod>')
+        sitemap.append(f'        <changefreq>{changefreq}</changefreq>')
+        sitemap.append(f'        <priority>{priority}</priority>')
+        sitemap.append('    </url>')
 
-sitemap += '</urlset>'
+    # صفحات المنتجات
+    if os.path.exists(products_dir):
+        product_files = sorted([f for f in os.listdir(products_dir) if f.endswith('.html')])
+        print(f"✅ تم العثور على {len(product_files)} منتج")
 
-with open('sitemap.xml', 'w', encoding='utf-8') as f:
-    f.write(sitemap)
+        for product_file in product_files:
+            product_url = f"{base_url}/{products_dir}/{product_file}"
+            product_path = os.path.join(products_dir, product_file)
 
-print(f"✅ sitemap.xml ({len(products) + 3} صفحة)")
+            # استخراج معلومات المنتج
+            info = extract_product_info(product_path)
 
-# ==========================================
-# Product Sitemap
-# ==========================================
+            sitemap.append('    <url>')
+            sitemap.append(f'        <loc>{clean_xml_text(product_url)}</loc>')
+            sitemap.append(f'        <lastmod>{today}</lastmod>')
+            sitemap.append('        <changefreq>weekly</changefreq>')
+            sitemap.append('        <priority>0.8</priority>')
 
-print("\n🛍️  إنشاء product-sitemap.xml...")
+            # إضافة الصورة إن وجدت
+            if info and info.get('image'):
+                sitemap.append('        <image:image>')
+                sitemap.append(f'            <image:loc>{clean_xml_text(info["image"])}</image:loc>')
+                sitemap.append(f'            <image:title>{clean_xml_text(info["title"])}</image:title>')
+                sitemap.append('        </image:image>')
 
-product_sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n'
-product_sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
-product_sitemap += '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n\n'
+            sitemap.append('    </url>')
 
-for product in products:
-    product_url = base_url + '/' + product.get('product_link', '')
-    product_sitemap += f'    <url>\n'
-    product_sitemap += f'        <loc>{product_url}</loc>\n'
-    product_sitemap += f'        <lastmod>{current_date}</lastmod>\n'
+    sitemap.append('</urlset>')
 
-    if product.get('image_link'):
-        desc = product.get('description', '')[:150]
-        product_sitemap += f'        <image:image>\n'
-        product_sitemap += f'            <image:loc>{product["image_link"]}</image:loc>\n'
-        product_sitemap += f'            <image:title>{product.get("title", "منتج")}</image:title>\n'
-        product_sitemap += f'            <image:caption>{desc}</image:caption>\n'
-        product_sitemap += f'        </image:image>\n'
+    with open('sitemap.xml', 'w', encoding='utf-8') as f:
+        f.write('\n'.join(sitemap))
 
-    product_sitemap += f'    </url>\n\n'
+    print(f"✅ تم إنشاء sitemap.xml ({len(product_files) + len(main_pages)} صفحة)")
 
-product_sitemap += '</urlset>'
+def create_merchant_feed(products_dir="products-pages", base_url="https://sherow1982.github.io/sooq-alkuwait"):
+    """إنشاء ملف google-merchant-feed.xml"""
+    print("🔨 إنشاء google-merchant-feed.xml...")
 
-with open('product-sitemap.xml', 'w', encoding='utf-8') as f:
-    f.write(product_sitemap)
+    feed = ['<?xml version="1.0" encoding="UTF-8"?>']
+    feed.append('<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">')
+    feed.append('    <channel>')
+    feed.append('        <title>سوق الكويت - منتجات عالية الجودة</title>')
+    feed.append(f'        <link>{base_url}</link>')
+    feed.append('        <description>متجر إلكتروني متخصص في توفير منتجات عالية الجودة بأسعار تنافسية</description>')
 
-print(f"✅ product-sitemap.xml ({len(products)} منتج)")
+    # المنتجات
+    if os.path.exists(products_dir):
+        product_files = sorted([f for f in os.listdir(products_dir) if f.endswith('.html')])
 
-# ==========================================
-# Google Merchant Feed
-# ==========================================
+        for idx, product_file in enumerate(product_files, 1):
+            product_url = f"{base_url}/{products_dir}/{product_file}"
+            product_path = os.path.join(products_dir, product_file)
 
-print("\n🏪 إنشاء google-merchant-feed.xml...")
+            # استخراج معلومات المنتج
+            info = extract_product_info(product_path)
 
-feed = '<?xml version="1.0" encoding="UTF-8"?>\n'
-feed += '<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">\n'
-feed += '    <channel>\n'
-feed += '        <title>سوق الكويت - منتجات عالية الجودة</title>\n'
-feed += f'        <link>{base_url}</link>\n'
-feed += '        <description>متجر إلكتروني متخصص في توفير منتجات عالية الجودة بأسعار تنافسية</description>\n\n'
+            if info:
+                feed.append('        <item>')
+                feed.append(f'            <g:id>{idx}</g:id>')
+                feed.append(f'            <g:title>{clean_xml_text(info["title"])}</g:title>')
+                feed.append(f'            <g:description>{clean_xml_text(info["description"])}</g:description>')
+                feed.append(f'            <g:link>{clean_xml_text(product_url)}</g:link>')
+                feed.append(f'            <g:image_link>{clean_xml_text(info["image"])}</g:image_link>')
+                feed.append('            <g:condition>new</g:condition>')
+                feed.append('            <g:availability>in stock</g:availability>')
+                feed.append(f'            <g:price>{info["price"]} KWD</g:price>')
+                feed.append(f'            <g:sale_price>{info["price"]} KWD</g:sale_price>')
+                feed.append('            <g:brand>سوق الكويت</g:brand>')
+                feed.append('            <g:shipping>')
+                feed.append('                <g:country>KW</g:country>')
+                feed.append('                <g:service>شحن مجاني</g:service>')
+                feed.append('                <g:price>0 KWD</g:price>')
+                feed.append('            </g:shipping>')
+                feed.append('            <g:google_product_category>تسوق</g:google_product_category>')
+                feed.append('        </item>')
 
-for product in products:
-    product_url = base_url + '/' + product.get('product_link', '')
-    title = product.get('title', 'منتج')
-    description = product.get('description', title)[:5000]
-    price = float(product.get('sale_price', product.get('price', 0)))
-    original_price = float(product.get('price', price))
-    image = product.get('image_link', '')
-    product_id = product.get('id', '')
+    feed.append('    </channel>')
+    feed.append('</rss>')
 
-    feed += f'        <item>\n'
-    feed += f'            <g:id>{product_id}</g:id>\n'
-    feed += f'            <g:title>{title}</g:title>\n'
-    feed += f'            <g:description>{description}</g:description>\n'
-    feed += f'            <g:link>{product_url}</g:link>\n'
-    feed += f'            <g:image_link>{image}</g:image_link>\n'
-    feed += f'            <g:condition>new</g:condition>\n'
-    feed += f'            <g:availability>in stock</g:availability>\n'
-    feed += f'            <g:price>{price:.2f} KWD</g:price>\n'
+    with open('google-merchant-feed.xml', 'w', encoding='utf-8') as f:
+        f.write('\n'.join(feed))
 
-    if original_price > price:
-        feed += f'            <g:sale_price>{price:.2f} KWD</g:sale_price>\n'
+    print(f"✅ تم إنشاء google-merchant-feed.xml ({len(product_files)} منتج)")
 
-    feed += f'            <g:brand>سوق الكويت</g:brand>\n'
-    feed += f'            <g:shipping>\n'
-    feed += f'                <g:country>KW</g:country>\n'
-    feed += f'                <g:service>شحن مجاني</g:service>\n'
-    feed += f'                <g:price>0 KWD</g:price>\n'
-    feed += f'            </g:shipping>\n'
-    feed += f'            <g:google_product_category>تسوق</g:google_product_category>\n'
-    feed += f'        </item>\n\n'
+def create_robots(base_url="https://sherow1982.github.io/sooq-alkuwait"):
+    """إنشاء ملف robots.txt"""
+    print("🔨 إنشاء robots.txt...")
 
-feed += '    </channel>\n'
-feed += '</rss>'
-
-with open('google-merchant-feed.xml', 'w', encoding='utf-8') as f:
-    f.write(feed)
-
-print(f"✅ google-merchant-feed.xml ({len(products)} منتج)")
-
-# ==========================================
-# robots.txt
-# ==========================================
-
-print("\n🤖 إنشاء robots.txt...")
-
-robots = f'''User-agent: *
+    robots = f"""# Robots.txt for سوق الكويت
+User-agent: *
 Allow: /
 
+# Sitemaps
 Sitemap: {base_url}/sitemap.xml
-Sitemap: {base_url}/product-sitemap.xml
-'''
+Sitemap: {base_url}/google-merchant-feed.xml
 
-with open('robots.txt', 'w', encoding='utf-8') as f:
-    f.write(robots)
+# Crawl-delay
+Crawl-delay: 1
 
-print("✅ robots.txt")
+# Allow all search engines
+User-agent: Googlebot
+Allow: /
 
-# ==========================================
-# التقرير النهائي
-# ==========================================
+User-agent: Bingbot
+Allow: /
 
-print("\n" + "=" * 80)
-print("🎉 تم إنشاء جميع ملفات SEO!")
-print("=" * 80)
+User-agent: Slurp
+Allow: /
 
-print("\n📋 الملفات:")
-print(f"   ✅ sitemap.xml")
-print(f"   ✅ product-sitemap.xml")
-print(f"   ✅ google-merchant-feed.xml")
-print(f"   ✅ robots.txt")
+# Disallow admin areas (if any)
+User-agent: *
+Disallow: /admin/
+Disallow: /temp/
+"""
 
-print("\n🎯 الإحصائيات:")
-print(f"   📊 عدد الصفحات: {len(products) + 3}")
-print(f"   🛍️ عدد المنتجات: {len(products)}")
-print(f"   🖼️ المنتجات بصور: {sum(1 for p in products if p.get('image_link'))}")
+    with open('robots.txt', 'w', encoding='utf-8') as f:
+        f.write(robots)
 
-print("\n🚀 الخطوة التالية:")
-print("   git add *.xml robots.txt")
-print("   git commit -m 'Add SEO files'")
-print("   git push origin main")
+    print("✅ تم إنشاء robots.txt")
 
-print("\n📊 الروابط:")
-print(f"   {base_url}/sitemap.xml")
-print(f"   {base_url}/google-merchant-feed.xml")
-print("=" * 80)
+def main():
+    """الدالة الرئيسية"""
+    print("=" * 60)
+    print("🚀 بدء إنشاء ملفات SEO لسوق الكويت")
+    print("=" * 60)
+
+    # التحقق من وجود مجلد المنتجات
+    if not os.path.exists("products-pages"):
+        print("❌ خطأ: لم يتم العثور على مجلد products-pages")
+        print("💡 تأكد من تشغيل السكريبت في المجلد الرئيسي للمشروع")
+        return
+
+    # إنشاء الملفات
+    create_sitemap()
+    create_merchant_feed()
+    create_robots()
+
+    print("=" * 60)
+    print("✅ تم إنشاء جميع الملفات بنجاح!")
+    print("=" * 60)
+    print("\n📁 الملفات المُنشأة:")
+    print("  - sitemap.xml")
+    print("  - google-merchant-feed.xml")
+    print("  - robots.txt")
+    print("\n🔗 الخطوة التالية:")
+    print("  git add sitemap.xml google-merchant-feed.xml robots.txt")
+    print("  git commit -m \"update: SEO files with all products\"")
+    print("  git push origin main")
+
+if __name__ == "__main__":
+    main()
