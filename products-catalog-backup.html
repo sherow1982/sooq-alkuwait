@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كاتالوج المنتجات - سوق الكويت</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="site-components.css">
+    <link rel="stylesheet" href="floating-cart.css">
+    
+    
+
+
+
+
+<style>
+/* تحسينات الموبايل الشاملة */
+@media (max-width: 768px) {
+    /* الصور */
+    img {
+        max-width: 100% !important;
+        max-height: 300px !important;
+        object-fit: contain !important;
+    }
+    
+    /* بطاقات المنتجات - واحدة في الصف */
+    .product-card,
+    .catalog-item,
+    .col-6,
+    .col-md-4,
+    .col-md-6,
+    .col-lg-3,
+    .col-lg-4 {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+        margin-bottom: 20px !important;
+    }
+    
+    /* Grid يصبح Column */
+    .products-grid,
+    .row {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    /* الأزرار */
+    .btn, button {
+        width: 100% !important;
+        font-size: 1.1rem !important;
+        padding: 15px !important;
+    }
+    
+    /* العناوين */
+    h1 { font-size: 1.6rem !important; }
+    h2 { font-size: 1.4rem !important; }
+    h3 { font-size: 1.2rem !important; }
+    
+    /* Container */
+    .container {
+        padding: 15px !important;
+    }
+    
+    /* Navbar */
+    .navbar-brand {
+        font-size: 1.3rem !important;
+    }
+    
+    /* No horizontal scroll */
+    body {
+        overflow-x: hidden !important;
+    }
+}
+</style>
+
+</head>
+<body>
+    <div id="site-header"></div>
+    
+    <div class="container">
+        <header>
+            <h1>🛍️ كاتالوج المنتجات</h1>
+            <p class="subtitle">تصفح أكثر من 1900 منتج بأفضل الأسعار - شحن مجاني</p>
+        </header>
+        
+        <div class="categories-bar">
+            <button class="category-btn active" onclick="filterByCategory('all'); setActiveBtn(this)">جميع المنتجات</button>
+            <button class="category-btn" onclick="filterByCategory('العاب'); setActiveBtn(this)">ألعاب الأطفال</button>
+            <button class="category-btn" onclick="filterByCategory('الكترونيات'); setActiveBtn(this)">إلكترونيات</button>
+            <button class="category-btn" onclick="filterByCategory('ادوات'); setActiveBtn(this)">أدوات منزلية</button>
+        </div>
+        
+        <div class="search-bar">
+            <input type="text" id="search-input" class="search-input" placeholder="🔍 ابحث عن منتج..." autocomplete="off">
+        </div>
+        
+        <div class="products-counter" id="products-counter">⏳ جاري التحميل...</div>
+        <div id="products-container">⏳ جاري تحميل المنتجات...</div>
+        
+        <div class="load-more-section">
+            <button id="load-more-btn" style="display: none;">تحميل المزيد</button>
+        </div>
+    </div>
+    
+    <button id="back-to-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <div id="site-footer"></div>
+    
+    <script src="site-header.js"></script>
+    <script src="site-footer.js"></script>
+    <script src="floating-cart.js"></script>
+    <script src="catalog-products.js"></script>
+    
+    <script>
+        window.addEventListener('scroll', function() {
+            const backToTop = document.getElementById('back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
