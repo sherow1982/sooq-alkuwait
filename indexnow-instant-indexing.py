@@ -53,7 +53,7 @@ def index_urls_indexnow(key, limit=2000):
         "urlList": urls
     }
     print(f"🔔 Sending {len(urls)} URLs to IndexNow...")
-    res = requests.post(INDEXNOW_API, data=json.dumps(payload))
+    res = requests.post(INDEXNOW_API, data=json.dumps(payload), headers={"Content-Type": "application/json"})
     print("✅ Response:", res.status_code, res.text)
 
 if __name__ == "__main__":
