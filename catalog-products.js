@@ -1,1 +1,295 @@
-﻿let allProducts=[],filteredProducts=[],currentPage=1;const productsPerPage=24;let currentCategory="all",currentSort="default",searchTimeout;document.addEventListener("DOMContentLoaded",async()=>{console.log("🚀 بدء التحميل..."),await loadProducts(),renderCategories(),setupEventListeners(),setupBackToTop()});async function loadProducts(){try{console.log("📡 جاري تحميل products_data.json...");const e=await fetch("products_data.json");if(!e.ok)throw new Error(`HTTP error! status: ${e.status}`);allProducts=await e.json(),console.log(`✅ تم تحميل ${allProducts.length} منتج`),filteredProducts=[...allProducts],updateCounts(),renderProducts()}catch(e){console.error("❌ خطأ في تحميل المنتجات:",e),showError()}}function renderCategories(){const e=document.getElementById("categories");if(!e)return void console.error("❌ العنصر categories غير موجود");const t=["all",...new Set(allProducts.map(e=>e.category))];console.log("📁 الفئات:",t),e.innerHTML=t.map(e=>{const t="all"===e?allProducts.length:allProducts.filter(t=>t.category===e).length,r="all"===e?"جميع المنتجات":e;return`<button class="category-btn ${e===currentCategory?"active":""}" onclick="filterByCategory('${e}')" data-category="${e}">${r} (${t})</button>`}).join("")}function filterByCategory(e){console.log("🔍 تصفية حسب الفئة:",e),currentCategory=e,currentPage=1,document.querySelectorAll(".category-btn").forEach(t=>{t.classList.remove("active"),t.dataset.category===e&&t.classList.add("active")}),applyFilters()}function setupEventListeners(){const e=document.getElementById("global-search-input");e&&e.addEventListener("input",e=>{clearTimeout(searchTimeout),searchTimeout=setTimeout(()=>{searchProducts(e.target.value)},300)})}function searchProducts(e){console.log("🔎 البحث:",e),currentPage=1,applyFilters(e)}function applyFilters(e=""){const t=e||document.getElementById("global-search-input")?.value||"";let r="all"===currentCategory?[...allProducts]:allProducts.filter(e=>e.category===currentCategory);t.trim()&&(r=r.filter(e=>e.title.toLowerCase().includes(t.toLowerCase())||e.description?.toLowerCase().includes(t.toLowerCase())||e.category.toLowerCase().includes(t.toLowerCase()))),filteredProducts=r,console.log(`📊 النتائج: ${filteredProducts.length} منتج`),updateCounts(),sortProducts()}function sortProducts(){const e=document.getElementById("sort-select")?.value||currentSort;switch(currentSort=e,e){case"price-low":filteredProducts.sort((e,t)=>e.sale_price-t.sale_price);break;case"price-high":filteredProducts.sort((e,t)=>t.sale_price-e.sale_price);break;case"name-asc":filteredProducts.sort((e,t)=>e.title.localeCompare(t.title,"ar"));break;case"name-desc":filteredProducts.sort((e,t)=>t.title.localeCompare(e.title,"ar"))}renderProducts()}function renderProducts(){const e=document.getElementById("products-container");if(!e)return void console.error("❌ العنصر products-container غير موجود");const t=document.getElementById("loading");if(t&&t.remove(),0===filteredProducts.length)return void(e.innerHTML='<div class="empty-state"><div class="empty-icon">🔍</div><h3>لم يتم العثور على منتجات</h3><p>جرب البحث بكلمات مختلفة</p></div>');const r=(currentPage-1)*productsPerPage,a=filteredProducts.slice(r,r+productsPerPage);console.log(`📦 عرض ${a.length} منتج في الصفحة ${currentPage}`),e.innerHTML=a.map(e=>createProductCard(e)).join(""),renderPagination(),document.getElementById("showing-count").textContent=a.length,lazyLoadImages()}function createProductCard(e){const t=Math.round((e.price-e.sale_price)/e.price*100),r=e.price!==e.sale_price,a=`products-pages/${e.filename}`;return`<article class="product-card" onclick="window.open('${a}','_blank')" style="cursor:pointer">${r?`<div class="product-badge">وفّر ${t}%</div>`:""}<div class="product-image-wrapper"><img class="product-image lazy" data-src="${e.image_link}" alt="${e.title}" loading="lazy"></div><div class="product-info"><div class="product-category">${e.category}</div><h3 class="product-title">${e.title}</h3><div class="product-rating"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div><span style="font-size:.8rem;color:#6b7280">(4.9)</span></div><div class="product-price"><span class="current-price">${e.sale_price.toFixed(2)} د.ك</span>${r?`<span class="old-price">${e.price.toFixed(2)} د.ك</span>`:""}</div></div><div class="product-footer"><div class="add-to-cart-btn" onclick="event.stopPropagation();window.open('${a}','_blank')"><i class="fas fa-shopping-cart"></i> اطلب عبر واتساب</div></div></article>`}function renderPagination(){const e=Math.ceil(filteredProducts.length/productsPerPage),t=document.getElementById("pagination");if(e<=1)return void(t.style.display="none");t.style.display="flex";let r="";r+=`<button class="page-btn" onclick="changePage(${currentPage-1})" ${1===currentPage?"disabled":""}><i class="fas fa-chevron-right"></i></button>`;const a=Math.max(1,currentPage-3);let o=Math.min(e,a+6);for(o-a<6&&(a=Math.max(1,o-6+1)),a>1&&(r+='<button class="page-btn" onclick="changePage(1)">1</button>',a>2&&(r+='<span style="padding:0 .5rem">...</span>')),let n=a;n<=o;n++)r+=`<button class="page-btn ${n===currentPage?"active":""}" onclick="changePage(${n})">${n}</button>`;o<e&&(o<e-1&&(r+='<span style="padding:0 .5rem">...</span>'),r+=`<button class="page-btn" onclick="changePage(${e})">${e}</button>`),r+=`<button class="page-btn" onclick="changePage(${currentPage+1})" ${currentPage===e?"disabled":""}><i class="fas fa-chevron-left"></i></button>`,t.innerHTML=r}function changePage(e){const t=Math.ceil(filteredProducts.length/productsPerPage);e>=1&&e<=t&&(currentPage=e,renderProducts(),scrollToTop())}function lazyLoadImages(){const e=document.querySelectorAll("img.lazy");new IntersectionObserver((e,t)=>{e.forEach(e=>{if(e.isIntersecting){const r=e.target;r.src=r.dataset.src,r.classList.remove("lazy"),t.unobserve(r)}})}).observe.apply(null,e)}function updateCounts(){document.getElementById("total-count").textContent=filteredProducts.length,document.getElementById("total-products").textContent=allProducts.length}function setupBackToTop(){const e=document.getElementById("back-to-top");e&&window.addEventListener("scroll",()=>{e.classList.toggle("show",window.pageYOffset>300)})}function scrollToTop(){window.scrollTo({top:0,behavior:"smooth"})}function showError(){const e=document.getElementById("products-container");e&&(e.innerHTML='<div class="empty-state"><div class="empty-icon">⚠️</div><h3 style="color:#ef4444">حدث خطأ في تحميل المنتجات</h3><p>تأكد من وجود ملف products_data.json</p><button onclick="location.reload()" style="margin-top:1rem;padding:0.75rem 2rem;background:var(--primary);color:#fff;border:0;border-radius:0.5rem;cursor:pointer">إعادة المحاولة</button></div>')}
+﻿// ═══════════════════════════════════════════════════════
+// 📦 نظام كتالوج المنتجات - سوق الكويت
+// ═══════════════════════════════════════════════════════
+
+let allProducts = [];
+let filteredProducts = [];
+let currentPage = 1;
+const productsPerPage = 24;
+let currentCategory = "all";
+let currentSort = "default";
+let searchTimeout;
+
+// بدء التحميل
+document.addEventListener("DOMContentLoaded", async function() {
+    console.log("🚀 بدء تحميل المنتجات...");
+    await loadProducts();
+    renderCategories();
+    setupEventListeners();
+    setupBackToTop();
+});
+
+// تحميل المنتجات من JSON
+async function loadProducts() {
+    try {
+        console.log("📡 جاري تحميل products_data.json...");
+        const response = await fetch("products_data.json");
+        
+        if (!response.ok) {
+            throw new Error("فشل تحميل الملف: " + response.status);
+        }
+        
+        allProducts = await response.json();
+        filteredProducts = [...allProducts];
+        
+        console.log("✅ تم تحميل " + allProducts.length + " منتج");
+        
+        updateCounts();
+        renderProducts();
+        
+    } catch (error) {
+        console.error("❌ خطأ:", error);
+        showError();
+    }
+}
+
+// عرض الفئات
+function renderCategories() {
+    const container = document.getElementById("categories");
+    if (!container) return;
+    
+    const categories = ["all", ...new Set(allProducts.map(p => p.category))];
+    
+    container.innerHTML = categories.map(cat => {
+        const count = cat === "all" ? allProducts.length : allProducts.filter(p => p.category === cat).length;
+        const name = cat === "all" ? "جميع المنتجات" : cat;
+        const active = cat === currentCategory ? "active" : "";
+        
+        return `<button class="category-btn ${active}" onclick="filterByCategory('${cat}')" data-category="${cat}">${name} (${count})</button>`;
+    }).join("");
+}
+
+// تصفية حسب الفئة
+function filterByCategory(category) {
+    currentCategory = category;
+    currentPage = 1;
+    
+    document.querySelectorAll(".category-btn").forEach(btn => {
+        btn.classList.remove("active");
+        if (btn.dataset.category === category) {
+            btn.classList.add("active");
+        }
+    });
+    
+    applyFilters();
+}
+
+// إعداد مستمعي الأحداث
+function setupEventListeners() {
+    const searchInput = document.getElementById("global-search-input");
+    if (searchInput) {
+        searchInput.addEventListener("input", function(e) {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                searchProducts(e.target.value);
+            }, 300);
+        });
+    }
+    
+    const sortSelect = document.getElementById("sort-select");
+    if (sortSelect) {
+        sortSelect.addEventListener("change", sortProducts);
+    }
+}
+
+// البحث
+function searchProducts(query) {
+    currentPage = 1;
+    applyFilters(query);
+}
+
+// تطبيق الفلاتر
+function applyFilters(searchQuery) {
+    const query = searchQuery || document.getElementById("global-search-input")?.value || "";
+    
+    let results = currentCategory === "all" 
+        ? [...allProducts] 
+        : allProducts.filter(p => p.category === currentCategory);
+    
+    if (query.trim()) {
+        results = results.filter(p => 
+            p.title.toLowerCase().includes(query.toLowerCase()) ||
+            (p.description && p.description.toLowerCase().includes(query.toLowerCase())) ||
+            p.category.toLowerCase().includes(query.toLowerCase())
+        );
+    }
+    
+    filteredProducts = results;
+    updateCounts();
+    sortProducts();
+}
+
+// الترتيب
+function sortProducts() {
+    const sortValue = document.getElementById("sort-select")?.value || currentSort;
+    currentSort = sortValue;
+    
+    switch(sortValue) {
+        case "price-low":
+            filteredProducts.sort((a, b) => a.sale_price - b.sale_price);
+            break;
+        case "price-high":
+            filteredProducts.sort((a, b) => b.sale_price - a.sale_price);
+            break;
+        case "name-asc":
+            filteredProducts.sort((a, b) => a.title.localeCompare(b.title, "ar"));
+            break;
+        case "name-desc":
+            filteredProducts.sort((a, b) => b.title.localeCompare(a.title, "ar"));
+            break;
+    }
+    
+    renderProducts();
+}
+
+// عرض المنتجات
+function renderProducts() {
+    const container = document.getElementById("products-container");
+    if (!container) return;
+    
+    const loading = document.getElementById("loading");
+    if (loading) loading.remove();
+    
+    if (filteredProducts.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">🔍</div>
+                <h3>لم يتم العثور على منتجات</h3>
+                <p>جرب البحث بكلمات مختلفة</p>
+            </div>
+        `;
+        return;
+    }
+    
+    const startIndex = (currentPage - 1) * productsPerPage;
+    const endIndex = startIndex + productsPerPage;
+    const pageProducts = filteredProducts.slice(startIndex, endIndex);
+    
+    container.innerHTML = pageProducts.map(product => createProductCard(product)).join("");
+    
+    renderPagination();
+    document.getElementById("showing-count").textContent = pageProducts.length;
+    lazyLoadImages();
+}
+
+// إنشاء بطاقة منتج
+function createProductCard(product) {
+    const discountPercent = Math.round(((product.price - product.sale_price) / product.price) * 100);
+    const hasDiscount = product.price !== product.sale_price;
+    const productUrl = "products-pages/" + product.filename;
+    
+    return `
+        <article class="product-card" onclick="window.open('${productUrl}', '_blank')" style="cursor:pointer">
+            ${hasDiscount ? `<div class="product-badge">وفّر ${discountPercent}%</div>` : ""}
+            <div class="product-image-wrapper">
+                <img class="product-image lazy" data-src="${product.image_link}" alt="${product.title}" loading="lazy">
+            </div>
+            <div class="product-info">
+                <div class="product-category">${product.category}</div>
+                <h3 class="product-title">${product.title}</h3>
+                <div class="product-rating">
+                    <div class="stars">★★★★½</div>
+                    <span style="font-size:.8rem;color:#6b7280">(4.9)</span>
+                </div>
+                <div class="product-price">
+                    <span class="current-price">${product.sale_price.toFixed(2)} د.ك</span>
+                    ${hasDiscount ? `<span class="old-price">${product.price.toFixed(2)} د.ك</span>` : ""}
+                </div>
+            </div>
+            <div class="product-footer">
+                <div class="add-to-cart-btn">
+                    🛒 اطلب عبر واتساب
+                </div>
+            </div>
+        </article>
+    `;
+}
+
+// Pagination
+function renderPagination() {
+    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+    const container = document.getElementById("pagination");
+    
+    if (totalPages <= 1) {
+        container.style.display = "none";
+        return;
+    }
+    
+    container.style.display = "flex";
+    
+    let html = `<button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? "disabled" : ""}>‹</button>`;
+    
+    for (let i = 1; i <= Math.min(totalPages, 5); i++) {
+        html += `<button class="page-btn ${i === currentPage ? "active" : ""}" onclick="changePage(${i})">${i}</button>`;
+    }
+    
+    html += `<button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? "disabled" : ""}>›</button>`;
+    
+    container.innerHTML = html;
+}
+
+function changePage(page) {
+    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+    if (page < 1 || page > totalPages) return;
+    
+    currentPage = page;
+    renderProducts();
+    scrollToTop();
+}
+
+// Lazy Load Images
+function lazyLoadImages() {
+    const images = document.querySelectorAll("img.lazy");
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove("lazy");
+                observer.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => observer.observe(img));
+}
+
+// تحديث العدادات
+function updateCounts() {
+    document.getElementById("total-count").textContent = filteredProducts.length;
+    document.getElementById("total-products").textContent = allProducts.length;
+}
+
+// Back to Top
+function setupBackToTop() {
+    const btn = document.getElementById("back-to-top");
+    if (!btn) return;
+    
+    window.addEventListener("scroll", () => {
+        btn.classList.toggle("show", window.pageYOffset > 300);
+    });
+    
+    btn.addEventListener("click", scrollToTop);
+}
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// رسالة خطأ
+function showError() {
+    const container = document.getElementById("products-container");
+    if (!container) return;
+    
+    container.innerHTML = `
+        <div class="empty-state">
+            <div class="empty-icon">⚠️</div>
+            <h3 style="color:#ef4444">حدث خطأ في تحميل المنتجات</h3>
+            <p>تأكد من وجود ملف products_data.json في المجلد الرئيسي</p>
+            <button onclick="location.reload()" style="margin-top:1rem;padding:0.75rem 2rem;background:var(--primary);color:#fff;border:0;border-radius:0.5rem;cursor:pointer;font-family:Tajawal">
+                إعادة المحاولة
+            </button>
+        </div>
+    `;
+}
