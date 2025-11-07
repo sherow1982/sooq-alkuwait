@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
-    <title>كاتالوج المنتجات - أكثر من 1977 منتج | سوق الكويت</title>
-    <meta name="description" content="تسوق من بين أكثر من 1977 منتج أصلي بأفضل الأسعار في الكويت">
+    <title>كاتالوج المنتجات | سوق الكويت</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="site-components.css">
     <link rel="stylesheet" href="catalog-styles.css">
 </head>
 <body>
-    <!-- شريط البحث العلوي الثابت -->
+    <div id="site-header"></div>
     <div class="top-search-bar">
         <div class="top-search-wrapper">
             <div class="site-logo">🛍️ سوق الكويت</div>
@@ -20,47 +20,35 @@
             </div>
         </div>
     </div>
-    
     <section class="hero">
         <h1>كاتالوج منتجاتنا المميز</h1>
-        <p>اكتشف أكثر من 1977 منتج أصلي بأفضل الأسعار في الكويت</p>
+        <p>اكتشف أكثر من 1977 منتج أصلي بأفضل الأسعار</p>
         <div class="hero-stats">
-            <div class="stat-item"><span class="stat-number" id="total-products">1977</span><span>منتج متنوع</span></div>
-            <div class="stat-item"><span class="stat-number">11</span><span>فئة مختلفة</span></div>
-            <div class="stat-item"><span class="stat-number">⭐ 4.9</span><span>تقييم العملاء</span></div>
-            <div class="stat-item"><span class="stat-number">شحن مجاني</span><span>لجميع الكويت</span></div>
+            <div class="stat-item"><span class="stat-number" id="total-products">1977</span><span>منتج</span></div>
+            <div class="stat-item"><span class="stat-number">11</span><span>فئة</span></div>
+            <div class="stat-item"><span class="stat-number">⭐ 4.9</span><span>تقييم</span></div>
+            <div class="stat-item"><span class="stat-number">شحن مجاني</span><span>الكويت</span></div>
         </div>
     </section>
-    
     <div class="container">
-        <!-- شريط الفئات الثابت -->
-        <div class="filter-bar">
-            <div class="categories-grid" id="categories"></div>
-        </div>
-        
+        <div class="filter-bar"><div class="categories-grid" id="categories"></div></div>
         <div class="toolbar">
             <div class="results-count">عرض <span id="showing-count">0</span> من <span id="total-count">0</span> منتج</div>
             <select class="sort-select" id="sort-select">
                 <option value="default">الترتيب الافتراضي</option>
-                <option value="price-low">السعر: من الأقل للأعلى</option>
-                <option value="price-high">السعر: من الأعلى للأقل</option>
+                <option value="price-low">السعر: الأقل - الأعلى</option>
+                <option value="price-high">السعر: الأعلى - الأقل</option>
             </select>
         </div>
-        
         <div class="products-grid" id="products-container">
-            <div class="loading"><div class="spinner"></div><p>جاري تحميل المنتجات...</p></div>
+            <div class="loading"><div class="spinner"></div><p>جاري التحميل...</p></div>
         </div>
-        
         <div class="pagination" id="pagination" style="display:none"></div>
     </div>
-    
     <button class="back-to-top" id="back-to-top"><i class="fas fa-arrow-up"></i></button>
+    <div id="site-footer"></div>
+    <script src="site-header.js"></script>
+    <script src="site-footer.js"></script>
     <script src="catalog-products.js"></script>
-    <script>
-        // ربط البحث العلوي بالبحث الرئيسي
-        document.getElementById("global-search-input").addEventListener("input",function(e){
-            searchProducts(e.target.value);
-        });
-    </script>
 </body>
 </html>
