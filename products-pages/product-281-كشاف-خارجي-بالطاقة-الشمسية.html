@@ -58,106 +58,62 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <style>
-        body { font-family: 'Cairo', Arial, sans-serif; background-color: #f8f9fa; line-height: 1.6; }
-        .product-image { width: 100%; max-width: 500px; height: 400px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); transition: transform 0.3s ease; }
-        .product-image:hover { transform: scale(1.05); }
-        .price-section { background: linear-gradient(135deg, #28a745, #20c997, #17a2b8); color: white; padding: 25px; border-radius: 20px; margin: 20px 0; box-shadow: 0 5px 20px rgba(40, 167, 69, 0.3); }
-        .original-price { text-decoration: line-through; opacity: 0.8; font-size: 1.3em; }
-        .sale-price { font-size: 2.8em; font-weight: 700; margin: 0 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .discount-badge { background: linear-gradient(45deg, #dc3545, #c82333); color: white; padding: 8px 20px; border-radius: 30px; font-weight: bold; font-size: 1.1em; box-shadow: 0 3px 10px rgba(220, 53, 69, 0.4); }
-        .countdown-timer { background: linear-gradient(45deg, #ff6b6b, #ee5a52, #ff4757); color: white; padding: 20px; border-radius: 15px; margin: 15px 0; text-align: center; box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4); }
-        .timer-unit { display: inline-block; margin: 0 8px; padding: 15px; background: rgba(255,255,255,0.25); border-radius: 10px; min-width: 70px; backdrop-filter: blur(10px); }
-        .timer-unit div { font-size: 1.8em; font-weight: bold; }
-        .reviews-section { background: white; padding: 35px; border-radius: 20px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); margin: 30px 0; }
-        .review-item { border-bottom: 1px solid #eee; padding: 25px 0; }
-        .review-item:last-child { border-bottom: none; }
-        .star-rating { color: #ffc107; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
-        .buy-button { background: linear-gradient(45deg, #007bff, #0056b3, #004085); border: none; padding: 18px 40px; font-size: 1.3em; font-weight: 600; border-radius: 50px; color: white; width: 100%; margin: 25px 0; transition: all 0.4s ease; box-shadow: 0 5px 20px rgba(0, 123, 255, 0.3); }
-        .buy-button:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0, 123, 255, 0.5); }
-        .specifications { background: white; padding: 30px; border-radius: 20px; margin: 25px 0; box-shadow: 0 3px 15px rgba(0,0,0,0.08); }
-        .spec-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #f0f0f0; }
-        .spec-item:last-child { border-bottom: none; }
-        .breadcrumb { background: white; padding: 18px 25px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .feature-box { text-align: center; padding: 25px; border: 2px solid #e9ecef; border-radius: 15px; transition: all 0.3s ease; background: white; }
-        .feature-box:hover { border-color: #28a745; transform: translateY(-5px); box-shadow: 0 10px 25px rgba(40, 167, 69, 0.2); }
-        .navbar { box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
-        .verified-badge { background: linear-gradient(45deg, #28a745, #20c997); color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.85em; font-weight: 500; }
-        @media (max-width: 768px) { .sale-price { font-size: 2.2em; } .timer-unit { margin: 0 4px; padding: 10px; min-width: 60px; } .timer-unit div { font-size: 1.5em; } }
-    </style>
-    <link href="../css/mobile-fix.css" rel="stylesheet">
-    <meta property="product:availability" content="in stock">
-    <meta property="product:condition" content="new">
-    <link rel="canonical" href="https://sooq-alkuwait.arabsad.com/products-pages/product-281-%D9%83%D8%B4%D8%A7%D9%81-%D8%AE%D8%A7%D8%B1%D8%AC%D9%8A-%D8%A8%D8%A7%D9%84%D8%B7%D8%A7%D9%82%D8%A9-%D8%A7%D9%84%D8%B4%D9%85%D8%B3%D9%8A%D8%A9.html">
+    
 
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="dns-prefetch" href="https://ecomerg.com">
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Cache Buster Meta -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="version" content="1762526674">
+
 
 <style>
-/* Footer محسّن - تصميم أفقي */
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-
-.footer-section {
-    text-align: right;
-}
-
-.footer-section h3 {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-.footer-section ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-section ul li {
-    margin-bottom: 12px;
-}
-
-.footer-section ul li a {
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
-.footer-section ul li a:hover {
-    transform: translateX(-5px);
-    opacity: 0.8;
-}
-
-.social-links a:hover {
-    transform: scale(1.2);
-}
-
-/* Responsive للجوال */
-@media (max-width: 992px) {
-    .footer-content {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 25px;
+/* تحسينات الجوال - بطاقة واحدة في الصف */
+@media (max-width: 768px) {
+    .product-card,
+    .catalog-item,
+    .grid-item {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+        margin: 0 auto 20px auto !important;
+    }
+    
+    .products-grid,
+    .catalog-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    
+    .row .col-6,
+    .row .col-md-4,
+    .row .col-md-6,
+    .row .col-lg-3,
+    .row .col-lg-4 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Carousel على الجوال */
+    .carousel-track .product-card {
+        min-width: 85% !important;
+        max-width: 85% !important;
+    }
+    
+    .product-image img {
+        max-height: 300px !important;
+        object-fit: contain !important;
     }
 }
 
-@media (max-width: 576px) {
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-}
+/* إضافة meta cache control */
 </style>
+
+<!-- Cache Buster Meta -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="version" content="1762526764">
 
 </head>
 <body>
@@ -737,7 +693,7 @@ track.addEventListener('mouseleave', resetAutoScroll);
         </div>
     </footer>
 
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"?v=1762526674></script>
     <script>
         function updateCountdown() {
             const now = new Date().getTime();
@@ -780,11 +736,11 @@ track.addEventListener('mouseleave', resetAutoScroll);
             });
         });
     </script>
-    <script defer src="../js/product-enhanced.js"></script>
+    <script defer src="../js/product-enhanced.js"?v=1762526674></script>
 
     <!-- زر السلة العائم + زر العودة للأعلى -->
-    <link rel="stylesheet" href="../floating-cart.css">
-    <script defer src="../floating-cart.js"></script>
+    <link rel="stylesheet" href="../floating-cart.css"?v=1762526674>
+    <script defer src="../floating-cart.js"?v=1762526674></script>
     
     <!-- زر العودة للأعلى -->
     <button id="back-to-top" onclick="scrollToTop()" style="position: fixed; bottom: 30px; left: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 50px; height: 50px; border-radius: 50%; border: none; font-size: 1.5em; cursor: pointer; box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4); transition: all 0.3s; z-index: 999; display: none; align-items: center; justify-content: center;">

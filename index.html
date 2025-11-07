@@ -42,67 +42,62 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://ecomerg.com">
 
+
+
+<!-- Cache Buster Meta -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="version" content="1762526674">
+
+
 <style>
-/* Footer محسّن - تصميم أفقي */
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-
-.footer-section {
-    text-align: right;
-}
-
-.footer-section h3 {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-.footer-section ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-section ul li {
-    margin-bottom: 12px;
-}
-
-.footer-section ul li a {
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
-.footer-section ul li a:hover {
-    transform: translateX(-5px);
-    opacity: 0.8;
-}
-
-.social-links a:hover {
-    transform: scale(1.2);
-}
-
-/* Responsive للجوال */
-@media (max-width: 992px) {
-    .footer-content {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 25px;
+/* تحسينات الجوال - بطاقة واحدة في الصف */
+@media (max-width: 768px) {
+    .product-card,
+    .catalog-item,
+    .grid-item {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+        margin: 0 auto 20px auto !important;
+    }
+    
+    .products-grid,
+    .catalog-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    
+    .row .col-6,
+    .row .col-md-4,
+    .row .col-md-6,
+    .row .col-lg-3,
+    .row .col-lg-4 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Carousel على الجوال */
+    .carousel-track .product-card {
+        min-width: 85% !important;
+        max-width: 85% !important;
+    }
+    
+    .product-image img {
+        max-height: 300px !important;
+        object-fit: contain !important;
     }
 }
 
-@media (max-width: 576px) {
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-}
+/* إضافة meta cache control */
 </style>
+
+<!-- Cache Buster Meta -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="version" content="1762526764">
 
 </head>
 <body>
@@ -136,6 +131,362 @@
             </div>
         </div>
     </nav>
+
+<!-- Hero Carousel للمنتجات المميزة -->
+<section class="hero-carousel-section">
+    <div class="section-header">
+        <h2>✨ منتجات مميزة لك</h2>
+        <p>اكتشف أفضل العروض والمنتجات الحصرية</p>
+    </div>
+    
+    <div class="hero-carousel-container">
+        <button class="carousel-nav prev" onclick="moveHeroCarousel(-1)">❮</button>
+        <div class="hero-carousel-track" id="heroCarousel">
+
+        <div class="hero-product-card">
+            <a href="https://sooq-alkuwait.arabsad.com/products-pages/product-1019-%D8%AC%D9%87%D8%A7%D8%B2-%D8%AA%D8%AF%D9%84%D9%8A%D9%83-%D9%88%D8%A7%D8%B3%D8%AA%D8%B1%D8%AE%D8%A7%D8%A1-4-%D8%B1%D8%A4%D9%88%D8%B3.html" class="card-link">
+                <div class="card-image">
+                    <img src="https://ecomerg.com/uploads/products_images/2198/aavzqOg1SvDvbCsJSTMPt3Jaza6ukHbQTBe7eDNi.jpg" alt="جهاز تدليك واسترخاء 4 رؤوس" loading="lazy">
+                </div>
+                <div class="card-body">
+                    <h3>جهاز تدليك واسترخاء 4 رؤوس</h3>
+                    <div class="price">14.99 د.ك</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="hero-product-card">
+            <a href="https://sooq-alkuwait.arabsad.com/products-pages/product-1032-%D8%B3%D8%B1%D9%88%D8%A7%D9%84-%D8%B3%D8%A7%D9%88%D9%86%D8%A7-%D9%84%D9%84%D9%86%D8%B3%D8%A7%D8%A1.html" class="card-link">
+                <div class="card-image">
+                    <img src="https://ecomerg.com/uploads/products_images/2160/o9tfFcUQUlloKYAzwBes6mluHeC1YduWJB9mhVZM.jpg" alt="سروال ساونا للنساء" loading="lazy">
+                </div>
+                <div class="card-body">
+                    <h3>سروال ساونا للنساء</h3>
+                    <div class="price">11.99 د.ك</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="hero-product-card">
+            <a href="https://sooq-alkuwait.arabsad.com/products-pages/product-1001-%D9%85%D9%8A%D8%B2%D8%A7%D9%86-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A-200-%D9%83%D8%AC%D9%85-HD.html" class="card-link">
+                <div class="card-image">
+                    <img src="https://ecomerg.com/uploads/products_images/2223/voiPrIWGLTFr15iV1dzDVyupGjRcaXjs4XN397mj.jpg" alt="ميزان الكتروني 200 كجم H.D" loading="lazy">
+                </div>
+                <div class="card-body">
+                    <h3>ميزان الكتروني 200 كجم H.D</h3>
+                    <div class="price">18.99 د.ك</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="hero-product-card">
+            <a href="https://sooq-alkuwait.arabsad.com/products-pages/product-1009-%D9%85%D8%B5%D8%A7%D8%A8%D9%8A%D8%AD-%D8%AD%D8%AF%D9%8A%D9%82%D8%A9-%D8%AA%D8%B9%D9%85%D9%84-%D8%A8%D8%A7%D9%84%D8%B7%D8%A7%D9%82%D8%A9-%D8%A7%D9%84%D8%B4%D9%85%D8%B3%D9%8A%D8%A9.html" class="card-link">
+                <div class="card-image">
+                    <img src="https://ecomerg.com/uploads/products_images/2212/LJHs9btna1Zv4jtTC2pJuNszdNWhbxkSXGQ3Xene.jpg" alt="مصابيح حديقة تعمل بالطاقة الشمسية" loading="lazy">
+                </div>
+                <div class="card-body">
+                    <h3>مصابيح حديقة تعمل بالطاقة الشمسية</h3>
+                    <div class="price">12.00 د.ك</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="hero-product-card">
+            <a href="https://sooq-alkuwait.arabsad.com/products-pages/product-1024-%D8%A3%D8%B1%D9%8A%D9%83%D8%A9-%D8%B2%D9%83%D8%B1%D8%B3%D9%8A-%D9%82%D8%A7%D8%A8%D9%84%D8%A9-%D9%84%D9%84%D9%86%D9%81%D8%AE.html" class="card-link">
+                <div class="card-image">
+                    <img src="https://ecomerg.com/uploads/products_images/2185/Jmd7b6nsW15u6SVEtrmgGkNHlUpYoysxPynl8T0r.jpg" alt="أريكة زكرسي قابلة للنفخ" loading="lazy">
+                </div>
+                <div class="card-body">
+                    <h3>أريكة زكرسي قابلة للنفخ</h3>
+                    <div class="price">16.99 د.ك</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="hero-product-card">
+            <a href="https://sooq-alkuwait.arabsad.com/products-pages/product-1037-%D8%B9%D9%84%D8%A8%D8%A9-%D9%85%D9%86%D8%A7%D8%AF%D9%8A%D9%84-%D8%AC%D9%84%D8%AF%D9%8A%D8%A9-%D9%84%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A9.html" class="card-link">
+                <div class="card-image">
+                    <img src="https://ecomerg.com/uploads/products_images/2144/eyEI8w3gK00jQhJv6GaKfPIXRQmunu6uHUcFcKvu.jpg" alt="علبة مناديل جلدية للسيارة" loading="lazy">
+                </div>
+                <div class="card-body">
+                    <h3>علبة مناديل جلدية للسيارة</h3>
+                    <div class="price">12.00 د.ك</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="hero-product-card">
+            <a href="https://sooq-alkuwait.arabsad.com/products-pages/product-103-%D9%82%D9%84%D9%85-%D9%84%D9%8A%D8%B2%D8%B1-%D8%A3%D8%AE%D8%B6%D8%B1-%D8%A7%D8%AD%D8%AA%D8%B1%D8%A7%D9%81%D9%8A-%D9%85%D8%B9-%D8%B9%D8%AF%D8%B3%D8%A7%D8%AA-%D9%85%D8%AA%D8%B9%D8%AF%D8%AF%D8%A9.html" class="card-link">
+                <div class="card-image">
+                    <img src="https://ecomerg.com/uploads/products_images/3580/qEdNUpDbC5dUi4akQiHFxaF372BuOFbvgMS6IR0z.jpg" alt="قلم ليزر أخضر احترافي مع عدسات متعددة" loading="lazy">
+                </div>
+                <div class="card-body">
+                    <h3>قلم ليزر أخضر احترافي مع عدسات متعددة</h3>
+                    <div class="price">13.00 د.ك</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="hero-product-card">
+            <a href="https://sooq-alkuwait.arabsad.com/products-pages/product-1018-%D8%AC%D9%87%D8%A7%D8%B2-%D9%82%D9%8A%D8%A7%D8%B3-%D8%A7%D9%84%D8%AD%D8%B1%D8%A7%D8%B1%D8%A9.html" class="card-link">
+                <div class="card-image">
+                    <img src="https://ecomerg.com/uploads/products_images/2199/lIrUjskAWnZAiUnNfJEWTMl8ydXFoFKu3S2HmzUv.jpg" alt="جهاز قياس الحرارة" loading="lazy">
+                </div>
+                <div class="card-body">
+                    <h3>جهاز قياس الحرارة</h3>
+                    <div class="price">11.99 د.ك</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="hero-product-card">
+            <a href="https://sooq-alkuwait.arabsad.com/products-pages/product-102-%D8%AD%D8%B2%D8%A7%D9%85-%D8%AF%D8%B9%D9%85-%D8%A7%D9%84%D8%B8%D9%87%D8%B1-%D8%A7%D9%84%D9%87%D9%88%D8%A7%D8%A6%D9%8A-%D9%84%D8%AA%D8%AE%D9%81%D9%8A%D9%81-%D8%A2%D9%84%D8%A7%D9%85-%D8%A3%D8%B3%D9%81%D9%84-%D8%A7%D9%84%D8%B8%D9%87%D8%B1.html" class="card-link">
+                <div class="card-image">
+                    <img src="https://ecomerg.com/uploads/products_images/3581/c14NITY2w0GWYZNtDXJV9vPoZIK5WGJle1VBs768.jpg" alt="حزام دعم الظهر الهوائي لتخفيف آلام أسفل الظهر" loading="lazy">
+                </div>
+                <div class="card-body">
+                    <h3>حزام دعم الظهر الهوائي لتخفيف آلام أسفل الظهر</h3>
+                    <div class="price">18.00 د.ك</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="hero-product-card">
+            <a href="https://sooq-alkuwait.arabsad.com/products-pages/product-104-%D8%B7%D9%82%D9%85-%D9%85%D8%A8%D8%B1%D8%A7%D8%A9-%D8%A7%D9%84%D8%B3%D9%83%D8%A7%D9%83%D9%8A%D9%86-3-%D9%81%D9%8A-1.html" class="card-link">
+                <div class="card-image">
+                    <img src="https://ecomerg.com/uploads/products_images/3579/UA9dJ8EFQW0SzCRL26MDZTiHao40Qvt61qzDQzzN.jpg" alt="طقم مبراة السكاكين 3 في 1" loading="lazy">
+                </div>
+                <div class="card-body">
+                    <h3>طقم مبراة السكاكين 3 في 1</h3>
+                    <div class="price">12.50 د.ك</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="hero-product-card">
+            <a href="https://sooq-alkuwait.arabsad.com/products-pages/product-1027-%D8%A8%D9%84%D9%88%D8%AA%D9%88%D8%AB-%D9%84%D8%A7%D8%B3%D9%84%D9%83%D9%8A-M90-%D9%85%D8%A7%D9%83%D8%B3.html" class="card-link">
+                <div class="card-image">
+                    <img src="https://ecomerg.com/uploads/products_images/2178/xSHPHTXmQY0DLkEic1h1DgyTUqsfvtwIUM2JMJ8X.jpg" alt="بلوتوث لاسلكي M90 ماكس" loading="lazy">
+                </div>
+                <div class="card-body">
+                    <h3>بلوتوث لاسلكي M90 ماكس</h3>
+                    <div class="price">12.00 د.ك</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="hero-product-card">
+            <a href="https://sooq-alkuwait.arabsad.com/products-pages/product-1017-%D9%85%D8%A7%D9%83%D9%8A%D9%86%D8%A9-%D8%AA%D8%B4%D8%B0%D9%8A%D8%A8-%D8%B4%D8%B9%D8%B1-%D8%A7%D9%84%D8%A3%D9%86%D9%81-%D9%88%D8%A7%D9%84%D8%A3%D8%B0%D9%86-%D9%88%D8%A7%D9%84%D8%B4%D8%B9%D8%B1.html" class="card-link">
+                <div class="card-image">
+                    <img src="https://ecomerg.com/uploads/products_images/2200/GIuNt0M6WRylKKeza20hVMUNRQiVdDpm65Sjlhdz.jpg" alt="ماكينة تشذيب شعر الأنف والأذن والشعر" loading="lazy">
+                </div>
+                <div class="card-body">
+                    <h3>ماكينة تشذيب شعر الأنف والأذن والشعر</h3>
+                    <div class="price">12.00 د.ك</div>
+                </div>
+            </a>
+        </div>
+
+        </div>
+        <button class="carousel-nav next" onclick="moveHeroCarousel(1)">❯</button>
+    </div>
+</section>
+
+<style>
+/* Hero Carousel للصفحة الرئيسية */
+.hero-carousel-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 60px 20px;
+    margin: 0 0 40px 0;
+}
+
+.section-header {
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.section-header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.hero-carousel-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 60px;
+}
+
+.hero-carousel-track {
+    display: flex;
+    gap: 25px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 5px;
+    scrollbar-width: none;
+}
+
+.hero-carousel-track::-webkit-scrollbar {
+    display: none;
+}
+
+.hero-product-card {
+    min-width: 280px;
+    max-width: 280px;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    transition: all 0.4s ease;
+}
+
+.hero-product-card:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.card-image {
+    width: 100%;
+    height: 250px;
+    background: #f8f9fa;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.hero-product-card:hover .card-image img {
+    transform: scale(1.15);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-body h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+    height: 2.8em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.card-body .price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #27ae60;
+}
+
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    z-index: 10;
+    color: #667eea;
+}
+
+.carousel-nav:hover {
+    background: #25D366;
+    color: white;
+    transform: translateY(-50%) scale(1.15);
+}
+
+.carousel-nav.prev {
+    left: 5px;
+}
+
+.carousel-nav.next {
+    right: 5px;
+}
+
+/* Responsive للجوال */
+@media (max-width: 768px) {
+    .hero-carousel-container {
+        padding: 0 50px;
+    }
+    
+    .hero-product-card {
+        min-width: 85%;
+        max-width: 85%;
+    }
+    
+    .section-header h2 {
+        font-size: 1.8rem;
+    }
+    
+    .carousel-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.4rem;
+    }
+}
+</style>
+
+<script>
+let heroPosition = 0;
+
+function moveHeroCarousel(direction) {
+    const track = document.getElementById('heroCarousel');
+    const cardWidth = 305; // 280 + 25 gap
+    const trackWidth = track.scrollWidth;
+    const containerWidth = track.offsetWidth;
+    
+    heroPosition += direction * cardWidth;
+    
+    if (heroPosition < 0) heroPosition = 0;
+    if (heroPosition > trackWidth - containerWidth) heroPosition = trackWidth - containerWidth;
+    
+    track.scrollLeft = heroPosition;
+}
+
+// تمرير تلقائي كل 4 ثواني
+setInterval(() => {
+    const track = document.getElementById('heroCarousel');
+    const trackWidth = track.scrollWidth;
+    const containerWidth = track.offsetWidth;
+    
+    heroPosition += 305;
+    if (heroPosition >= trackWidth - containerWidth) heroPosition = 0;
+    
+    track.scrollLeft = heroPosition;
+}, 4000);
+</script>
+
+
+
+
 
     <!-- Hero Section محسّن -->
     <section style="background: linear-gradient(135deg, var(--kuwait-green), var(--kuwait-black), var(--kuwait-red)); padding: 5rem 0; text-align: center; position: relative; overflow: hidden;">
@@ -364,8 +715,8 @@
     }
     </script>
 
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script defer src="js/product-enhanced.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"?v=1762526674></script>
+    <script defer src="js/product-enhanced.js"?v=1762526674></script>
     
     <script>
         // تحديث عداد السلة
