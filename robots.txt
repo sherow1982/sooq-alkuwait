@@ -1,9 +1,12 @@
 # Robots.txt for سوق الكويت
+# Domain: https://sooq-alkuwait.arabsad.com
+
 User-agent: *
 Allow: /
 
 # Sitemaps
 Sitemap: https://sooq-alkuwait.arabsad.com/sitemap.xml
+Sitemap: https://sooq-alkuwait.arabsad.com/google-merchant-feed.xml
 
 # Crawl-delay
 Crawl-delay: 1
