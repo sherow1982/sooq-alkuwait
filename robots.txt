@@ -1,5 +1,25 @@
+# Robots.txt for سوق الكويت
 User-agent: *
 Allow: /
 
+# Sitemaps
 Sitemap: https://sherow1982.github.io/sooq-alkuwait/sitemap.xml
-Sitemap: https://sherow1982.github.io/sooq-alkuwait/product-sitemap.xml
+Sitemap: https://sherow1982.github.io/sooq-alkuwait/google-merchant-feed.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Allow all search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Disallow admin areas (if any)
+User-agent: *
+Disallow: /admin/
+Disallow: /temp/
