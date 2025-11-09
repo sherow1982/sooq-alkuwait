@@ -1,0 +1,59 @@
+# Robots.txt for Sooq AlKuwait
+# سوق الكويت - ملف محركات البحث المحسّن
+
+User-agent: *
+Allow: /
+
+# Allow all pages and products
+Allow: /index.html
+Allow: /products-catalog.html
+Allow: /products-pages/
+Allow: /about.html
+Allow: /contact.html
+
+# Disallow admin and test files
+Disallow: /admin/
+Disallow: /test/
+Disallow: /*.json$
+Disallow: /*-old.*
+Disallow: /*test*
+
+# Allow CSS and JS
+Allow: *.css
+Allow: *.js
+
+# Allow Images
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.png
+Allow: *.gif
+Allow: *.webp
+Allow: *.svg
+
+# Sitemap
+Sitemap: https://sooq-alkuwait.arabsad.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Special rules for specific bots
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
