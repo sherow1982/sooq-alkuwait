@@ -1,0 +1,58 @@
+/* Font Awesome Optimized - Only Used Icons
+   تقليل الحجم من 18KB إلى ~2KB
+   فقط الأيقونات المستخدمة في الموقع
+*/
+
+/* Base Font Awesome Setup */
+@font-face {
+  font-family: 'Font Awesome 6 Free';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Font Awesome 6 Brands';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2') format('woff2');
+}
+
+.fas, .fa-solid {
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+}
+
+.fab, .fa-brands {
+  font-family: 'Font Awesome 6 Brands';
+  font-weight: 400;
+}
+
+.fas, .fab {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+
+/* Used Icons Only */
+.fa-shopping-bag::before { content: "\f290"; }
+.fa-whatsapp::before { content: "\f232"; }
+.fa-shipping-fast::before { content: "\f48b"; }
+.fa-money-bill-wave::before { content: "\f53a"; }
+.fa-certificate::before { content: "\f0a3"; }
+.fa-shopping-cart::before { content: "\f07a"; }
+.fa-arrow-left::before { content: "\f060"; }
+.fa-star::before { content: "\f005"; }
+
+/* Hide unused Font Awesome */
+@supports (font-display: optional) {
+  .fas, .fab {
+    font-display: optional;
+  }
+}
