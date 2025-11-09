@@ -1,9 +1,10 @@
 /* ============================================
    سوق الكويت - ملف الأنماط الرئيسي المحسّن
-   تحسين الأداء وتجربة المستخدم + إصلاح CLS
+   تحسين الأداء + إصلاح CLS النهاذي
+   CLS Target: < 0.1
 ============================================ */
 
-/* Font Loading - Prevent CLS */
+/* Font Loading - Complete CLS Prevention */
 body {
     font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
 }
@@ -18,7 +19,6 @@ body {
     bottom: 0;
     background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
     opacity: 0.3;
-    will-change: auto;
 }
 
 .hero-content {
@@ -33,31 +33,31 @@ body {
     margin-bottom: 2.5rem;
     opacity: 0.95;
     line-height: 1.6;
-    min-height: 3.5rem;
+    min-height: 4.5rem;
 }
 
 @media (max-width: 768px) {
     .hero p { 
         font-size: 1.1rem;
-        min-height: 2.8rem;
+        min-height: 3.5rem;
     }
 }
 
-/* Hero Stats - CLS Fix */
+/* Hero Stats - Aggressive CLS Fix */
 .hero-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 2rem;
     max-width: 1000px;
     margin: 3rem auto 0;
-    min-height: 180px; /* Prevent layout shift */
+    min-height: 240px !important;
 }
 
 @media (max-width: 768px) {
     .hero-stats { 
         grid-template-columns: repeat(2, 1fr); 
         gap: 1rem;
-        min-height: 200px;
+        min-height: 260px !important;
     }
 }
 
@@ -68,17 +68,19 @@ body {
     border-radius: 1.5rem;
     border: 2px solid rgba(255,255,255,0.2);
     transition: transform 0.3s, background 0.3s;
-    min-height: 120px; /* Prevent CLS */
+    min-height: 160px !important;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    contain: layout; /* CSS Containment */
+    align-items: center;
+    contain: strict;
+    will-change: transform;
 }
 
 @media (max-width: 768px) {
     .stat-card { 
         padding: 1.2rem;
-        min-height: 100px;
+        min-height: 140px !important;
     }
 }
 
@@ -93,20 +95,28 @@ body {
     display: block;
     margin-bottom: 0.5rem;
     line-height: 1.1;
+    min-height: 2.75rem;
 }
 
 @media (max-width: 768px) {
-    .stat-number { font-size: 1.8rem; }
+    .stat-number { 
+        font-size: 1.8rem;
+        min-height: 1.98rem;
+    }
 }
 
 .stat-label {
     font-size: 1rem;
     opacity: 0.9;
     line-height: 1.3;
+    min-height: 1.3rem;
 }
 
 @media (max-width: 768px) {
-    .stat-label { font-size: 0.85rem; }
+    .stat-label { 
+        font-size: 0.85rem;
+        min-height: 1.1rem;
+    }
 }
 
 /* CTA Buttons - Prevent CLS */
@@ -116,12 +126,12 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     margin: 2rem 0;
-    min-height: 80px;
+    min-height: 90px;
 }
 
 @media (max-width: 768px) {
     .cta-buttons {
-        min-height: 100px;
+        min-height: 110px;
     }
 }
 
@@ -137,11 +147,16 @@ body {
     gap: 0.8rem;
     border: none;
     cursor: pointer;
-    will-change: transform;
+    min-height: 58px;
+    contain: layout;
 }
 
 @media (max-width: 768px) {
-    .btn { padding: 1rem 2rem; font-size: 1rem; }
+    .btn { 
+        padding: 1rem 2rem; 
+        font-size: 1rem;
+        min-height: 52px;
+    }
 }
 
 .btn-primary {
@@ -188,10 +203,15 @@ body {
     margin-bottom: 3rem;
     color: #1e293b;
     line-height: 1.2;
+    min-height: 3rem;
 }
 
 @media (max-width: 768px) {
-    .section-title { font-size: 1.8rem; margin-bottom: 2rem; }
+    .section-title { 
+        font-size: 1.8rem; 
+        margin-bottom: 2rem;
+        min-height: 2.16rem;
+    }
 }
 
 .features-grid {
@@ -211,14 +231,18 @@ body {
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     border: 2px solid transparent;
-    min-height: 280px;
+    min-height: 300px;
     display: flex;
     flex-direction: column;
-    contain: layout;
+    justify-content: flex-start;
+    contain: strict;
 }
 
 @media (max-width: 768px) {
-    .feature-card { padding: 1.8rem; min-height: 240px; }
+    .feature-card { 
+        padding: 1.8rem; 
+        min-height: 260px; 
+    }
 }
 
 .feature-card:hover {
@@ -252,19 +276,27 @@ body {
     margin-bottom: 1rem;
     color: #1e293b;
     line-height: 1.3;
+    min-height: 1.95rem;
 }
 
 @media (max-width: 768px) {
-    .feature-title { font-size: 1.2rem; }
+    .feature-title { 
+        font-size: 1.2rem;
+        min-height: 1.56rem;
+    }
 }
 
 .feature-desc {
     color: #64748b;
     line-height: 1.8;
+    min-height: 3.6rem;
 }
 
 @media (max-width: 768px) {
-    .feature-desc { font-size: 0.95rem; }
+    .feature-desc { 
+        font-size: 0.95rem;
+        min-height: 3.42rem;
+    }
 }
 
 /* Categories Preview */
@@ -297,17 +329,20 @@ body {
     cursor: pointer;
     text-decoration: none;
     color: inherit;
-    display: block;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    min-height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    min-height: 160px;
+    contain: strict;
 }
 
 @media (max-width: 768px) {
-    .category-card { padding: 1.3rem; min-height: 120px; }
+    .category-card { 
+        padding: 1.3rem; 
+        min-height: 130px; 
+    }
 }
 
 .category-card:hover {
@@ -321,20 +356,29 @@ body {
     font-size: 3rem;
     margin-bottom: 1rem;
     line-height: 1;
+    min-height: 3rem;
 }
 
 @media (max-width: 768px) {
-    .category-icon { font-size: 2.2rem; margin-bottom: 0.7rem; }
+    .category-icon { 
+        font-size: 2.2rem; 
+        margin-bottom: 0.7rem;
+        min-height: 2.2rem;
+    }
 }
 
 .category-name {
     font-size: 1.2rem;
     font-weight: 700;
     line-height: 1.3;
+    min-height: 1.56rem;
 }
 
 @media (max-width: 768px) {
-    .category-name { font-size: 1rem; }
+    .category-name { 
+        font-size: 1rem;
+        min-height: 1.3rem;
+    }
 }
 
 /* Testimonials */
@@ -363,12 +407,15 @@ body {
     border-radius: 1.5rem;
     border-right: 5px solid #667eea;
     transition: transform 0.3s, box-shadow 0.3s;
-    min-height: 220px;
-    contain: layout;
+    min-height: 240px;
+    contain: strict;
 }
 
 @media (max-width: 768px) {
-    .testimonial-card { padding: 1.8rem; min-height: 200px; }
+    .testimonial-card { 
+        padding: 1.8rem; 
+        min-height: 220px; 
+    }
 }
 
 .testimonial-card:hover {
@@ -381,6 +428,7 @@ body {
     font-size: 1.3rem;
     margin-bottom: 1rem;
     line-height: 1;
+    min-height: 1.3rem;
 }
 
 .testimonial-text {
@@ -388,23 +436,28 @@ body {
     line-height: 1.8;
     color: #475569;
     margin-bottom: 1.5rem;
-    min-height: 5.4rem;
+    min-height: 5.94rem;
 }
 
 @media (max-width: 768px) {
-    .testimonial-text { font-size: 1rem; min-height: 4.8rem; }
+    .testimonial-text { 
+        font-size: 1rem; 
+        min-height: 5.4rem; 
+    }
 }
 
 .testimonial-author {
     font-weight: 700;
     color: #1e293b;
     line-height: 1.4;
+    min-height: 1.4rem;
 }
 
 .testimonial-location {
     color: #94a3b8;
     font-size: 0.9rem;
     line-height: 1.4;
+    min-height: 1.26rem;
 }
 
 /* Final CTA */
@@ -413,13 +466,16 @@ body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     text-align: center;
-    min-height: 400px;
+    min-height: 420px;
     display: flex;
     align-items: center;
 }
 
 @media (max-width: 768px) {
-    .final-cta { padding: 4rem 20px; min-height: 350px; }
+    .final-cta { 
+        padding: 4rem 20px; 
+        min-height: 370px; 
+    }
 }
 
 .final-cta h2 {
@@ -427,10 +483,14 @@ body {
     font-weight: 900;
     margin-bottom: 1.5rem;
     line-height: 1.2;
+    min-height: 3.6rem;
 }
 
 @media (max-width: 768px) {
-    .final-cta h2 { font-size: 2rem; }
+    .final-cta h2 { 
+        font-size: 2rem;
+        min-height: 2.4rem;
+    }
 }
 
 .final-cta p {
@@ -438,10 +498,14 @@ body {
     margin-bottom: 2.5rem;
     opacity: 0.95;
     line-height: 1.6;
+    min-height: 2.08rem;
 }
 
 @media (max-width: 768px) {
-    .final-cta p { font-size: 1.1rem; }
+    .final-cta p { 
+        font-size: 1.1rem;
+        min-height: 1.76rem;
+    }
 }
 
 /* WhatsApp Float */
@@ -467,7 +531,13 @@ body {
 }
 
 @media (max-width: 768px) {
-    .whatsapp-float { width: 60px; height: 60px; font-size: 2rem; bottom: 20px; left: 20px; }
+    .whatsapp-float { 
+        width: 60px; 
+        height: 60px; 
+        font-size: 2rem; 
+        bottom: 20px; 
+        left: 20px; 
+    }
 }
 
 @keyframes float {
@@ -518,13 +588,13 @@ img[width][height] {
 /* Header & Footer - Reserve Space */
 #site-header,
 #site-footer {
-    min-height: 80px;
+    min-height: 85px;
 }
 
 @media (max-width: 768px) {
     #site-header,
     #site-footer {
-        min-height: 70px;
+        min-height: 75px;
     }
 }
 
@@ -533,7 +603,7 @@ img[width][height] {
 .category-card,
 .testimonial-card,
 .stat-card {
-    contain: layout style paint;
+    contain: strict;
 }
 
 /* Reduce Animation on Slower Devices */
@@ -563,5 +633,13 @@ img[width][height] {
         color: white !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
+    }
+}
+
+/* Prevent Font Loading CLS */
+@supports (font-display: optional) {
+    @font-face {
+        font-family: 'Tajawal';
+        font-display: optional;
     }
 }
