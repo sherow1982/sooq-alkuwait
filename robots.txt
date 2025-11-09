@@ -1,47 +1,59 @@
-# robots.txt for sooq-alkuwait.arabsad.com
-# Optimized for Google Merchant Center
+# Robots.txt for Sooq AlKuwait
+# سوق الكويت - ملف محركات البحث المحسّن
 
-# Allow all major search engines
 User-agent: *
 Allow: /
 
-# Specifically allow Googlebot (Google Search)
+# Allow all pages and products
+Allow: /index.html
+Allow: /products-catalog.html
+Allow: /products-pages/
+Allow: /about.html
+Allow: /contact.html
+
+# Disallow admin and test files
+Disallow: /admin/
+Disallow: /test/
+Disallow: /*.json$
+Disallow: /*-old.*
+Disallow: /*test*
+
+# Allow CSS and JS
+Allow: *.css
+Allow: *.js
+
+# Allow Images
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.png
+Allow: *.gif
+Allow: *.webp
+Allow: *.svg
+
+# Sitemap
+Sitemap: https://sooq-alkuwait.arabsad.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Special rules for specific bots
 User-agent: Googlebot
 Allow: /
-Allow: /products-pages/
-Allow: /uploads/
-Allow: /images/
+Crawl-delay: 0
 
-# Allow Googlebot-Image (for product images)
 User-agent: Googlebot-Image
 Allow: /
-Allow: /uploads/
-Allow: /images/
-Allow: /*.jpg
-Allow: /*.jpeg
-Allow: /*.png
-Allow: /*.gif
-Allow: /*.webp
 
-# Allow Google Shopping Bot
-User-agent: Googlebot-Shopping
-Allow: /
-Allow: /products-pages/
-Allow: /uploads/
-
-# Allow Google Mobile Bot
-User-agent: Googlebot-Mobile
-Allow: /
-
-# Allow Bingbot
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
-# Disallow only admin and private areas
-Disallow: /admin/
-Disallow: /private/
-Disallow: /.git/
-Disallow: /cgi-bin/
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
 
-# Sitemap location (optional - create if needed)
-# Sitemap: https://sooq-alkuwait.arabsad.com/sitemap.xml
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
