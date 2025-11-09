@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>العروض الخاصة | سوق الكويت</title>
+    <meta name="description" content="اكتشف أفضل العروض والخصومات على أكثر من 1977 منتج">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="site-components.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:Tajawal,sans-serif;background:linear-gradient(135deg,#f5f7fa,#e3edf7);padding-top:80px;margin:0}
+        .hero{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;padding:6rem 1rem;text-align:center;position:relative;overflow:hidden}
+        @media (max-width:768px){.hero{padding:4rem 1rem}}
+        .hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.1)"/></svg>') repeat;opacity:.3}
+        .hero-content{position:relative;z-index:1;max-width:900px;margin:0 auto}
+        .hero h1{font-size:4rem;font-weight:900;margin-bottom:1.5rem;animation:pulse 2s infinite}
+        @media (max-width:768px){.hero h1{font-size:2.5rem}}
+        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+        .hero p{font-size:1.5rem;margin-bottom:2rem;opacity:.95}
+        @media (max-width:768px){.hero p{font-size:1.2rem}}
+        .offer-badge{background:rgba(255,255,255,0.2);backdrop-filter:blur(10px);display:inline-block;padding:1rem 2rem;border-radius:50px;font-size:1.8rem;font-weight:900;margin:2rem 0;border:3px solid rgba(255,255,255,0.4)}
+        @media (max-width:768px){.offer-badge{font-size:1.4rem;padding:.8rem 1.5rem}}
+        .container{max-width:1200px;margin:4rem auto;padding:0 1rem}
+        @media (max-width:768px){.container{margin:3rem auto}}
+        .section-title{text-align:center;font-size:2.5rem;font-weight:900;margin-bottom:3rem;color:#1e293b}
+        @media (max-width:768px){.section-title{font-size:1.8rem;margin-bottom:2rem}}
+        .offers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-bottom:3rem}
+        @media (max-width:768px){.offers-grid{grid-template-columns:1fr;gap:1.5rem}}
+        .offer-card{background:#fff;border-radius:1.5rem;padding:3rem;text-align:center;box-shadow:0 15px 40px rgba(0,0,0,0.1);transition:all .3s;border:3px solid transparent}
+        @media (max-width:768px){.offer-card{padding:2rem}}
+        .offer-card:hover{transform:translateY(-10px);box-shadow:0 25px 60px rgba(239,68,68,0.2);border-color:#ef4444}
+        .offer-icon{font-size:4rem;margin-bottom:1.5rem}
+        @media (max-width:768px){.offer-icon{font-size:3rem}}
+        .offer-title{font-size:1.8rem;font-weight:700;color:#1e293b;margin-bottom:1rem}
+        @media (max-width:768px){.offer-title{font-size:1.4rem}}
+        .offer-desc{color:#64748b;line-height:1.8;margin-bottom:2rem}
+        @media (max-width:768px){.offer-desc{font-size:.95rem}}
+        .cta-section{text-align:center;background:linear-gradient(135deg,#667eea,#764ba2);padding:5rem 2rem;border-radius:2rem;margin:4rem 0}
+        @media (max-width:768px){.cta-section{padding:3rem 1.5rem;margin:3rem 0}}
+        .cta-section h2{color:#fff;font-size:3rem;font-weight:900;margin-bottom:1.5rem}
+        @media (max-width:768px){.cta-section h2{font-size:2rem}}
+        .cta-section p{color:#fff;font-size:1.3rem;margin-bottom:2.5rem;opacity:.95}
+        @media (max-width:768px){.cta-section p{font-size:1.1rem}}
+        .btn{padding:1.5rem 3.5rem;background:#fff;color:#667eea;border:0;border-radius:50px;font-size:1.4rem;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:1rem;transition:all .3s;box-shadow:0 15px 40px rgba(0,0,0,0.2)}
+        @media (max-width:768px){.btn{padding:1.2rem 2.5rem;font-size:1.2rem}}
+        .btn:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,0.3)}
+    </style>
+</head>
+<body>
+    <div id="site-header"></div>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>🔥 العروض الخاصة</h1>
+            <p>اكتشف أفضل الخصومات والعروض على منتجاتنا</p>
+            <div class="offer-badge">⚡ عروض حصرية متجددة</div>
+        </div>
+    </section>
+    
+    <div class="container">
+        <h2 class="section-title">🎁 ما نقدمه لك</h2>
+        
+        <div class="offers-grid">
+            <div class="offer-card">
+                <div class="offer-icon">🚚</div>
+                <h3 class="offer-title">شحن مجاني</h3>
+                <p class="offer-desc">توصيل مجاني لجميع الطلبات في جميع مناطق الكويت بدون أي رسوم إضافية</p>
+            </div>
+            
+            <div class="offer-card">
+                <div class="offer-icon">💰</div>
+                <h3 class="offer-title">أسعار تنافسية</h3>
+                <p class="offer-desc">نوفر أفضل الأسعار في السوق مع ضمان الجودة العالية لجميع المنتجات</p>
+            </div>
+            
+            <div class="offer-card">
+                <div class="offer-icon">🎯</div>
+                <h3 class="offer-title">منتجات أصلية</h3>
+                <p class="offer-desc">جميع منتجاتنا أصلية 100% ومضمونة الجودة من مصادر موثوقة</p>
+            </div>
+            
+            <div class="offer-card">
+                <div class="offer-icon">⚡</div>
+                <h3 class="offer-title">توصيل سريع</h3>
+                <p class="offer-desc">توصيل سريع خلال 1-3 أيام عمل لجميع مناطق الكويت</p>
+            </div>
+            
+            <div class="offer-card">
+                <div class="offer-icon">↩️</div>
+                <h3 class="offer-title">إرجاع مجاني</h3>
+                <p class="offer-desc">يمكنك إرجاع المنتج خلال 14 يوماً بدون أي تكاليف إضافية</p>
+            </div>
+            
+            <div class="offer-card">
+                <div class="offer-icon">💬</div>
+                <h3 class="offer-title">دعم فني 24/7</h3>
+                <p class="offer-desc">فريق خدمة العملاء جاهز لمساعدتك عبر واتساب في أي وقت</p>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <h2>🛍️ ابدأ التسوق الآن</h2>
+            <p>اكتشف أكثر من 1977 منتج بأفضل الأسعار</p>
+            <a href="/products-catalog.html" class="btn">
+                <i class="fas fa-shopping-cart"></i>
+                تصفح جميع المنتجات
+            </a>
+        </div>
+    </div>
+    
+    <div id="site-footer"></div>
+    
+    <script src="site-header.js"></script>
+    <script src="site-footer.js"></script>
+</body>
+</html>

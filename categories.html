@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تصفح حسب الفئة | سوق الكويت</title>
+    <meta name="description" content="تصفح منتجاتنا حسب الفئة - أكثر من 1977 منتج في فئات متنوعة">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="site-components.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:Tajawal,sans-serif;background:linear-gradient(135deg,#f5f7fa,#e3edf7);padding-top:80px;margin:0}
+        .hero{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:4rem 1rem;text-align:center}
+        @media (max-width:768px){.hero{padding:3rem 1rem}}
+        .hero h1{font-size:3rem;font-weight:900;margin-bottom:1rem}
+        @media (max-width:768px){.hero h1{font-size:2rem}}
+        .hero p{font-size:1.3rem;opacity:.95}
+        @media (max-width:768px){.hero p{font-size:1.1rem}}
+        .container{max-width:1400px;margin:3rem auto;padding:0 1rem}
+        @media (max-width:768px){.container{margin:2rem auto}}
+        .categories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem;margin-bottom:3rem}
+        @media (max-width:768px){.categories-grid{grid-template-columns:1fr;gap:1.5rem}}
+        .category-card{background:#fff;border-radius:1.5rem;padding:2.5rem;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,0.1);transition:all .3s;cursor:pointer;text-decoration:none;color:inherit;display:block;border:3px solid transparent}
+        @media (max-width:768px){.category-card{padding:2rem}}
+        .category-card:hover{transform:translateY(-10px);box-shadow:0 20px 50px rgba(102,126,234,0.3);border-color:#667eea}
+        .category-icon{font-size:4rem;margin-bottom:1.5rem}
+        @media (max-width:768px){.category-icon{font-size:3rem;margin-bottom:1rem}}
+        .category-name{font-size:1.8rem;font-weight:700;color:#1e293b;margin-bottom:1rem}
+        @media (max-width:768px){.category-name{font-size:1.4rem}}
+        .category-count{font-size:1.1rem;color:#667eea;font-weight:600;background:#f0f9ff;padding:.5rem 1.5rem;border-radius:50px;display:inline-block}
+        @media (max-width:768px){.category-count{font-size:1rem}}
+        .category-desc{color:#64748b;margin-top:1rem;line-height:1.8}
+        @media (max-width:768px){.category-desc{font-size:.95rem}}
+        .all-products-cta{text-align:center;margin:3rem 0}
+        .btn{padding:1.5rem 3rem;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:0;border-radius:50px;font-size:1.3rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:1rem;transition:all .3s;box-shadow:0 10px 30px rgba(102,126,234,0.3)}
+        @media (max-width:768px){.btn{padding:1.2rem 2.5rem;font-size:1.1rem}}
+        .btn:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(102,126,234,0.4)}
+    </style>
+</head>
+<body>
+    <div id="site-header"></div>
+    
+    <section class="hero">
+        <h1>🏷️ تصفح حسب الفئة</h1>
+        <p>اختر الفئة المناسبة لك من بين فئاتنا المتنوعة</p>
+    </section>
+    
+    <div class="container">
+        <div class="categories-grid" id="categories-container">
+            <div style="text-align:center;padding:3rem">
+                <div style="font-size:3rem;margin-bottom:1rem">⏳</div>
+                <p>جاري تحميل الفئات...</p>
+            </div>
+        </div>
+        
+        <div class="all-products-cta">
+            <a href="/products-catalog.html" class="btn">
+                <i class="fas fa-shopping-bag"></i>
+                تصفح جميع المنتجات
+            </a>
+        </div>
+    </div>
+    
+    <div id="site-footer"></div>
+    
+    <script src="site-header.js"></script>
+    <script src="site-footer.js"></script>
+    <script>
+        // تحميل الفئات من products_data.json
+        async function loadCategories() {
+            try {
+                const response = await fetch('products_data.json');
+                const products = await response.json();
+                
+                // استخراج الفئات الفريدة
+                const categoriesMap = {};
+                products.forEach(product => {
+                    if (!categoriesMap[product.category]) {
+                        categoriesMap[product.category] = {
+                            name: product.category,
+                            count: 0,
+                            products: []
+                        };
+                    }
+                    categoriesMap[product.category].count++;
+                    categoriesMap[product.category].products.push(product);
+                });
+                
+                // تحويل إلى مصفوفة وترتيب
+                const categories = Object.values(categoriesMap)
+                    .sort((a, b) => b.count - a.count);
+                
+                // عرض الفئات
+                const container = document.getElementById('categories-container');
+                container.innerHTML = categories.map(cat => `
+                    <a href="/products-catalog.html" class="category-card">
+                        <div class="category-icon">${getCategoryIcon(cat.name)}</div>
+                        <h2 class="category-name">${cat.name}</h2>
+                        <div class="category-count">${cat.count} منتج</div>
+                        <p class="category-desc">اكتشف أفضل منتجات ${cat.name}</p>
+                    </a>
+                `).join('');
+                
+            } catch (error) {
+                console.error('خطأ في تحميل الفئات:', error);
+                document.getElementById('categories-container').innerHTML = `
+                    <div style="text-align:center;padding:3rem;grid-column:1/-1">
+                        <div style="font-size:3rem;margin-bottom:1rem">⚠️</div>
+                        <h3>حدث خطأ في تحميل الفئات</h3>
+                        <p style="margin:1rem 0">يرجى المحاولة لاحقاً</p>
+                        <a href="/products-catalog.html" class="btn" style="margin-top:1rem">
+                            تصفح جميع المنتجات
+                        </a>
+                    </div>
+                `;
+            }
+        }
+        
+        // أيقونات الفئات
+        function getCategoryIcon(categoryName) {
+            const icons = {
+                'الصحة والجمال': '💄',
+                'الملابس والأزياء': '👕',
+                'الإلكترونيات': '📱',
+                'المنزل والديكور': '🏠',
+                'الألعاب': '🎮',
+                'الرياضة': '⚽',
+                'الإكسسوارات': '💍',
+                'الأطفال': '🧸',
+                'المطبخ': '🍳',
+                'الحقائب': '👜',
+                'الأحذية': '👟',
+                'الكتب': '📚'
+            };
+            
+            // البحث عن تطابق جزئي
+            for (let key in icons) {
+                if (categoryName.includes(key) || key.includes(categoryName)) {
+                    return icons[key];
+                }
+            }
+            
+            return '🏷️'; // أيقونة افتراضية
+        }
+        
+        // تحميل عند فتح الصفحة
+        document.addEventListener('DOMContentLoaded', loadCategories);
+    </script>
+</body>
+</html>
