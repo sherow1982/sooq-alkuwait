@@ -26,36 +26,45 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
-    <!-- Critical CSS - Inlined with CLS Fix -->
+    <!-- Critical CSS - Enhanced with Complete CLS Fix -->
     <style>
         *{margin:0;padding:0;box-sizing:border-box}html,body{margin:0;padding:0;overflow-x:hidden;min-width:320px}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}@media (min-width:1024px){body{min-width:1024px;max-width:1920px;margin:0 auto}}@media (min-width:768px) and (max-width:1023px){body{min-width:768px}}
         
-        /* CLS Fix - Reserve space for content */
-        .hero{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden;min-height:600px}@media (max-width:768px){.hero{padding:100px 20px 60px;min-height:500px}}
-        .hero h1{font-size:3.5rem;font-weight:900;margin-bottom:1.5rem;line-height:1.2}@media (max-width:768px){.hero h1{font-size:2rem}}
-        .hero p{font-size:1.4rem;margin-bottom:2.5rem;line-height:1.6;min-height:3.5rem}@media (max-width:768px){.hero p{font-size:1.1rem;min-height:2.8rem}}
+        /* CLS Fix - Complete Space Reservation */
+        .hero{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden;min-height:650px}@media (max-width:768px){.hero{padding:100px 20px 60px;min-height:550px}}
         
-        /* Reserve space for stats */
-        .hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;max-width:1000px;margin:3rem auto 0;min-height:180px}@media (max-width:768px){.hero-stats{grid-template-columns:repeat(2,1fr);gap:1rem;min-height:200px}}
-        .stat-card{background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);padding:2rem;border-radius:1.5rem;border:2px solid rgba(255,255,255,0.2);transition:transform 0.3s;min-height:120px;display:flex;flex-direction:column;justify-content:center}@media (max-width:768px){.stat-card{padding:1.2rem;min-height:100px}}
-        .stat-number{font-size:2.5rem;font-weight:900;display:block;margin-bottom:0.5rem;line-height:1.1}@media (max-width:768px){.stat-number{font-size:1.8rem}}
-        .stat-label{font-size:1rem;opacity:0.9;line-height:1.3}@media (max-width:768px){.stat-label{font-size:0.85rem}}
+        .hero h1{font-size:3.5rem;font-weight:900;margin-bottom:1.5rem;line-height:1.2;min-height:4.2rem}@media (max-width:768px){.hero h1{font-size:2rem;min-height:2.4rem}}
         
-        /* CTA Buttons - Reserve space */
-        .cta-buttons{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin:2rem 0;min-height:80px}@media (max-width:768px){.cta-buttons{min-height:100px}}
-        .btn{padding:1.2rem 3rem;border-radius:50px;font-size:1.2rem;font-weight:700;text-decoration:none;transition:transform 0.3s,box-shadow 0.3s;display:inline-flex;align-items:center;gap:0.8rem;border:none;cursor:pointer}@media (max-width:768px){.btn{padding:1rem 2rem;font-size:1rem}}
+        .hero p{font-size:1.4rem;margin-bottom:2.5rem;line-height:1.6;min-height:4.5rem;opacity:0.95}@media (max-width:768px){.hero p{font-size:1.1rem;min-height:3.5rem}}
+        
+        /* Hero Stats - Aggressive CLS Fix */
+        .hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;max-width:1000px;margin:3rem auto 0;min-height:240px}@media (max-width:768px){.hero-stats{grid-template-columns:repeat(2,1fr);gap:1rem;min-height:260px}}
+        
+        .stat-card{background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);padding:2rem;border-radius:1.5rem;border:2px solid rgba(255,255,255,0.2);transition:transform 0.3s;min-height:160px;display:flex;flex-direction:column;justify-content:center;align-items:center;contain:strict;will-change:transform}@media (max-width:768px){.stat-card{padding:1.2rem;min-height:140px}}
+        
+        .stat-number{font-size:2.5rem;font-weight:900;display:block;margin-bottom:0.5rem;line-height:1.1;min-height:2.75rem}@media (max-width:768px){.stat-number{font-size:1.8rem;min-height:1.98rem}}
+        
+        .stat-label{font-size:1rem;opacity:0.9;line-height:1.3;min-height:1.3rem}@media (max-width:768px){.stat-label{font-size:0.85rem;min-height:1.1rem}}
+        
+        /* CTA Buttons - CLS Fix */
+        .cta-buttons{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin:2rem 0;min-height:90px}@media (max-width:768px){.cta-buttons{min-height:110px}}
+        
+        .btn{padding:1.2rem 3rem;border-radius:50px;font-size:1.2rem;font-weight:700;text-decoration:none;transition:transform 0.3s,box-shadow 0.3s;display:inline-flex;align-items:center;gap:0.8rem;border:none;cursor:pointer;min-height:58px;contain:layout}@media (max-width:768px){.btn{padding:1rem 2rem;font-size:1rem;min-height:52px}}
+        
         .btn-primary{background:white;color:#667eea;box-shadow:0 10px 30px rgba(0,0,0,0.2)}.btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(0,0,0,0.3)}
         .btn-secondary{background:rgba(255,255,255,0.2);color:white;border:2px solid white}.btn-secondary:hover{background:white;color:#667eea}
         
-        /* Font Loading Optimization */
-        @font-face{font-family:'Tajawal-fallback';size-adjust:100%;src:local('Arial')}body{font-family:'Tajawal-fallback',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif}
+        /* Font Loading - Prevent CLS */
+        @font-face{font-family:'Tajawal-fallback';size-adjust:100.5%;ascent-override:105%;descent-override:35%;line-gap-override:0%;src:local('Arial')}
+        body{font-family:'Tajawal-fallback',-apple-system,sans-serif}
         
-        /* Prevent layout shift on load */
-        #site-header,#site-footer{min-height:80px}@media (max-width:768px){#site-header,#site-footer{min-height:70px}}
+        /* Header/Footer - Reserve Space */
+        #site-header{min-height:85px}#site-footer{min-height:85px}@media (max-width:768px){#site-header,#site-footer{min-height:75px}}
         
-        /* Image placeholders */
+        /* Images - Prevent CLS */
         img{max-width:100%;height:auto;display:block}
         
+        /* Animations - Optimized */
         @keyframes fadeInUp{from{opacity:0}to{opacity:1}}
     </style>
     
@@ -63,7 +72,7 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet"></noscript>
     
-    <!-- Deferred Font Awesome -->
+    <!-- Deferred Font Awesome with font-display -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     
@@ -319,12 +328,21 @@
             });
         }
         
-        // Font loading optimization
+        // Font loading optimization with font metrics adjustment
         if ('fonts' in document) {
             document.fonts.ready.then(() => {
                 document.body.style.fontFamily = "'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif";
             });
         }
+        
+        // Reduce CLS from dynamic content
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ensure header and footer have reserved space
+            const header = document.getElementById('site-header');
+            const footer = document.getElementById('site-footer');
+            if (header) header.style.minHeight = '85px';
+            if (footer) footer.style.minHeight = '85px';
+        });
     </script>
 </body>
 </html>
