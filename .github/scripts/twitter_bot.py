@@ -15,6 +15,9 @@ import requests
 from PIL import Image
 
 
+POSTED_PRODUCTS_FILE = '.github/data/posted_products.json'
+
+
 def load_products():
     """ تحميل قائمة المنتجات """
     try:
@@ -24,6 +27,58 @@ def load_products():
     except Exception as e:
         print(f"خطأ في تحميل المنتجات: {e}")
         sys.exit(1)
+
+
+def load_posted_products():
+    """ تحميل قائمة المنتجات المنشورة """
+    try:
+        if os.path.exists(POSTED_PRODUCTS_FILE):
+            with open(POSTED_PRODUCTS_FILE, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                return data.get('posted_ids', [])
+        return []
+    except Exception as e:
+        print(f"تحذير: خطأ في تحميل قائمة المنشورة: {e}")
+        return []
+
+
+def save_posted_products(posted_ids):
+    """ حفظ قائمة المنتجات المنشورة """
+    try:
+        os.makedirs(os.path.dirname(POSTED_PRODUCTS_FILE), exist_ok=True)
+        with open(POSTED_PRODUCTS_FILE, 'w', encoding='utf-8') as f:
+            json.dump({'posted_ids': posted_ids}, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"تحذير: خطأ في حفظ قائمة المنشورة: {e}")
+
+
+def get_next_product(products, posted_ids):
+    """ اختيار المنتج التالي (غير منشور) """
+    # استخراج IDs كل المنتجات
+    all_product_ids = [p.get('id') for p in products if p.get('id')]
+    
+    # المنتجات الغير منشورة
+    unposted_ids = [pid for pid in all_product_ids if pid not in posted_ids]
+    
+    # لو كل المنتجات اتنشرت، نعيد الدورة
+    if not unposted_ids:
+        print("\n🔄 تم نشر كل المنتجات! إعادة الدورة من البداية...")
+        posted_ids.clear()
+        unposted_ids = all_product_ids
+    
+    # اختيار منتج عشوائي من الغير منشورة
+    selected_id = random.choice(unposted_ids)
+    selected_product = next(p for p in products if p.get('id') == selected_id)
+    
+    # إضافة للمنشورة
+    posted_ids.append(selected_id)
+    
+    print(f"\n📊 الإحصائيات:")
+    print(f"   - إجمالي المنتجات: {len(all_product_ids)}")
+    print(f"   - تم نشرها: {len(posted_ids)}")
+    print(f"   - المتبقية: {len(all_product_ids) - len(posted_ids)}")
+    
+    return selected_product, posted_ids
 
 
 def download_image(url):
@@ -69,7 +124,7 @@ def create_tweet_text(product):
     title = product.get('title', '')
     price = product.get('sale_price', product.get('price', 0))
     old_price = product.get('price', 0)
-    link = f"https://sooqalkuwait.com/{product.get('product_link', '')}"
+    link = f"https://sooq-alkuwait.arabsad.com/{product.get('product_link', '')}"
     whatsapp = "https://wa.me/201110760081"
     
     # حساب نسبة التخفيض
@@ -187,12 +242,21 @@ def main():
     products = load_products()
     print(f"✅ تم تحميل {len(products)} منتج")
     
-    # اختيار منتج عشوائي
-    product = random.choice(products)
+    # تحميل قائمة المنشورة
+    posted_ids = load_posted_products()
+    print(f"📝 المنتجات المنشورة سابقاً: {len(posted_ids)}")
+    
+    # اختيار منتج غير منشور
+    product, posted_ids = get_next_product(products, posted_ids)
     print(f"\n🎯 منتج مختار: {product.get('title')}")
+    print(f"   ID: {product.get('id')}")
     
     # نشر على تويتر
     post_to_twitter(product)
+    
+    # حفظ القائمة المحدثة
+    save_posted_products(posted_ids)
+    print("\n💾 تم حفظ حالة البوت")
     
     print("\n✅ اكتمل البوت بنجاح!")
 
