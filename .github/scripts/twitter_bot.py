@@ -8,6 +8,7 @@ import os
 import json
 import random
 import sys
+import re
 from io import BytesIO
 import tweepy
 import requests
@@ -52,19 +53,37 @@ def download_image(url):
         return None
 
 
+def create_product_hashtag(title):
+    """ إنشاء هاشتاج من اسم المنتج """
+    # تنظيف العنوان من الرموز والأرقام
+    clean_title = re.sub(r'[^\w\s\u0600-\u06FF]', '', title)
+    # أخذ أول 3-4 كلمات
+    words = clean_title.split()[:4]
+    # دمج بـ underscore
+    hashtag = '_'.join(words)
+    return f"#{hashtag}"
+
+
 def create_tweet_text(product):
     """ إنشاء نص التغريدة """
     title = product.get('title', '')
     price = product.get('sale_price', product.get('price', 0))
     old_price = product.get('price', 0)
     link = f"https://sooqalkuwait.com/{product.get('product_link', '')}"
+    whatsapp = "https://wa.me/201110760081"
     
     # حساب نسبة التخفيض
     discount = 0
     if price < old_price and old_price > 0:
         discount = int(((old_price - price) / old_price) * 100)
     
-    # نص جذاب
+    # هاشتاج المنتج
+    product_hashtag = create_product_hashtag(title)
+    
+    # محافظات الكويت
+    governorates = "#الكويت #حولي #الفروانية #الجهراء #الأحمدي #مبارك_الكبير"
+    
+    # نص التغريدة
     tweet = f"🔥 {title}\n\n"
     
     if discount > 0:
@@ -72,21 +91,26 @@ def create_tweet_text(product):
         tweet += f"❌ السعر القديم: {old_price} KWD\n"
     
     tweet += f"✅ السعر الآن: {price} KWD\n\n"
+    tweet += f"📱 واتساب: {whatsapp}\n"
     tweet += f"🛍️ اطلب الآن: {link}\n\n"
-    tweet += "#سوق_الكويت #عروض_اليوم #تسوق_اونلاين #الكويت"
+    tweet += f"{product_hashtag}\n"
+    tweet += f"#سوق_الكويت #عروض_اليوم #تسوق_اونلاين\n"
+    tweet += governorates
     
     # التأكد من طول التغريدة (280 حرف)
     if len(tweet) > 280:
-        # قص العنوان
-        max_title_len = 50
-        if len(title) > max_title_len:
-            title = title[:max_title_len] + '...'
-        tweet = f"🔥 {title}\n\n"
+        # نسخة مختصرة
+        max_title_len = 40
+        short_title = title[:max_title_len] + '...' if len(title) > max_title_len else title
+        
+        tweet = f"🔥 {short_title}\n\n"
         if discount > 0:
             tweet += f"⚡ خصم {discount}%\n"
         tweet += f"✅ {price} KWD\n\n"
+        tweet += f"📱 {whatsapp}\n"
         tweet += f"🛍️ {link}\n\n"
-        tweet += "#سوق_الكويت #عروض"
+        tweet += f"{product_hashtag} #سوق_الكويت\n"
+        tweet += "#الكويت #حولي #الفروانية"
     
     return tweet
 
@@ -133,6 +157,7 @@ def post_to_twitter(product):
         # إنشاء نص التغريدة
         tweet_text = create_tweet_text(product)
         print(f"\nنص التغريدة:\n{tweet_text}\n")
+        print(f"طول التغريدة: {len(tweet_text)} حرف\n")
         
         # نشر التغريدة
         response = client.create_tweet(
