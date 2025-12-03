@@ -10,19 +10,28 @@ function renderFooter() {
             </div>
             
             <div class="footer-links">
+                <h3>الصفحات</h3>
                 <a href="/index.html"><i class="fas fa-home"></i> الرئيسية</a>
                 <a href="/products-catalog.html"><i class="fas fa-shopping-bag"></i> المنتجات</a>
-                <a href="/return-policy.html"><i class="fas fa-undo"></i> سياسة الإرجاع</a>
-                <a href="/shipping-policy.html"><i class="fas fa-shipping-fast"></i> الشحن والتوصيل</a>
-                <a href="/warranty-policy.html"><i class="fas fa-shield-alt"></i> الضمان</a>
-                <a href="https://wa.me/201110760081" target="_blank"><i class="fas fa-headset"></i> خدمة العملاء</a>
+                <a href="/about.html"><i class="fas fa-info-circle"></i> من نحن</a>
+                <a href="/contact.html"><i class="fas fa-envelope"></i> اتصل بنا</a>
+            </div>
+            
+            <div class="footer-links">
+                <h3>السياسات</h3>
+                <a href="/privacy-policy.html"><i class="fas fa-shield-alt"></i> سياسة الخصوصية</a>
+                <a href="/return-policy.html"><i class="fas fa-undo"></i> سياسة الاسترجاع</a>
+                <a href="/shipping-policy.html"><i class="fas fa-shipping-fast"></i> سياسة الشحن</a>
+                <a href="/terms-conditions.html"><i class="fas fa-file-contract"></i> الشروط والأحكام</a>
+                <a href="/warranty-policy.html"><i class="fas fa-shield-alt"></i> سياسة الضمان</a>
             </div>
             
             <div class="footer-contact">
+                <h3>اتصل بنا</h3>
                 <p><i class="fas fa-phone"></i> واتساب: <a href="https://wa.me/201110760081" target="_blank" style="color:white">+201110760081</a></p>
                 <p><i class="fas fa-envelope"></i> البريد: <a href="mailto:sherow1982@gmail.com" style="color:white">sherow1982@gmail.com</a></p>
                 <p><i class="fas fa-map-marker-alt"></i> الكويت - توصيل لجميع المناطق</p>
-                <p><i class="fas fa-clock"></i> ساعات العمل: 9 صباحاً - 9 مساءً (7 أيام)</p>
+                <p><i class="fas fa-clock"></i> ساعات العمل: 24/7</p>
             </div>
             
             <div class="social-links">
