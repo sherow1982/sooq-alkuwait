@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منظف العجلات V7 للسيارة | سوق الكويت</title>
     <meta name="description" content="منتج تنظيف فعال وآمن يوفر نظافة عميقة وشاملة. مناسب للاستخدام المنزلي اليومي ويساعد في الحفاظ على بيئة نظيفة وصحية. تصميم عملي وأنيق. جودة عالية....">
-
-    <!-- Open Graph Meta Tags -->
+    
+    <!-- Open Graph -->
     <meta property="og:type" content="product">
     <meta property="og:title" content="منظف العجلات V7 للسيارة">
     <meta property="og:description" content="منتج تنظيف فعال وآمن يوفر نظافة عميقة وشاملة. مناسب للاستخدام المنزلي اليومي ويساعد في الحفاظ على بيئة نظيفة وصحية. تصميم عملي وأنيق. جودة عالية....">
@@ -15,17 +15,16 @@
     <meta property="og:site_name" content="سوق الكويت">
     <meta property="product:price:amount" content="11.99">
     <meta property="product:price:currency" content="KWD">
-
-    <!-- Canonical URL -->
+    
     <link rel="canonical" href="https://sooq-alkuwait.arabsad.com/products-pages/product-1315-منظف-العجلات-V7-للسيارة.html">
-
+    
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
+    
     <!-- Site Components -->
     <link href="../site-components.css" rel="stylesheet">
-
+    
     <style>
         :root {
             --primary: #667eea;
@@ -42,13 +41,13 @@
             --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.1);
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--bg);
@@ -56,13 +55,28 @@
             line-height: 1.6;
             padding-top: 70px;
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1rem;
         }
-
+        
+        /* Banner */
+        .banner-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+        }
+        
+        .banner-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+        }
+        
         /* Breadcrumb */
         .breadcrumb {
             background: var(--white);
@@ -74,17 +88,18 @@
             gap: 0.5rem;
             align-items: center;
             font-size: 0.9rem;
+            flex-wrap: wrap;
         }
-
+        
         .breadcrumb a {
             color: var(--primary);
             text-decoration: none;
         }
-
+        
         .breadcrumb a:hover {
             text-decoration: underline;
         }
-
+        
         /* Product Layout */
         .product-wrapper {
             background: var(--white);
@@ -93,32 +108,32 @@
             padding: 2rem;
             margin-bottom: 2rem;
         }
-
+        
         .product-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
         }
-
+        
         @media (max-width: 768px) {
             .product-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
         }
-
+        
         /* Image Section */
         .product-image {
             position: relative;
         }
-
+        
         .product-image img {
             width: 100%;
             height: auto;
             border-radius: 0.75rem;
             box-shadow: var(--shadow);
         }
-
+        
         .badge {
             position: absolute;
             top: 1rem;
@@ -131,7 +146,54 @@
             font-size: 0.9rem;
             box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
         }
-
+        
+        /* Quick Info تحت الصورة */
+        .quick-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .quick-info {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .quick-info-item {
+            background: var(--bg);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        
+        .quick-info-item:hover {
+            background: #eff6ff;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .quick-info-item i {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.25rem;
+            color: var(--primary);
+        }
+        
+        .quick-info-item strong {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+        
+        .quick-info-item small {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+        
         /* Product Info */
         .category-tag {
             display: inline-block;
@@ -143,7 +205,7 @@
             font-weight: 600;
             margin-bottom: 1rem;
         }
-
+        
         .product-title {
             font-size: 2rem;
             font-weight: 900;
@@ -151,13 +213,13 @@
             color: var(--text);
             line-height: 1.3;
         }
-
+        
         @media (max-width: 768px) {
             .product-title {
                 font-size: 1.5rem;
             }
         }
-
+        
         /* Rating */
         .rating {
             display: flex;
@@ -166,24 +228,25 @@
             margin-bottom: 1.5rem;
             padding-bottom: 1.5rem;
             border-bottom: 2px solid var(--border);
+            flex-wrap: wrap;
         }
-
+        
         .stars {
             color: #fbbf24;
             font-size: 1.25rem;
         }
-
+        
         .rating-value {
             font-size: 1.1rem;
             font-weight: 700;
             color: var(--primary);
         }
-
+        
         .rating-count {
             color: var(--text-light);
             font-size: 0.95rem;
         }
-
+        
         /* Price */
         .price-box {
             background: linear-gradient(135deg, #f0f9ff, #dbeafe);
@@ -192,7 +255,7 @@
             margin-bottom: 2rem;
             border: 2px solid var(--primary);
         }
-
+        
         .price-row {
             display: flex;
             align-items: baseline;
@@ -200,19 +263,19 @@
             margin-bottom: 1rem;
             flex-wrap: wrap;
         }
-
+        
         .current-price {
             font-size: 3rem;
             font-weight: 900;
             color: var(--primary);
         }
-
+        
         .old-price {
             font-size: 1.5rem;
             color: var(--text-light);
             text-decoration: line-through;
         }
-
+        
         @media (max-width: 768px) {
             .current-price {
                 font-size: 2.25rem;
@@ -221,7 +284,7 @@
                 font-size: 1.25rem;
             }
         }
-
+        
         .savings {
             background: #d1fae5;
             color: var(--success);
@@ -230,42 +293,7 @@
             font-weight: 700;
             font-size: 1rem;
         }
-
-        /* Features */
-        .features {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .features li {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--bg);
-            margin-bottom: 0.5rem;
-            border-radius: 0.5rem;
-            border-right: 3px solid var(--primary);
-            transition: transform 0.2s;
-        }
-
-        .features li:hover {
-            transform: translateX(-5px);
-            background: #eff6ff;
-        }
-
-        .feature-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 1.25rem;
-        }
-
+        
         /* Trust Badges */
         .trust-badges {
             display: grid;
@@ -273,13 +301,13 @@
             gap: 1rem;
             margin-bottom: 2rem;
         }
-
+        
         @media (max-width: 768px) {
             .trust-badges {
                 grid-template-columns: 1fr;
             }
         }
-
+        
         .trust-badge {
             text-align: center;
             padding: 1.5rem;
@@ -287,20 +315,20 @@
             border-radius: 0.75rem;
             transition: all 0.3s;
         }
-
+        
         .trust-badge:hover {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: var(--white);
             transform: translateY(-5px);
             box-shadow: var(--shadow-lg);
         }
-
+        
         .trust-badge i {
             font-size: 2rem;
             display: block;
             margin-bottom: 0.5rem;
         }
-
+        
         /* Policy Buttons */
         .policy-buttons {
             display: grid;
@@ -308,13 +336,13 @@
             gap: 1rem;
             margin-bottom: 2rem;
         }
-
+        
         @media (max-width: 768px) {
             .policy-buttons {
                 grid-template-columns: 1fr;
             }
         }
-
+        
         .policy-btn {
             display: flex;
             align-items: center;
@@ -330,19 +358,19 @@
             font-size: 1rem;
             transition: all 0.3s;
         }
-
+        
         .policy-btn:hover {
             background: linear-gradient(135deg, #0ea5e9, #0284c7);
             color: white;
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
         }
-
+        
         .policy-btn i {
             font-size: 1.5rem;
         }
-
-        /* CTA Button */
+        
+        /* CTA Section */
         .cta-section {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             padding: 2rem;
@@ -350,7 +378,7 @@
             text-align: center;
             box-shadow: var(--shadow-lg);
         }
-
+        
         .whatsapp-btn {
             width: 100%;
             background: linear-gradient(135deg, #25D366, #128C7E);
@@ -366,12 +394,12 @@
             display: block;
             margin-bottom: 1rem;
         }
-
+        
         .whatsapp-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
         }
-
+        
         .cart-btn {
             width: 100%;
             background: linear-gradient(135deg, #f59e0b, #d97706);
@@ -386,12 +414,12 @@
             text-decoration: none;
             display: block;
         }
-
+        
         .cart-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(245, 158, 11, 0.5);
         }
-
+        
         @media (max-width: 768px) {
             .whatsapp-btn {
                 font-size: 1.25rem;
@@ -402,14 +430,14 @@
                 padding: 1rem;
             }
         }
-
+        
         .urgency {
             color: var(--white);
             font-weight: 700;
             margin-top: 1rem;
             font-size: 1rem;
         }
-
+        
         /* Description Section */
         .section {
             background: var(--white);
@@ -418,7 +446,7 @@
             margin-bottom: 2rem;
             box-shadow: var(--shadow);
         }
-
+        
         .section-title {
             font-size: 1.75rem;
             font-weight: 800;
@@ -430,14 +458,183 @@
             border-bottom: 2px solid var(--primary);
             padding-bottom: 0.75rem;
         }
-
+        
         .description {
             font-size: 1.05rem;
             line-height: 1.8;
             color: var(--text-light);
         }
-
-        /* Floating WhatsApp */
+        
+        /* Reviews Section */
+        .reviews-section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .review-card {
+            background: var(--bg);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            border-right: 3px solid var(--primary);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .review-author {
+            font-weight: 700;
+            color: var(--text);
+        }
+        
+        .review-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .review-stars {
+            color: #fbbf24;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .review-text {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        /* Add Review Form */
+        .add-review-btn {
+            width: 100%;
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .add-review-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .review-form {
+            display: none;
+            background: #f0f9ff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+            border: 2px solid var(--primary);
+        }
+        
+        .review-form.show {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .rating-input {
+            display: flex;
+            gap: 0.5rem;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+        
+        .rating-input input[type="radio"] {
+            display: none;
+        }
+        
+        .rating-input label {
+            cursor: pointer;
+            font-size: 2rem;
+            color: #d1d5db;
+            transition: color 0.2s;
+        }
+        
+        .rating-input input[type="radio"]:checked ~ label,
+        .rating-input label:hover,
+        .rating-input label:hover ~ label {
+            color: #fbbf24;
+        }
+        
+        .submit-review-btn {
+            width: 100%;
+            background: var(--success);
+            color: var(--white);
+            padding: 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .submit-review-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+        
+        .thank-you-message {
+            display: none;
+            background: #d1fae5;
+            color: var(--success);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border: 2px solid var(--success);
+        }
+        
+        .thank-you-message.show {
+            display: block;
+        }
+        
+        .thank-you-message i {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        
+        /* Floating Buttons */
         .floating-whatsapp {
             position: fixed;
             bottom: 30px;
@@ -456,8 +653,7 @@
             animation: float 3s ease-in-out infinite;
             text-decoration: none;
         }
-
-        /* Floating Cart */
+        
         .floating-cart {
             position: fixed;
             bottom: 100px;
@@ -476,11 +672,11 @@
             animation: float 3s ease-in-out infinite 0.5s;
             text-decoration: none;
         }
-
+        
         .floating-cart.show {
             display: flex;
         }
-
+        
         .cart-badge {
             position: absolute;
             top: -5px;
@@ -496,13 +692,13 @@
             font-size: 0.75rem;
             font-weight: 700;
         }
-
+        
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
     </style>
-
+    
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
     {
@@ -560,17 +756,18 @@
                 "returnFees": "https://schema.org/FreeReturn"
             }
         },
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "bestRating": "5",
-            "worstRating": "1",
-            "ratingCount": "100"
-        }
+        
+        
+        "category": "أدوات التنظيف"
     }
     </script>
 </head>
 <body>
+    <!-- Banner تحت الهيدر مباشرة -->
+    <div class="banner-container">
+        <img src="../banner.jpg" alt="سوق الكويت - عروض حصرية">
+    </div>
+    
     <div class="container">
         <!-- Breadcrumb -->
         <nav class="breadcrumb">
@@ -580,7 +777,7 @@
             <span>/</span>
             <span>منظف العجلات V7 للسيارة</span>
         </nav>
-
+        
         <!-- Product -->
         <div class="product-wrapper">
             <div class="product-grid">
@@ -588,20 +785,38 @@
                 <div class="product-image">
                     <img src="https://ecomerg.com/uploads/products_images/1356/btx8E77o2Y5JjW4V59FdEgO3nWdJzJttXqa1lWIt.png" alt="منظف العجلات V7 للسيارة">
                     <div class="badge">وفّر 29%</div>
+                    
+                    <!-- Quick Info تحت الصورة - بدون "منتج أصلي" -->
+                    <div class="quick-info">
+                        <div class="quick-info-item">
+                            <i class="fas fa-shipping-fast"></i>
+                            <strong>شحن مجاني</strong>
+                            <small>لجميع مناطق الكويت</small>
+                        </div>
+                        <div class="quick-info-item">
+                            <i class="fas fa-undo-alt"></i>
+                            <strong>إرجاع مجاني</strong>
+                            <small>خلال 14 يوم</small>
+                        </div>
+                        <div class="quick-info-item">
+                            <i class="fas fa-headset"></i>
+                            <strong>دعم 24/7</strong>
+                            <small>رد فوري على واتساب</small>
+                        </div>
+                    </div>
                 </div>
-
+                
                 <!-- Info -->
                 <div class="product-info">
                     <span class="category-tag">أدوات التنظيف</span>
                     <h1 class="product-title">منظف العجلات V7 للسيارة</h1>
-
+                    
                     <!-- Rating -->
                     <div class="rating">
-                        <div class="stars">★★★★★</div>
-                        <span class="rating-value">4.8</span>
-                        <span class="rating-count">(100 تقييم)</span>
+                        <div class="stars">☆☆☆☆☆</div>
+                        <span class="rating-value">لا تقييمات بعد</span>
                     </div>
-
+                    
                     <!-- Price -->
                     <div class="price-box">
                         <div class="price-row">
@@ -610,27 +825,7 @@
                         </div>
                         <div class="savings">🎉 وفّر 5.00 KWD (29%)</div>
                     </div>
-
-                    <!-- Features -->
-                    <ul class="features">
-                        <li>
-                            <div class="feature-icon">✓</div>
-                            <div><strong>منتج أصلي</strong><br><small>ضمان الجودة</small></div>
-                        </li>
-                        <li>
-                            <div class="feature-icon">🚚</div>
-                            <div><strong>شحن مجاني</strong><br><small>لجميع مناطق الكويت</small></div>
-                        </li>
-                        <li>
-                            <div class="feature-icon">↩</div>
-                            <div><strong>إرجاع مجاني</strong><br><small>خلال 14 يوم</small></div>
-                        </li>
-                        <li>
-                            <div class="feature-icon">📞</div>
-                            <div><strong>دعم 24/7</strong><br><small>رد فوري على واتساب</small></div>
-                        </li>
-                    </ul>
-
+                    
                     <!-- Trust Badges -->
                     <div class="trust-badges">
                         <div class="trust-badge">
@@ -649,7 +844,7 @@
                             <small>بدون تعقيد</small>
                         </div>
                     </div>
-
+                    
                     <!-- Policy Buttons -->
                     <div class="policy-buttons">
                         <a href="https://sooq-alkuwait.arabsad.com/shipping-policy.html" class="policy-btn" target="_blank">
@@ -661,7 +856,7 @@
                             <span>سياسة الإرجاع</span>
                         </a>
                     </div>
-
+                    
                     <!-- CTA -->
                     <div class="cta-section">
                         <a class="whatsapp-btn" href="https://wa.me/201110760081?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%B7%D9%84%D8%A8%3A%0A%0A%F0%9F%93%A6%20%2A%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%3A%2A%20%D9%85%D9%86%D8%B8%D9%81%20%D8%A7%D9%84%D8%B9%D8%AC%D9%84%D8%A7%D8%AA%20V7%20%D9%84%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A9%0A%F0%9F%92%B0%20%2A%D8%A7%D9%84%D8%B3%D8%B9%D8%B1%3A%2A%2011.99%20KWD%0A%F0%9F%94%97%20%2A%D8%A7%D9%84%D8%B1%D8%A7%D8%A8%D8%B7%3A%2A%20https%3A//sooq-alkuwait.arabsad.com/products-pages/product-1315-%D9%85%D9%86%D8%B8%D9%81-%D8%A7%D9%84%D8%B9%D8%AC%D9%84%D8%A7%D8%AA-V7-%D9%84%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A9.html%0A%0A%F0%9F%91%A4%20%2A%D8%A8%D9%8A%D8%A7%D9%86%D8%A7%D8%AA%20%D8%A7%D9%84%D9%85%D8%B4%D8%AA%D8%B1%D9%8A%3A%2A%0A%D8%A7%D9%84%D8%A7%D8%B3%D9%85%3A%20%0A%D8%A7%D9%84%D8%B9%D9%86%D9%88%D8%A7%D9%86%3A%20%0A%D8%B9%D8%AF%D8%AF%20%D8%A7%D9%84%D9%82%D8%B7%D8%B9%20%D8%A7%D9%84%D9%85%D8%B7%D9%84%D9%88%D8%A8%D8%A9%3A%20%0A%D8%B1%D9%82%D9%85%20%D8%AC%D9%88%D8%A7%D9%84%20%D8%A8%D8%AF%D9%8A%D9%84%3A%20">
@@ -675,7 +870,7 @@
                 </div>
             </div>
         </div>
-
+        
         <!-- Description -->
         <div class="section">
             <h2 class="section-title">
@@ -686,25 +881,78 @@
                 <p>منتج تنظيف فعال وآمن يوفر نظافة عميقة وشاملة. مناسب للاستخدام المنزلي اليومي ويساعد في الحفاظ على بيئة نظيفة وصحية. تصميم عملي وأنيق. جودة عالية....</p>
             </div>
         </div>
+        
+        <!-- Reviews Section -->
+        <div class="reviews-section">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                تقييمات العملاء
+            </h2>
+            
+            <button class="add-review-btn" onclick="toggleReviewForm()">
+                <i class="fas fa-plus"></i> إضافة تقييم
+            </button>
+            
+            <div class="thank-you-message" id="thankYouMessage">
+                <i class="fas fa-check-circle"></i>
+                <h3>شكراً لك!</h3>
+                <p>تلقينا تقييمك وسيتم نشره بعد المراجعة</p>
+            </div>
+            
+            <div class="review-form" id="reviewForm">
+                <h3 style="margin-bottom: 1.5rem;">اترك تقييمك</h3>
+                <form onsubmit="submitReview(event)">
+                    <div class="form-group">
+                        <label>التقييم</label>
+                        <div class="rating-input">
+                            <input type="radio" name="rating" value="5" id="star5" required>
+                            <label for="star5">★</label>
+                            <input type="radio" name="rating" value="4" id="star4">
+                            <label for="star4">★</label>
+                            <input type="radio" name="rating" value="3" id="star3">
+                            <label for="star3">★</label>
+                            <input type="radio" name="rating" value="2" id="star2">
+                            <label for="star2">★</label>
+                            <input type="radio" name="rating" value="1" id="star1">
+                            <label for="star1">★</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>الاسم</label>
+                        <input type="text" name="name" required placeholder="اسمك">
+                    </div>
+                    <div class="form-group">
+                        <label>التعليق</label>
+                        <textarea name="comment" required placeholder="اكتب تقييمك هنا..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-review-btn">
+                        <i class="fas fa-paper-plane"></i> إرسال التقييم
+                    </button>
+                </form>
+            </div>
+            
+            <div class="reviews-list">
+                <p style="text-align: center; color: #6b7280; padding: 2rem;">لا توجد تقييمات بعد. كن أول من يقيم هذا المنتج!</p>
+            </div>
+        </div>
     </div>
-
+    
     <!-- Floating WhatsApp -->
     <a class="floating-whatsapp" href="https://wa.me/201110760081?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%B7%D9%84%D8%A8%3A%0A%0A%F0%9F%93%A6%20%2A%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%3A%2A%20%D9%85%D9%86%D8%B8%D9%81%20%D8%A7%D9%84%D8%B9%D8%AC%D9%84%D8%A7%D8%AA%20V7%20%D9%84%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A9%0A%F0%9F%92%B0%20%2A%D8%A7%D9%84%D8%B3%D8%B9%D8%B1%3A%2A%2011.99%20KWD%0A%F0%9F%94%97%20%2A%D8%A7%D9%84%D8%B1%D8%A7%D8%A8%D8%B7%3A%2A%20https%3A//sooq-alkuwait.arabsad.com/products-pages/product-1315-%D9%85%D9%86%D8%B8%D9%81-%D8%A7%D9%84%D8%B9%D8%AC%D9%84%D8%A7%D8%AA-V7-%D9%84%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A9.html%0A%0A%F0%9F%91%A4%20%2A%D8%A8%D9%8A%D8%A7%D9%86%D8%A7%D8%AA%20%D8%A7%D9%84%D9%85%D8%B4%D8%AA%D8%B1%D9%8A%3A%2A%0A%D8%A7%D9%84%D8%A7%D8%B3%D9%85%3A%20%0A%D8%A7%D9%84%D8%B9%D9%86%D9%88%D8%A7%D9%86%3A%20%0A%D8%B9%D8%AF%D8%AF%20%D8%A7%D9%84%D9%82%D8%B7%D8%B9%20%D8%A7%D9%84%D9%85%D8%B7%D9%84%D9%88%D8%A8%D8%A9%3A%20%0A%D8%B1%D9%82%D9%85%20%D8%AC%D9%88%D8%A7%D9%84%20%D8%A8%D8%AF%D9%8A%D9%84%3A%20">
         <i class="fab fa-whatsapp"></i>
     </a>
-
+    
     <!-- Floating Cart -->
     <a class="floating-cart" id="floatingCart" href="https://sooq-alkuwait.arabsad.com/cart.html">
         <i class="fas fa-shopping-cart"></i>
         <span class="cart-badge" id="cartBadge">0</span>
     </a>
-
+    
     <!-- Scripts -->
     <script src="../site-header.js"></script>
     <script src="../site-footer.js"></script>
-
+    
     <script>
-        // بيانات المنتج
         const productData = {
             id: '1315',
             title: 'منظف العجلات V7 للسيارة',
@@ -713,45 +961,41 @@
             link: 'product-1315-منظف-العجلات-V7-للسيارة.html',
             quantity: 1
         };
-
-        // إضافة للسلة
+        
         function addToCart() {
             try {
                 let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-
                 const existingIndex = cart.findIndex(item => item.id === productData.id);
-
+                
                 if (existingIndex > -1) {
                     cart[existingIndex].quantity += 1;
                 } else {
                     cart.push({...productData});
                 }
-
+                
                 localStorage.setItem('cart', JSON.stringify(cart));
-
                 updateCartBadge();
-
+                
                 const floatingCart = document.getElementById('floatingCart');
                 floatingCart.classList.add('show');
-
+                
                 alert('✅ تمت الإضافة إلى السلة بنجاح!');
             } catch (e) {
                 console.error('خطأ في إضافة المنتج:', e);
                 alert('حدث خطأ، حاول مرة أخرى');
             }
         }
-
-        // تحديث عداد السلة
+        
         function updateCartBadge() {
             try {
                 const cart = JSON.parse(localStorage.getItem('cart') || '[]');
                 const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-
+                
                 const badge = document.getElementById('cartBadge');
                 if (badge) {
                     badge.textContent = totalItems;
                 }
-
+                
                 const floatingCart = document.getElementById('floatingCart');
                 if (totalItems > 0 && floatingCart) {
                     floatingCart.classList.add('show');
@@ -760,8 +1004,35 @@
                 console.error('خطأ في تحديث السلة:', e);
             }
         }
-
-        // تحديث العداد عند تحميل الصفحة
+        
+        function toggleReviewForm() {
+            const form = document.getElementById('reviewForm');
+            form.classList.toggle('show');
+        }
+        
+        function submitReview(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            document.getElementById('reviewForm').classList.remove('show');
+            document.getElementById('thankYouMessage').classList.add('show');
+            
+            setTimeout(() => {
+                document.getElementById('thankYouMessage').classList.remove('show');
+            }, 5000);
+            
+            form.reset();
+            
+            console.log('تم إرسال التقييم:', {
+                rating: formData.get('rating'),
+                name: formData.get('name'),
+                comment: formData.get('comment'),
+                product_id: '1315'
+            });
+        }
+        
         document.addEventListener('DOMContentLoaded', updateCartBadge);
     </script>
 </body>
