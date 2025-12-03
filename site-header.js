@@ -14,8 +14,12 @@ function renderHeader() {
             <ul class="main-nav">
                 <li><a href="/index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
                 <li><a href="/products-catalog.html"><i class="fas fa-shopping-bag"></i> المنتجات</a></li>
-                <li><a href="/categories.html"><i class="fas fa-tags"></i> الفئات</a></li>
-                <li><a href="/offers.html"><i class="fas fa-fire"></i> العروض</a></li>
+                <li><a href="/about.html"><i class="fas fa-info-circle"></i> من نحن</a></li>
+                <li><a href="/privacy-policy.html"><i class="fas fa-shield-alt"></i> الخصوصية</a></li>
+                <li><a href="/return-policy.html"><i class="fas fa-undo"></i> الاسترجاع</a></li>
+                <li><a href="/shipping-policy.html"><i class="fas fa-shipping-fast"></i> الشحن</a></li>
+                <li><a href="/terms-conditions.html"><i class="fas fa-file-contract"></i> الشروط</a></li>
+                <li><a href="/contact.html"><i class="fas fa-envelope"></i> اتصل بنا</a></li>
             </ul>
             
             <div class="header-actions">
@@ -33,8 +37,12 @@ function renderHeader() {
         <div class="mobile-nav" id="mobile-nav">
             <a href="/index.html"><i class="fas fa-home"></i> الرئيسية</a>
             <a href="/products-catalog.html"><i class="fas fa-shopping-bag"></i> المنتجات</a>
-            <a href="/categories.html"><i class="fas fa-tags"></i> الفئات</a>
-            <a href="/offers.html"><i class="fas fa-fire"></i> العروض</a>
+            <a href="/about.html"><i class="fas fa-info-circle"></i> من نحن</a>
+            <a href="/privacy-policy.html"><i class="fas fa-shield-alt"></i> الخصوصية</a>
+            <a href="/return-policy.html"><i class="fas fa-undo"></i> الاسترجاع</a>
+            <a href="/shipping-policy.html"><i class="fas fa-shipping-fast"></i> الشحن</a>
+            <a href="/terms-conditions.html"><i class="fas fa-file-contract"></i> الشروط</a>
+            <a href="/contact.html"><i class="fas fa-envelope"></i> اتصل بنا</a>
             <a href="https://wa.me/201110760081" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
         </div>
     </nav>
