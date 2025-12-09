@@ -1,35 +1,49 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+    
+    <!-- FIX: Content Security Policy (CSP) for Google Ads/Analytics -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://www.gstatic.com; connect-src 'self' https://www.google-analytics.com https://stats.g.doubleclick.net https://googleads.g.doubleclick.net https://www.google.com; img-src 'self' data: https://www.google.com https://googleads.g.doubleclick.net https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com;">
+
     <title>كاتالوج المنتجات | سوق الكويت</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="site-components.css">
     <link rel="stylesheet" href="catalog-styles.css">
 
-<!-- Google Merchant Center Desktop Fix -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-<meta name="mobile-web-app-capable" content="yes">
-<style>
-html,body{margin:0;padding:0;min-width:320px;max-width:100%;overflow-x:hidden}
-@media (min-width:1024px){body{min-width:1024px;max-width:1920px;margin:0 auto}}
-@media (min-width:768px) and (max-width:1023px){body{min-width:768px}}
-@media (max-width:767px){body{min-width:320px}}
-</style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Store",
-  "name": "سوق الكويت",
-  "url": "https://sooq-alkuwait.arabsad.com",
-  "telephone": "+201110760081",
-  "email": "sherow1982@gmail.com",
-  "address": {"@type": "PostalAddress","addressCountry": "KW"}
-}
-</script>
+    <!-- Google Merchant Center Desktop Fix -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
 
+    <style>
+    html,body{margin:0;padding:0;min-width:320px;max-width:100%;overflow-x:hidden}
+    @media (min-width:1024px){body{min-width:1024px;max-width:1920px;margin:0 auto}}
+    @media (min-width:768px) and (max-width:1023px){body{min-width:768px}}
+    @media (max-width:767px){body{min-width:320px}}
+    </style>
+
+    <!-- Google tag (gtag.js) - Conversion Tracking -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17756342539"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-17756342539');
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Store",
+      "name": "سوق الكويت",
+      "url": "https://sooq-alkuwait.arabsad.com",
+      "telephone": "+201110760081",
+      "email": "sherow1982@gmail.com",
+      "address": {"@type": "PostalAddress","addressCountry": "KW"}
+    }
+    </script>
 </head>
 <body>
     <div id="site-header"></div>
@@ -69,8 +83,26 @@ html,body{margin:0;padding:0;min-width:320px;max-width:100%;overflow-x:hidden}
     </div>
     <button class="back-to-top" id="back-to-top"><i class="fas fa-arrow-up"></i></button>
     <div id="site-footer"></div>
+    
     <script src="site-header.js"></script>
     <script src="site-footer.js"></script>
     <script src="catalog-products.js"></script>
+
+    <!-- Google Ads WhatsApp Conversion Tracking (Dynamic/Delegated) -->
+    <script>
+    // استخدام Event Delegation لضمان عمل التتبع مع المنتجات التي يتم تحميلها ديناميكياً
+    document.body.addEventListener('click', function(e) {
+        // البحث عن أقرب رابط تم الضغط عليه (سواء تم الضغط على الأيقونة أو النص)
+        var targetLink = e.target.closest('a');
+        
+        // التحقق مما إذا كان الرابط موجوداً ويؤدي إلى واتساب
+        if (targetLink && (targetLink.href.includes('wa.me') || targetLink.href.includes('whatsapp.com'))) {
+            gtag('event', 'conversion', {
+                'send_to': 'AW-17756342539/0qgKCK7PjskbEIuS8ZJC'
+            });
+            // console.log('WhatsApp conversion sent for dynamic product!'); // للتجربة
+        }
+    });
+    </script>
 </body>
 </html>
