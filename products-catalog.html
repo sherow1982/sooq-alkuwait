@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
     
-    <!-- FIX: Enhanced Content Security Policy (CSP) including script-src-elem -->
+    <!-- FIX: CSP Updated to allow images from ecomerg.com -->
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self' https: data:; 
         script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://www.gstatic.com; 
         script-src-elem 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://www.gstatic.com; 
         connect-src 'self' https://www.google-analytics.com https://stats.g.doubleclick.net https://googleads.g.doubleclick.net https://www.google.com; 
-        img-src 'self' data: https://www.google.com https://googleads.g.doubleclick.net https://www.google-analytics.com https://www.googletagmanager.com https://*.googleusercontent.com; 
+        img-src 'self' data: https://www.google.com https://googleads.g.doubleclick.net https://www.google-analytics.com https://www.googletagmanager.com https://*.googleusercontent.com https://ecomerg.com; 
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; 
         font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com;
     ">
@@ -96,14 +96,15 @@
     <script src="site-footer.js"></script>
     <script src="catalog-products.js"></script>
 
-    <!-- Google Ads WhatsApp Conversion Tracking (Smart Delegation) -->
+    <!-- GA4 WhatsApp Event Tracking -->
     <script>
-    // تتبع النقرات على أي رابط واتساب حتى للمنتجات التي يتم تحميلها ديناميكياً
     document.body.addEventListener('click', function(e) {
         var targetLink = e.target.closest('a');
         if (targetLink && (targetLink.href.includes('wa.me') || targetLink.href.includes('whatsapp.com'))) {
-            gtag('event', 'conversion', {
-                'send_to': 'AW-17756342539/0qgKCK7PjskbEIuS8ZJC'
+            // Send event to GA4
+            gtag('event', 'whatsapp_click', {
+                'event_category': 'Contact',
+                'event_label': 'WhatsApp Button'
             });
         }
     });
