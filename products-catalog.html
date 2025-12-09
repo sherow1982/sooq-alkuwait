@@ -96,16 +96,14 @@
     <script src="site-footer.js"></script>
     <script src="catalog-products.js"></script>
 
-    <!-- Google Ads WhatsApp Conversion Tracking (Smart Delegation for GA4) -->
+    <!-- Google Ads WhatsApp Conversion Tracking (Smart Delegation) -->
     <script>
-    // تتبع النقرات على أي رابط واتساب حتى للمنتجات التي يتم تحميلها ديناميكياً وإرسالها لـ GA4
+    // تتبع النقرات على أي رابط واتساب حتى للمنتجات التي يتم تحميلها ديناميكياً
     document.body.addEventListener('click', function(e) {
         var targetLink = e.target.closest('a');
         if (targetLink && (targetLink.href.includes('wa.me') || targetLink.href.includes('whatsapp.com'))) {
-            // Send event to GA4
-            gtag('event', 'whatsapp_click', {
-                'event_category': 'Contact',
-                'event_label': 'WhatsApp Button'
+            gtag('event', 'conversion', {
+                'send_to': 'AW-17756342539/0qgKCK7PjskbEIuS8ZJC'
             });
         }
     });
