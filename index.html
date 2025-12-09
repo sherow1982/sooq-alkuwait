@@ -5,8 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    <!-- FIX: Content Security Policy (CSP) for Google Ads/Analytics -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://www.gstatic.com; connect-src 'self' https://www.google-analytics.com https://stats.g.doubleclick.net https://googleads.g.doubleclick.net https://www.google.com; img-src 'self' data: https://www.google.com https://googleads.g.doubleclick.net https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com;">
+    <!-- FIX: Enhanced Content Security Policy (CSP) for GitHub Pages -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self' https: data:; 
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://www.gstatic.com; 
+        script-src-elem 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://www.gstatic.com; 
+        connect-src 'self' https://www.google-analytics.com https://stats.g.doubleclick.net https://googleads.g.doubleclick.net https://www.google.com; 
+        img-src 'self' data: https://www.google.com https://googleads.g.doubleclick.net https://www.google-analytics.com https://www.googletagmanager.com https://*.googleusercontent.com; 
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; 
+        font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+    ">
 
     <!-- SEO Meta Tags -->
     <title>سوق الكويت 🇰🇼 | أفضل متجر إلكتروني 2025 - أكثر من 1977 منتج بأفضل الأسعار</title>
@@ -357,14 +365,16 @@
         });
     </script>
     
-    <!-- Google Ads WhatsApp Conversion Tracking (Added) -->
+    <!-- Google Ads WhatsApp Conversion Tracking (Updated for GA4) -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         var whatsappLinks = document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp.com"]');
         whatsappLinks.forEach(function(link) {
             link.addEventListener('click', function() {
-                gtag('event', 'conversion', {
-                    'send_to': 'AW-17756342539/0qgKCK7PjskbEIuS8ZJC'
+                // Send event to GA4
+                gtag('event', 'whatsapp_click', {
+                    'event_category': 'Contact',
+                    'event_label': 'WhatsApp Button'
                 });
             });
         });
