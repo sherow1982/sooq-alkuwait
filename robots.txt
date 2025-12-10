@@ -1,54 +1,126 @@
 # Robots.txt for Sooq AlKuwait
 # سوق الكويت - ملف محركات البحث المحسّن
+# Updated: December 10, 2025
 
+# ========================================
+# Global Rules - Allow All Content
+# ========================================
 User-agent: *
 Allow: /
 
-# Allow all pages and products
+# ========================================
+# Explicitly Allow Important Pages
+# ========================================
 Allow: /index.html
 Allow: /products-catalog.html
 Allow: /products-pages/
 Allow: /about.html
 Allow: /contact.html
+Allow: /categories.html
+Allow: /offers.html
+Allow: /cart.html
+Allow: /checkout.html
 
-# Disallow admin and test files
+# ========================================
+# Disallow Non-Public Content
+# ========================================
 Disallow: /admin/
 Disallow: /test/
+Disallow: /temp/
 Disallow: /*.json$
 Disallow: /*-old.*
 Disallow: /*test*
+Disallow: /*.bak$
+Disallow: /private/
 
-# Allow CSS and JS
+# ========================================
+# Allow Static Assets (CSS, JS, Images)
+# ========================================
 Allow: *.css
 Allow: *.js
-
-# Allow Images
 Allow: *.jpg
 Allow: *.jpeg
 Allow: *.png
 Allow: *.gif
 Allow: *.webp
 Allow: *.svg
+Allow: *.woff
+Allow: *.woff2
+Allow: *.ttf
 
-# Sitemap
+# ========================================
+# Sitemap Location
+# ========================================
 Sitemap: https://sooq-alkuwait.arabsad.com/sitemap.xml
 
-# Crawl-delay for respectful crawling
-Crawl-delay: 1
-
-# Special rules for specific bots
+# ========================================
+# Google Bots - Full Access, No Delay
+# ========================================
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 0
 
 User-agent: Googlebot-Image
 Allow: /
+Crawl-delay: 0
 
+User-agent: Googlebot-Mobile
+Allow: /
+Crawl-delay: 0
+
+User-agent: Google-InspectionTool
+Allow: /
+
+User-agent: Storebot-Google
+Allow: /
+
+# ========================================
+# Bing Bot - Full Access
+# ========================================
 User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+User-agent: BingPreview
+Allow: /
+
+# ========================================
+# Other Search Engines - Full Access
+# ========================================
+User-agent: Slurp
 Allow: /
 Crawl-delay: 1
 
-# Block bad bots
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 1
+
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 1
+
+# ========================================
+# Social Media Bots - Allow for Previews
+# ========================================
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+# ========================================
+# Block Aggressive/SEO Tool Bots
+# ========================================
 User-agent: AhrefsBot
 Disallow: /
 
@@ -57,3 +129,36 @@ Disallow: /
 
 User-agent: SemrushBot
 Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: Screaming Frog SEO Spider
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+# ========================================
+# Block Malicious/Scraping Bots
+# ========================================
+User-agent: MauiBot
+Disallow: /
+
+User-agent: SeznamBot
+Disallow: /
+
+User-agent: Mail.RU_Bot
+Disallow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+# ========================================
+# General Crawl Delay for Others
+# ========================================
+User-agent: *
+Crawl-delay: 1
