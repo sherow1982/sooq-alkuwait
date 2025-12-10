@@ -10,206 +10,459 @@
       gtag('config', 'G-YQW5LL476X');
     </script>
 
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سوق الكويت | توجيه صامت</title>
-    <meta name="robots" content="noindex">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>404 - الصفحة غير موجودة | سوق الكويت 🇰🇼</title>
+    <meta name="description" content="عذراً، الصفحة المطلوبة غير موجودة. ارجع إلى الصفحة الرئيسية لمتابعة التسوق في سوق الكويت">
+    <meta name="robots" content="noindex, nofollow">
+    
     <style>
         :root {
-            --kuwait-green: #007A3D;
-            --kuwait-red: #CE1126;
-            --kuwait-white: #FFFFFF;
-            --kuwait-gold: #FFD700;
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --error: #ef4444;
+            --success: #10b981;
         }
         
-        /* رسائل مخفية بشكل افتراضي */
-        body {
-            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
-            background: transparent;
-            color: transparent;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--dark);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
         }
         
-        /* محتوى مخفي */
-        .hidden-redirect {
-            visibility: hidden;
-            opacity: 0;
+        /* خلفية متحركة */
+        .background-animation {
             position: absolute;
-            left: -9999px;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 0;
         }
         
-        /* تظهر فقط في وضع Debug */
-        .debug-info {
-            position: fixed;
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        .circle:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+        
+        .circle:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+        
+        .circle:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            top: 80%;
+            left: 10%;
+            animation-delay: 4s;
+        }
+        
+        .circle:nth-child(4) {
+            width: 90px;
+            height: 90px;
+            top: 20%;
+            left: 70%;
+            animation-delay: 1s;
+        }
+        
+        .circle:nth-child(5) {
+            width: 110px;
+            height: 110px;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, var(--kuwait-green) 0%, var(--kuwait-red) 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            font-size: 14px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            display: none;
-            z-index: 9999;
+            animation-delay: 3s;
         }
         
-        .debug-info.show {
-            display: block;
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+                opacity: 0.8;
+            }
+        }
+        
+        /* المحتوى الرئيسي */
+        .error-container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* رقم 404 */
+        .error-code {
+            font-size: 120px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+        }
+        
+        /* الأيقونة */
+        .error-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .error-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .error-message {
+            font-size: 18px;
+            color: #64748b;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        /* الأزرار */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: width 0.6s, height 0.6s, top 0.6s, left 0.6s;
+            transform: translate(-50%, -50%);
+        }
+        
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn > * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* مؤقت العد التنازلي */
+        .countdown {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 15px;
+            border: 2px dashed var(--primary);
+        }
+        
+        .countdown-text {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+        
+        .countdown-timer {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* روابط سريعة */
+        .quick-links {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .quick-links-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .quick-links-list {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .quick-link {
+            padding: 8px 20px;
+            background: #f1f5f9;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .error-container {
+                padding: 40px 25px;
+            }
+            
+            .error-code {
+                font-size: 80px;
+            }
+            
+            .error-icon {
+                font-size: 60px;
+            }
+            
+            .error-title {
+                font-size: 24px;
+            }
+            
+            .error-message {
+                font-size: 16px;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 14px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .countdown-timer {
+                font-size: 24px;
+            }
+            
+            .quick-links-list {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
-    <link href="css/mobile-fix.css" rel="stylesheet">
 </head>
 <body>
-    <!-- محتوى مخفي (لا يظهر في الوضع العادي) -->
-    <div class="hidden-redirect">
-        <h1>سوق الكويت - توجيه صامت</h1>
-        <p>جاري التوجيه...</p>
+    <!-- خلفية متحركة -->
+    <div class="background-animation">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
     </div>
-    
-    <!-- تظهر فقط في وضع Debug -->
-    <div class="debug-info" id="debug-info">
-        <h2>🔧 وضع Debug - نظام التوجيه الصامت</h2>
-        <p id="debug-details"></p>
-        <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
-            <a href="./" style="background: rgba(255,255,255,0.2); color: white; padding: 8px 15px; border-radius: 8px; text-decoration: none;">🏠 رئيسي</a>
-            <a href="./amp/" style="background: rgba(255,255,255,0.2); color: white; padding: 8px 15px; border-radius: 8px; text-decoration: none;">📱 AMP</a>
+
+    <!-- المحتوى -->
+    <div class="error-container">
+        <div class="error-icon">🔍</div>
+        <div class="error-code">404</div>
+        <h1 class="error-title">عذراً! الصفحة غير موجودة</h1>
+        <p class="error-message">
+            يبدو أن الصفحة التي تبحث عنها قد تم نقلها أو حذفها.<br>
+            لا تقلق، يمكنك العودة للصفحة الرئيسية أو تصفح منتجاتنا المميزة.
+        </p>
+
+        <!-- الأزرار -->
+        <div class="button-group">
+            <a href="/" class="btn btn-primary">
+                <span>🏠</span>
+                <span>العودة للرئيسية</span>
+            </a>
+            <a href="/products-catalog.html" class="btn btn-secondary">
+                <span>🛍️</span>
+                <span>تصفح المنتجات</span>
+            </a>
+        </div>
+
+        <!-- مؤقت العد التنازلي -->
+        <div class="countdown" id="countdown">
+            <div class="countdown-text">سيتم توجيهك تلقائياً للصفحة الرئيسية خلال:</div>
+            <div class="countdown-timer" id="timer">10</div>
+        </div>
+
+        <!-- روابط سريعة -->
+        <div class="quick-links">
+            <div class="quick-links-title">روابط سريعة مفيدة:</div>
+            <div class="quick-links-list">
+                <a href="/products-catalog.html" class="quick-link">كل المنتجات</a>
+                <a href="/products-catalog.html?category=home" class="quick-link">المنزل</a>
+                <a href="/products-catalog.html?category=electronics" class="quick-link">إلكترونيات</a>
+                <a href="/products-catalog.html?category=fashion" class="quick-link">أزياء</a>
+                <a href="https://wa.me/201110760081" class="quick-link" target="_blank">تواصل معنا</a>
+            </div>
         </div>
     </div>
 
     <script>
-        (function() {
-            'use strict';
+        // مؤقت العد التنازلي
+        let timeLeft = 10;
+        const timerElement = document.getElementById('timer');
+        const countdownElement = document.getElementById('countdown');
+        
+        const countdown = setInterval(() => {
+            timeLeft--;
+            timerElement.textContent = timeLeft;
             
-            // معلومات الصفحة الحالية
-            const currentPath = window.location.pathname;
-            const currentURL = window.location.href;
-            const searchParams = new URLSearchParams(window.location.search);
-            const debugMode = searchParams.get('debug') === '1';
-            
-            // فقط في وضع Debug - عرض معلومات
-            if (debugMode) {
-                document.body.style.opacity = '1';
-                document.getElementById('debug-info').classList.add('show');
-                
-                console.log('🔄 صفحة 404 في وضع Debug | المسار:', currentPath);
+            // تغيير اللون عند اقتراب النهاية
+            if (timeLeft <= 3) {
+                timerElement.style.color = 'var(--error)';
+                countdownElement.style.borderColor = 'var(--error)';
             }
             
-            // كشف نوع الجهاز بنفس الطريقة
-            function isMobileDevice() {
-                const mobileRegex = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i;
-                const userAgent = navigator.userAgent;
-                const screenWidth = window.screen.width || window.innerWidth;
-                const isSmallScreen = screenWidth < 768;
-                const isTablet = /(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(userAgent);
-                const isMobileUA = mobileRegex.test(userAgent);
-                const isTouchDevice = 'ontouchstart' in window;
-                
-                const isMobile = (isMobileUA && isSmallScreen && !isTablet) || 
-                                (isTouchDevice && isSmallScreen && !isTablet);
-                
-                if (debugMode) {
-                    const debugInfo = {
-                        userAgent: userAgent.substring(0, 60) + '...',
-                        screenWidth: screenWidth,
-                        isMobileUA: isMobileUA,
-                        isSmallScreen: isSmallScreen,
-                        isTablet: isTablet,
-                        isTouchDevice: isTouchDevice,
-                        decision: isMobile ? 'جوال → AMP' : 'كمبيوتر → عادي',
-                        currentPath: currentPath,
-                        currentURL: currentURL
-                    };
-                    
-                    console.table(debugInfo);
-                    
-                    const debugEl = document.getElementById('debug-details');
-                    if (debugEl) {
-                        debugEl.innerHTML = `
-                            Path: <code>${currentPath}</code><br>
-                            Device: <strong>${isMobile ? 'Mobile 📱' : 'Desktop 🖥️'}</strong><br>
-                            Screen: ${screenWidth}px<br>
-                            Target: ${isMobile ? '/amp/' : '/'}<br>
-                            <small style="opacity:0.8">UA: ${userAgent.substring(0, 40)}...</small>
-                        `;
-                    }
-                }
-                
-                return isMobile;
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                window.location.href = '/';
             }
+        }, 1000);
+        
+        // إيقاف المؤقت عند التفاعل
+        document.querySelectorAll('.btn, .quick-link').forEach(element => {
+            element.addEventListener('click', () => {
+                clearInterval(countdown);
+            });
+        });
+        
+        // تتبع 404 في Google Analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: '404 Error',
+                page_location: window.location.href,
+                page_path: window.location.pathname
+            });
             
-            // التوجيه الفوري الصامت
-            function performInstantRedirect() {
-                try {
-                    const isMobile = isMobileDevice();
-                    
-                    // تحديد مسار الريبو بشكل ديناميكي
-                    const pathParts = currentPath.split('/');
-                    const repoName = pathParts[1] || 'sooq-alkuwait';
-                    const basePath = '/' + repoName + '/';
-                    
-                    let targetPath;
-                    
-                    if (isMobile) {
-                        // توجيه الجوال لـ AMP
-                        if (currentPath.includes('/amp/')) {
-                            // بالفعل يحاول الوصول لـ AMP
-                            targetPath = currentPath;
-                        } else if (currentPath.includes('/products')) {
-                            targetPath = basePath + 'amp/products.html';
-                        } else if (currentPath.includes('/cart')) {
-                            targetPath = basePath + 'amp/cart.html';
-                        } else if (currentPath.includes('/checkout')) {
-                            targetPath = basePath + 'amp/checkout.html';
-                        } else {
-                            targetPath = basePath + 'amp/';
-                        }
-                    } else {
-                        // توجيه الكمبيوتر للنسخة العادية
-                        targetPath = basePath;
-                    }
-                    
-                    if (debugMode) {
-                        console.log('🎯 معلومات التوجيه الصامت:', {
-                            currentPath: currentPath,
-                            repoName: repoName,
-                            basePath: basePath,
-                            targetPath: targetPath,
-                            deviceType: isMobile ? 'موبايل' : 'كمبيوتر'
-                        });
-                        
-                        // في وضع Debug - عدم توجيه فوري
-                        setTimeout(() => {
-                            console.log('🚀 Debug: سيتم التوجيه بعد 3 ثوانٍ إلى:', targetPath);
-                            window.location.replace(targetPath);
-                        }, 3000);
-                        return;
-                    }
-                    
-                    // توجيه فوري صامت في الوضع العادي
-                    window.location.replace(targetPath);
-                    
-                } catch (error) {
-                    if (debugMode) {
-                        console.error('❌ خطأ في التوجيه:', error);
-                    }
-                    // في حالة الخطأ، التوجيه للرئيسية
-                    window.location.replace(window.location.origin + '/sooq-alkuwait/');
-                }
-            }
-            
-            // تنفيذ فوري
-            performInstantRedirect();
-            
-        })();
+            gtag('event', 'exception', {
+                description: '404 Error - Page Not Found',
+                fatal: false
+            });
+        }
     </script>
 </body>
 </html>
