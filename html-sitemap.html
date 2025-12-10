@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خريطة الموقع - سوق الكويت | جميع صفحات المتجر</title>
+    <meta name="description" content="خريطة شاملة لجميع صفحات وفئات متجر سوق الكويت الإلكتروني. اتصفح جميع المنتجات والأقسام">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sooq-alkuwait.arabsad.com/html-sitemap.html">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #1e293b;
+            line-height: 1.8;
+            padding: 2rem 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sitemap-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .sitemap-header h1 {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+        
+        .sitemap-header p {
+            font-size: 1.1rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .sitemap-section {
+            margin-bottom: 3rem;
+        }
+        
+        .sitemap-section h2 {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .sitemap-section h2 i {
+            color: #667eea;
+            font-size: 1.6rem;
+        }
+        
+        .sitemap-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .sitemap-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 1.2rem;
+            background: #f8fafc;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #334155;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .sitemap-links a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateX(-5px);
+            border-color: #667eea;
+        }
+        
+        .sitemap-links a i {
+            font-size: 1.2rem;
+            color: #667eea;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .sitemap-links a:hover i {
+            color: white;
+        }
+        
+        .breadcrumb {
+            background: #f8fafc;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        
+        .breadcrumb ol {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumb li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .breadcrumb li:not(:last-child)::after {
+            content: '←';
+            color: #94a3b8;
+            margin-right: 0.5rem;
+        }
+        
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .sitemap-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .sitemap-section h2 {
+                font-size: 1.4rem;
+            }
+            
+            .sitemap-links {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" aria-label="التنقل التفصيلي">
+            <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a href="/" itemprop="item">
+                        <span itemprop="name">الرئيسية</span>
+                    </a>
+                    <meta itemprop="position" content="1" />
+                </li>
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <span itemprop="name">خريطة الموقع</span>
+                    <meta itemprop="position" content="2" />
+                </li>
+            </ol>
+        </nav>
+        
+        <!-- Header -->
+        <div class="sitemap-header">
+            <h1>🗺️ خريطة موقع سوق الكويت</h1>
+            <p>دليلك الشامل للوصول إلى جميع صفحات المتجر وفئات المنتجات</p>
+        </div>
+        
+        <!-- Main Pages -->
+        <section class="sitemap-section">
+            <h2><i class="fas fa-home"></i> الصفحات الرئيسية</h2>
+            <div class="sitemap-links">
+                <a href="/"><i class="fas fa-home"></i> الصفحة الرئيسية</a>
+                <a href="/about.html"><i class="fas fa-info-circle"></i> من نحن</a>
+                <a href="/contact.html"><i class="fas fa-phone"></i> اتصل بنا</a>
+                <a href="/html-sitemap.html"><i class="fas fa-sitemap"></i> خريطة الموقع</a>
+            </div>
+        </section>
+        
+        <!-- Shopping Pages -->
+        <section class="sitemap-section">
+            <h2><i class="fas fa-shopping-bag"></i> التسوق والمنتجات</h2>
+            <div class="sitemap-links">
+                <a href="/products-catalog.html"><i class="fas fa-shopping-bag"></i> جميع المنتجات</a>
+                <a href="/categories.html"><i class="fas fa-th-large"></i> الفئات والأقسام</a>
+                <a href="/offers.html"><i class="fas fa-tags"></i> العروض والخصومات</a>
+                <a href="/cart.html"><i class="fas fa-shopping-cart"></i> سلة المشتريات</a>
+                <a href="/checkout.html"><i class="fas fa-credit-card"></i> إتمام الشراء</a>
+            </div>
+        </section>
+        
+        <!-- Product Categories -->
+        <section class="sitemap-section">
+            <h2><i class="fas fa-boxes"></i> فئات المنتجات</h2>
+            <div class="sitemap-links">
+                <a href="/products-catalog.html?category=home"><i class="fas fa-home"></i> المنزل والديكور</a>
+                <a href="/products-catalog.html?category=fashion"><i class="fas fa-tshirt"></i> الملابس والأزياء</a>
+                <a href="/products-catalog.html?category=electronics"><i class="fas fa-laptop"></i> الإلكترونيات</a>
+                <a href="/products-catalog.html?category=accessories"><i class="fas fa-gem"></i> الإكسسوارات</a>
+                <a href="/products-catalog.html?category=toys"><i class="fas fa-gamepad"></i> ألعاب الأطفال</a>
+                <a href="/products-catalog.html?category=beauty"><i class="fas fa-spa"></i> الصحة والجمال</a>
+            </div>
+        </section>
+        
+        <!-- Policies & Information -->
+        <section class="sitemap-section">
+            <h2><i class="fas fa-file-contract"></i> سياسات المتجر</h2>
+            <div class="sitemap-links">
+                <a href="/shipping.html"><i class="fas fa-truck"></i> سياسة الشحن</a>
+                <a href="/shipping-policy.html"><i class="fas fa-shipping-fast"></i> الشحن والتوصيل</a>
+                <a href="/delivery.html"><i class="fas fa-box"></i> معلومات التوصيل</a>
+                <a href="/return-policy.html"><i class="fas fa-undo"></i> سياسة الإرجاع</a>
+                <a href="/returns.html"><i class="fas fa-exchange-alt"></i> الاسترجاع والاستبدال</a>
+                <a href="/refund.html"><i class="fas fa-money-bill-wave"></i> سياسة استرجاع الأموال</a>
+                <a href="/warranty-policy.html"><i class="fas fa-shield-alt"></i> سياسة الضمان</a>
+                <a href="/terms-conditions.html"><i class="fas fa-file-contract"></i> الشروط والأحكام</a>
+                <a href="/privacy-policy.html"><i class="fas fa-user-shield"></i> سياسة الخصوصية</a>
+                <a href="/cookies.html"><i class="fas fa-cookie-bite"></i> سياسة ملفات الارتباط</a>
+            </div>
+        </section>
+        
+        <!-- Technical Pages -->
+        <section class="sitemap-section">
+            <h2><i class="fas fa-cogs"></i> صفحات تقنية</h2>
+            <div class="sitemap-links">
+                <a href="/sitemap.xml"><i class="fas fa-sitemap"></i> XML Sitemap</a>
+                <a href="/product-sitemap.xml"><i class="fas fa-box-open"></i> خريطة المنتجات XML</a>
+                <a href="/google-merchant-feed.xml"><i class="fab fa-google"></i> Google Merchant Feed</a>
+                <a href="/robots.txt"><i class="fas fa-robot"></i> Robots.txt</a>
+                <a href="/404.html"><i class="fas fa-exclamation-triangle"></i> 404 - الصفحة غير موجودة</a>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" aria-label="العودة للأعلى">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <!-- Internal Links System -->
+    <script defer src="internal-links-config.js"></script>
+</body>
+</html>
