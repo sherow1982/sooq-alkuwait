@@ -54,19 +54,16 @@ Allow: *.ttf
 Sitemap: https://sooq-alkuwait.arabsad.com/sitemap.xml
 
 # ========================================
-# Google Bots - Full Access, No Delay
+# Google Bots - Full Access
 # ========================================
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 0
 
 User-agent: Googlebot-Image
 Allow: /
-Crawl-delay: 0
 
 User-agent: Googlebot-Mobile
 Allow: /
-Crawl-delay: 0
 
 User-agent: Google-InspectionTool
 Allow: /
@@ -74,34 +71,32 @@ Allow: /
 User-agent: Storebot-Google
 Allow: /
 
+User-agent: AdsBot-Google
+Allow: /
+
 # ========================================
 # Bing Bot - Full Access
 # ========================================
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 0
 
 User-agent: BingPreview
 Allow: /
 
 # ========================================
-# Other Search Engines - Full Access
+# Other Search Engines
 # ========================================
 User-agent: Slurp
 Allow: /
-Crawl-delay: 1
 
 User-agent: DuckDuckBot
 Allow: /
-Crawl-delay: 1
 
 User-agent: Baiduspider
 Allow: /
-Crawl-delay: 1
 
 User-agent: YandexBot
 Allow: /
-Crawl-delay: 1
 
 # ========================================
 # Social Media Bots - Allow for Previews
@@ -142,9 +137,6 @@ Disallow: /
 User-agent: PetalBot
 Disallow: /
 
-# ========================================
-# Block Malicious/Scraping Bots
-# ========================================
 User-agent: MauiBot
 Disallow: /
 
@@ -153,12 +145,3 @@ Disallow: /
 
 User-agent: Mail.RU_Bot
 Disallow: /
-
-User-agent: AdsBot-Google
-Allow: /
-
-# ========================================
-# General Crawl Delay for Others
-# ========================================
-User-agent: *
-Crawl-delay: 1
