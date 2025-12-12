@@ -11,7 +11,7 @@ from openpyxl.styles import Font, PatternFill
 BASE_URL = "https://sooq-alkuwait.arabsad.com"
 PRODUCTS_DIR = "products-pages"
 FEED_FILENAME = "google_dsa_feed_final.xlsx"
-DEFAULT_IMAGE = "https://sooq-alkuwait.arabsad.com/assets/images/logo.png" # صورة احتياطية لو المنتج ملوش صورة
+DEFAULT_IMAGE = "https://sooq-alkuwait.arabsad.com/assets/images/logo.png"
 
 # ================= القوالب (Templates) =================
 INTRO_TEMPLATES = [
@@ -38,15 +38,13 @@ CONCLUSION_TEMPLATES = [
 
 def get_clean_schema(product_name, sku, url, price, delivery_text, image_url):
     clean_price = re.sub(r'[^\d.]', '', str(price))
-    
-    # التأكد من وجود صورة
     final_image = image_url if image_url else DEFAULT_IMAGE
     
     schema_data = {
         "@context": "https://schema.org",
         "@type": "Product",
         "name": product_name,
-        "image": [final_image], # جوجل بيفضلها مصفوفة
+        "image": [final_image],
         "description": f"اشتري {product_name} اونلاين في الكويت. {delivery_text}",
         "sku": sku,
         "mpn": sku,
@@ -149,14 +147,21 @@ def extract_price(soup):
     return "10.0"
 
 def get_product_image(soup, base_url):
-    """استخراج رابط الصورة بشكل ذكي"""
-    # 1. البحث عن صورة داخل div المنتج (الأكثر دقة)
-    # عدل الكلاس ده 'product-image' لو عندك كلاس محدد للصورة
-    img_tag = soup.find('img') 
+    """استخراج صورة المنتج بذكاء وتجاهل البانرات واللوجو"""
+    images = soup.find_all('img')
     
-    if img_tag and img_tag.get('src'):
-        src = img_tag.get('src')
-        # تحويل الرابط النسبي لرابط كامل
+    for img in images:
+        src = img.get('src', '')
+        if not src: continue
+        
+        src_lower = src.lower()
+        # الكلمات الممنوعة (أي صورة فيها الكلمات دي هنعتبرها مش منتج)
+        ignored_keywords = ['logo', 'banner', 'icon', 'facebook', 'twitter', 'whatsapp', 'bg', 'background', 'payment']
+        
+        if any(keyword in src_lower for keyword in ignored_keywords):
+            continue
+            
+        # تحويل الرابط لرابط كامل
         if not src.startswith('http'):
             return urljoin(base_url, src)
         return src
@@ -187,10 +192,10 @@ def optimize_files():
         delivery_text = random.choice(DELIVERY_TEMPLATES)
         sku = filename.replace('.html', '')
         
-        # استخراج الصورة
+        # استخراج الصورة الذكية
         image_url = get_product_image(soup, BASE_URL)
 
-        # تحديث الميتا
+        # 1. تحديث الميتا والتاجز
         if soup.head:
             if soup.title: soup.title.decompose()
             new_title = soup.new_tag('title')
@@ -208,7 +213,7 @@ def optimize_files():
             new_canonical = soup.new_tag('link', attrs={'rel': 'canonical', 'href': product_url})
             soup.head.append(new_canonical)
 
-        # تحديث السكيما
+        # 2. إزالة السكيما القديمة ووضع الجديدة (بالصورة الصحيحة)
         old_schemas = soup.find_all('script', type='application/ld+json')
         for s in old_schemas:
             s.decompose()
@@ -220,7 +225,7 @@ def optimize_files():
         if soup.head:
             soup.head.append(new_schema_tag)
 
-        # تحديث SEO
+        # 3. تحديث الـ SEO Body
         old_seo_content = soup.find('div', class_='seo-content')
         if old_seo_content:
             old_seo_content.decompose()
@@ -235,12 +240,14 @@ def optimize_files():
             else:
                 soup.body.append(seo_tag)
 
+        # 4. حفظ الملف (Overwrite)
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(str(soup))
 
+        # 5. إضافة للفيد
         feed_data.append([product_url, "BestSeller"])
 
-    # إنشاء ملف Excel
+    # 6. إنشاء ملف Excel
     print("📊 جاري إنشاء ملف Excel...")
     wb = Workbook()
     ws = wb.active
@@ -265,7 +272,7 @@ def optimize_files():
     
     wb.save(FEED_FILENAME)
     
-    print(f"✅ تم تحديث {len(files)} صفحة بنجاح! السكيما تتضمن حقل Image الآن.")
+    print(f"✅ تم تحديث {len(files)} صفحة بنجاح!")
     print(f"📊 تم إنشاء ملف الفيد: {FEED_FILENAME}")
 
 if __name__ == "__main__":
