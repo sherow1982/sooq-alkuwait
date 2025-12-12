@@ -1,16 +1,18 @@
 import os
-import csv
 import re
 import random
+import json
+from urllib.parse import quote
 from bs4 import BeautifulSoup
+from openpyxl import Workbook
+from openpyxl.styles import Font, PatternFill
 
 # ================= إعدادات المتجر =================
 BASE_URL = "https://sooq-alkuwait.arabsad.com"
 PRODUCTS_DIR = "products-pages"
-FEED_FILENAME = "google_dsa_feed.csv"
+FEED_FILENAME = "google_dsa_feed_final.xlsx"
 
-# ================= قوالب المحتوى المتغيرة (لضمان تنوع النصوص) =================
-
+# ================= القوالب (Templates) =================
 INTRO_TEMPLATES = [
     "هل تبحث عن <strong>{name}</strong> بسعر مميز؟ في سوق الكويت، نقدم لك أفضل العروض مع ضمان الجودة.",
     "احصل الآن على <strong>{name}</strong> الأصلي بأفضل سعر في الكويت. تجربة تسوق سهلة ومضمونة.",
@@ -33,69 +35,66 @@ CONCLUSION_TEMPLATES = [
     "لا تتردد، <strong>{name}</strong> هو الخيار الأمثل لك. اطلبه الآن عبر الموقع أو الواتساب."
 ]
 
-# قالب السكيما (Schema JSON-LD)
-SCHEMA_TEMPLATE = """
-<script type="application/ld+json">
-{{
-"@context": "https://schema.org",
-"@type": "Product",
-"name": "{name}",
-"description": "اشتري {name} اونلاين في الكويت. {delivery_text}",
-"sku": "{sku}",
-"mpn": "{sku}",
-"brand": {{
-"@type": "Brand",
-"name": "سوق الكويت"
-}},
-"offers": {{
-"@type": "Offer",
-"url": "{url}",
-"priceCurrency": "KWD",
-"price": "{price}",
-"priceValidUntil": "2026-12-31",
-"availability": "https://schema.org/InStock",
-"itemCondition": "https://schema.org/NewCondition",
-"shippingDetails": {{
-"@type": "OfferShippingDetails",
-"shippingRate": {{
-"@type": "MonetaryAmount",
-"value": "0.0",
-"currency": "KWD"
-}},
-"shippingDestination": {{
-"@type": "DefinedRegion",
-"addressCountry": "KW"
-}},
-"deliveryTime": {{
-"@type": "ShippingDeliveryTime",
-"handlingTime": {{
-"@type": "QuantitativeValue",
-"minValue": 1,
-"maxValue": 2,
-"unitCode": "DAY"
-}},
-"transitTime": {{
-"@type": "QuantitativeValue",
-"minValue": 1,
-"maxValue": 3,
-"unitCode": "DAY"
-}}
-}}
-}},
-"hasMerchantReturnPolicy": {{
-"@type": "MerchantReturnPolicy",
-"returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-"merchantReturnDays": 14,
-"returnMethod": "https://schema.org/ReturnByMail",
-"returnFees": "https://schema.org/FreeReturn"
-}}
-}}
-}}
-</script>
-"""
+def get_clean_schema(product_name, sku, url, price, delivery_text):
+    clean_price = re.sub(r'[^\d.]', '', str(price))
+    schema_data = {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": product_name,
+        "description": f"اشتري {product_name} اونلاين في الكويت. {delivery_text}",
+        "sku": sku,
+        "mpn": sku,
+        "brand": {
+            "@type": "Brand",
+            "name": "سوق الكويت"
+        },
+        "offers": {
+            "@type": "Offer",
+            "url": url,
+            "priceCurrency": "KWD",
+            "price": clean_price,
+            "priceValidUntil": "2026-12-31",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition",
+            "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                    "@type": "MonetaryAmount",
+                    "value": "0.0",
+                    "currency": "KWD"
+                },
+                "shippingDestination": {
+                    "@type": "DefinedRegion",
+                    "addressCountry": "KW"
+                },
+                "deliveryTime": {
+                    "@type": "ShippingDeliveryTime",
+                    "handlingTime": {
+                        "@type": "QuantitativeValue",
+                        "minValue": 1,
+                        "maxValue": 2,
+                        "unitCode": "DAY"
+                    },
+                    "transitTime": {
+                        "@type": "QuantitativeValue",
+                        "minValue": 1,
+                        "maxValue": 3,
+                        "unitCode": "DAY"
+                    }
+                }
+            },
+            "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 14,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
+            }
+        }
+    }
+    return json.dumps(schema_data, ensure_ascii=False, indent=2)
 
 def generate_seo_block(product_name):
-    """توليد بلوك SEO بنصوص متغيرة عشوائياً"""
     intro = random.choice(INTRO_TEMPLATES).format(name=product_name)
     delivery = random.choice(DELIVERY_TEMPLATES)
     conclusion = random.choice(CONCLUSION_TEMPLATES).format(name=product_name)
@@ -130,22 +129,18 @@ def generate_seo_block(product_name):
     return html
 
 def clean_product_name(filename):
-    """تنظيف اسم الملف واستخراج اسم المنتج"""
     name = filename.replace('.html', '')
-    # إزالة الأرقام والبادئات الزائدة مثل product-123-
     name = re.sub(r'^product-\d+-', '', name)
     name = name.replace('-', ' ')
     return name.strip()
 
 def extract_price(soup):
-    """محاولة استخراج السعر من الصفحة الحالية"""
-    # البحث عن نمط السعر (أرقام متبوعة بـ KWD أو د.ك)
     price_element = soup.find(string=re.compile(r'\d+(\.\d+)?\s*(KWD|د\.ك)'))
     if price_element:
         match = re.search(r'(\d+(\.\d+)?)', price_element)
         if match:
             return match.group(1)
-    return "10.0" # سعر احتياطي
+    return "10.0"
 
 def optimize_files():
     feed_data = []
@@ -155,63 +150,53 @@ def optimize_files():
         return
 
     files = [f for f in os.listdir(PRODUCTS_DIR) if f.endswith('.html')]
-    print(f"🚀 جاري معالجة {len(files)} منتج... (توليد محتوى متنوع وتحسين SEO)")
+    print(f"🚀 جاري معالجة {len(files)} منتج...")
 
     for filename in files:
         filepath = os.path.join(PRODUCTS_DIR, filename)
         product_name = clean_product_name(filename)
-        product_url = f"{BASE_URL}/{PRODUCTS_DIR}/{filename}"
+        encoded_filename = quote(filename)
+        product_url = f"{BASE_URL}/{PRODUCTS_DIR}/{encoded_filename}"
         
-        # قراءة الملف الأصلي
         with open(filepath, 'r', encoding='utf-8') as f:
             original_html = f.read()
             soup = BeautifulSoup(original_html, 'html.parser')
 
         current_price = extract_price(soup)
-        
-        # اختيار جملة توصيل عشوائية لضمان التنوع
         delivery_text = random.choice(DELIVERY_TEMPLATES)
+        sku = filename.replace('.html', '')
 
-        # 1. تحديث الـ HEAD
+        # تحديث الميتا والعناوين
         if soup.head:
-            # تحديث العنوان
             if soup.title: soup.title.decompose()
             new_title = soup.new_tag('title')
             new_title.string = f"{product_name} | أفضل سعر في الكويت"
             soup.head.append(new_title)
             
-            # تحديث الميتا وصف
             old_meta = soup.find('meta', attrs={'name': 'description'})
             if old_meta: old_meta.decompose()
-            
             meta_desc_text = f"اشتري {product_name} اونلاين بأفضل سعر في الكويت. {delivery_text} تسوق الآن!"
             new_meta = soup.new_tag('meta', attrs={'name': 'description', 'content': meta_desc_text})
             soup.head.append(new_meta)
 
-            # تحديث Canonical
             old_canonical = soup.find('link', attrs={'rel': 'canonical'})
             if old_canonical: old_canonical.decompose()
             new_canonical = soup.new_tag('link', attrs={'rel': 'canonical', 'href': product_url})
             soup.head.append(new_canonical)
 
-        # 2. تحديث السكيما (Schema JSON-LD)
+        # تحديث السكيما
         old_schemas = soup.find_all('script', type='application/ld+json')
         for s in old_schemas:
             s.decompose()
 
-        sku = filename.replace('.html', '')
-        schema_json = SCHEMA_TEMPLATE.format(
-            name=product_name,
-            sku=sku,
-            url=product_url,
-            price=current_price,
-            delivery_text=delivery_text
-        )
-        schema_tag = BeautifulSoup(schema_json, 'html.parser')
+        clean_json_string = get_clean_schema(product_name, sku, product_url, current_price, delivery_text)
+        new_schema_tag = soup.new_tag('script', type='application/ld+json')
+        new_schema_tag.string = clean_json_string
+        
         if soup.head:
-            soup.head.append(schema_tag)
+            soup.head.append(new_schema_tag)
 
-        # 3. تحديث بلوك الـ SEO (أسفل الصفحة)
+        # تحديث بلوك الـ SEO
         old_seo_content = soup.find('div', class_='seo-content')
         if old_seo_content:
             old_seo_content.decompose()
@@ -226,21 +211,47 @@ def optimize_files():
             else:
                 soup.body.append(seo_tag)
 
-        # 4. حفظ التعديلات فوق الملف الأصلي
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(str(soup))
 
-        # إضافة للفيد
-        feed_data.append([product_url, "BestSeller"]) 
+        # جمع البيانات للملف
+        feed_data.append([product_url, "BestSeller"])
 
-    # إنشاء ملف CSV بترميز UTF-8-SIG (يصلح مشكلة العربي في Excel)
-    with open(FEED_FILENAME, 'w', newline='', encoding='utf-8-sig') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(['Page URL', 'Custom Label'])
-        writer.writerows(feed_data)
-
+    # 🔥 إنشاء ملف XLSX (Excel حقيقي)
+    print("📊 جاري إنشاء ملف Excel...")
+    
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Feed"
+    
+    # تنسيق الهيدر
+    header_fill = PatternFill(start_color="4472C4", end_color="4472C4", fill_type="solid")
+    header_font = Font(bold=True, color="FFFFFF", size=12)
+    
+    # كتابة الهيدر
+    ws['A1'] = "Page URL"
+    ws['B1'] = "Custom Label"
+    
+    # تطبيق التنسيق على الهيدر
+    for cell in ['A1', 'B1']:
+        ws[cell].fill = header_fill
+        ws[cell].font = header_font
+    
+    # تعديل عرض الأعمدة
+    ws.column_dimensions['A'].width = 100
+    ws.column_dimensions['B'].width = 20
+    
+    # كتابة البيانات
+    for idx, (url, label) in enumerate(feed_data, start=2):
+        ws[f'A{idx}'] = url
+        ws[f'B{idx}'] = label
+    
+    # حفظ الملف
+    wb.save(FEED_FILENAME)
+    
     print(f"✅ تم تحديث {len(files)} صفحة بنجاح!")
-    print(f"📄 تم إنشاء ملف الفيد: {FEED_FILENAME} (جاهز للعرض في Excel)")
+    print(f"📊 تم إنشاء ملف الفيد: {FEED_FILENAME}")
+    print(f"👉 الملف الآن صيغة XLSX (Excel) بعمودين نظيفين: Page URL و Custom Label")
 
 if __name__ == "__main__":
     optimize_files()
