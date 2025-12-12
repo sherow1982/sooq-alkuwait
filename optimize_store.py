@@ -2,7 +2,7 @@ import os
 import re
 import random
 import json
-from urllib.parse import quote
+from urllib.parse import quote, urljoin
 from bs4 import BeautifulSoup
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill
@@ -11,6 +11,7 @@ from openpyxl.styles import Font, PatternFill
 BASE_URL = "https://sooq-alkuwait.arabsad.com"
 PRODUCTS_DIR = "products-pages"
 FEED_FILENAME = "google_dsa_feed_final.xlsx"
+DEFAULT_IMAGE = "https://sooq-alkuwait.arabsad.com/assets/images/logo.png" # صورة احتياطية لو المنتج ملوش صورة
 
 # ================= القوالب (Templates) =================
 INTRO_TEMPLATES = [
@@ -35,12 +36,17 @@ CONCLUSION_TEMPLATES = [
     "لا تتردد، <strong>{name}</strong> هو الخيار الأمثل لك. اطلبه الآن عبر الموقع أو الواتساب."
 ]
 
-def get_clean_schema(product_name, sku, url, price, delivery_text):
+def get_clean_schema(product_name, sku, url, price, delivery_text, image_url):
     clean_price = re.sub(r'[^\d.]', '', str(price))
+    
+    # التأكد من وجود صورة
+    final_image = image_url if image_url else DEFAULT_IMAGE
+    
     schema_data = {
         "@context": "https://schema.org",
         "@type": "Product",
         "name": product_name,
+        "image": [final_image], # جوجل بيفضلها مصفوفة
         "description": f"اشتري {product_name} اونلاين في الكويت. {delivery_text}",
         "sku": sku,
         "mpn": sku,
@@ -142,6 +148,21 @@ def extract_price(soup):
             return match.group(1)
     return "10.0"
 
+def get_product_image(soup, base_url):
+    """استخراج رابط الصورة بشكل ذكي"""
+    # 1. البحث عن صورة داخل div المنتج (الأكثر دقة)
+    # عدل الكلاس ده 'product-image' لو عندك كلاس محدد للصورة
+    img_tag = soup.find('img') 
+    
+    if img_tag and img_tag.get('src'):
+        src = img_tag.get('src')
+        # تحويل الرابط النسبي لرابط كامل
+        if not src.startswith('http'):
+            return urljoin(base_url, src)
+        return src
+    
+    return ""
+
 def optimize_files():
     feed_data = []
     
@@ -165,8 +186,11 @@ def optimize_files():
         current_price = extract_price(soup)
         delivery_text = random.choice(DELIVERY_TEMPLATES)
         sku = filename.replace('.html', '')
+        
+        # استخراج الصورة
+        image_url = get_product_image(soup, BASE_URL)
 
-        # تحديث الميتا والعناوين
+        # تحديث الميتا
         if soup.head:
             if soup.title: soup.title.decompose()
             new_title = soup.new_tag('title')
@@ -189,14 +213,14 @@ def optimize_files():
         for s in old_schemas:
             s.decompose()
 
-        clean_json_string = get_clean_schema(product_name, sku, product_url, current_price, delivery_text)
+        clean_json_string = get_clean_schema(product_name, sku, product_url, current_price, delivery_text, image_url)
         new_schema_tag = soup.new_tag('script', type='application/ld+json')
         new_schema_tag.string = clean_json_string
         
         if soup.head:
             soup.head.append(new_schema_tag)
 
-        # تحديث بلوك الـ SEO
+        # تحديث SEO
         old_seo_content = soup.find('div', class_='seo-content')
         if old_seo_content:
             old_seo_content.decompose()
@@ -214,44 +238,35 @@ def optimize_files():
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(str(soup))
 
-        # جمع البيانات للملف
         feed_data.append([product_url, "BestSeller"])
 
-    # 🔥 إنشاء ملف XLSX (Excel حقيقي)
+    # إنشاء ملف Excel
     print("📊 جاري إنشاء ملف Excel...")
-    
     wb = Workbook()
     ws = wb.active
     ws.title = "Feed"
     
-    # تنسيق الهيدر
     header_fill = PatternFill(start_color="4472C4", end_color="4472C4", fill_type="solid")
     header_font = Font(bold=True, color="FFFFFF", size=12)
     
-    # كتابة الهيدر
     ws['A1'] = "Page URL"
     ws['B1'] = "Custom Label"
     
-    # تطبيق التنسيق على الهيدر
     for cell in ['A1', 'B1']:
         ws[cell].fill = header_fill
         ws[cell].font = header_font
     
-    # تعديل عرض الأعمدة
     ws.column_dimensions['A'].width = 100
     ws.column_dimensions['B'].width = 20
     
-    # كتابة البيانات
     for idx, (url, label) in enumerate(feed_data, start=2):
         ws[f'A{idx}'] = url
         ws[f'B{idx}'] = label
     
-    # حفظ الملف
     wb.save(FEED_FILENAME)
     
-    print(f"✅ تم تحديث {len(files)} صفحة بنجاح!")
+    print(f"✅ تم تحديث {len(files)} صفحة بنجاح! السكيما تتضمن حقل Image الآن.")
     print(f"📊 تم إنشاء ملف الفيد: {FEED_FILENAME}")
-    print(f"👉 الملف الآن صيغة XLSX (Excel) بعمودين نظيفين: Page URL و Custom Label")
 
 if __name__ == "__main__":
     optimize_files()
