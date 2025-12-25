@@ -183,7 +183,7 @@ def clean_products_data(input_file, output_file, feed_file, domain="https://sooq
 
 # --- Main Execution ---
 if __name__ == "__main__":
-    input_json_file = 'products_data_cleaned.json'
+    input_json_file = 'products_data.json'
     output_json_file = 'products_data_cleaned.json'
     feed_xml_file = 'google_feed.xml'
     # هام: قم بتغيير هذا الرابط إلى رابط موقعك الحقيقي
