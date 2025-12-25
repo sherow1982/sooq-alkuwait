@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل المنتج | سوق الكويت</title>
+    <!-- Fonts and CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a8a', // أزرق كويتي داكن
+                        secondary: '#fbbf24', // ذهبي
+                        accent: '#10b981', // أخضر
+                    },
+                    fontFamily: {
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-tajawal text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-primary flex items-center gap-2">
+                <i class="fa-solid fa-bag-shopping text-secondary"></i>
+                سوق الكويت
+            </a>
+            <div class="flex items-center gap-4">
+                <!-- Cart icon can be here if we want it on the product page too -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <div id="product-details-container" class="bg-white p-6 rounded-xl shadow-lg">
+            <!-- Product details will be loaded here by JavaScript -->
+            <div class="text-center py-20">
+                <i class="fa-solid fa-circle-notch fa-spin text-4xl text-primary"></i>
+                <p class="mt-4 text-lg">جاري تحميل تفاصيل المنتج...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 سوق الكويت. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="product-page.js"></script>
+</body>
+</html>

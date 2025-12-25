@@ -112,18 +112,18 @@ def clean_products_data(input_file, output_file, feed_file, domain="https://sooq
                 
                 cleaned_product['currency'] = product.get('currency', 'KWD')
 
-                # Fix image paths to be absolute URLs using the domain
+                # Keep image paths relative for the website
                 image_path = product.get('image')
                 if image_path:
                     if image_path.startswith('http'):
                         cleaned_product['image'] = image_path
                     else:
-                        cleaned_product['image'] = f"{domain}{image_path}" if image_path.startswith('/') else f"{domain}/{image_path}"
+                        cleaned_product['image'] = image_path.lstrip('/')
                 else:
                     cleaned_product['image'] = ""
 
                 images_list = product.get('images', [])
-                cleaned_images = [img if img.startswith('http') else (f"{domain}{img}" if img.startswith('/') else f"{domain}/{img}") for img in images_list if img]
+                cleaned_images = [img if img.startswith('http') else img.lstrip('/') for img in images_list if img]
                 cleaned_product['images'] = cleaned_images
 
                 # التصنيف التلقائي
@@ -183,7 +183,7 @@ def clean_products_data(input_file, output_file, feed_file, domain="https://sooq
 
 # --- Main Execution ---
 if __name__ == "__main__":
-    input_json_file = 'products_data.json'
+    input_json_file = 'products_data_cleaned.json'
     output_json_file = 'products_data_cleaned.json'
     feed_xml_file = 'google_feed.xml'
     # هام: قم بتغيير هذا الرابط إلى رابط موقعك الحقيقي
