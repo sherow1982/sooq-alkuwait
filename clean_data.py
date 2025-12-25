@@ -112,12 +112,18 @@ def clean_products_data(input_file, output_file, feed_file, domain="https://sooq
                 
                 cleaned_product['currency'] = product.get('currency', 'KWD')
 
-                # Correct image paths for the web app by removing any leading slash
+                # Fix image paths to be absolute URLs using the domain
                 image_path = product.get('image')
-                cleaned_product['image'] = image_path[1:] if image_path and image_path.startswith('/') else image_path
+                if image_path:
+                    if image_path.startswith('http'):
+                        cleaned_product['image'] = image_path
+                    else:
+                        cleaned_product['image'] = f"{domain}{image_path}" if image_path.startswith('/') else f"{domain}/{image_path}"
+                else:
+                    cleaned_product['image'] = ""
 
                 images_list = product.get('images', [])
-                cleaned_images = [img[1:] if img and img.startswith('/') else img for img in images_list]
+                cleaned_images = [img if img.startswith('http') else (f"{domain}{img}" if img.startswith('/') else f"{domain}/{img}") for img in images_list if img]
                 cleaned_product['images'] = cleaned_images
 
                 # التصنيف التلقائي
