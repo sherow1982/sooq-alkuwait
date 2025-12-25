@@ -8,6 +8,9 @@ const STORE_CONFIG = {
 
 let allProducts = [];
 let cart = [];
+let currentFilteredProducts = [];
+let displayedCount = 0;
+const ITEMS_PER_PAGE = 12;
 
 // جلب البيانات عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', () => {
@@ -35,9 +38,12 @@ async function fetchProducts() {
 
         // فتح المنتج مباشرة إذا كان الرابط يحتوي على معرف المنتج (لإعلانات جوجل)
         const urlParams = new URLSearchParams(window.location.search);
-        const productId = parseInt(urlParams.get('product_id'));
-        if (productId) {
-            openProductModal(productId);
+        const productSlug = urlParams.get('product');
+        if (productSlug) {
+            const product = allProducts.find(p => p.slug === productSlug);
+            if (product) {
+                openProductModal(product.id);
+            }
         }
         
     } catch (error) {
@@ -53,35 +59,48 @@ async function fetchProducts() {
 
 // عرض المنتجات في الشبكة
 function renderProducts(products) {
+    currentFilteredProducts = products;
+    displayedCount = 0;
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
 
     if (products.length === 0) {
         grid.innerHTML = '<div class="col-span-full text-center text-gray-500 py-10">لا توجد منتجات تطابق بحثك.</div>';
+        updateLoadMoreButton();
         return;
     }
 
-    products.forEach(product => {
-        // تحديد السعر للعرض (استخدام سعر التخفيض إن وجد)
+    appendProducts();
+}
+
+function appendProducts() {
+    const grid = document.getElementById('products-grid');
+    const nextBatch = currentFilteredProducts.slice(displayedCount, displayedCount + ITEMS_PER_PAGE);
+
+    nextBatch.forEach(product => {
         const displayPrice = product.sale_price > 0 ? product.sale_price : product.regular_price;
         const hasDiscount = product.sale_price > 0 && product.sale_price < product.regular_price;
 
-        const card = document.createElement('div');
-        card.className = 'product-card bg-white rounded-xl overflow-hidden group relative';
+        // تغيير العنصر من div إلى a ليفتح في تبويب جديد
+        const card = document.createElement('a');
+        card.href = `?product=${product.slug}`;
+        card.target = '_blank';
+        card.className = 'product-card bg-white rounded-xl overflow-hidden group relative cursor-pointer block';
+        
         card.innerHTML = `
-            <div class="product-image-container bg-gray-100 cursor-pointer" onclick="openProductModal(${product.id})">
+            <div class="product-image-container bg-gray-100">
                 <img src="${product.image || 'https://via.placeholder.com/300'}" alt="${product.name}" loading="lazy">
                 ${hasDiscount ? `<span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">خصم</span>` : ''}
             </div>
             <div class="p-4">
                 <div class="text-xs text-gray-500 mb-1">${product.category}</div>
-                <h3 class="font-bold text-gray-800 mb-2 truncate cursor-pointer hover:text-primary" onclick="openProductModal(${product.id})">${product.name}</h3>
+                <h3 class="font-bold text-gray-800 mb-2 truncate group-hover:text-primary">${product.name}</h3>
                 <div class="flex justify-between items-center mt-3">
                     <div class="flex flex-col">
                         <span class="text-lg font-bold text-primary">${displayPrice} ${STORE_CONFIG.currency}</span>
                         ${hasDiscount ? `<span class="text-xs text-gray-400 line-through">${product.regular_price} ${STORE_CONFIG.currency}</span>` : ''}
                     </div>
-                    <button onclick="addToCart(${product.id})" class="bg-secondary text-primary w-10 h-10 rounded-full flex items-center justify-center hover:bg-yellow-400 transition shadow-sm" title="أضف للسلة">
+                    <button onclick="addToCart(event, ${product.id})" class="bg-secondary text-primary w-10 h-10 rounded-full flex items-center justify-center hover:bg-yellow-400 transition shadow-sm z-10" title="أضف للسلة">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
@@ -89,6 +108,20 @@ function renderProducts(products) {
         `;
         grid.appendChild(card);
     });
+
+    displayedCount += nextBatch.length;
+    updateLoadMoreButton();
+}
+
+function updateLoadMoreButton() {
+    const btn = document.getElementById('load-more-btn');
+    if (btn) {
+        if (displayedCount >= currentFilteredProducts.length || currentFilteredProducts.length === 0) {
+            btn.style.display = 'none';
+        } else {
+            btn.style.display = 'block';
+        }
+    }
 }
 
 // إعداد أزرار الفئات
@@ -142,8 +175,11 @@ function filterProducts(searchTerm) {
 
 // --- وظائف السلة ---
 
-function addToCart(productId) {
+function addToCart(event, productId) {
+    event.preventDefault(); // منع الرابط من الفتح عند الضغط على زر الإضافة
+    event.stopPropagation(); // منع فتح المودال عند الضغط على زر الإضافة
     const product = allProducts.find(p => p.id === productId);
+    if (!product) return;
     const existingItem = cart.find(item => item.id === productId);
 
     if (existingItem) {
@@ -156,7 +192,8 @@ function addToCart(productId) {
     saveCart();
     
     // تأثير بصري بسيط
-    const btn = event.currentTarget;
+    const btn = event.target.closest('button');
+    if (!btn) return;
     const originalHTML = btn.innerHTML;
     btn.innerHTML = '<i class="fa-solid fa-check"></i>';
     setTimeout(() => btn.innerHTML = originalHTML, 1000);
@@ -302,22 +339,42 @@ function openProductModal(productId) {
     const modal = document.getElementById('product-modal');
     const content = document.getElementById('modal-content');
     const price = product.sale_price > 0 ? product.sale_price : product.regular_price;
+    const hasDiscount = product.sale_price > 0 && product.sale_price < product.regular_price;
+
+    // إنشاء معرض صور إضافية
+    let imageGalleryHTML = '';
+    if (product.images && product.images.length > 0) {
+        // دمج الصورة الرئيسية مع الصور الإضافية مع التأكد من عدم تكرارها
+        const allImages = [product.image, ...product.images.filter(img => img !== product.image)];
+        imageGalleryHTML = `
+            <div class="flex gap-2 mt-4 overflow-x-auto pb-2">
+                ${allImages.map(img => `
+                    <img src="${img || 'https://via.placeholder.com/300'}" alt="صورة إضافية" class="w-20 h-20 object-cover rounded-md cursor-pointer border-2 border-transparent hover:border-primary transition" onclick="document.getElementById('main-modal-image').src='${img}'">
+                `).join('')}
+            </div>
+        `;
+    }
 
     content.innerHTML = `
-        <div class="flex items-center justify-center bg-gray-50 rounded-lg p-4">
-            <img src="${product.image}" alt="${product.name}" class="max-h-[400px] object-contain">
+        <div class="md:col-span-1">
+            <div class="flex items-center justify-center bg-gray-100 rounded-lg p-4">
+                <img id="main-modal-image" src="${product.image || 'https://via.placeholder.com/400'}" alt="${product.name}" class="max-h-[400px] object-contain">
+            </div>
+            ${imageGalleryHTML}
         </div>
-        <div>
+        <div class="md:col-span-1">
             <div class="text-sm text-primary font-bold mb-2">${product.category}</div>
             <h2 class="text-2xl font-bold text-gray-800 mb-4">${product.name}</h2>
-            <div class="text-3xl font-bold text-primary mb-6">${price} ${STORE_CONFIG.currency}</div>
-            
-            <div class="prose text-gray-600 mb-8 max-h-40 overflow-y-auto">
+            <div class="flex items-baseline gap-3 mb-6">
+                <span class="text-3xl font-bold text-primary">${price} ${STORE_CONFIG.currency}</span>
+                ${hasDiscount ? `<span class="text-lg text-gray-400 line-through">${product.regular_price} ${STORE_CONFIG.currency}</span>` : ''}
+            </div>
+            <div class="prose text-gray-600 mb-8 max-h-40 overflow-y-auto" dir="auto">
                 ${(product.description || '').replace(/\n/g, '<br>')}
             </div>
-
             <div class="flex gap-4">
-                <button onclick="addToCart(${product.id}); closeModal()" class="flex-1 bg-primary text-white py-3 rounded-lg font-bold hover:bg-blue-900 transition">
+                <button onclick="addToCart(event, ${product.id}); closeModal();" class="flex-1 bg-primary text-white py-3 rounded-lg font-bold hover:bg-blue-900 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cart-plus"></i>
                     إضافة للسلة
                 </button>
                 <button onclick="closeModal()" class="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition">

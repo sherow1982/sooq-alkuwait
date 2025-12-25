@@ -58,6 +58,12 @@ def safe_int(value, default=0):
     except (ValueError, TypeError):
         return default
 
+def create_slug(name):
+    s = str(name).strip()
+    s = re.sub(r'[^\w\s]', ' ', s)
+    s = re.sub(r'\s+', '-', s)
+    return s.strip('-')
+
 def clean_products_data(input_file, output_file, feed_file, domain="https://sooq-alkuwait.arabsad.com"):
     """
     Cleans and restructures the products JSON data.
@@ -84,6 +90,7 @@ def clean_products_data(input_file, output_file, feed_file, domain="https://sooq
             try:
                 cleaned_product['id'] = safe_int(product.get('id'), 0)
                 cleaned_product['name'] = str(product.get('name', '')).strip()
+                cleaned_product['slug'] = create_slug(cleaned_product['name'])
 
                 # Clean description
                 description = product.get('description', '')
@@ -104,9 +111,15 @@ def clean_products_data(input_file, output_file, feed_file, domain="https://sooq
                 cleaned_product['sale_price'] = round(safe_float(product.get('sale_price')), 2)
                 
                 cleaned_product['currency'] = product.get('currency', 'KWD')
-                cleaned_product['image'] = product.get('image')
-                cleaned_product['images'] = product.get('images', [])
-                
+
+                # Correct image paths for the web app by removing any leading slash
+                image_path = product.get('image')
+                cleaned_product['image'] = image_path[1:] if image_path and image_path.startswith('/') else image_path
+
+                images_list = product.get('images', [])
+                cleaned_images = [img[1:] if img and img.startswith('/') else img for img in images_list]
+                cleaned_product['images'] = cleaned_images
+
                 # التصنيف التلقائي
                 cleaned_product['category'] = get_category(cleaned_product['name'], cleaned_product['description'])
                 cleaned_product['availability'] = product.get('availability', 'InStock')
@@ -119,10 +132,10 @@ def clean_products_data(input_file, output_file, feed_file, domain="https://sooq
                 ET.SubElement(item, "g:title").text = cleaned_product['name']
                 ET.SubElement(item, "g:description").text = cleaned_product['description']
                 # رابط المنتج المباشر (Deep Link)
-                ET.SubElement(item, "g:link").text = f"{domain}/index.html?product_id={cleaned_product['id']}"
+                ET.SubElement(item, "g:link").text = f"{domain}/index.html?product={cleaned_product['slug']}"
                 
                 # إصلاح رابط الصورة
-                img_link = cleaned_product['image']
+                img_link = product.get('image') # Use original path to prepend domain correctly
                 if img_link and not img_link.startswith('http'):
                      img_link = f"{domain}{img_link}"
                 if img_link:
