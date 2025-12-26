@@ -3,29 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>السلة | سوق الكويت</title>
+    <title>سلة المشتريات | سوق الكويت</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>tailwind.config = { theme: { extend: { colors: { primary: '#1e3a8a', secondary: '#fbbf24' }, fontFamily: { tajawal: ['Tajawal', 'sans-serif'] } } } }</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { primary: '#1e3a8a', secondary: '#fbbf24', surface: '#f8fafc' }, fontFamily: { tajawal: ['Tajawal', 'sans-serif'] } } }
+        }
+    </script>
 </head>
-<body class="bg-gray-50 font-tajawal text-gray-800">
-    <nav class="bg-white shadow-sm sticky top-0 z-50 p-4 mb-6">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-primary flex items-center gap-2"><i class="fa-solid fa-bag-shopping"></i> <span>سوق الكويت</span></a>
+<body class="bg-surface font-tajawal text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Top Bar -->
+    <div class="bg-gray-900 text-gray-300 text-xs py-2 px-4 text-center md:flex justify-between items-center">
+        <div class="mb-1 md:mb-0">
+            <span class="mx-2"><i class="fa-solid fa-truck text-secondary"></i> شحن مجاني خلال 1-3 أيام</span>
+            <span class="mx-2 hidden md:inline">|</span>
+            <span class="mx-2"><i class="fa-solid fa-rotate-left text-secondary"></i> استرجاع خلال 14 يوم</span>
         </div>
-    </nav>
-    <div class="container mx-auto px-4 py-6 max-w-4xl">
-        <h1 class="text-2xl font-bold mb-6 text-primary">سلة المشتريات</h1>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6" id="cart-page-items"></div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-            <div class="flex justify-between items-center text-xl font-bold mb-6"><span>الإجمالي:</span> <span id="cart-page-total" class="text-primary">0.00 KWD</span></div>
-            <div class="flex gap-4">
-                <a href="index.html" class="flex-1 py-3 text-center border rounded-xl text-gray-600 font-bold hover:bg-gray-50">متابعة التسوق</a>
-                <a href="checkout.html" class="flex-1 py-3 text-center bg-primary text-white rounded-xl font-bold hover:bg-blue-800">إتمام الطلب</a>
-            </div>
+        <div>
+            <a href="https://wa.me/201110760081" class="hover:text-white transition"><i class="fa-brands fa-whatsapp"></i> خدمة العملاء</a>
         </div>
     </div>
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-extrabold text-primary flex items-center gap-2">
+                <i class="fa-solid fa-bag-shopping text-secondary"></i> <span>سوق الكويت</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl flex-grow">
+        <h1 class="text-2xl font-bold mb-6 text-primary flex items-center gap-2"><i class="fa-solid fa-basket-shopping"></i> سلة المشتريات</h1>
+        
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6 min-h-[200px]" id="cart-page-items">
+            <!-- Items loaded by JS -->
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div class="flex justify-between items-center text-xl font-bold mb-6 border-b border-gray-100 pb-4">
+                <span>الإجمالي:</span>
+                <span id="cart-page-total" class="text-primary">0.00 KWD</span>
+            </div>
+            <div class="flex gap-4 flex-col md:flex-row">
+                <a href="index.html" class="flex-1 py-3 text-center border-2 border-gray-200 rounded-xl text-gray-600 font-bold hover:bg-gray-50 transition">متابعة التسوق</a>
+                <a href="checkout.html" class="flex-1 py-3 text-center bg-primary text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg transition">إتمام الطلب</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800 mt-auto text-sm">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-headset text-secondary"></i> تواصل معنا</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-location-dot mt-1 text-gray-500"></i><span>شكو ماكو، 9XFC+7PJ<br>مدينة الكويت، الكويت<br>(الرمز البريدي: 35020)</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-envelope text-gray-500"></i><a href="mailto:sherow1982@gmail.com" class="hover:text-white transition">sherow1982@gmail.com</a></li>
+                        <li class="flex items-center gap-3"><i class="fa-brands fa-whatsapp text-green-500 text-lg"></i><a href="https://wa.me/201110760081" target="_blank" class="hover:text-white transition font-bold">201110760081+</a></li>
+                    </ul>
+                </div>
+                <!-- Policies -->
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">روابط وسياسات</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="hover:text-secondary transition">الرئيسية</a></li>
+                        <li><a href="shipping-policy.html" class="hover:text-secondary transition">سياسة الشحن والاسترجاع</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-secondary transition">سياسة الخصوصية</a></li>
+                        <li><a href="terms.html" class="hover:text-secondary transition">الشروط والأحكام</a></li>
+                    </ul>
+                </div>
+                <!-- Trust Badges -->
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">تسوق بثقة</h3>
+                    <p class="mb-4 text-xs leading-relaxed">نضمن لكم تجربة تسوق آمنة مع خيارات دفع متعددة وخدمة استرجاع مرنة خلال 14 يوم.</p>
+                    <div class="flex gap-3 text-2xl text-gray-600 mb-6">
+                        <i class="fa-brands fa-cc-visa hover:text-white transition"></i>
+                        <i class="fa-brands fa-cc-mastercard hover:text-white transition"></i>
+                        <i class="fa-solid fa-money-bill-wave hover:text-white transition"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-10 pt-6 text-center text-xs">&copy; 2025 سوق الكويت. جميع الحقوق محفوظة.</div>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
