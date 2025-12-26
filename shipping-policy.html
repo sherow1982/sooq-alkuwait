@@ -5,45 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سياسة الشحن والاسترجاع | سوق الكويت</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>tailwind.config = { theme: { extend: { colors: { primary: '#1e3a8a', secondary: '#fbbf24' }, fontFamily: { tajawal: ['Tajawal', 'sans-serif'] } } } }</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { primary: '#1e3a8a', secondary: '#fbbf24', surface: '#f8fafc' }, fontFamily: { tajawal: ['Tajawal', 'sans-serif'] } }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-50 font-tajawal text-gray-800">
-    <!-- Navbar (Muted for brevity - same as index) -->
-    <nav class="bg-white shadow-sm p-4"><div class="container mx-auto"><a href="index.html" class="text-2xl font-bold text-primary flex items-center gap-2"><i class="fa-solid fa-bag-shopping"></i> سوق الكويت</a></div></nav>
+<body class="bg-surface font-tajawal text-gray-800 flex flex-col min-h-screen">
 
-    <main class="container mx-auto px-4 py-12 max-w-4xl">
-        <h1 class="text-3xl font-bold mb-8 text-primary border-b pb-4">سياسة الشحن والاسترجاع</h1>
+    <main class="container mx-auto px-4 py-12 flex-grow max-w-4xl">
+        <h1 class="text-3xl font-bold mb-8 text-primary border-b border-gray-200 pb-4">سياسة الشحن والاسترجاع</h1>
         
-        <div class="bg-white p-8 rounded-2xl shadow-sm space-y-8">
+        <div class="bg-white p-8 rounded-2xl shadow-sm space-y-8 border border-gray-100">
+            
+            <!-- قسم الشحن -->
             <section>
-                <h2 class="text-xl font-bold mb-3 flex items-center gap-2 text-gray-900"><i class="fa-solid fa-truck-fast text-secondary"></i> الشحن والتوصيل</h2>
-                <ul class="list-disc list-inside space-y-2 text-gray-600">
-                    <li><strong>شحن مجاني:</strong> نقدم خدمة الشحن المجاني لجميع مناطق الكويت.</li>
-                    <li><strong>مدة التوصيل:</strong> يتم توصيل الطلبات خلال <strong>1 إلى 3 أيام عمل</strong> من تاريخ تأكيد الطلب.</li>
-                    <li><strong>مناطق التغطية:</strong> نغطي جميع محافظات الكويت (العاصمة، حولي، الفروانية، الجهراء، الأحمدي، مبارك الكبير).</li>
-                </ul>
+                <h2 class="text-xl font-bold mb-4 flex items-center gap-2 text-gray-900">
+                    <span class="w-8 h-8 bg-blue-100 text-primary rounded-lg flex items-center justify-center text-sm"><i class="fa-solid fa-truck-fast"></i></span>
+                    الشحن والتوصيل
+                </h2>
+                <div class="prose text-gray-600 leading-relaxed text-sm">
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>تغطية شاملة:</strong> نقوم بالتوصيل لجميع مناطق ومحافظات الكويت (العاصمة، حولي، الفروانية، الجهراء، الأحمدي، مبارك الكبير).</li>
+                        <li><strong>مدة التوصيل:</strong> يتم توصيل الطلبات خلال <strong>1 إلى 3 أيام عمل</strong> كحد أقصى من تاريخ تأكيد الطلب.</li>
+                        <li><strong>تكلفة الشحن:</strong> استمتع بخدمة <strong>شحن مجاني</strong> بالكامل على جميع الطلبات داخل الكويت.</li>
+                        <li><strong>متابعة الطلب:</strong> سيتم التواصل معكم عبر الواتساب لتأكيد موعد التوصيل المناسب لكم.</li>
+                    </ul>
+                </div>
             </section>
 
+            <hr class="border-gray-100">
+
+            <!-- قسم الاسترجاع -->
             <section>
-                <h2 class="text-xl font-bold mb-3 flex items-center gap-2 text-gray-900"><i class="fa-solid fa-rotate-left text-secondary"></i> سياسة الاسترجاع والاستبدال</h2>
-                <p class="text-gray-600 mb-4">نحرص في سوق الكويت على رضاكم التام. إذا لم تكن راضياً عن المنتج، يمكنك استرجاعه وفق الشروط التالية:</p>
-                <ul class="list-disc list-inside space-y-2 text-gray-600">
-                    <li><strong>المهلة الزمنية:</strong> يمكنكم طلب الاسترجاع خلال <strong>14 يوماً</strong> من تاريخ استلام الطلب.</li>
-                    <li><strong>حالة المنتج:</strong> يجب أن يكون المنتج في حالته الأصلية، غير مستخدم، وبغلافه الأصلي مع كافة الملحقات.</li>
-                    <li><strong>المنتجات المستثناة:</strong> لا يمكن استرجاع الملابس الداخلية، ملابس السباحة، ومنتجات العناية الشخصية المفتوحة لأسباب صحية.</li>
-                    <li><strong>استرداد المبلغ:</strong> يتم استرداد المبلغ بنفس طريقة الدفع الأصلية أو كرصيد في المتجر خلال 5-7 أيام عمل بعد استلام وفحص المنتج المرتجع.</li>
-                </ul>
+                <h2 class="text-xl font-bold mb-4 flex items-center gap-2 text-gray-900">
+                    <span class="w-8 h-8 bg-yellow-100 text-yellow-600 rounded-lg flex items-center justify-center text-sm"><i class="fa-solid fa-rotate-left"></i></span>
+                    سياسة الاسترجاع والاستبدال
+                </h2>
+                <div class="prose text-gray-600 leading-relaxed text-sm">
+                    <p class="mb-4">نحرص في سوق الكويت على رضاكم التام. يحق للعميل طلب استرجاع أو استبدال المنتج وفق الشروط التالية:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>المهلة الزمنية:</strong> يمكنكم تقديم طلب الاسترجاع خلال <strong>14 يوماً</strong> من تاريخ استلام الطلب.</li>
+                        <li><strong>حالة المنتج:</strong> يجب أن يكون المنتج في حالته الأصلية، غير مستخدم، وبغلافه الأصلي مع وجود كافة الملحقات والملصقات.</li>
+                        <li><strong>المنتجات المستثناة:</strong> حرصاً على سلامتكم، لا يتم استرجاع الملابس الداخلية، ملابس السباحة، ومستحضرات التجميل المفتوحة، إلا في حال وجود عيب مصنعي.</li>
+                        <li><strong>استرداد المبلغ:</strong> يتم استرداد المبلغ بالكامل بعد استلام المنتج وفحصه من قبل فريقنا للتأكد من حالته.</li>
+                    </ul>
+                </div>
             </section>
 
-            <section class="bg-blue-50 p-6 rounded-xl border border-blue-100">
-                <h2 class="text-lg font-bold mb-2 text-primary">كيف أقدم طلب استرجاع؟</h2>
-                <p class="text-gray-600">تواصل معنا ببساطة عبر الواتساب على الرقم <a href="https://wa.me/201110760081" class="font-bold text-green-600 hover:underline">201110760081+</a> وزودنا برقم الطلب وصورة للمنتج، وسيقوم فريقنا بترتيب استلام المنتج من باب منزلك.</p>
-            </section>
+            <!-- كيفية الطلب -->
+            <div class="bg-blue-50 p-6 rounded-xl border border-blue-100 flex items-start gap-4 mt-6">
+                <i class="fa-solid fa-circle-info text-primary text-xl mt-1"></i>
+                <div>
+                    <h3 class="font-bold text-primary mb-1">كيف أقدم طلب استرجاع؟</h3>
+                    <p class="text-sm text-gray-600">الأمر بسيط! تواصل معنا عبر الواتساب على الرقم <a href="https://wa.me/201110760081" class="font-bold underline dir-ltr inline-block">201110760081+</a> وزودنا برقم الطلب وصورة للمنتج، وسيقوم مندوبنا باستلامه من باب منزلك.</p>
+                </div>
+            </div>
         </div>
     </main>
 
-    <footer class="bg-gray-900 text-gray-300 py-8 text-center mt-12"><p>&copy; 2025 سوق الكويت.</p></footer>
+    <!-- استدعاء ملف Layout لبناء الهيدر والفوتر -->
+    <script src="layout.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
