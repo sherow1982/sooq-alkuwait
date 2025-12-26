@@ -2,30 +2,66 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سياسة الخصوصية | سوق الكويت</title>
-    <!-- (نفس الهيدر والستايل) -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>tailwind.config = { theme: { extend: { colors: { primary: '#1e3a8a', secondary: '#fbbf24' }, fontFamily: { tajawal: ['Tajawal', 'sans-serif'] } } } }</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { primary: '#1e3a8a', secondary: '#fbbf24', surface: '#f8fafc' }, fontFamily: { tajawal: ['Tajawal', 'sans-serif'] } }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-50 font-tajawal text-gray-800">
-    <nav class="bg-white shadow-sm p-4"><div class="container mx-auto"><a href="index.html" class="text-2xl font-bold text-primary flex items-center gap-2"><i class="fa-solid fa-bag-shopping"></i> سوق الكويت</a></div></nav>
-    <main class="container mx-auto px-4 py-12 max-w-4xl">
-        <h1 class="text-3xl font-bold mb-8 text-primary border-b pb-4">سياسة الخصوصية</h1>
-        <div class="bg-white p-8 rounded-2xl shadow-sm space-y-6 text-gray-600 leading-relaxed">
-            <p>نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية. توضح هذه السياسة كيفية تعاملنا مع المعلومات في "سوق الكويت".</p>
+<body class="bg-surface font-tajawal text-gray-800 flex flex-col min-h-screen">
+
+    <main class="container mx-auto px-4 py-12 flex-grow max-w-4xl">
+        <h1 class="text-3xl font-bold mb-8 text-primary border-b border-gray-200 pb-4">سياسة الخصوصية</h1>
+        
+        <div class="bg-white p-8 rounded-2xl shadow-sm space-y-6 border border-gray-100 text-gray-600 leading-relaxed text-sm">
+            <p class="text-base font-medium text-gray-800">نحن في "سوق الكويت" نولي اهتماماً كبيراً لخصوصيتك ونلتزم بحماية بياناتك الشخصية. توضح هذه السياسة كيفية جمعنا واستخدامنا لمعلوماتك.</p>
             
-            <h3 class="text-lg font-bold text-gray-900">1. المعلومات التي نجمعها</h3>
-            <p>نقوم بجمع المعلومات التي تقدمها لنا عند إتمام الطلب، مثل الاسم، العنوان، ورقم الهاتف، وذلك فقط لغرض توصيل الطلبات.</p>
+            <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">1. المعلومات التي نجمعها</h3>
+                <p class="mb-2">عند قيامك بالشراء من متجرنا، نقوم بجمع المعلومات الشخصية التي تقدمها لنا مثل:</p>
+                <ul class="list-disc list-inside bg-gray-50 p-4 rounded-lg">
+                    <li>الاسم الكامل.</li>
+                    <li>العنوان المفصل (لغرض التوصيل).</li>
+                    <li>رقم الهاتف (للتواصل بشأن الطلب).</li>
+                    <li>البريد الإلكتروني (اختياري، لإرسال الفواتير والعروض).</li>
+                </ul>
+            </div>
             
-            <h3 class="text-lg font-bold text-gray-900">2. استخدام المعلومات</h3>
-            <p>نستخدم بياناتك لمعالجة طلباتك، تحسين تجربتك في الموقع، وإرسال تحديثات حول حالة طلبك.</p>
+            <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">2. كيف نستخدم معلوماتك؟</h3>
+                <p>نستخدم البيانات حصرياً للأغراض التالية:</p>
+                <ul class="list-disc list-inside">
+                    <li>معالجة طلباتك وتوصيلها إليك.</li>
+                    <li>التواصل معك في حال وجود أي تحديث بخصوص الشحنة.</li>
+                    <li>تحسين تجربة التسوق في موقعنا.</li>
+                </ul>
+            </div>
             
-            <h3 class="text-lg font-bold text-gray-900">3. مشاركة البيانات</h3>
-            <p>نحن لا نبيع أو نؤجر بياناتك لأي طرف ثالث. قد نشارك معلومات العنوان فقط مع شركات الشحن لتوصيل الطلب.</p>
+            <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">3. حماية المعلومات</h3>
+                <p>نحن نتخذ كافة التدابير الأمنية اللازمة لحماية بياناتك من الوصول غير المصرح به. نؤكد لك أننا <strong>لا نقوم ببيع أو تأجير أو مشاركة</strong> معلوماتك الشخصية مع أي طرف ثالث لأغراض تسويقية.</p>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">4. ملفات تعريف الارتباط (Cookies)</h3>
+                <p>يستخدم موقعنا ملفات تعريف الارتباط لتحسين تجربتك (مثل حفظ المنتجات في السلة). يمكنك تعطيلها من إعدادات المتصفح، لكن ذلك قد يؤثر على بعض وظائف الموقع.</p>
+            </div>
+
+            <div class="mt-8 border-t pt-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-2">اتصل بنا</h3>
+                <p>إذا كان لديك أي استفسار حول سياسة الخصوصية، يرجى التواصل معنا عبر البريد الإلكتروني: <a href="mailto:sherow1982@gmail.com" class="text-primary font-bold">sherow1982@gmail.com</a></p>
+            </div>
         </div>
     </main>
-    <footer class="bg-gray-900 text-gray-300 py-8 text-center mt-12"><p>&copy; 2025 سوق الكويت.</p></footer>
+
+    <script src="layout.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
