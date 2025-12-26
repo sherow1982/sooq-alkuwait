@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>من نحن | سوق الكويت</title>
+    <meta name="description" content="تعرف على سوق الكويت، وجهتك الأولى للتسوق الإلكتروني الآمن والسريع في الكويت.">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { primary: '#1e3a8a', secondary: '#fbbf24', surface: '#f8fafc' }, fontFamily: { tajawal: ['Tajawal', 'sans-serif'] } }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface font-tajawal text-gray-800 flex flex-col min-h-screen">
+
+    <!-- سيتم حقن الهيدر هنا -->
+
+    <main class="flex-grow">
+        
+        <!-- Hero Section -->
+        <div class="bg-primary text-white py-20 relative overflow-hidden">
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">نسعى لنكون وجهتكم الأولى<br><span class="text-secondary">للتسوق الإلكتروني في الكويت</span></h1>
+                <p class="text-blue-200 text-lg max-w-2xl mx-auto leading-relaxed">في "سوق الكويت"، لا نقدم مجرد منتجات، بل نقدم تجربة تسوق سلسة، آمنة، وموثوقة تليق بعملائنا الكرام.</p>
+            </div>
+            <!-- Background Decoration -->
+            <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                <i class="fa-solid fa-bag-shopping absolute -top-10 -left-10 text-9xl"></i>
+                <i class="fa-solid fa-cart-shopping absolute bottom-10 right-10 text-9xl"></i>
+            </div>
+        </div>
+
+        <!-- Story & Mission -->
+        <div class="container mx-auto px-4 py-16">
+            <div class="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+                <div>
+                    <img src="https://raw.githubusercontent.com/sherow1982/sooq-alkuwait/main/%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D9%83%D9%88%D9%8A%D8%AA.webp" alt="قصتنا" class="rounded-3xl shadow-2xl w-full object-cover h-[400px] hover:scale-[1.02] transition duration-500">
+                </div>
+                <div class="space-y-6">
+                    <h2 class="text-3xl font-bold text-gray-900 border-r-4 border-secondary pr-4">نبذة عنا</h2>
+                    <p class="text-gray-600 leading-loose text-lg">
+                        تأسس "سوق الكويت" برؤية واضحة: <strong>توفير أفضل المنتجات العالمية والمحلية بأسعار تنافسية وخدمة توصيل فائقة السرعة.</strong>
+                    </p>
+                    <p class="text-gray-600 leading-loose text-lg">
+                        نحن ندرك أن وقتكم ثمين، وثقتكم غالية. لذلك، نلتزم بمعايير صارمة في اختيار المنتجات، ونضمن لكم تجربة دفع آمنة (كاش أو أونلاين)، وسياسة استرجاع مرنة تحمي حقوقكم بالكامل.
+                    </p>
+                    <div class="pt-4">
+                        <a href="index.html" class="inline-block bg-primary text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-800 transition shadow-lg">تسوق الآن</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Choose Us (Values) -->
+        <div class="bg-white py-16 border-t border-gray-100">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold text-gray-900 mb-12">لماذا يختارنا العملاء؟</h2>
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Value 1 -->
+                    <div class="p-8 rounded-2xl bg-surface border border-gray-100 hover:shadow-xl transition duration-300">
+                        <div class="w-16 h-16 bg-blue-100 text-primary rounded-full flex items-center justify-center text-2xl mx-auto mb-6">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">توصيل قياسي</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">نغطي جميع مناطق الكويت ونصل إليكم خلال 24 إلى 72 ساعة كحد أقصى.</p>
+                    </div>
+                    <!-- Value 2 -->
+                    <div class="p-8 rounded-2xl bg-surface border border-gray-100 hover:shadow-xl transition duration-300">
+                        <div class="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-6">
+                            <i class="fa-solid fa-medal"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">جودة مضمونة</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">جميع منتجاتنا أصلية 100% ومختارة بعناية لتناسب ذوقكم الرفيع.</p>
+                    </div>
+                    <!-- Value 3 -->
+                    <div class="p-8 rounded-2xl bg-surface border border-gray-100 hover:shadow-xl transition duration-300">
+                        <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-6">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">دعم متواصل</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">فريق خدمة عملاء جاهز للرد على استفساراتكم عبر الواتساب طوال اليوم.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="container mx-auto px-4 py-16 text-center">
+            <div class="bg-gray-900 text-white rounded-3xl p-10 md:p-16 relative overflow-hidden shadow-2xl max-w-5xl mx-auto">
+                <div class="relative z-10">
+                    <h2 class="text-3xl font-bold mb-6">جاهز لتجربة تسوق مختلفة؟</h2>
+                    <p class="text-gray-400 mb-8 max-w-lg mx-auto">انضم لآلاف العملاء السعداء واستمتع بأفضل العروض الحصرية اليوم.</p>
+                    <a href="index.html" class="inline-flex items-center gap-2 bg-secondary text-gray-900 px-8 py-4 rounded-xl font-bold hover:bg-yellow-400 transition transform hover:scale-105">
+                        <i class="fa-solid fa-bag-shopping"></i> تصفح المنتجات
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- سيتم حقن الفوتر هنا -->
+
+    <script src="layout.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
