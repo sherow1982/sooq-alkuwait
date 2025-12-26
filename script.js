@@ -1,8 +1,7 @@
 // script.js
 
-// إعدادات المتجر
 const STORE_CONFIG = {
-    whatsappNumber: "201110760081", // رقم الواتساب الخاص بك
+    whatsappNumber: "201110760081",
     currency: "KWD"
 };
 
@@ -12,12 +11,10 @@ let currentFilteredProducts = [];
 let displayedCount = 0;
 const ITEMS_PER_PAGE = 12;
 
-// جلب البيانات عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', () => {
     fetchProducts();
     loadCart();
     
-    // تفعيل البحث
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
@@ -26,25 +23,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// دالة جلب المنتجات من ملف JSON
 async function fetchProducts() {
     try {
-        // تم تصحيح الاسم هنا ليطابق الملف المرفوع
         const response = await fetch('products_data_cleaned.json');
         
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         
         const rawData = await response.json();
         
-        // مرحلة الـ Mapping (ترجمة البيانات من الهيكل المعقد إلى البسيط)
         allProducts = rawData.map(item => {
             return {
-                id: String(item.id), // توحيد الـ ID كنص
+                id: String(item.id),
                 name: item.title, 
                 description: item.description,
-                // استخراج الصورة مع قيمة احتياطية
                 image: (item.media && item.media.main_image) ? item.media.main_image : 'https://via.placeholder.com/300',
-                // التأكد من أن الأسعار أرقام
                 regular_price: parseFloat(item.pricing?.regular || 0),
                 sale_price: parseFloat(item.pricing?.sale || 0),
                 category: item.category || 'عام', 
@@ -62,15 +54,13 @@ async function fetchProducts() {
             grid.innerHTML = `
                 <div class="col-span-full text-center text-red-500 py-10">
                     <p>عذراً، حدث خطأ أثناء تحميل المنتجات.</p>
-                    <p class="text-sm text-gray-500">تأكد أن ملف products_data_cleaned.json موجود</p>
-                    <p class="text-xs text-gray-400 mt-2">${error.message}</p>
+                    <p class="text-sm text-gray-500">تأكد أن ملف البيانات موجود</p>
                 </div>
             `;
         }
     }
 }
 
-// عرض المنتجات في الشبكة
 function renderProducts(products) {
     currentFilteredProducts = products;
     displayedCount = 0;
@@ -80,7 +70,7 @@ function renderProducts(products) {
     grid.innerHTML = '';
 
     if (products.length === 0) {
-        grid.innerHTML = '<div class="col-span-full text-center text-gray-500 py-10">لا توجد منتجات تطابق بحثك.</div>';
+        grid.innerHTML = '<div class="col-span-full text-center text-gray-500 py-20 flex flex-col items-center"><i class="fa-solid fa-box-open text-4xl mb-4 text-gray-300"></i><p>لا توجد منتجات تطابق بحثك.</p></div>';
         updateLoadMoreButton();
         return;
     }
@@ -97,28 +87,33 @@ function appendProducts() {
         const displayPrice = hasDiscount ? product.sale_price : product.regular_price;
 
         const card = document.createElement('div');
-        card.className = 'product-card bg-white rounded-xl overflow-hidden group relative border border-gray-100 hover:shadow-lg transition-all duration-300';
+        card.className = 'bg-white rounded-2xl overflow-hidden group relative border border-gray-100 hover:shadow-xl hover:border-blue-100 transition-all duration-300 flex flex-col h-full';
         
         card.innerHTML = `
-            <a href="product.html?id=${product.id}" class="block cursor-pointer">
-                <div class="product-image-container relative bg-gray-100 aspect-square overflow-hidden">
-                    <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
-                    ${hasDiscount ? `<span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded shadow-sm">خصم</span>` : ''}
-                </div>
-                <div class="p-4">
-                    <div class="text-xs text-gray-500 mb-1">${product.category}</div>
-                    <h3 class="font-bold text-gray-800 mb-2 truncate text-sm md:text-base group-hover:text-primary transition-colors">${product.name}</h3>
-                    <div class="flex justify-between items-center mt-3">
-                        <div class="flex flex-col">
-                            <span class="text-lg font-bold text-primary">${displayPrice} ${STORE_CONFIG.currency}</span>
-                            ${hasDiscount ? `<span class="text-xs text-gray-400 line-through">${product.regular_price} ${STORE_CONFIG.currency}</span>` : ''}
-                        </div>
+            <div class="relative aspect-square overflow-hidden bg-gray-50">
+                <a href="product.html?id=${product.id}" class="block w-full h-full">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 mix-blend-multiply" loading="lazy">
+                </a>
+                ${hasDiscount ? `<span class="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded shadow-sm z-10">خصم</span>` : ''}
+                
+                <button onclick="addToCart(event, '${product.id}')" class="absolute bottom-3 right-3 w-10 h-10 bg-white text-primary rounded-full shadow-lg flex items-center justify-center transform translate-y-14 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-20 hover:bg-primary hover:text-white">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+            
+            <div class="p-4 flex flex-col flex-grow">
+                <div class="text-xs text-gray-500 mb-1 font-medium bg-gray-50 w-fit px-2 py-0.5 rounded">${product.category}</div>
+                <a href="product.html?id=${product.id}" class="block group-hover:text-primary transition-colors">
+                    <h3 class="font-bold text-gray-800 mb-2 line-clamp-2 text-sm leading-relaxed min-h-[2.5rem]">${product.name}</h3>
+                </a>
+                
+                <div class="mt-auto pt-3 border-t border-gray-50 flex justify-between items-center">
+                    <div class="flex flex-col">
+                        <span class="text-lg font-extrabold text-primary">${displayPrice} ${STORE_CONFIG.currency}</span>
+                        ${hasDiscount ? `<span class="text-xs text-gray-400 line-through">${product.regular_price} ${STORE_CONFIG.currency}</span>` : ''}
                     </div>
                 </div>
-            </a>
-            <button onclick="addToCart(event, '${product.id}')" class="absolute bottom-4 left-4 bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-opacity-90 transition shadow-md z-10 translate-y-12 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 duration-300" title="أضف للسلة">
-                <i class="fa-solid fa-plus"></i>
-            </button>
+            </div>
         `;
         grid.appendChild(card);
     });
@@ -138,33 +133,66 @@ function updateLoadMoreButton() {
     }
 }
 
-// إعداد أزرار الفئات
 function setupCategories() {
     const categories = ['all', ...new Set(allProducts.map(p => p.category))];
     const container = document.getElementById('category-filters');
     if (!container) return;
     
-    container.innerHTML = '<button class="filter-btn active px-4 py-2 rounded-full bg-primary text-white shadow-sm hover:shadow-md transition text-sm font-medium" onclick="filterByCategory(\'all\')">الكل</button>';
+    container.innerHTML = '';
+
+    const getIcon = (cat) => {
+        if(cat.includes('إلكترونيات') || cat.includes('هاتف')) return 'fa-mobile-screen-button';
+        if(cat.includes('منزل') || cat.includes('أثاث')) return 'fa-couch';
+        if(cat.includes('ملابس') || cat.includes('موضة')) return 'fa-shirt';
+        if(cat.includes('جمال') || cat.includes('عناية')) return 'fa-spray-can-sparkles';
+        if(cat.includes('ألعاب')) return 'fa-gamepad';
+        if(cat.includes('مطبخ')) return 'fa-kitchen-set';
+        if(cat.includes('سيار')) return 'fa-car';
+        if(cat.includes('حيوان')) return 'fa-paw';
+        return 'fa-layer-group';
+    };
 
     categories.forEach(cat => {
-        if (cat === 'all') return;
+        const isAll = cat === 'all';
+        const label = isAll ? 'الكل' : cat;
+        const iconClass = isAll ? 'fa-border-all' : getIcon(cat);
+        
         const btn = document.createElement('button');
-        btn.className = 'filter-btn px-4 py-2 rounded-full bg-white text-gray-600 border border-gray-200 shadow-sm hover:shadow-md transition text-sm font-medium';
-        btn.textContent = cat;
+        btn.className = `filter-btn group min-w-[100px] flex flex-col items-center gap-3 p-3 rounded-2xl border transition-all duration-300 ${isAll ? 'active bg-white border-primary shadow-md' : 'bg-white border-gray-100 hover:border-gray-300 hover:shadow-sm'}`;
+        
+        btn.innerHTML = `
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-lg transition-colors ${isAll ? 'bg-primary text-white' : 'bg-gray-50 text-gray-500 group-hover:bg-blue-50 group-hover:text-primary'}">
+                <i class="fa-solid ${iconClass}"></i>
+            </div>
+            <span class="font-bold text-xs text-center ${isAll ? 'text-primary' : 'text-gray-600 group-hover:text-gray-900'}">${label}</span>
+        `;
+        
         btn.onclick = () => filterByCategory(cat);
         container.appendChild(btn);
     });
 }
 
-// فلترة حسب الفئة
 function filterByCategory(category) {
     document.querySelectorAll('.filter-btn').forEach(btn => {
-        if (btn.textContent === category || (category === 'all' && btn.textContent === 'الكل')) {
-            btn.classList.add('active', 'bg-primary', 'text-white', 'border-primary');
-            btn.classList.remove('bg-white', 'text-gray-600', 'border-gray-200');
+        const btnLabel = btn.querySelector('span').textContent;
+        const isSelected = btnLabel === category || (category === 'all' && btnLabel === 'الكل');
+        const iconDiv = btn.querySelector('div');
+        const labelSpan = btn.querySelector('span');
+
+        if (isSelected) {
+            btn.classList.add('active', 'border-primary', 'shadow-md');
+            btn.classList.remove('border-gray-100');
+            iconDiv.classList.add('bg-primary', 'text-white');
+            iconDiv.classList.remove('bg-gray-50', 'text-gray-500', 'group-hover:bg-blue-50', 'group-hover:text-primary');
+            labelSpan.classList.add('text-primary');
+            labelSpan.classList.remove('text-gray-600');
         } else {
-            btn.classList.remove('active', 'bg-primary', 'text-white', 'border-primary');
-            btn.classList.add('bg-white', 'text-gray-600', 'border-gray-200');
+            btn.classList.remove('active', 'border-primary', 'shadow-md');
+            btn.classList.add('border-gray-100');
+            iconDiv.classList.remove('bg-primary', 'text-white');
+            iconDiv.classList.add('bg-gray-50', 'text-gray-500', 'group-hover:bg-blue-50', 'group-hover:text-primary');
+            labelSpan.classList.remove('text-primary');
+            labelSpan.classList.add('text-gray-600');
         }
     });
 
@@ -176,7 +204,6 @@ function filterByCategory(category) {
     }
 }
 
-// فلترة حسب البحث
 function filterProducts(searchTerm) {
     const term = searchTerm.toLowerCase();
     const filtered = allProducts.filter(p => 
@@ -186,13 +213,11 @@ function filterProducts(searchTerm) {
     renderProducts(filtered);
 }
 
-// --- وظائف السلة ---
-
+// Cart Logic
 function addToCart(event, productId) {
     event.preventDefault();
     event.stopPropagation();
     
-    // تحويل الـ ID لنص للمقارنة الآمنة
     const product = allProducts.find(p => String(p.id) === String(productId));
     if (!product) return;
     
@@ -207,15 +232,16 @@ function addToCart(event, productId) {
     updateCartUI();
     saveCart();
     
-    // Feedback visual
     const btn = event.currentTarget;
     const originalHTML = btn.innerHTML;
     btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-    btn.classList.add('bg-green-500'); // إضافة لون أخضر للتأكيد
+    btn.classList.add('bg-green-500', 'text-white');
+    btn.classList.remove('bg-white', 'text-primary');
     
     setTimeout(() => {
         btn.innerHTML = originalHTML;
-        btn.classList.remove('bg-green-500');
+        btn.classList.remove('bg-green-500', 'text-white');
+        btn.classList.add('bg-white', 'text-primary');
     }, 1000);
 }
 
@@ -246,7 +272,7 @@ function updateCartUI() {
     const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
     if (countBadge) {
         countBadge.textContent = totalCount;
-        countBadge.style.display = totalCount > 0 ? 'flex' : 'none';
+        countBadge.style.transform = totalCount > 0 ? 'scale(1)' : 'scale(0)';
     }
 
     if (!cartContainer) return;
@@ -256,8 +282,8 @@ function updateCartUI() {
 
     if (cart.length === 0) {
         cartContainer.innerHTML = `
-            <div class="flex flex-col items-center justify-center h-64 text-gray-400">
-                <i class="fa-solid fa-basket-shopping text-4xl mb-4"></i>
+            <div class="flex flex-col items-center justify-center h-64 text-gray-300">
+                <i class="fa-solid fa-basket-shopping text-6xl mb-4 opacity-50"></i>
                 <p>سلة المشتريات فارغة</p>
             </div>
         `;
@@ -270,19 +296,20 @@ function updateCartUI() {
             totalPrice += itemTotal;
 
             cartContainer.innerHTML += `
-                <div class="flex gap-4 bg-white p-3 rounded-lg shadow-sm border border-gray-100 mb-2">
-                    <img src="${item.image}" class="w-16 h-16 object-cover rounded" alt="${item.name}">
-                    <div class="flex-1">
-                        <h4 class="text-sm font-bold text-gray-800 line-clamp-1">${item.name}</h4>
-                        <div class="text-primary font-bold text-sm mt-1">${price} ${STORE_CONFIG.currency}</div>
-                        <div class="flex items-center justify-between mt-2">
-                            <div class="flex items-center gap-2 bg-gray-50 rounded px-2 border border-gray-200">
-                                <button onclick="updateQty('${item.id}', -1)" class="text-gray-500 hover:text-red-500 w-6 h-6 flex items-center justify-center">-</button>
-                                <span class="text-sm font-medium w-4 text-center">${item.qty}</span>
-                                <button onclick="updateQty('${item.id}', 1)" class="text-gray-500 hover:text-green-500 w-6 h-6 flex items-center justify-center">+</button>
+                <div class="flex gap-4 bg-white p-3 rounded-xl border border-gray-100 mb-3 shadow-sm">
+                    <img src="${item.image}" class="w-16 h-16 object-cover rounded-lg bg-gray-50" alt="${item.name}">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="text-sm font-bold text-gray-800 line-clamp-1 mb-1">${item.name}</h4>
+                        <div class="text-primary font-bold text-sm mb-2">${price} ${STORE_CONFIG.currency}</div>
+                        
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3 bg-gray-50 rounded-lg px-2 py-1 border border-gray-100">
+                                <button onclick="updateQty('${item.id}', -1)" class="w-5 h-5 flex items-center justify-center text-gray-500 hover:text-red-500 transition">-</button>
+                                <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
+                                <button onclick="updateQty('${item.id}', 1)" class="w-5 h-5 flex items-center justify-center text-gray-500 hover:text-green-500 transition">+</button>
                             </div>
-                            <button onclick="removeFromCart('${item.id}')" class="text-red-400 hover:text-red-600 text-xs p-2">
-                                <i class="fa-solid fa-trash"></i>
+                            <button onclick="removeFromCart('${item.id}')" class="text-gray-400 hover:text-red-500 transition p-1">
+                                <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </div>
                     </div>
@@ -298,22 +325,25 @@ function updateCartUI() {
 
 function toggleCart() {
     const sidebar = document.getElementById('cart-sidebar');
-    const panel = document.getElementById('cart-panel');
-    const overlay = document.getElementById('cart-overlay'); 
+    const overlay = document.getElementById('cart-overlay');
     
     if (!sidebar) return;
 
     if (sidebar.classList.contains('hidden')) {
         sidebar.classList.remove('hidden');
+        overlay.classList.remove('hidden');
+        // Trigger animations
         setTimeout(() => {
-            if(panel) panel.classList.remove('translate-x-full');
-            if(overlay) overlay.classList.remove('opacity-0');
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('opacity-0');
         }, 10);
     } else {
-        if(panel) panel.classList.add('translate-x-full');
-        if(overlay) overlay.classList.add('opacity-0');
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('opacity-0');
+        
         setTimeout(() => {
             sidebar.classList.add('hidden');
+            overlay.classList.add('hidden');
         }, 300);
     }
 }
@@ -330,13 +360,8 @@ function loadCart() {
     }
 }
 
-// --- وظيفة الطلب عبر واتساب ---
-
 function checkoutWhatsApp() {
-    if (cart.length === 0) {
-        alert('السلة فارغة!');
-        return;
-    }
+    if (cart.length === 0) return;
 
     let message = "*مرحباً، أود طلب المنتجات التالية:*\n\n";
     let total = 0;
@@ -354,8 +379,6 @@ function checkoutWhatsApp() {
     message += "\n------------------\n";
     message += "يرجى تأكيد الطلب.";
 
-    const encodedMessage = encodeURIComponent(message);
-    const url = `https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodedMessage}`;
-    
+    const url = `https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
 }
