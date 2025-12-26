@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /cart.html
+Disallow: /checkout.html
+Disallow: /thank-you.html
+Disallow: /cdn-cgi/
+
+Sitemap: https://sooq-alkuwait.arabsad.com/sitemap.xml
