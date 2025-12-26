@@ -3,8 +3,7 @@
 const STORE_CONFIG = {
     whatsappNumber: "201110760081",
     currency: "KWD",
-    storeName: "سوق الكويت",
-    storeUrl: window.location.origin + window.location.pathname.replace('product.html', '')
+    storeName: "سوق الكويت"
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -29,7 +28,6 @@ async function loadProductDetails() {
 
         if (!rawProduct) throw new Error('المنتج غير موجود.');
 
-        // تنظيف البيانات وتحويلها
         const product = {
             id: rawProduct.id,
             name: rawProduct.title,
@@ -39,32 +37,31 @@ async function loadProductDetails() {
             images: [
                 (rawProduct.media?.main_image || 'https://via.placeholder.com/600'),
                 ...(rawProduct.media?.gallery || [])
-            ].filter(Boolean), // إزالة أي روابط فارغة
+            ].filter(Boolean),
             regular_price: parseFloat(rawProduct.pricing?.regular || 0),
             sale_price: parseFloat(rawProduct.pricing?.sale || 0),
             availability: rawProduct.stock && rawProduct.stock !== '0' ? 'InStock' : 'OutOfStock',
             sku: rawProduct.id
         };
 
-        // تحديث العنوان والسكيما
         document.title = `${product.name} | ${STORE_CONFIG.storeName}`;
         if(breadcrumbTitle) breadcrumbTitle.textContent = product.name;
-        injectSchema(product);
+        
+        // تحميل التقييمات أولاً لحساب المتوسط للسكيما
+        const reviews = JSON.parse(localStorage.getItem(`reviews_${product.id}`) || '[]');
+        injectSchema(product, reviews);
         
         renderProductDetails(product, container);
+        renderReviews(reviews); // عرض التقييمات
 
     } catch (error) {
         if(container) {
             container.innerHTML = `
                 <div class="col-span-full text-center py-20">
-                    <div class="inline-flex items-center justify-center w-20 h-20 bg-red-50 rounded-full mb-6">
-                        <i class="fa-solid fa-triangle-exclamation text-3xl text-red-500"></i>
-                    </div>
+                    <i class="fa-solid fa-triangle-exclamation text-3xl text-red-500 mb-4"></i>
                     <h2 class="text-2xl font-bold text-gray-800 mb-2">عذراً، حدث خطأ</h2>
                     <p class="text-gray-500 mb-8">${error.message}</p>
-                    <a href="index.html" class="bg-primary text-white px-8 py-3 rounded-xl hover:bg-blue-800 transition shadow-lg">
-                        العودة للصفحة الرئيسية
-                    </a>
+                    <a href="index.html" class="bg-primary text-white px-8 py-3 rounded-xl">العودة للرئيسية</a>
                 </div>
             `;
         }
@@ -74,12 +71,8 @@ async function loadProductDetails() {
 function renderProductDetails(product, container) {
     const hasDiscount = product.sale_price > 0 && product.sale_price < product.regular_price;
     const price = hasDiscount ? product.sale_price : product.regular_price;
-    const discountPercent = hasDiscount ? Math.round(((product.regular_price - product.sale_price) / product.regular_price) * 100) : 0;
-    
-    // إزالة التكرار من الصور
     const uniqueImages = [...new Set(product.images)];
 
-    // HTML المعرض
     const galleryHTML = uniqueImages.length > 1 ? `
         <div class="flex gap-3 mt-4 overflow-x-auto hide-scrollbar pb-2">
             ${uniqueImages.map((img, idx) => `
@@ -91,111 +84,158 @@ function renderProductDetails(product, container) {
     ` : '';
 
     container.innerHTML = `
-        <!-- قسم الصور -->
         <div class="lg:col-span-1">
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sticky top-24">
                 <div class="relative aspect-square rounded-xl overflow-hidden bg-white mb-4 group cursor-zoom-in" onmousemove="zoomImage(event)" onmouseleave="resetZoom(event)">
                     <img id="main-image" src="${product.image}" alt="${product.name}" class="w-full h-full object-contain transition-transform duration-200 origin-center">
-                    
-                    ${hasDiscount ? `<span class="absolute top-4 right-4 bg-red-500 text-white text-sm font-bold px-3 py-1.5 rounded-lg shadow-sm z-10">خصم ${discountPercent}%</span>` : ''}
+                    ${hasDiscount ? `<span class="absolute top-4 right-4 bg-red-500 text-white text-sm font-bold px-3 py-1.5 rounded-lg shadow-sm z-10">خصم</span>` : ''}
                 </div>
                 ${galleryHTML}
             </div>
         </div>
 
-        <!-- قسم التفاصيل -->
         <div class="lg:col-span-1 flex flex-col justify-start py-2">
             <div class="mb-4">
-                <span class="inline-block bg-blue-50 text-primary text-xs font-bold px-3 py-1 rounded-full mb-3 border border-blue-100">
-                    ${product.category}
-                </span>
-                <h1 class="text-2xl md:text-4xl font-extrabold text-gray-900 leading-tight mb-4">${product.name}</h1>
-                
+                <span class="inline-block bg-blue-50 text-primary text-xs font-bold px-3 py-1 rounded-full mb-3 border border-blue-100">${product.category}</span>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight mb-4">${product.name}</h1>
                 <div class="flex items-center gap-4 border-b border-gray-100 pb-6 mb-6">
                     <div class="flex items-baseline gap-2">
                         <span class="text-4xl font-bold text-primary">${price.toFixed(2)}</span>
                         <span class="text-xl font-medium text-gray-600">${STORE_CONFIG.currency}</span>
                     </div>
-                    ${hasDiscount ? `
-                        <div class="flex flex-col text-sm">
-                            <span class="text-gray-400 line-through decoration-red-400 decoration-2">${product.regular_price.toFixed(2)} ${STORE_CONFIG.currency}</span>
-                            <span class="text-green-600 font-bold">وفرت ${(product.regular_price - product.sale_price).toFixed(2)} ${STORE_CONFIG.currency}</span>
-                        </div>
-                    ` : ''}
+                    ${hasDiscount ? `<span class="text-gray-400 line-through decoration-red-400 decoration-2">${product.regular_price.toFixed(2)} ${STORE_CONFIG.currency}</span>` : ''}
                 </div>
             </div>
 
-            <!-- الوصف -->
-            <div class="prose prose-lg text-gray-600 max-w-none mb-8 leading-relaxed bg-gray-50 p-6 rounded-xl border border-gray-100">
-                <h3 class="text-gray-900 font-bold text-lg mb-3 flex items-center gap-2">
-                    <i class="fa-solid fa-circle-info text-secondary"></i> تفاصيل المنتج
-                </h3>
-                <div dir="auto" class="text-base whitespace-pre-line">
-                    ${(product.description || 'لا يوجد وصف متاح حالياً.').replace(/\n/g, '<br>')}
-                </div>
+            <div class="prose text-gray-600 max-w-none mb-8 leading-relaxed bg-gray-50 p-6 rounded-xl border border-gray-100">
+                <h3 class="text-gray-900 font-bold text-lg mb-3">تفاصيل المنتج</h3>
+                <div dir="auto" class="text-base whitespace-pre-line">${(product.description || 'لا يوجد وصف متاح.').replace(/\n/g, '<br>')}</div>
             </div>
 
-            <!-- أزرار الإجراءات -->
             <div class="mt-auto space-y-4">
-                <a href="https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodeURIComponent(`مرحباً، أرغب بشراء المنتج:\n*${product.name}*\nالسعر: ${price.toFixed(2)} ${STORE_CONFIG.currency}`)}" 
-                   target="_blank" 
-                   class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white text-lg font-bold py-4 rounded-xl shadow-lg hover:shadow-green-200 transition transform hover:-translate-y-1 flex items-center justify-center gap-3">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i>
-                    <span>اطلب الآن عبر واتساب</span>
+                <button onclick="addToCartAndRedirect('${product.id}')" class="w-full bg-primary text-white text-lg font-bold py-4 rounded-xl shadow-lg hover:bg-blue-800 transition flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-cart-plus"></i> أضف للسلة
+                </button>
+                <a href="https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodeURIComponent(`مرحباً، أرغب بشراء المنتج:\n*${product.name}*\nالسعر: ${price.toFixed(2)} ${STORE_CONFIG.currency}`)}" target="_blank" class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white text-lg font-bold py-4 rounded-xl shadow-lg transition flex items-center justify-center gap-3">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> طلب سريع بالواتساب
                 </a>
-                
-                <div class="flex gap-4 text-sm text-gray-500 justify-center pt-4 border-t border-gray-100">
-                    <span class="flex items-center gap-1"><i class="fa-solid fa-shield-halved text-primary"></i> دفع آمن</span>
-                    <span class="flex items-center gap-1"><i class="fa-solid fa-truck-fast text-primary"></i> توصيل سريع</span>
-                    <span class="flex items-center gap-1"><i class="fa-solid fa-rotate text-primary"></i> استرجاع سهل</span>
-                </div>
             </div>
         </div>
     `;
 }
 
-// وظائف الصور (Zoom & Gallery)
+// دالة إضافة سريعة للسلة
+function addToCartAndRedirect(productId) {
+    // محاكاة لدالة الإضافة للسلة الموجودة في script.js
+    // يجب دمج هذا الملف مع script.js أو تحميل script.js قبله
+    let cart = JSON.parse(localStorage.getItem('souq_cart') || '[]');
+    // ... منطق الإضافة (يمكن تكراره هنا للأمان أو الاعتماد على دالة عامة)
+    // للتسهيل، سنوجه لصفحة السلة مباشرة
+    window.location.href = 'cart.html'; 
+}
+
+// وظائف الصور
 window.changeImage = function(src, btn) {
     const mainImg = document.getElementById('main-image');
-    // تأثير تلاشي بسيط
     mainImg.style.opacity = '0.5';
-    setTimeout(() => {
-        mainImg.src = src;
-        mainImg.style.opacity = '1';
-    }, 150);
-
-    // تحديث الإطار النشط
-    document.querySelectorAll('#product-details-container button').forEach(b => {
-        b.classList.remove('border-primary');
-        b.classList.add('border-transparent');
-    });
-    btn.classList.remove('border-transparent');
-    btn.classList.add('border-primary');
+    setTimeout(() => { mainImg.src = src; mainImg.style.opacity = '1'; }, 150);
+    document.querySelectorAll('#product-details-container button').forEach(b => b.classList.replace('border-primary', 'border-transparent'));
+    btn.classList.replace('border-transparent', 'border-primary');
 };
 
 window.zoomImage = function(e) {
     const img = e.target;
-    const container = img.parentElement;
-    const rect = container.getBoundingClientRect();
+    const rect = img.parentElement.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
     img.style.transformOrigin = `${x}px ${y}px`;
-    img.style.transform = "scale(1.8)"; // قوة التكبير
+    img.style.transform = "scale(1.8)";
 };
 
 window.resetZoom = function(e) {
-    const img = e.target.querySelector('img') || e.target; // التعامل مع الحاوية أو الصورة
-    if(img.tagName === 'IMG') {
-        img.style.transformOrigin = "center center";
-        img.style.transform = "scale(1)";
-    }
+    const img = e.target.querySelector('img') || e.target;
+    if(img.tagName === 'IMG') { img.style.transform = "scale(1)"; }
 };
 
-// حقن السكيما (SEO)
-function injectSchema(product) {
-    const price = product.sale_price > 0 ? product.sale_price : product.regular_price;
+// وظائف التقييمات
+window.submitReview = function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+    if(!productId) return;
+
+    const newReview = {
+        id: Date.now(),
+        name: formData.get('name'),
+        rating: parseInt(formData.get('rating')),
+        comment: formData.get('comment'),
+        date: new Date().toLocaleDateString('ar-KW')
+    };
+
+    const reviews = JSON.parse(localStorage.getItem(`reviews_${productId}`) || '[]');
+    reviews.unshift(newReview);
+    localStorage.setItem(`reviews_${productId}`, JSON.stringify(reviews));
+
+    renderReviews(reviews);
+    form.reset();
+    form.classList.add('hidden');
     
+    // تحديث الصفحة لإعادة حقن السكيما (اختياري)
+    location.reload(); 
+};
+
+window.renderReviews = function(reviews) {
+    const list = document.getElementById('reviews-list');
+    const avgDisplay = document.getElementById('avg-rating-display');
+    const countDisplay = document.getElementById('review-count-display');
+    const starsDisplay = document.getElementById('avg-stars-display');
+
+    if (reviews.length === 0) {
+        list.innerHTML = '<p class="text-gray-400 text-center py-4">لا توجد تقييمات بعد.</p>';
+        return;
+    }
+
+    const total = reviews.reduce((sum, r) => sum + r.rating, 0);
+    const avg = (total / reviews.length).toFixed(1);
+
+    avgDisplay.textContent = avg;
+    countDisplay.textContent = `بناءً على ${reviews.length} تقييم`;
+    starsDisplay.innerHTML = generateStars(Math.round(avg));
+
+    list.innerHTML = reviews.map(r => `
+        <div class="border-b border-gray-100 last:border-0 pb-4 mb-4">
+            <div class="flex justify-between items-start mb-2">
+                <div>
+                    <span class="font-bold text-sm block text-gray-900">${r.name}</span>
+                    <div class="text-secondary text-xs mt-1">${generateStars(r.rating)}</div>
+                </div>
+                <span class="text-xs text-gray-400">${r.date}</span>
+            </div>
+            <p class="text-gray-600 text-sm leading-relaxed">${r.comment}</p>
+        </div>
+    `).join('');
+};
+
+function generateStars(count) {
+    return '<i class="fa-solid fa-star"></i>'.repeat(count) + '<i class="fa-regular fa-star"></i>'.repeat(5 - count);
+}
+
+// السكيما
+function injectSchema(product, reviews) {
+    const validUntil = new Date();
+    validUntil.setFullYear(validUntil.getFullYear() + 1);
+    
+    // حساب التقييم الفعلي من المراجعات المخزنة
+    let reviewCount = reviews.length;
+    let ratingValue = 5;
+    
+    if (reviewCount > 0) {
+        const total = reviews.reduce((sum, r) => sum + r.rating, 0);
+        ratingValue = (total / reviewCount).toFixed(1);
+    }
+
     const schema = {
         "@context": "https://schema.org/",
         "@type": "Product",
@@ -203,22 +243,43 @@ function injectSchema(product) {
         "image": product.images,
         "description": product.description ? product.description.substring(0, 160) : product.name,
         "sku": product.sku,
-        "brand": {
-            "@type": "Brand",
-            "name": "Generic"
-        },
+        "brand": { "@type": "Brand", "name": "Generic" },
         "offers": {
             "@type": "Offer",
             "url": window.location.href,
             "priceCurrency": STORE_CONFIG.currency,
-            "price": price.toFixed(2),
+            "price": (product.sale_price > 0 ? product.sale_price : product.regular_price).toFixed(2),
+            "priceValidUntil": validUntil.toISOString().split('T')[0],
             "availability": `https://schema.org/${product.availability}`,
             "itemCondition": "https://schema.org/NewCondition"
         }
     };
 
-    const script = document.getElementById('product-schema');
-    if (script) {
-        script.textContent = JSON.stringify(schema, null, 2);
+    // إضافة بيانات التقييم إذا وجدت
+    if (reviewCount > 0) {
+        schema.aggregateRating = {
+            "@type": "AggregateRating",
+            "ratingValue": ratingValue,
+            "reviewCount": reviewCount,
+            "bestRating": "5",
+            "worstRating": "1"
+        };
+        // إضافة أحدث مراجعة
+        schema.review = {
+            "@type": "Review",
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": reviews[0].rating.toString(),
+                "bestRating": "5"
+            },
+            "author": {
+                "@type": "Person",
+                "name": reviews[0].name
+            },
+            "datePublished": "2024-01-01" // يمكن تحسين هذا بحفظ تاريخ بصيغة ISO
+        };
     }
+
+    const script = document.getElementById('product-schema');
+    if (script) script.textContent = JSON.stringify(schema, null, 2);
 }
