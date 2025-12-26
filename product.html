@@ -3,61 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تفاصيل المنتج | سوق الكويت</title>
-    <!-- Fonts and CSS -->
+    <title>جاري التحميل... | سوق الكويت</title>
+    
+    <!-- خطوط وتصميم -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- إعدادات Tailwind -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#1e3a8a', // أزرق كويتي داكن
-                        secondary: '#fbbf24', // ذهبي
-                        accent: '#10b981', // أخضر
+                        primary: '#1e3a8a',
+                        secondary: '#fbbf24',
+                        accent: '#10b981',
+                        surface: '#f8fafc'
                     },
                     fontFamily: {
                         tajawal: ['Tajawal', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     }
                 }
             }
         }
     </script>
+
+    <!-- ستايلات مخصصة للزوم والمعرض -->
+    <style>
+        /* ستايل مخصص لتكبير الصورة */
+        .zoom-container {
+            overflow: hidden;
+            position: relative;
+            cursor: crosshair;
+        }
+        .zoom-container img {
+            transition: transform 0.3s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .zoom-container:hover img {
+            transform: scale(1.5); /* نسبة التكبير */
+        }
+        
+        /* إخفاء شريط التمرير */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* لمعة التحميل */
+        .shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
 </head>
-<body class="bg-gray-50 font-tajawal text-gray-800">
+<body class="bg-surface font-tajawal text-gray-800 flex flex-col min-h-screen">
 
     <!-- Navbar -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-primary flex items-center gap-2">
-                <i class="fa-solid fa-bag-shopping text-secondary"></i>
-                سوق الكويت
+    <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-extrabold text-primary flex items-center gap-2">
+                <div class="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center shadow-md">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+                <span>سوق الكويت</span>
             </a>
-            <div class="flex items-center gap-4">
-                <!-- Cart icon can be here if we want it on the product page too -->
-            </div>
+            <a href="index.html" class="text-gray-500 hover:text-primary transition flex items-center gap-2 text-sm font-bold">
+                <i class="fa-solid fa-arrow-right"></i> عودة للتسوق
+            </a>
         </div>
     </nav>
 
+    <!-- Breadcrumb -->
+    <div class="bg-white border-b border-gray-100 py-3">
+        <div class="container mx-auto px-4">
+            <nav class="flex text-sm text-gray-500" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 space-x-reverse md:space-x-3">
+                    <li class="inline-flex items-center">
+                        <a href="index.html" class="hover:text-primary transition">الرئيسية</a>
+                    </li>
+                    <li><i class="fa-solid fa-chevron-left text-xs mx-2"></i></li>
+                    <li aria-current="page">
+                        <span id="breadcrumb-title" class="text-gray-400">جاري التحميل...</span>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
     <!-- Main Content -->
-    <main class="container mx-auto px-4 py-12">
-        <div id="product-details-container" class="bg-white p-6 rounded-xl shadow-lg">
-            <!-- Product details will be loaded here by JavaScript -->
-            <div class="text-center py-20">
-                <i class="fa-solid fa-circle-notch fa-spin text-4xl text-primary"></i>
-                <p class="mt-4 text-lg">جاري تحميل تفاصيل المنتج...</p>
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <div id="product-details-container" class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Loading Skeleton -->
+            <div class="lg:col-span-1 h-[500px] bg-gray-200 rounded-2xl shimmer"></div>
+            <div class="lg:col-span-1 space-y-6">
+                <div class="h-8 bg-gray-200 rounded w-3/4 shimmer"></div>
+                <div class="h-6 bg-gray-200 rounded w-1/4 shimmer"></div>
+                <div class="h-32 bg-gray-200 rounded w-full shimmer"></div>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8 mt-12">
+    <footer class="bg-gray-900 text-gray-300 py-12 mt-auto">
         <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2024 سوق الكويت. جميع الحقوق محفوظة.</p>
+            <p>&copy; 2025 سوق الكويت. جميع الحقوق محفوظة.</p>
         </div>
     </footer>
+
+    <!-- حاوية السكيما -->
+    <script type="application/ld+json" id="product-schema"></script>
 
     <script src="product-page.js"></script>
 </body>
