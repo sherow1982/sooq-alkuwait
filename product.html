@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- تحسينات SEO الأولية -->
+    <!-- SEO & Metadata -->
     <title>سوق الكويت | جاري التحميل...</title>
-    <meta name="description" content="أفضل العروض والمنتجات في سوق الكويت. تسوق الآن واحصل على توصيل سريع.">
+    <meta name="description" content="تسوق أفضل العروض والمنتجات الأصلية في سوق الكويت. توصيل سريع وضمان ذهبي.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://sooq-alkuwait.arabsad.com/">
 
-    <!-- تحسينات المشاركة (Open Graph) - ليظهر شكل جميل عند الإرسال في واتساب -->
+    <!-- Social Media (Open Graph) -->
     <meta property="og:site_name" content="سوق الكويت">
     <meta property="og:title" content="سوق الكويت - تفاصيل المنتج">
     <meta property="og:description" content="تسوق أفضل المنتجات الأصلية مع توصيل سريع وضمان الاسترجاع.">
     <meta property="og:image" content="https://via.placeholder.com/1200x630?text=Souq+Al-Kuwait">
     <meta property="og:type" content="product">
 
-    <!-- الخطوط والمكتبات -->
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -34,10 +34,10 @@
 </head>
 <body class="bg-surface font-tajawal text-gray-800 flex flex-col min-h-screen">
 
-    <!-- رسالة لمن يغلق الجافاسكريبت (مهمة لجوجل) -->
+    <!-- NoScript Fallback -->
     <noscript>
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center">
-            تنبيه: يجب تفعيل JavaScript ليعمل الموقع بشكل صحيح وعرض المنتجات.
+            <strong>تنبيه:</strong> يرجى تفعيل JavaScript في المتصفح لعرض المنتجات وإتمام الشراء.
         </div>
     </noscript>
 
@@ -49,12 +49,12 @@
             <span id="breadcrumb-title" class="animate-pulse">...</span>
         </div>
 
-        <!-- Product Container -->
+        <!-- Product Details Section -->
         <div id="product-details-container" class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 min-h-[400px]">
-            <!-- Loading State (مُحسن) -->
+            <!-- Loading Spinner -->
             <div class="lg:col-span-2 flex flex-col items-center justify-center py-20 text-gray-400">
                 <i class="fa-solid fa-circle-notch fa-spin text-primary text-4xl mb-4"></i>
-                <p>جاري جلب تفاصيل المنتج...</p>
+                <p>جاري تحميل المنتج...</p>
             </div>
         </div>
 
@@ -62,34 +62,41 @@
         <section class="border-t border-gray-200 pt-12">
             <div class="bg-white p-6 rounded-2xl shadow-sm max-w-4xl mx-auto">
                 <h2 class="text-xl font-bold mb-8 flex items-center gap-2"><i class="fa-solid fa-star text-secondary"></i> تقييمات العملاء</h2>
+                
                 <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Summary -->
-                    <div class="md:col-span-1 bg-gray-50 p-6 rounded-xl text-center h-fit">
+                    <!-- Rating Summary -->
+                    <div class="md:col-span-1 bg-gray-50 p-6 rounded-xl text-center h-fit border border-gray-100">
                         <div class="text-5xl font-extrabold text-gray-900 mb-2" id="avg-rating-display">0.0</div>
                         <div class="flex justify-center gap-1 text-secondary text-lg" id="avg-stars-display"></div>
                         <p class="text-gray-500 text-sm mt-2" id="review-count-display">0 تقييم</p>
                     </div>
-                    <!-- Reviews List & Form -->
+
+                    <!-- Reviews List -->
                     <div class="md:col-span-2">
                         <div id="reviews-list" class="space-y-4 mb-6 max-h-80 overflow-y-auto pr-2 custom-scrollbar"></div>
-                        <button onclick="document.getElementById('review-form').classList.toggle('hidden')" class="text-primary font-bold text-sm underline flex items-center gap-2 hover:text-blue-800 transition"><i class="fa-solid fa-pen"></i> أضف تقييمك</button>
-                        <form id="review-form" class="hidden mt-6 bg-gray-50 p-5 rounded-xl border border-gray-200 transition-all duration-300" onsubmit="submitReview(event)">
+                        
+                        <button onclick="document.getElementById('review-form').classList.toggle('hidden')" class="text-primary font-bold text-sm underline flex items-center gap-2 hover:text-blue-800 transition">
+                            <i class="fa-solid fa-pen"></i> أضف تقييمك
+                        </button>
+                        
+                        <!-- Review Form -->
+                        <form id="review-form" class="hidden mt-6 bg-gray-50 p-5 rounded-xl border border-gray-200 transition-all duration-300 shadow-inner" onsubmit="submitReview(event)">
                             <div class="mb-4">
-                                <label class="block text-xs font-bold mb-2">تقييمك</label>
+                                <label class="block text-xs font-bold mb-2 text-gray-700">تقييمك</label>
                                 <div class="flex flex-row-reverse justify-end gap-1 text-2xl text-gray-300 hover:text-secondary cursor-pointer w-fit">
-                                    <input type="radio" name="rating" value="5" id="s5" class="hidden peer/5" required><label for="s5" class="peer-hover/5:text-secondary hover:text-secondary peer-checked/5:text-secondary"><i class="fa-solid fa-star"></i></label>
-                                    <input type="radio" name="rating" value="4" id="s4" class="hidden peer/4"><label for="s4" class="peer-hover/4:text-secondary hover:text-secondary peer-checked/4:text-secondary peer-checked/5:text-secondary"><i class="fa-solid fa-star"></i></label>
-                                    <input type="radio" name="rating" value="3" id="s3" class="hidden peer/3"><label for="s3" class="peer-hover/3:text-secondary hover:text-secondary peer-checked/3:text-secondary peer-checked/4:text-secondary peer-checked/5:text-secondary"><i class="fa-solid fa-star"></i></label>
-                                    <input type="radio" name="rating" value="2" id="s2" class="hidden peer/2"><label for="s2" class="peer-hover/2:text-secondary hover:text-secondary peer-checked/2:text-secondary peer-checked/3:text-secondary peer-checked/4:text-secondary peer-checked/5:text-secondary"><i class="fa-solid fa-star"></i></label>
-                                    <input type="radio" name="rating" value="1" id="s1" class="hidden peer/1"><label for="s1" class="peer-hover/1:text-secondary hover:text-secondary peer-checked/1:text-secondary peer-checked/2:text-secondary peer-checked/3:text-secondary peer-checked/4:text-secondary peer-checked/5:text-secondary"><i class="fa-solid fa-star"></i></label>
+                                    <input type="radio" name="rating" value="5" id="s5" class="hidden peer/5" required><label for="s5" class="peer-hover/5:text-secondary hover:text-secondary peer-checked/5:text-secondary transition-colors"><i class="fa-solid fa-star"></i></label>
+                                    <input type="radio" name="rating" value="4" id="s4" class="hidden peer/4"><label for="s4" class="peer-hover/4:text-secondary hover:text-secondary peer-checked/4:text-secondary peer-checked/5:text-secondary transition-colors"><i class="fa-solid fa-star"></i></label>
+                                    <input type="radio" name="rating" value="3" id="s3" class="hidden peer/3"><label for="s3" class="peer-hover/3:text-secondary hover:text-secondary peer-checked/3:text-secondary peer-checked/4:text-secondary peer-checked/5:text-secondary transition-colors"><i class="fa-solid fa-star"></i></label>
+                                    <input type="radio" name="rating" value="2" id="s2" class="hidden peer/2"><label for="s2" class="peer-hover/2:text-secondary hover:text-secondary peer-checked/2:text-secondary peer-checked/3:text-secondary peer-checked/4:text-secondary peer-checked/5:text-secondary transition-colors"><i class="fa-solid fa-star"></i></label>
+                                    <input type="radio" name="rating" value="1" id="s1" class="hidden peer/1"><label for="s1" class="peer-hover/1:text-secondary hover:text-secondary peer-checked/1:text-secondary peer-checked/2:text-secondary peer-checked/3:text-secondary peer-checked/4:text-secondary peer-checked/5:text-secondary transition-colors"><i class="fa-solid fa-star"></i></label>
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 gap-4 mb-4">
-                                <input type="text" name="name" placeholder="الاسم" required class="border rounded-lg px-3 py-2 text-sm w-full focus:outline-none focus:border-primary focus:bg-white bg-white">
-                                <input type="email" name="email" placeholder="البريد الإلكتروني" required class="border rounded-lg px-3 py-2 text-sm w-full focus:outline-none focus:border-primary focus:bg-white bg-white">
+                                <input type="text" name="name" placeholder="الاسم" required class="border rounded-lg px-3 py-2 text-sm w-full focus:outline-none focus:border-primary focus:bg-white bg-white transition">
+                                <input type="email" name="email" placeholder="البريد الإلكتروني" required class="border rounded-lg px-3 py-2 text-sm w-full focus:outline-none focus:border-primary focus:bg-white bg-white transition">
                             </div>
-                            <textarea name="comment" placeholder="اكتب رأيك هنا..." required class="border rounded-lg px-3 py-2 text-sm w-full h-24 mb-4 focus:outline-none focus:border-primary focus:bg-white bg-white"></textarea>
-                            <button type="submit" class="bg-primary text-white px-6 py-2 rounded-lg text-sm font-bold hover:bg-blue-800 transition shadow-md">نشر التقييم</button>
+                            <textarea name="comment" placeholder="اكتب رأيك وتجربتك هنا..." required class="border rounded-lg px-3 py-2 text-sm w-full h-24 mb-4 focus:outline-none focus:border-primary focus:bg-white bg-white transition resize-none"></textarea>
+                            <button type="submit" class="bg-primary text-white px-6 py-2 rounded-lg text-sm font-bold hover:bg-blue-800 transition shadow-md w-full md:w-auto">نشر التقييم</button>
                         </form>
                     </div>
                 </div>
@@ -97,13 +104,13 @@
         </section>
     </main>
 
-    <!-- Schema Container (Important for Google) -->
+    <!-- Schema.org Data -->
     <script type="application/ld+json" id="product-schema"></script>
 
-    <!-- Scripts Order is Crucial -->
-    <script src="layout.js"></script> <!-- Loads Header/Footer -->
-    <script src="script.js"></script> <!-- Core Logic -->
-    <script src="product-page.js"></script> <!-- Specific Page Logic -->
-    
+    <!-- App Scripts -->
+    <script src="layout.js"></script>
+    <script src="script.js"></script>
+    <script src="product-page.js"></script>
+
 </body>
 </html>
