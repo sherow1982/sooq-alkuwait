@@ -3,21 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="سوق الكويت - وجهتك الأولى للتسوق الإلكتروني بأسعار منافسة">
     <title>سوق الكويت | Souq Al-Kuwait</title>
     
-    <!-- خط Tajawal -->
+    <!-- الخطوط والأيقونات -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <!-- مكتبة Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- تخصيص ألوان وخطوط الموقع -->
     <script>
         tailwind.config = {
             theme: {
@@ -26,7 +21,7 @@
                         primary: '#1e3a8a', // أزرق كويتي داكن
                         secondary: '#fbbf24', // ذهبي
                         accent: '#10b981', // أخضر
-                        light: '#f3f4f6'
+                        surface: '#f8fafc'
                     },
                     fontFamily: {
                         tajawal: ['Tajawal', 'sans-serif'],
@@ -35,9 +30,10 @@
             }
         }
     </script>
-    
+
+    <!-- تنسيقات إضافية -->
     <style>
-        /* إخفاء شريط التمرير الافتراضي لكن السماح بالتمرير */
+        /* إخفاء شريط التمرير الأفقي للفئات */
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -46,200 +42,156 @@
             scrollbar-width: none;
         }
         
-        /* أنيميشن بسيط للظهور */
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* تأثير النبض للبحث */
+        .search-glow:focus-within {
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
         }
     </style>
 </head>
-<body class="bg-gray-50 font-tajawal text-gray-800 flex flex-col min-h-screen">
+<body class="bg-surface font-tajawal text-gray-800 flex flex-col min-h-screen">
 
     <!-- شريط التنقل (Navbar) -->
-    <nav class="bg-white shadow-sm sticky top-0 z-40 border-b border-gray-100">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-extrabold text-primary flex items-center gap-2 tracking-wide">
-                <div class="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center shadow-md">
-                    <i class="fa-solid fa-bag-shopping"></i>
+    <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100 backdrop-blur-md bg-opacity-95">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- الشعار -->
+            <a href="index.html" class="text-2xl font-extrabold text-primary flex items-center gap-2 group transition-all">
+                <div class="w-10 h-10 bg-primary text-white rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
+                    <i class="fa-solid fa-bag-shopping text-xl"></i>
                 </div>
-                <span>سوق الكويت</span>
+                <span class="tracking-wide hidden md:block">سوق الكويت</span>
+                <span class="tracking-wide md:hidden text-lg">سوق الكويت</span>
             </a>
             
-            <div class="flex items-center gap-5">
-                <div class="relative cursor-pointer group" onclick="toggleCart()">
-                    <div class="p-2 rounded-full hover:bg-gray-100 transition">
-                        <i class="fa-solid fa-cart-shopping text-2xl text-gray-600 group-hover:text-primary transition"></i>
-                    </div>
-                    <span id="cart-count" class="absolute top-0 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-white transform scale-0 transition-transform duration-300">0</span>
-                </div>
+            <!-- أيقونات الإجراءات -->
+            <div class="flex items-center gap-4">
+                <!-- أيقونة السلة -->
+                <a href="cart.html" class="relative p-2 text-gray-600 hover:text-primary transition-colors group">
+                    <i class="fa-solid fa-cart-shopping text-2xl group-hover:scale-110 transition-transform duration-200"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-md ring-2 ring-white hidden animate-bounce">0</span>
+                </a>
             </div>
         </div>
     </nav>
 
     <!-- القسم الرئيسي (Hero Section) -->
-    <header class="bg-gradient-to-br from-primary to-blue-900 text-white py-16 mb-8 relative overflow-hidden">
-        <!-- دوائر خلفية جمالية -->
-        <div class="absolute top-0 left-0 w-64 h-64 bg-white opacity-5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-        <div class="absolute bottom-0 right-0 w-96 h-96 bg-secondary opacity-10 rounded-full translate-x-1/3 translate-y-1/3"></div>
+    <header class="relative bg-gradient-to-br from-primary to-blue-900 text-white py-16 mb-8 overflow-hidden rounded-b-[3rem] shadow-xl mx-2 mt-2">
+        <!-- أشكال خلفية جمالية -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-secondary opacity-10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
         
         <div class="container mx-auto px-4 text-center relative z-10">
-            <h1 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">أفضل المنتجات العالمية<br><span class="text-secondary">بين يديك في الكويت</span></h1>
-            <p class="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">استمتع بتجربة تسوق فريدة مع تشكيلة واسعة من المنتجات المميزة وأسعار لا تقبل المنافسة.</p>
+            <span class="inline-block py-1 px-3 rounded-full bg-blue-800/50 border border-blue-700/50 text-blue-200 text-xs font-bold mb-4 backdrop-blur-sm">
+                🎉 عروض خاصة لفترة محدودة
+            </span>
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-6 leading-tight">
+                أفضل المنتجات العالمية<br>
+                <span class="text-secondary inline-block mt-2 relative">
+                    بين يديك في الكويت
+                    <svg class="absolute -bottom-2 w-full h-2 text-secondary opacity-50" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="4" fill="none"/></svg>
+                </span>
+            </h1>
+            <p class="text-blue-100 text-lg mb-8 max-w-2xl mx-auto font-medium">تسوق الآن واحصل على تجربة شراء فريدة مع توصيل سريع لجميع مناطق الكويت.</p>
             
-            <div class="max-w-2xl mx-auto relative group">
-                <input type="text" id="search-input" placeholder="عن ماذا تبحث اليوم؟" class="w-full py-4 px-6 pr-14 rounded-2xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-500/30 shadow-2xl transition-all text-lg">
-                <button class="absolute left-3 top-1/2 transform -translate-y-1/2 bg-secondary text-primary w-10 h-10 rounded-xl hover:bg-yellow-400 transition flex items-center justify-center shadow-md">
+            <!-- شريط البحث -->
+            <div class="max-w-2xl mx-auto relative search-glow group">
+                <input type="text" id="search-input" placeholder="عن ماذا تبحث اليوم؟ (مثال: ايفون، ساعة...)" 
+                       class="w-full py-4 pr-14 pl-6 rounded-2xl text-gray-800 shadow-2xl border-0 focus:ring-4 focus:ring-secondary/30 transition-all placeholder-gray-400 text-lg">
+                <div class="absolute top-1/2 right-3 -translate-y-1/2 w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 group-focus-within:bg-secondary group-focus-within:text-white transition-colors duration-300">
                     <i class="fa-solid fa-search"></i>
-                </button>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- المحتوى الرئيسي -->
-    <main class="container mx-auto px-4 mb-12 flex-grow">
+    <main class="container mx-auto px-4 mb-16 flex-grow">
         
-        <!-- قسم التصنيفات (محسن) -->
+        <!-- قسم الفئات (Categories) -->
         <div class="mb-10">
-            <div class="flex items-center justify-between mb-4 px-2">
-                <h2 class="text-xl font-bold text-gray-800">تصفح حسب القسم</h2>
-                <span class="text-sm text-gray-500">اسحب للتمرير <i class="fa-solid fa-arrow-left text-xs mx-1"></i></span>
+            <div class="flex items-center justify-between mb-4 px-1">
+                <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-secondary"></i> تصفح الأقسام
+                </h2>
+                <span class="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-md">اسحب للتمرير <i class="fa-solid fa-arrow-left mx-1"></i></span>
             </div>
             
-            <!-- شريط التصنيفات القابل للتمرير -->
-            <div class="flex gap-4 overflow-x-auto hide-scrollbar pb-4" id="category-filters">
-                <!-- الزر الرئيسي (الكل) -->
-                <button class="filter-btn active group min-w-[100px] flex flex-col items-center gap-3 p-4 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300" data-category="all">
-                    <div class="w-12 h-12 rounded-full bg-blue-50 text-primary flex items-center justify-center text-xl group-[.active]:bg-primary group-[.active]:text-white transition-colors">
-                        <i class="fa-solid fa-layer-group"></i>
-                    </div>
-                    <span class="font-bold text-sm text-gray-700 group-[.active]:text-primary">الكل</span>
-                </button>
-                
-                <!-- سيتم توليد باقي الأزرار هنا بواسطة JS -->
+            <!-- حاوية الفئات -->
+            <div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2 scroll-smooth" id="category-filters">
+                <!-- سيتم ملء الأزرار هنا بواسطة JavaScript -->
             </div>
         </div>
 
-        <!-- شبكة المنتجات -->
+        <!-- شبكة المنتجات (Products Grid) -->
         <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-            <!-- Loading State -->
-            <div class="col-span-full flex flex-col items-center justify-center py-20">
-                <div class="w-16 h-16 border-4 border-gray-200 border-t-primary rounded-full animate-spin mb-4"></div>
-                <p class="text-gray-500 font-medium">جاري جلب أحدث المنتجات...</p>
+            <!-- حالة التحميل -->
+            <div class="col-span-full py-20 text-center">
+                <div class="inline-block relative w-20 h-20">
+                    <div class="absolute top-0 left-0 w-full h-full border-4 border-gray-200 rounded-full"></div>
+                    <div class="absolute top-0 left-0 w-full h-full border-4 border-primary rounded-full border-t-transparent animate-spin"></div>
+                </div>
+                <p class="mt-4 text-gray-500 font-medium animate-pulse">جاري جلب أفضل العروض...</p>
             </div>
         </div>
 
-        <!-- زر تحميل المزيد -->
-        <div class="text-center mt-12">
-            <button id="load-more-btn" onclick="appendProducts()" class="hidden mx-auto bg-white border-2 border-gray-200 text-gray-600 px-8 py-3 rounded-xl hover:border-primary hover:text-primary transition-all shadow-sm font-bold text-sm tracking-wide">
-                عرض المزيد من المنتجات
-            </button>
-        </div>
     </main>
 
     <!-- تذييل الصفحة (Footer) -->
-    <footer class="bg-gray-900 text-gray-300 py-12 border-t border-gray-800">
+    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800 mt-auto">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-right">
-                <!-- عمود 1 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-right">
+                
+                <!-- حول المتجر -->
                 <div>
                     <h3 class="text-2xl font-bold text-white mb-4 flex items-center justify-center md:justify-start gap-2">
                         <i class="fa-solid fa-bag-shopping text-secondary"></i> سوق الكويت
                     </h3>
-                    <p class="text-sm leading-relaxed text-gray-400 mb-6">منصتك المفضلة للتسوق الإلكتروني في الكويت. نوفر لك أفضل المنتجات العالمية بأسعار محلية وتوصيل سريع لباب منزلك.</p>
+                    <p class="text-sm leading-relaxed mb-6 max-w-xs mx-auto md:mx-0">
+                        وجهتك الأولى للتسوق الإلكتروني الموثوق. نوفر لك تشكيلة واسعة من المنتجات العصرية بأسعار تنافسية وخدمة عملاء متميزة.
+                    </p>
+                    <div class="flex justify-center md:justify-start gap-4">
+                        <a href="#" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-pink-600 hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-black hover:text-white transition"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
                 </div>
                 
-                <!-- عمود 2 -->
-                <div class="flex flex-col items-center md:items-start">
-                    <h4 class="text-lg font-bold text-white mb-4">روابط سريعة</h4>
-                    <a href="#" class="mb-2 hover:text-secondary transition">الرئيسية</a>
-                    <a href="#" class="mb-2 hover:text-secondary transition">كل المنتجات</a>
-                    <a href="#" class="mb-2 hover:text-secondary transition">تتبع الطلب</a>
+                <!-- روابط سريعة -->
+                <div class="flex flex-col items-center md:items-start space-y-3">
+                    <h4 class="text-lg font-bold text-white mb-2">روابط مهمة</h4>
+                    <a href="index.html" class="hover:text-secondary transition text-sm">الرئيسية</a>
+                    <a href="cart.html" class="hover:text-secondary transition text-sm">سلة المشتريات</a>
+                    <a href="#" class="hover:text-secondary transition text-sm">سياسة الخصوصية</a>
+                    <a href="#" class="hover:text-secondary transition text-sm">الشروط والأحكام</a>
                 </div>
 
-                <!-- عمود 3 -->
+                <!-- تواصل معنا -->
                 <div class="flex flex-col items-center md:items-start">
-                    <h4 class="text-lg font-bold text-white mb-4">تواصل معنا</h4>
-                    <a href="https://wa.me/201110760081" target="_blank" class="flex items-center gap-3 mb-3 hover:text-green-400 transition bg-gray-800 px-4 py-2 rounded-lg w-fit">
-                        <i class="fa-brands fa-whatsapp text-xl"></i>
-                        <span>تواصل عبر واتساب</span>
+                    <h4 class="text-lg font-bold text-white mb-4">خدمة العملاء</h4>
+                    <a href="https://wa.me/201110760081" target="_blank" class="flex items-center gap-3 mb-4 hover:text-green-400 transition bg-gray-800 px-5 py-3 rounded-xl w-fit group">
+                        <i class="fa-brands fa-whatsapp text-2xl group-hover:scale-110 transition-transform"></i>
+                        <div class="text-right">
+                            <span class="block text-xs text-gray-500">تواصل معنا عبر</span>
+                            <span class="font-bold text-white">واتساب</span>
+                        </div>
                     </a>
-                    <a href="mailto:info@arabsad.com" class="flex items-center gap-3 hover:text-blue-400 transition bg-gray-800 px-4 py-2 rounded-lg w-fit">
-                        <i class="fa-solid fa-envelope text-xl"></i>
-                        <span>info@arabsad.com</span>
-                    </a>
+                    <p class="text-sm">أوقات العمل: يومياً من 9 ص - 10 م</p>
                 </div>
             </div>
             
-            <div class="border-t border-gray-800 mt-10 pt-6 text-center text-sm text-gray-500">
-                &copy; 2025 سوق الكويت. جميع الحقوق محفوظة.
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-sm flex flex-col md:flex-row justify-between items-center gap-4">
+                <p>&copy; 2025 سوق الكويت. جميع الحقوق محفوظة.</p>
+                <div class="flex gap-2 text-2xl text-gray-600">
+                    <i class="fa-brands fa-cc-visa hover:text-white transition"></i>
+                    <i class="fa-brands fa-cc-mastercard hover:text-white transition"></i>
+                    <i class="fa-solid fa-money-bill-wave hover:text-white transition"></i>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- نافذة سلة التسوق (Cart Sidebar) -->
-    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
-    
-    <div id="cart-sidebar" class="fixed left-0 top-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 flex flex-col hidden">
-        <div class="p-5 border-b flex justify-between items-center bg-white">
-            <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
-                <i class="fa-solid fa-basket-shopping text-primary"></i>
-                سلة المشتريات
-            </h2>
-            <button onclick="toggleCart()" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-red-50 hover:text-red-500 flex items-center justify-center transition">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-        
-        <div id="cart-items" class="flex-1 overflow-y-auto p-5 space-y-4 bg-gray-50">
-            <!-- عناصر السلة ستظهر هنا -->
-        </div>
-
-        <div class="p-5 border-t bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-            <div class="flex justify-between items-center mb-6">
-                <span class="text-gray-500">الإجمالي الكلي:</span>
-                <span id="cart-total" class="text-2xl font-bold text-primary">0.00 KWD</span>
-            </div>
-            <button onclick="checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-4 rounded-xl font-bold hover:bg-[#20bd5a] transition flex justify-center items-center gap-2 shadow-lg hover:shadow-green-200 transform hover:-translate-y-1 active:translate-y-0 duration-200">
-                <i class="fa-brands fa-whatsapp text-xl"></i>
-                <span>إتمام الطلب عبر واتساب</span>
-            </button>
-            <p class="text-center text-xs text-gray-400 mt-3">سيتم تحويلك للواتساب لتأكيد التفاصيل والعنوان</p>
-        </div>
-    </div>
-
-    <!-- ربط ملف الجافاسكريبت -->
+    <!-- ربط ملف الجافاسكريبت الرئيسي -->
+    <!-- هذا الملف يحتوي على كل المنطق (جلب المنتجات، السلة، البحث) -->
     <script src="script.js"></script>
-    
-    <!-- تحديث دالة عرض الفئات في script.js لتناسب التصميم الجديد -->
-    <script>
-        // دالة مساعدة لاختيار أيقونة مناسبة لكل قسم
-        function getCategoryIcon(categoryName) {
-            const map = {
-                'إلكترونيات': 'fa-mobile-screen',
-                'هواتف': 'fa-mobile',
-                'ملابس': 'fa-shirt',
-                'أزياء': 'fa-shirt',
-                'منزل': 'fa-couch',
-                'مطبخ': 'fa-kitchen-set',
-                'ألعاب': 'fa-gamepad',
-                'صحة': 'fa-heart-pulse',
-                'جمال': 'fa-wand-magic-sparkles',
-                'حيوانات': 'fa-paw',
-                'سيارات': 'fa-car',
-                'عام': 'fa-box-open'
-            };
-            
-            // البحث عن أقرب أيقونة
-            for (const key in map) {
-                if (categoryName.includes(key)) return map[key];
-            }
-            return 'fa-tags'; // أيقونة افتراضية
-        }
 
-        // ملاحظة: يفضل تحديث دالة setupCategories في ملف script.js لتقوم بتوليد هذا الـ HTML الجديد
-    </script>
 </body>
 </html>
