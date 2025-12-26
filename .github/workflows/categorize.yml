@@ -1,0 +1,30 @@
+name: Auto Categorize Products
+
+on:
+  workflow_dispatch: # يسمح لك بتشغيل السكربت يدوياً بضغطة زر
+
+jobs:
+  categorize:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # صلاحية الكتابة على المستودع
+      
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Run categorization script
+        run: python categorize_products.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add products_data_cleaned.json
+          git commit -m "Auto-update product categories based on Google Taxonomy" || echo "No changes to commit"
+          git push
