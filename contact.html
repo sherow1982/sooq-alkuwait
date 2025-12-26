@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اتصل بنا | سوق الكويت</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { primary: '#1e3a8a', secondary: '#fbbf24', surface: '#f8fafc' }, fontFamily: { tajawal: ['Tajawal', 'sans-serif'] } }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface font-tajawal text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Top Bar -->
+    <div class="bg-gray-900 text-gray-300 text-xs py-2 px-4 text-center md:flex justify-between items-center">
+        <div class="mb-1 md:mb-0">
+            <span class="mx-2"><i class="fa-solid fa-truck text-secondary"></i> شحن مجاني خلال 1-3 أيام</span>
+            <span class="mx-2 hidden md:inline">|</span>
+            <span class="mx-2"><i class="fa-solid fa-rotate-left text-secondary"></i> استرجاع خلال 14 يوم</span>
+        </div>
+        <div>
+            <a href="https://wa.me/201110760081" class="hover:text-white transition"><i class="fa-brands fa-whatsapp"></i> خدمة العملاء</a>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-extrabold text-primary flex items-center gap-2">
+                <i class="fa-solid fa-bag-shopping text-secondary"></i> <span>سوق الكويت</span>
+            </a>
+            <div class="hidden md:flex gap-6 text-sm font-bold text-gray-600">
+                <a href="index.html" class="hover:text-primary transition">الرئيسية</a>
+                <a href="contact.html" class="text-primary">اتصل بنا</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="cart.html" class="relative p-2 text-gray-600 hover:text-primary transition group">
+                    <i class="fa-solid fa-cart-shopping text-xl"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12 flex-grow">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-primary mb-4">تواصل معنا</h1>
+            <p class="text-gray-500 max-w-xl mx-auto">نحن هنا لمساعدتك. سواء كان لديك استفسار عن منتج، أو مشكلة في الطلب، لا تتردد في الاتصال بنا.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            
+            <!-- معلومات الاتصال -->
+            <div class="space-y-8">
+                <!-- كروت المعلومات -->
+                <div class="grid gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
+                        <div class="w-12 h-12 bg-blue-50 text-primary rounded-full flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg mb-2">العنوان</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">
+                                مؤسسة سوق الكويت<br>
+                                شكو ماكو، 9XFC+7PJ<br>
+                                مدينة الكويت، العاصمة 35020<br>
+                                دولة الكويت
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
+                        <div class="w-12 h-12 bg-green-50 text-green-600 rounded-full flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg mb-2">خدمة العملاء (واتساب)</h3>
+                            <p class="text-gray-600 text-sm mb-3">متاحون يومياً من 9 صباحاً حتى 10 مساءً</p>
+                            <a href="https://wa.me/201110760081" target="_blank" class="inline-flex items-center gap-2 bg-[#25D366] text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-[#20bd5a] transition">
+                                <i class="fa-brands fa-whatsapp"></i> 201110760081+
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
+                        <div class="w-12 h-12 bg-yellow-50 text-yellow-600 rounded-full flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg mb-2">البريد الإلكتروني</h3>
+                            <p class="text-gray-600 text-sm mb-2">للاستفسارات الرسمية والشكاوى</p>
+                            <a href="mailto:sherow1982@gmail.com" class="text-primary font-bold hover:underline">sherow1982@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- نموذج الاتصال -->
+            <div class="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 h-fit">
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-paper-plane text-secondary"></i> أرسل لنا رسالة
+                </h2>
+                <form onsubmit="sendContactMessage(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">الاسم الكامل</label>
+                        <input type="text" name="name" required class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-primary bg-gray-50 focus:bg-white transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">رقم الهاتف</label>
+                        <input type="tel" name="phone" required class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-primary bg-gray-50 focus:bg-white transition text-left" dir="ltr">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">الرسالة</label>
+                        <textarea name="message" required rows="4" class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-primary bg-gray-50 focus:bg-white transition"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-primary text-white font-bold py-4 rounded-xl hover:bg-blue-800 transition shadow-lg transform hover:scale-[1.02]">
+                        إرسال الآن
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800 mt-auto text-sm">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-headset text-secondary"></i> تواصل معنا</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-location-dot mt-1 text-gray-500"></i><span>شكو ماكو، 9XFC+7PJ<br>مدينة الكويت، العاصمة 35020</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-envelope text-gray-500"></i><a href="mailto:sherow1982@gmail.com" class="hover:text-white transition">sherow1982@gmail.com</a></li>
+                        <li class="flex items-center gap-3"><i class="fa-brands fa-whatsapp text-green-500 text-lg"></i><a href="https://wa.me/201110760081" target="_blank" class="hover:text-white transition font-bold">201110760081+</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">روابط وسياسات</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="hover:text-secondary transition">الرئيسية</a></li>
+                        <li><a href="contact.html" class="hover:text-secondary transition text-white font-bold">اتصل بنا</a></li>
+                        <li><a href="shipping-policy.html" class="hover:text-secondary transition">سياسة الشحن والاسترجاع</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-secondary transition">سياسة الخصوصية</a></li>
+                        <li><a href="terms.html" class="hover:text-secondary transition">الشروط والأحكام</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">تسوق بثقة</h3>
+                    <p class="mb-4 text-xs leading-relaxed">نضمن لكم تجربة تسوق آمنة مع خيارات دفع متعددة وخدمة استرجاع مرنة خلال 14 يوم.</p>
+                    <div class="flex gap-3 text-2xl text-gray-600 mb-6">
+                        <i class="fa-brands fa-cc-visa hover:text-white transition"></i>
+                        <i class="fa-brands fa-cc-mastercard hover:text-white transition"></i>
+                        <i class="fa-solid fa-money-bill-wave hover:text-white transition"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-10 pt-6 text-center text-xs">&copy; 2025 سوق الكويت. جميع الحقوق محفوظة.</div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function sendContactMessage(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const name = formData.get('name');
+            const phone = formData.get('phone');
+            const msg = formData.get('message');
+            
+            const whatsappMsg = `*رسالة من صفحة اتصل بنا* 📩\n\n👤 الاسم: ${name}\n📱 الهاتف: ${phone}\n💬 الرسالة: ${msg}`;
+            const url = `https://wa.me/201110760081?text=${encodeURIComponent(whatsappMsg)}`;
+            
+            window.open(url, '_blank');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
