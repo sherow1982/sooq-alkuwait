@@ -7,64 +7,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: { primary: '#1e3a8a', secondary: '#fbbf24', surface: '#f8fafc' },
-                    fontFamily: { tajawal: ['Tajawal', 'sans-serif'] }
-                }
-            }
-        }
-    </script>
+    <script>tailwind.config = {theme: {extend: {colors: {primary: '#1e3a8a', secondary: '#fbbf24', surface: '#f8fafc'}, fontFamily: {tajawal: ['Tajawal', 'sans-serif']}}}}</script>
     <style>.hide-scrollbar::-webkit-scrollbar { display: none; }</style>
 </head>
 <body class="bg-surface font-tajawal text-gray-800 flex flex-col min-h-screen">
 
-    <!-- Top Bar: Info -->
-    <div class="bg-gray-900 text-gray-300 text-xs py-2 px-4 text-center md:flex justify-between items-center">
-        <div class="mb-1 md:mb-0">
-            <span class="mx-2"><i class="fa-solid fa-truck text-secondary"></i> شحن مجاني خلال 1-3 أيام</span>
-            <span class="mx-2 hidden md:inline">|</span>
-            <span class="mx-2"><i class="fa-solid fa-rotate-left text-secondary"></i> استرجاع خلال 14 يوم</span>
-        </div>
-        <div>
-            <a href="https://wa.me/201110760081" class="hover:text-white transition"><i class="fa-brands fa-whatsapp"></i> خدمة العملاء</a>
-        </div>
-    </div>
-
-    <!-- Navbar -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-extrabold text-primary flex items-center gap-2">
-                <i class="fa-solid fa-bag-shopping text-secondary"></i> <span>سوق الكويت</span>
-            </a>
-            <div class="flex items-center gap-4">
-                <a href="cart.html" class="relative p-2 text-gray-600 hover:text-primary transition group">
-                    <i class="fa-solid fa-cart-shopping text-2xl group-hover:scale-110 transition-transform"></i>
-                    <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero -->
-    <header class="bg-primary text-white py-12 mb-8 relative overflow-hidden rounded-b-[2rem] shadow-lg mx-2">
-        <div class="container mx-auto px-4 text-center relative z-10">
-            <h1 class="text-3xl md:text-5xl font-bold mb-6">أفضل العروض في الكويت</h1>
-            <p class="text-blue-200 mb-8">تسوق بثقة مع ضمان 14 يوم للاسترجاع وتوصيل سريع لباب بيتك.</p>
-            <div class="max-w-xl mx-auto relative group">
-                <input type="text" id="search-input" placeholder="ابحث عن منتج..." class="w-full py-3 px-6 rounded-full text-gray-800 shadow-xl focus:outline-none focus:ring-4 focus:ring-secondary/50">
-                <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+    <!-- Hero Section (خاص بالرئيسية فقط) -->
+    <header class="container mx-auto px-4 mt-6">
+        <div class="bg-primary text-white py-12 relative overflow-hidden rounded-[2rem] shadow-xl text-center">
+            <div class="relative z-10">
+                <h1 class="text-3xl md:text-5xl font-bold mb-6">أفضل العروض في الكويت</h1>
+                <p class="text-blue-200 mb-8 max-w-lg mx-auto">تسوق بثقة مع ضمان 14 يوم للاسترجاع وتوصيل سريع لباب بيتك.</p>
+                <div class="max-w-xl mx-auto relative group px-4">
+                    <input type="text" id="search-input" placeholder="ابحث عن منتج..." class="w-full py-4 px-6 rounded-full text-gray-800 shadow-xl focus:outline-none focus:ring-4 focus:ring-secondary/50 transition">
+                    <i class="fa-solid fa-search absolute left-8 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 mb-16 flex-grow">
+    <main class="container mx-auto px-4 py-8 flex-grow">
         <!-- Categories -->
         <div class="mb-8">
-            <h2 class="font-bold text-gray-700 mb-3 px-1">الأقسام</h2>
+            <h2 class="font-bold text-gray-700 mb-3 px-1">تصفح الأقسام</h2>
             <div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2" id="category-filters"></div>
         </div>
 
@@ -72,96 +37,33 @@
         <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
             <div class="col-span-full text-center py-20"><i class="fa-solid fa-circle-notch fa-spin text-primary text-2xl"></i></div>
         </div>
-
-        <!-- Load More Button -->
+        
+        <!-- Load More -->
         <div class="text-center mt-12 hidden" id="load-more-container">
             <button onclick="loadMoreProducts()" class="bg-white border-2 border-gray-200 text-gray-700 hover:border-primary hover:text-primary font-bold py-3 px-8 rounded-full shadow-sm transition-all transform hover:scale-105">
-                عرض المزيد من المنتجات <i class="fa-solid fa-chevron-down mr-2"></i>
+                عرض المزيد <i class="fa-solid fa-chevron-down mr-2"></i>
             </button>
         </div>
     </main>
 
-    <!-- Footer (Updated with all info) -->
-    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800 mt-auto text-sm">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                
-                <!-- Contact Info -->
-                <div>
-                    <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-headset text-secondary"></i> تواصل معنا
-                    </h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-location-dot mt-1 text-gray-500"></i>
-                            <span>شكو ماكو، 9XFC+7PJ<br>مدينة الكويت، الكويت<br>(الرمز البريدي: 35020)</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <i class="fa-solid fa-envelope text-gray-500"></i>
-                            <a href="mailto:sherow1982@gmail.com" class="hover:text-white transition">sherow1982@gmail.com</a>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <i class="fa-brands fa-whatsapp text-green-500 text-lg"></i>
-                            <a href="https://wa.me/201110760081" target="_blank" class="hover:text-white transition font-bold">201110760081+</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Policies -->
-                <div>
-                    <h3 class="text-white font-bold text-lg mb-4">روابط وسياسات</h3>
-                    <ul class="space-y-2">
-                        <li><a href="index.html" class="hover:text-secondary transition">الرئيسية</a></li>
-                        <li><a href="shipping-policy.html" class="hover:text-secondary transition">سياسة الشحن والاسترجاع</a></li>
-                        <li><a href="privacy-policy.html" class="hover:text-secondary transition">سياسة الخصوصية</a></li>
-                        <li><a href="terms.html" class="hover:text-secondary transition">الشروط والأحكام</a></li>
-                    </ul>
-                </div>
-
-                <!-- Trust Badges -->
-                <div>
-                    <h3 class="text-white font-bold text-lg mb-4">تسوق بثقة</h3>
-                    <p class="mb-4 text-xs leading-relaxed">نضمن لكم تجربة تسوق آمنة مع خيارات دفع متعددة وخدمة استرجاع مرنة خلال 14 يوم.</p>
-                    <div class="flex gap-3 text-2xl text-gray-600 mb-6">
-                        <i class="fa-brands fa-cc-visa hover:text-white transition"></i>
-                        <i class="fa-brands fa-cc-mastercard hover:text-white transition"></i>
-                        <i class="fa-solid fa-money-bill-wave hover:text-white transition"></i>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-800 mt-10 pt-6 text-center text-xs">
-                &copy; 2025 سوق الكويت. جميع الحقوق محفوظة.
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
+    <!-- Scripts: Layout First, then Main Script -->
+    <script src="layout.js"></script>
     <script src="script.js"></script>
     <script>
-        // كود خاص لزر التحميل المزيد في الصفحة الرئيسية فقط
-        // يتم إضافته هنا لتجنب التعقيد في script.js العام
+        // Pagination Logic for Home Page
         let currentDisplayCount = 12;
         let currentFilteredProducts = [];
-
-        // Override renderProducts to handle pagination
         const originalRenderProducts = window.renderProducts;
         window.renderProducts = function(products) {
             currentFilteredProducts = products;
             const grid = document.getElementById('products-grid');
             const loadMoreBtn = document.getElementById('load-more-container');
-            
             if(products.length === 0) {
                 grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-10">لا توجد منتجات.</p>';
                 loadMoreBtn.classList.add('hidden');
                 return;
             }
-
-            // عرض العدد الحالي فقط
             const toShow = products.slice(0, currentDisplayCount);
-            
-            // استخدام كود العرض الأصلي (لكن نحتاج تكراره هنا لأننا لا نملك وصولاً لدالة render الداخلية في script.js بسهولة إذا لم تكن مصدرة)
-            // لذا سنقوم بنسخ منطق العرض البسيط هنا:
             grid.innerHTML = toShow.map(product => {
                 const hasDiscount = product.sale_price > 0 && product.sale_price < product.regular_price;
                 const displayPrice = hasDiscount ? product.sale_price : product.regular_price;
@@ -181,26 +83,17 @@
                         </a>
                         <div class="mt-auto pt-3 border-t border-gray-50 flex justify-between items-center">
                             <div class="flex flex-col">
-                                <span class="text-lg font-extrabold text-primary">${displayPrice.toFixed(2)} ${STORE_CONFIG.currency}</span>
+                                <span class="text-lg font-extrabold text-primary">${displayPrice.toFixed(2)} KWD</span>
                                 ${hasDiscount ? `<span class="text-xs text-gray-400 line-through">${product.regular_price.toFixed(2)}</span>` : ''}
                             </div>
                         </div>
                     </div>
                 </div>`;
             }).join('');
-
-            // التحكم في ظهور زر التحميل
-            if (currentDisplayCount >= products.length) {
-                loadMoreBtn.classList.add('hidden');
-            } else {
-                loadMoreBtn.classList.remove('hidden');
-            }
+            if (currentDisplayCount >= products.length) loadMoreBtn.classList.add('hidden');
+            else loadMoreBtn.classList.remove('hidden');
         };
-
-        function loadMoreProducts() {
-            currentDisplayCount += 12; // تحميل 12 منتج إضافي
-            window.renderProducts(currentFilteredProducts);
-        }
+        function loadMoreProducts() { currentDisplayCount += 12; window.renderProducts(currentFilteredProducts); }
     </script>
 </body>
 </html>
