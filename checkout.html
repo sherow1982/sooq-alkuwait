@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>إتمام الطلب | سوق الكويت</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { primary: '#1e3a8a', secondary: '#fbbf24' }, fontFamily: { tajawal: ['Tajawal', 'sans-serif'] } } }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-tajawal">
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <h1 class="text-3xl font-bold mb-8 text-center text-primary">إتمام الطلب</h1>
+        
+        <form id="checkout-form" onsubmit="processCheckout(event)" class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-gray-800">
+                <span class="w-8 h-8 bg-blue-100 text-primary rounded-full flex items-center justify-center text-sm">1</span>
+                معلومات التوصيل
+            </h2>
+            
+            <div class="space-y-4 mb-8">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">الاسم الكامل</label>
+                    <input type="text" name="name" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">رقم الهاتف</label>
+                    <input type="tel" name="phone" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-left" placeholder="965 XXXXXXXX">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">العنوان التفصيلي</label>
+                    <textarea name="address" required rows="3" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary" placeholder="المنطقة، القطعة، الشارع، المنزل..."></textarea>
+                </div>
+            </div>
+
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-gray-800">
+                <span class="w-8 h-8 bg-blue-100 text-primary rounded-full flex items-center justify-center text-sm">2</span>
+                ملخص الطلب
+            </h2>
+            <div id="checkout-summary" class="bg-gray-50 p-4 rounded-xl mb-8 text-sm text-gray-600"></div>
+
+            <button type="submit" class="w-full bg-[#25D366] text-white text-lg font-bold py-4 rounded-xl shadow-lg hover:bg-[#20bd5a] transition flex items-center justify-center gap-2">
+                تأكيد الطلب عبر واتساب <i class="fa-brands fa-whatsapp text-2xl"></i>
+            </button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCart();
+            if(cart.length === 0) window.location.href = 'index.html';
+            
+            const total = cart.reduce((sum, item) => {
+                const price = item.sale_price > 0 ? item.sale_price : item.regular_price;
+                return sum + (price * item.qty);
+            }, 0);
+            
+            document.getElementById('checkout-summary').innerHTML = `
+                <div class="flex justify-between mb-2"><span>عدد المنتجات:</span> <span class="font-bold text-gray-900">${cart.length}</span></div>
+                <div class="flex justify-between text-lg font-bold text-primary border-t pt-2 mt-2"><span>الإجمالي:</span> <span>${total.toFixed(2)} KWD</span></div>
+            `;
+        });
+
+        function processCheckout(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const customer = { name: formData.get('name'), phone: formData.get('phone'), address: formData.get('address') };
+
+            let message = `*طلب جديد من الموقع* 🛍️\n\n👤 *العميل:* ${customer.name}\n📱 *الهاتف:* ${customer.phone}\n📍 *العنوان:* ${customer.address}\n\n*المنتجات:*\n`;
+            let total = 0;
+            
+            cart.forEach(item => {
+                const price = item.sale_price > 0 ? item.sale_price : item.regular_price;
+                total += price * item.qty;
+                message += `▪️ ${item.name} (x${item.qty}) - ${price} KWD\n`;
+            });
+
+            message += `\n*💰 الإجمالي: ${total.toFixed(2)} KWD*\n------------------\nيرجى تأكيد استلام الطلب وموعد التوصيل.`;
+
+            localStorage.removeItem('souq_cart');
+            const url = `https://wa.me/201110760081?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+            window.location.href = 'thank-you.html';
+        }
+    </script>
+</body>
+</html>
