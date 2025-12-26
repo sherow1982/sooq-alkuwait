@@ -7,60 +7,72 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config = {theme: {extend: {colors: {primary: '#1e3a8a', secondary: '#fbbf24', surface: '#f8fafc'}, fontFamily: {tajawal: ['Tajawal', 'sans-serif']}}}}</script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { primary: '#1e3a8a', secondary: '#fbbf24', surface: '#f8fafc' }, fontFamily: { tajawal: ['Tajawal', 'sans-serif'] } }
+            }
+        }
+    </script>
 </head>
 <body class="bg-surface font-tajawal text-gray-800 flex flex-col min-h-screen">
+
+    <!-- سيتم حقن الهيدر هنا بواسطة layout.js -->
 
     <main class="container mx-auto px-4 py-12 flex-grow max-w-4xl">
         <h1 class="text-3xl font-bold mb-8 text-primary border-b border-gray-200 pb-4">سياسة الاسترجاع والاستبدال</h1>
         
         <div class="bg-white p-8 rounded-2xl shadow-sm space-y-8 border border-gray-100">
-            <!-- شروط الاسترجاع -->
+            
+            <!-- الشروط -->
             <section>
                 <div class="flex items-center gap-3 mb-4">
                     <span class="w-10 h-10 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center text-lg"><i class="fa-solid fa-rotate-left"></i></span>
-                    <h2 class="text-xl font-bold text-gray-900">شروط الاسترجاع</h2>
+                    <h2 class="text-xl font-bold text-gray-900">شروط الاسترجاع العامة</h2>
                 </div>
-                <div class="prose text-gray-600 leading-relaxed text-sm bg-yellow-50/50 p-6 rounded-xl border border-yellow-100">
+                <div class="bg-yellow-50/50 p-6 rounded-xl border border-yellow-100 prose text-gray-600 leading-relaxed text-sm">
                     <ul class="list-disc list-inside space-y-3">
-                        <li><strong>المهلة الزمنية:</strong> يحق للعميل طلب الاسترجاع خلال <strong>14 يوماً</strong> من تاريخ استلام الطلب.</li>
-                        <li><strong>حالة المنتج:</strong> يشترط أن يكون المنتج في حالته الأصلية، غير مستخدم، وبغلافه الأصلي مع جميع الملحقات.</li>
-                        <li><strong>المنتجات المستثناة:</strong> لا يتم استرجاع الملابس الداخلية، ملابس السباحة، والعطور المفتوحة لأسباب صحية.</li>
-                        <li><strong>عيوب الصناعة:</strong> في حال وجود عيب مصنعي، يتم استبدال المنتج مجاناً فوراً وتحمل كافة تكاليف الشحن.</li>
+                        <li><strong>المهلة الزمنية:</strong> يحق لعملائنا الكرام طلب الاسترجاع أو الاستبدال خلال <strong>14 يوماً</strong> من تاريخ استلام الطلب.</li>
+                        <li><strong>حالة المنتج:</strong> يجب أن يكون المنتج في حالته الأصلية تماماً، غير مستخدم، وبغلافه الأصلي مع وجود كافة الملحقات والملصقات.</li>
+                        <li><strong>الاستثناءات:</strong> حرصاً على الصحة العامة، لا يتم استرجاع الملابس الداخلية، ملابس السباحة، ومستحضرات التجميل المفتوحة، إلا في حال وجود عيب مصنعي.</li>
+                        <li><strong>عيوب الصناعة:</strong> في حال استلام منتج تالف أو به عيب مصنعي، يتم استبداله مجاناً فوراً ونتحمل كافة تكاليف الشحن.</li>
                     </ul>
                 </div>
             </section>
 
             <!-- خطوات الاسترجاع -->
             <section>
-                <h2 class="text-lg font-bold mb-4 text-gray-900">كيف أقدم طلب استرجاع؟</h2>
+                <h2 class="text-lg font-bold mb-4 text-gray-900">كيفية تقديم طلب استرجاع</h2>
                 <div class="grid md:grid-cols-3 gap-4">
-                    <div class="bg-gray-50 p-4 rounded-lg text-center">
-                        <span class="block text-2xl mb-2">📸</span>
+                    <div class="bg-gray-50 p-4 rounded-xl text-center border border-gray-100">
+                        <span class="block text-3xl mb-2">📸</span>
                         <h3 class="font-bold text-sm mb-1">صوّر المنتج</h3>
-                        <p class="text-xs text-gray-500">أرسل صورة للمنتج وحالته</p>
+                        <p class="text-xs text-gray-500">قم بتصوير المنتج لتوضيح حالته</p>
                     </div>
-                    <div class="bg-gray-50 p-4 rounded-lg text-center">
-                        <span class="block text-2xl mb-2">💬</span>
-                        <h3 class="font-bold text-sm mb-1">تواصل معنا</h3>
-                        <p class="text-xs text-gray-500">راسلنا عبر واتساب برقم الطلب</p>
+                    <div class="bg-gray-50 p-4 rounded-xl text-center border border-gray-100">
+                        <span class="block text-3xl mb-2">💬</span>
+                        <h3 class="font-bold text-sm mb-1">راسلنا واتساب</h3>
+                        <p class="text-xs text-gray-500">أرسل الصور ورقم الطلب لخدمة العملاء</p>
                     </div>
-                    <div class="bg-gray-50 p-4 rounded-lg text-center">
-                        <span class="block text-2xl mb-2">🚚</span>
+                    <div class="bg-gray-50 p-4 rounded-xl text-center border border-gray-100">
+                        <span class="block text-3xl mb-2">🚚</span>
                         <h3 class="font-bold text-sm mb-1">الاستلام</h3>
-                        <p class="text-xs text-gray-500">نرسل المندوب لاستلامه منك</p>
+                        <p class="text-xs text-gray-500">سيصل المندوب لاستلام المنتج منك</p>
                     </div>
                 </div>
             </section>
 
             <!-- زر التواصل -->
-            <div class="text-center pt-4">
-                <a href="https://wa.me/201110760081" target="_blank" class="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-xl font-bold hover:bg-[#20bd5a] transition shadow-lg">
-                    <i class="fa-brands fa-whatsapp text-xl"></i> ابدأ طلب الاسترجاع
+            <div class="text-center pt-4 border-t border-gray-100">
+                <p class="text-sm text-gray-500 mb-4">نحن هنا لمساعدتك دائماً</p>
+                <a href="https://wa.me/201110760081" target="_blank" class="inline-flex items-center gap-2 bg-[#25D366] text-white px-8 py-3 rounded-xl font-bold hover:bg-[#20bd5a] transition shadow-lg transform hover:scale-105">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> تواصل مع خدمة العملاء
                 </a>
             </div>
         </div>
     </main>
+
+    <!-- سيتم حقن الفوتر هنا بواسطة layout.js -->
 
     <script src="layout.js"></script>
     <script src="script.js"></script>
