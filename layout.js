@@ -1,10 +1,10 @@
-// layout.js - إدارة الهيدر والفوتر (محدث مع طرق الدفع الجديدة)
+// layout.js (Updated with "About Us")
 
 document.addEventListener("DOMContentLoaded", function () {
     const currentPath = window.location.pathname;
     const isActive = (path) => currentPath.includes(path) ? "text-primary font-extrabold" : "text-gray-600 hover:text-primary";
 
-    // --- 1. الهيدر (Header) ---
+    // --- 1. Header ---
     const headerHTML = `
         <!-- Top Bar -->
         <div class="bg-gray-900 text-gray-300 text-[10px] md:text-xs py-2 px-4 text-center md:flex justify-between items-center font-tajawal relative z-50">
@@ -36,12 +36,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     <!-- Desktop Menu -->
                     <div class="hidden md:flex gap-6 text-sm font-bold items-center">
                         <a href="index.html" class="${isActive('index')} transition">الرئيسية</a>
+                        <a href="about.html" class="${isActive('about')} transition">من نحن</a> <!-- رابط جديد -->
                         <a href="contact.html" class="${isActive('contact')} transition">اتصل بنا</a>
-                        <a href="shipping-policy.html" class="${isActive('shipping')} transition">سياسة الشحن</a>
+                        <a href="shipping-policy.html" class="${isActive('shipping')} transition">الشحن</a>
                         <a href="return-policy.html" class="${isActive('return')} transition">الاسترجاع</a>
                     </div>
 
-                    <!-- Icons & Mobile Button -->
+                    <!-- Icons -->
                     <div class="flex items-center gap-4">
                         <a href="cart.html" class="relative p-2 text-gray-600 hover:text-primary transition group">
                             <i class="fa-solid fa-cart-shopping text-xl md:text-2xl group-hover:scale-110 transition-transform"></i>
@@ -57,10 +58,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 mt-3 pt-2 bg-gray-50 rounded-lg p-4 transition-all duration-300">
                     <div class="flex flex-col gap-3 text-sm font-bold text-gray-700">
                         <a href="index.html" class="flex items-center gap-3 p-2 rounded hover:bg-white hover:text-primary"><i class="fa-solid fa-house w-5 text-center"></i> الرئيسية</a>
+                        <a href="about.html" class="flex items-center gap-3 p-2 rounded hover:bg-white hover:text-primary"><i class="fa-solid fa-users w-5 text-center"></i> من نحن</a>
                         <a href="contact.html" class="flex items-center gap-3 p-2 rounded hover:bg-white hover:text-primary"><i class="fa-solid fa-phone w-5 text-center"></i> اتصل بنا</a>
                         <a href="shipping-policy.html" class="flex items-center gap-3 p-2 rounded hover:bg-white hover:text-primary"><i class="fa-solid fa-truck w-5 text-center"></i> سياسة الشحن</a>
-                        <a href="return-policy.html" class="flex items-center gap-3 p-2 rounded hover:bg-white hover:text-primary"><i class="fa-solid fa-rotate-left w-5 text-center"></i> سياسة الاسترجاع</a>
-                        <a href="privacy-policy.html" class="flex items-center gap-3 p-2 rounded hover:bg-white hover:text-primary"><i class="fa-solid fa-shield-halved w-5 text-center"></i> السياسة والخصوصية</a>
+                        <a href="return-policy.html" class="flex items-center gap-3 p-2 rounded hover:bg-white hover:text-primary"><i class="fa-solid fa-rotate-left w-5 text-center"></i> الاسترجاع</a>
                         <a href="https://wa.me/201110760081" target="_blank" class="flex items-center gap-3 p-2 rounded text-green-600 bg-green-50 border border-green-200 mt-2"><i class="fa-brands fa-whatsapp w-5 text-center text-lg"></i> تواصل واتساب</a>
                     </div>
                 </div>
@@ -68,12 +69,11 @@ document.addEventListener("DOMContentLoaded", function () {
         </nav>
     `;
 
-    // --- 2. الفوتر (Footer) - التعديل هنا ---
+    // --- 2. Footer ---
     const footerHTML = `
         <footer class="bg-gray-900 text-gray-400 py-10 md:py-12 border-t border-gray-800 mt-auto text-sm font-tajawal relative z-10">
             <div class="container mx-auto px-4">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-                    <!-- معلومات التواصل -->
                     <div>
                         <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-location-dot text-secondary"></i> تواصل معنا</h3>
                         <ul class="space-y-4">
@@ -82,37 +82,30 @@ document.addEventListener("DOMContentLoaded", function () {
                             <li class="flex items-center gap-3"><span class="text-green-500 text-lg"><i class="fa-brands fa-whatsapp"></i></span><a href="https://wa.me/201110760081" target="_blank" class="hover:text-white transition font-bold text-lg dir-ltr">+201110760081</a></li>
                         </ul>
                     </div>
-
-                    <!-- روابط سريعة -->
                     <div>
                         <h3 class="text-white font-bold text-lg mb-4">روابط سريعة</h3>
                         <ul class="space-y-2">
                             <li><a href="index.html" class="hover:text-secondary transition block py-1">الرئيسية</a></li>
+                            <li><a href="about.html" class="hover:text-secondary transition block py-1">من نحن</a></li>
                             <li><a href="contact.html" class="hover:text-secondary transition block py-1">اتصل بنا</a></li>
                             <li><a href="shipping-policy.html" class="hover:text-secondary transition block py-1">سياسة الشحن</a></li>
                             <li><a href="return-policy.html" class="hover:text-secondary transition block py-1">سياسة الاسترجاع</a></li>
-                            <li><a href="terms.html" class="hover:text-secondary transition block py-1">الشروط والأحكام</a></li>
                         </ul>
                     </div>
-
-                    <!-- طرق الدفع (المعدلة) -->
                     <div>
                         <h3 class="text-white font-bold text-lg mb-4">طرق الدفع</h3>
                         <p class="mb-4 text-xs leading-relaxed opacity-80 text-white font-bold">طرق دفع آمنة ومتاح الدفع عند الاستلام</p>
                         <div class="flex gap-4 text-3xl text-gray-500 items-center">
-                            <!-- أيقونة الدفع عند الاستلام -->
                             <div class="flex flex-col items-center gap-1 group cursor-pointer">
                                 <i class="fa-solid fa-hand-holding-dollar text-secondary group-hover:text-white transition transform group-hover:scale-110"></i>
                                 <span class="text-[10px] font-bold">كاش</span>
                             </div>
                             <span class="border-r border-gray-700 h-8 mx-2"></span>
-                            <!-- أيقونات الفيزا والماستر -->
                             <i class="fa-brands fa-cc-visa hover:text-white transition transform hover:scale-110 cursor-pointer"></i>
                             <i class="fa-brands fa-cc-mastercard hover:text-white transition transform hover:scale-110 cursor-pointer"></i>
                         </div>
                     </div>
                 </div>
-                
                 <div class="border-t border-gray-800 mt-10 pt-6 text-center text-xs flex flex-col md:flex-row justify-between items-center gap-2">
                     <p>&copy; 2025 سوق الكويت. جميع الحقوق محفوظة.</p>
                 </div>
@@ -120,11 +113,9 @@ document.addEventListener("DOMContentLoaded", function () {
         </footer>
     `;
 
-    // حقن العناصر في الصفحة
     document.body.insertAdjacentHTML("afterbegin", headerHTML);
     document.body.insertAdjacentHTML("beforeend", footerHTML);
 
-    // تفعيل قائمة الموبايل
     const menuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     if (menuBtn && mobileMenu) {
@@ -135,6 +126,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // تحديث السلة
     if (typeof updateCartCount === 'function') setTimeout(updateCartCount, 100);
 });
