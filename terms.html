@@ -2,30 +2,61 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الشروط والأحكام | سوق الكويت</title>
-    <!-- (نفس الهيدر والستايل) -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>tailwind.config = { theme: { extend: { colors: { primary: '#1e3a8a', secondary: '#fbbf24' }, fontFamily: { tajawal: ['Tajawal', 'sans-serif'] } } } }</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { primary: '#1e3a8a', secondary: '#fbbf24', surface: '#f8fafc' }, fontFamily: { tajawal: ['Tajawal', 'sans-serif'] } }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-50 font-tajawal text-gray-800">
-    <nav class="bg-white shadow-sm p-4"><div class="container mx-auto"><a href="index.html" class="text-2xl font-bold text-primary flex items-center gap-2"><i class="fa-solid fa-bag-shopping"></i> سوق الكويت</a></div></nav>
-    <main class="container mx-auto px-4 py-12 max-w-4xl">
-        <h1 class="text-3xl font-bold mb-8 text-primary border-b pb-4">الشروط والأحكام</h1>
-        <div class="bg-white p-8 rounded-2xl shadow-sm space-y-6 text-gray-600 leading-relaxed">
-            <p>مرحباً بك في سوق الكويت. باستخدامك لهذا الموقع، فإنك توافق على الشروط التالية:</p>
+<body class="bg-surface font-tajawal text-gray-800 flex flex-col min-h-screen">
+
+    <main class="container mx-auto px-4 py-12 flex-grow max-w-4xl">
+        <h1 class="text-3xl font-bold mb-8 text-primary border-b border-gray-200 pb-4">الشروط والأحكام</h1>
+        
+        <div class="bg-white p-8 rounded-2xl shadow-sm space-y-6 border border-gray-100 text-gray-600 leading-relaxed text-sm">
+            <p class="text-base font-medium text-gray-800">مرحباً بك في موقع "سوق الكويت". يرجى قراءة الشروط والأحكام التالية بعناية قبل استخدام الموقع أو إجراء أي عملية شراء.</p>
             
-            <h3 class="text-lg font-bold text-gray-900">1. الاستخدام</h3>
-            <p>يجب أن يكون عمرك 18 عاماً أو أكثر لاستخدام هذا الموقع أو أن تكون تحت إشراف أحد الوالدين.</p>
+            <div class="space-y-4">
+                <div class="border-b border-gray-50 pb-4">
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">1. شروط الاستخدام</h3>
+                    <p>باستخدامك لهذا الموقع، فإنك توافق على الالتزام بهذه الشروط. يجب أن يكون عمرك 18 عاماً على الأقل أو أن تتسوق تحت إشراف أحد الوالدين.</p>
+                </div>
+
+                <div class="border-b border-gray-50 pb-4">
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">2. المنتجات والأسعار</h3>
+                    <p>نسعى جاهدين لعرض ألوان وصور المنتجات بدقة، ولكن قد تختلف الألوان قليلاً حسب شاشتك. جميع الأسعار المعروضة بالدينار الكويتي (KWD) وهي قابلة للتغيير دون إشعار مسبق.</p>
+                </div>
+
+                <div class="border-b border-gray-50 pb-4">
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">3. الطلبات والدفع</h3>
+                    <p>نحتفظ بالحق في رفض أو إلغاء أي طلب لأي سبب كان (مثل نفاد الكمية أو خطأ في التسعير). يتم الدفع إما نقداً عند الاستلام أو عبر وسائل الدفع الإلكترونية المتاحة.</p>
+                </div>
+
+                <div class="border-b border-gray-50 pb-4">
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">4. حقوق الملكية الفكرية</h3>
+                    <p>جميع المحتويات الموجودة على الموقع (نصوص، صور، شعارات، تصاميم) هي ملكية حصرية لـ "سوق الكويت" ومحمية بموجب قوانين حقوق النشر.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">5. القانون المعمول به</h3>
+                    <p>تخضع هذه الشروط والأحكام وتفسر وفقاً للقوانين المعمول بها في دولة الكويت.</p>
+                </div>
+            </div>
             
-            <h3 class="text-lg font-bold text-gray-900">2. الأسعار والدفع</h3>
-            <p>جميع الأسعار معروضة بالدينار الكويتي (KWD). نحتفظ بالحق في تغيير الأسعار في أي وقت دون سابق إنذار، ولكن هذا لا يؤثر على الطلبات المؤكدة.</p>
-            
-            <h3 class="text-lg font-bold text-gray-900">3. حقوق الملكية</h3>
-            <p>جميع المحتويات الموجودة على الموقع من نصوص وصور وشعارات هي ملك لسوق الكويت ومحمية بموجب قوانين حقوق النشر.</p>
+            <div class="bg-gray-50 p-4 rounded-xl mt-6">
+                <p class="text-xs text-gray-500 text-center">آخر تحديث: 26 ديسمبر 2025</p>
+            </div>
         </div>
     </main>
-    <footer class="bg-gray-900 text-gray-300 py-8 text-center mt-12"><p>&copy; 2025 سوق الكويت.</p></footer>
+
+    <script src="layout.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
