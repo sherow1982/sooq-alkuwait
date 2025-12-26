@@ -1,4 +1,4 @@
-// layout.js - المسئول عن بناء القوائم والفوتر
+// layout.js - إدارة الهيدر والفوتر (محدث مع طرق الدفع الجديدة)
 
 document.addEventListener("DOMContentLoaded", function () {
     const currentPath = window.location.pathname;
@@ -68,11 +68,12 @@ document.addEventListener("DOMContentLoaded", function () {
         </nav>
     `;
 
-    // --- 2. الفوتر (Footer) ---
+    // --- 2. الفوتر (Footer) - التعديل هنا ---
     const footerHTML = `
         <footer class="bg-gray-900 text-gray-400 py-10 md:py-12 border-t border-gray-800 mt-auto text-sm font-tajawal relative z-10">
             <div class="container mx-auto px-4">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+                    <!-- معلومات التواصل -->
                     <div>
                         <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-location-dot text-secondary"></i> تواصل معنا</h3>
                         <ul class="space-y-4">
@@ -81,6 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             <li class="flex items-center gap-3"><span class="text-green-500 text-lg"><i class="fa-brands fa-whatsapp"></i></span><a href="https://wa.me/201110760081" target="_blank" class="hover:text-white transition font-bold text-lg dir-ltr">+201110760081</a></li>
                         </ul>
                     </div>
+
+                    <!-- روابط سريعة -->
                     <div>
                         <h3 class="text-white font-bold text-lg mb-4">روابط سريعة</h3>
                         <ul class="space-y-2">
@@ -91,16 +94,25 @@ document.addEventListener("DOMContentLoaded", function () {
                             <li><a href="terms.html" class="hover:text-secondary transition block py-1">الشروط والأحكام</a></li>
                         </ul>
                     </div>
+
+                    <!-- طرق الدفع (المعدلة) -->
                     <div>
                         <h3 class="text-white font-bold text-lg mb-4">طرق الدفع</h3>
-                        <p class="mb-4 text-xs leading-relaxed opacity-80">نوفر لكم خيارات دفع آمنة ومتعددة.</p>
-                        <div class="flex gap-4 text-3xl text-gray-600">
-                            <i class="fa-brands fa-cc-visa hover:text-white transition"></i>
-                            <i class="fa-brands fa-cc-mastercard hover:text-white transition"></i>
-                            <i class="fa-solid fa-money-bill-wave hover:text-white transition"></i>
+                        <p class="mb-4 text-xs leading-relaxed opacity-80 text-white font-bold">طرق دفع آمنة ومتاح الدفع عند الاستلام</p>
+                        <div class="flex gap-4 text-3xl text-gray-500 items-center">
+                            <!-- أيقونة الدفع عند الاستلام -->
+                            <div class="flex flex-col items-center gap-1 group cursor-pointer">
+                                <i class="fa-solid fa-hand-holding-dollar text-secondary group-hover:text-white transition transform group-hover:scale-110"></i>
+                                <span class="text-[10px] font-bold">كاش</span>
+                            </div>
+                            <span class="border-r border-gray-700 h-8 mx-2"></span>
+                            <!-- أيقونات الفيزا والماستر -->
+                            <i class="fa-brands fa-cc-visa hover:text-white transition transform hover:scale-110 cursor-pointer"></i>
+                            <i class="fa-brands fa-cc-mastercard hover:text-white transition transform hover:scale-110 cursor-pointer"></i>
                         </div>
                     </div>
                 </div>
+                
                 <div class="border-t border-gray-800 mt-10 pt-6 text-center text-xs flex flex-col md:flex-row justify-between items-center gap-2">
                     <p>&copy; 2025 سوق الكويت. جميع الحقوق محفوظة.</p>
                 </div>
@@ -108,9 +120,11 @@ document.addEventListener("DOMContentLoaded", function () {
         </footer>
     `;
 
+    // حقن العناصر في الصفحة
     document.body.insertAdjacentHTML("afterbegin", headerHTML);
     document.body.insertAdjacentHTML("beforeend", footerHTML);
 
+    // تفعيل قائمة الموبايل
     const menuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     if (menuBtn && mobileMenu) {
@@ -121,5 +135,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // تحديث السلة
     if (typeof updateCartCount === 'function') setTimeout(updateCartCount, 100);
 });
