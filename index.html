@@ -12,9 +12,17 @@
 </head>
 <body class="bg-surface font-tajawal text-gray-800 flex flex-col min-h-screen">
 
-    <!-- Hero Section (خاص بالرئيسية فقط) -->
-    <header class="container mx-auto px-4 mt-6">
-        <div class="bg-primary text-white py-12 relative overflow-hidden rounded-[2rem] shadow-xl text-center">
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        
+        <!-- ✅ البنر الجديد في بداية الرئيسية -->
+        <div class="mb-8">
+            <img src="https://raw.githubusercontent.com/sherow1982/sooq-alkuwait/main/%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D9%83%D9%88%D9%8A%D8%AA.webp" 
+                 alt="سوق الكويت" 
+                 class="w-full h-auto rounded-3xl shadow-lg object-cover hover:shadow-xl transition-shadow duration-300">
+        </div>
+
+        <!-- Hero Section -->
+        <header class="bg-primary text-white py-12 relative overflow-hidden rounded-[2rem] shadow-xl text-center mb-10">
             <div class="relative z-10">
                 <h1 class="text-3xl md:text-5xl font-bold mb-6">أفضل العروض في الكويت</h1>
                 <p class="text-blue-200 mb-8 max-w-lg mx-auto">تسوق بثقة مع ضمان 14 يوم للاسترجاع وتوصيل سريع لباب بيتك.</p>
@@ -23,10 +31,8 @@
                     <i class="fa-solid fa-search absolute left-8 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <main class="container mx-auto px-4 py-8 flex-grow">
         <!-- Categories -->
         <div class="mb-8">
             <h2 class="font-bold text-gray-700 mb-3 px-1">تصفح الأقسام</h2>
@@ -46,11 +52,11 @@
         </div>
     </main>
 
-    <!-- Scripts: Layout First, then Main Script -->
+    <!-- Scripts -->
     <script src="layout.js"></script>
     <script src="script.js"></script>
     <script>
-        // Pagination Logic for Home Page
+        // Pagination Logic
         let currentDisplayCount = 12;
         let currentFilteredProducts = [];
         const originalRenderProducts = window.renderProducts;
