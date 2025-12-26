@@ -2,7 +2,7 @@
 
 // إعدادات المتجر
 const STORE_CONFIG = {
-    whatsappNumber: "201110760081", // رقم الواتساب الخاص بك
+    whatsappNumber: "201110760081", 
     currency: "KWD"
 };
 
@@ -12,46 +12,66 @@ let currentFilteredProducts = [];
 let displayedCount = 0;
 const ITEMS_PER_PAGE = 12;
 
-// جلب البيانات عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', () => {
     fetchProducts();
     loadCart();
     
-    // تفعيل البحث
     document.getElementById('search-input').addEventListener('input', (e) => {
         filterProducts(e.target.value);
     });
 });
 
-// دالة جلب المنتجات من ملف JSON
+// --- التعديل الأساسي هنا ---
 async function fetchProducts() {
     try {
-        // نفترض أن اسم الملف هو products_data_cleaned.json كما تم الاتفاق عليه
-        const response = await fetch('products_data_cleaned.json');
+        // 1. التأكد من اسم الملف (نفس الاسم اللي خرج من بايثون)
+        const response = await fetch('products.json'); 
         if (!response.ok) throw new Error('فشل تحميل البيانات');
         
-        allProducts = await response.json();
+        const rawData = await response.json();
         
-        // تهيئة الفئات وعرض المنتجات
+        // 2. مرحلة الـ Mapping (تحويل الهيكل المعقد إلى بسيط)
+        allProducts = rawData.map(item => {
+            return {
+                id: item.id,
+                // ربط العنوان بالاسم
+                name: item.title, 
+                // التعامل مع الوصف
+                description: item.description,
+                // استخراج الصورة الرئيسية من داخل كائن الميديا
+                image: item.media?.main_image || 'https://via.placeholder.com/300',
+                // التعامل مع الأسعار (تحويلها لأرقام لضمان العمليات الحسابية)
+                regular_price: parseFloat(item.pricing?.regular || 0),
+                sale_price: parseFloat(item.pricing?.sale || 0),
+                // بما أن ملف الإكسل لا يحتوي على تصنيف، نضع تصنيف افتراضي
+                category: item.category || 'عام', 
+                // نستخدم الـ ID كـ Slug مؤقتاً
+                slug: item.id 
+            };
+        });
+        
         setupCategories();
         renderProducts(allProducts);
         
     } catch (error) {
         console.error('Error:', error);
-        document.getElementById('products-grid').innerHTML = `
-            <div class="col-span-full text-center text-red-500 py-10">
-                <p>عذراً، حدث خطأ أثناء تحميل المنتجات.</p>
-                <p class="text-sm text-gray-500">${error.message}</p>
-            </div>
-        `;
+        const grid = document.getElementById('products-grid');
+        if(grid) {
+            grid.innerHTML = `
+                <div class="col-span-full text-center text-red-500 py-10">
+                    <p>عذراً، حدث خطأ أثناء تحميل المنتجات.</p>
+                    <p class="text-sm text-gray-500">${error.message}</p>
+                </div>
+            `;
+        }
     }
 }
 
-// عرض المنتجات في الشبكة
 function renderProducts(products) {
     currentFilteredProducts = products;
     displayedCount = 0;
     const grid = document.getElementById('products-grid');
+    if (!grid) return; 
     grid.innerHTML = '';
 
     if (products.length === 0) {
@@ -68,30 +88,31 @@ function appendProducts() {
     const nextBatch = currentFilteredProducts.slice(displayedCount, displayedCount + ITEMS_PER_PAGE);
 
     nextBatch.forEach(product => {
-        const displayPrice = product.sale_price > 0 ? product.sale_price : product.regular_price;
+        // منطق السعر: إذا كان سعر الخصم موجوداً وأكبر من صفر وأقل من السعر العادي
         const hasDiscount = product.sale_price > 0 && product.sale_price < product.regular_price;
+        const displayPrice = hasDiscount ? product.sale_price : product.regular_price;
 
         const card = document.createElement('div');
-        card.className = 'product-card bg-white rounded-xl overflow-hidden group relative';
+        card.className = 'product-card bg-white rounded-xl overflow-hidden group relative border border-gray-100 hover:shadow-lg transition-all duration-300';
         
         card.innerHTML = `
-            <a href="product.html?product=${product.slug}" target="_blank" class="block cursor-pointer">
-                <div class="product-image-container bg-gray-100">
-                <img src="${product.image || 'https://via.placeholder.com/300'}" alt="${product.name}" loading="lazy">
-                ${hasDiscount ? `<span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">خصم</span>` : ''}
-            </div>
-            <div class="p-4">
-                <div class="text-xs text-gray-500 mb-1">${product.category}</div>
-                <h3 class="font-bold text-gray-800 mb-2 truncate group-hover:text-primary">${product.name}</h3>
-                <div class="flex justify-between items-center mt-3">
-                    <div class="flex flex-col">
-                        <span class="text-lg font-bold text-primary">${displayPrice} ${STORE_CONFIG.currency}</span>
-                        ${hasDiscount ? `<span class="text-xs text-gray-400 line-through">${product.regular_price} ${STORE_CONFIG.currency}</span>` : ''}
+            <a href="product.html?id=${product.id}" class="block cursor-pointer">
+                <div class="product-image-container relative bg-gray-100 aspect-square overflow-hidden">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+                    ${hasDiscount ? `<span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded shadow-sm">خصم</span>` : ''}
+                </div>
+                <div class="p-4">
+                    <div class="text-xs text-gray-500 mb-1">${product.category}</div>
+                    <h3 class="font-bold text-gray-800 mb-2 truncate text-sm md:text-base group-hover:text-primary transition-colors">${product.name}</h3>
+                    <div class="flex justify-between items-center mt-3">
+                        <div class="flex flex-col">
+                            <span class="text-lg font-bold text-primary">${displayPrice} ${STORE_CONFIG.currency}</span>
+                            ${hasDiscount ? `<span class="text-xs text-gray-400 line-through">${product.regular_price} ${STORE_CONFIG.currency}</span>` : ''}
+                        </div>
                     </div>
                 </div>
-            </div>
             </a>
-            <button onclick="addToCart(event, ${product.id})" class="absolute bottom-4 left-4 bg-secondary text-primary w-10 h-10 rounded-full flex items-center justify-center hover:bg-yellow-400 transition shadow-sm z-10 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0" title="أضف للسلة">
+            <button onclick="addToCart(event, '${product.id}')" class="absolute bottom-4 left-4 bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-opacity-90 transition shadow-md z-10 translate-y-12 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 duration-300" title="أضف للسلة">
                 <i class="fa-solid fa-plus"></i>
             </button>
         `;
@@ -113,34 +134,31 @@ function updateLoadMoreButton() {
     }
 }
 
-// إعداد أزرار الفئات
 function setupCategories() {
     const categories = ['all', ...new Set(allProducts.map(p => p.category))];
     const container = document.getElementById('category-filters');
+    if (!container) return;
     
-    // إبقاء زر "الكل" فقط وإزالة الباقي لإعادة بنائهم
-    container.innerHTML = '<button class="filter-btn active px-4 py-2 rounded-full bg-primary text-white shadow-sm hover:shadow-md transition" onclick="filterByCategory(\'all\')">الكل</button>';
+    container.innerHTML = '<button class="filter-btn active px-4 py-2 rounded-full bg-primary text-white shadow-sm hover:shadow-md transition text-sm font-medium" onclick="filterByCategory(\'all\')">الكل</button>';
 
     categories.forEach(cat => {
         if (cat === 'all') return;
         const btn = document.createElement('button');
-        btn.className = 'filter-btn px-4 py-2 rounded-full bg-white text-gray-600 border border-gray-200 shadow-sm hover:shadow-md transition';
+        btn.className = 'filter-btn px-4 py-2 rounded-full bg-white text-gray-600 border border-gray-200 shadow-sm hover:shadow-md transition text-sm font-medium';
         btn.textContent = cat;
         btn.onclick = () => filterByCategory(cat);
         container.appendChild(btn);
     });
 }
 
-// فلترة حسب الفئة
 function filterByCategory(category) {
-    // تحديث ستايل الأزرار
     document.querySelectorAll('.filter-btn').forEach(btn => {
         if (btn.textContent === category || (category === 'all' && btn.textContent === 'الكل')) {
-            btn.classList.add('active', 'bg-primary', 'text-white');
-            btn.classList.remove('bg-white', 'text-gray-600');
+            btn.classList.add('active', 'bg-primary', 'text-white', 'border-primary');
+            btn.classList.remove('bg-white', 'text-gray-600', 'border-gray-200');
         } else {
-            btn.classList.remove('active', 'bg-primary', 'text-white');
-            btn.classList.add('bg-white', 'text-gray-600');
+            btn.classList.remove('active', 'bg-primary', 'text-white', 'border-primary');
+            btn.classList.add('bg-white', 'text-gray-600', 'border-gray-200');
         }
     });
 
@@ -152,12 +170,11 @@ function filterByCategory(category) {
     }
 }
 
-// فلترة حسب البحث
 function filterProducts(searchTerm) {
     const term = searchTerm.toLowerCase();
     const filtered = allProducts.filter(p => 
-        p.name.toLowerCase().includes(term) || 
-        (p.description && p.description.toLowerCase().includes(term))
+        String(p.name).toLowerCase().includes(term) || 
+        (p.description && String(p.description).toLowerCase().includes(term))
     );
     renderProducts(filtered);
 }
@@ -165,36 +182,49 @@ function filterProducts(searchTerm) {
 // --- وظائف السلة ---
 
 function addToCart(event, productId) {
-    event.stopPropagation(); // منع أي أحداث أخرى على البطاقة
-    const product = allProducts.find(p => p.id === productId);
+    event.preventDefault();
+    event.stopPropagation();
+    
+    // تحويل الـ ID لنفس النوع للمقارنة (string vs number)
+    const product = allProducts.find(p => String(p.id) === String(productId));
+    
     if (!product) return;
-    const existingItem = cart.find(item => item.id === productId);
+    
+    // البحث في السلة
+    const existingItem = cart.find(item => String(item.id) === String(productId));
 
     if (existingItem) {
         existingItem.qty += 1;
     } else {
+        // نأخذ نسخة من بيانات المنتج للسلة
         cart.push({ ...product, qty: 1 });
     }
 
     updateCartUI();
     saveCart();
     
-    // تأثير بصري بسيط
-    const btn = event.target.closest('button');
-    if (!btn) return;
+    // Feedback visual
+    const btn = event.currentTarget; // استخدام currentTarget لضمان الإشارة للزر نفسه وليس الأيقونة
     const originalHTML = btn.innerHTML;
     btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-    setTimeout(() => btn.innerHTML = originalHTML, 1000);
+    btn.classList.add('bg-green-500');
+    setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.classList.remove('bg-green-500');
+    }, 1000);
+    
+    // فتح السلة تلقائياً (اختياري)
+    // toggleCart(); 
 }
 
 function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
+    cart = cart.filter(item => String(item.id) !== String(productId));
     updateCartUI();
     saveCart();
 }
 
 function updateQty(productId, change) {
-    const item = cart.find(item => item.id === productId);
+    const item = cart.find(item => String(item.id) === String(productId));
     if (item) {
         item.qty += change;
         if (item.qty <= 0) {
@@ -211,12 +241,14 @@ function updateCartUI() {
     const countBadge = document.getElementById('cart-count');
     const totalEl = document.getElementById('cart-total');
     
-    // تحديث العداد
     const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
-    countBadge.textContent = totalCount;
-    countBadge.style.display = totalCount > 0 ? 'flex' : 'none';
+    if (countBadge) {
+        countBadge.textContent = totalCount;
+        countBadge.style.display = totalCount > 0 ? 'flex' : 'none';
+    }
 
-    // تحديث القائمة
+    if (!cartContainer) return;
+
     cartContainer.innerHTML = '';
     let totalPrice = 0;
 
@@ -229,23 +261,25 @@ function updateCartUI() {
         `;
     } else {
         cart.forEach(item => {
-            const price = item.sale_price > 0 ? item.sale_price : item.regular_price;
+            const hasDiscount = item.sale_price > 0 && item.sale_price < item.regular_price;
+            const price = hasDiscount ? item.sale_price : item.regular_price;
+            
             const itemTotal = price * item.qty;
             totalPrice += itemTotal;
 
             cartContainer.innerHTML += `
-                <div class="flex gap-4 bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                <div class="flex gap-4 bg-white p-3 rounded-lg shadow-sm border border-gray-100 mb-2">
                     <img src="${item.image}" class="w-16 h-16 object-cover rounded" alt="${item.name}">
                     <div class="flex-1">
                         <h4 class="text-sm font-bold text-gray-800 line-clamp-1">${item.name}</h4>
                         <div class="text-primary font-bold text-sm mt-1">${price} ${STORE_CONFIG.currency}</div>
                         <div class="flex items-center justify-between mt-2">
-                            <div class="flex items-center gap-2 bg-gray-100 rounded px-2">
-                                <button onclick="updateQty(${item.id}, -1)" class="text-gray-500 hover:text-red-500">-</button>
+                            <div class="flex items-center gap-2 bg-gray-50 rounded px-2 border border-gray-200">
+                                <button onclick="updateQty('${item.id}', -1)" class="text-gray-500 hover:text-red-500 w-6 h-6 flex items-center justify-center">-</button>
                                 <span class="text-sm font-medium w-4 text-center">${item.qty}</span>
-                                <button onclick="updateQty(${item.id}, 1)" class="text-gray-500 hover:text-green-500">+</button>
+                                <button onclick="updateQty('${item.id}', 1)" class="text-gray-500 hover:text-green-500 w-6 h-6 flex items-center justify-center">+</button>
                             </div>
-                            <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-600 text-xs">
+                            <button onclick="removeFromCart('${item.id}')" class="text-red-400 hover:text-red-600 text-xs p-2">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
@@ -255,23 +289,27 @@ function updateCartUI() {
         });
     }
 
-    totalEl.textContent = totalPrice.toFixed(2) + ' ' + STORE_CONFIG.currency;
+    if (totalEl) {
+        totalEl.textContent = totalPrice.toFixed(2) + ' ' + STORE_CONFIG.currency;
+    }
 }
 
 function toggleCart() {
     const sidebar = document.getElementById('cart-sidebar');
     const panel = document.getElementById('cart-panel');
+    const overlay = document.getElementById('cart-overlay'); // افترضت وجود overlay
     
+    if (!sidebar) return;
+
     if (sidebar.classList.contains('hidden')) {
         sidebar.classList.remove('hidden');
-        // تأخير بسيط للسماح للـ display:block بالتطبيق قبل التحويل
         setTimeout(() => {
-            sidebar.classList.add('open');
-            panel.classList.remove('-translate-x-full');
+            if(panel) panel.classList.remove('translate-x-full'); // تأكد من اتجاه الحركة حسب لغة الموقع (RTL/LTR)
+            if(overlay) overlay.classList.remove('opacity-0');
         }, 10);
     } else {
-        panel.classList.add('-translate-x-full');
-        sidebar.classList.remove('open');
+        if(panel) panel.classList.add('translate-x-full');
+        if(overlay) overlay.classList.add('opacity-0');
         setTimeout(() => {
             sidebar.classList.add('hidden');
         }, 300);
@@ -290,19 +328,19 @@ function loadCart() {
     }
 }
 
-// --- وظيفة الطلب عبر واتساب ---
-
 function checkoutWhatsApp() {
     if (cart.length === 0) {
         alert('السلة فارغة!');
         return;
     }
 
-    let message = "*مرحباً، أود طلب المنتجات التالية من سوق الكويت:*\n\n";
+    let message = "*مرحباً، أود طلب المنتجات التالية:*\n\n";
     let total = 0;
 
     cart.forEach(item => {
-        const price = item.sale_price > 0 ? item.sale_price : item.regular_price;
+        const hasDiscount = item.sale_price > 0 && item.sale_price < item.regular_price;
+        const price = hasDiscount ? item.sale_price : item.regular_price;
+        
         const subtotal = price * item.qty;
         total += subtotal;
         message += `▪️ ${item.name}\n   الكمية: ${item.qty} | السعر: ${price} ${STORE_CONFIG.currency}\n`;
