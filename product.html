@@ -25,44 +25,27 @@
                         tajawal: ['Tajawal', 'sans-serif'],
                     },
                     animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out',
                     }
                 }
             }
         }
     </script>
 
-    <!-- ستايلات مخصصة للزوم والمعرض -->
     <style>
-        /* ستايل مخصص لتكبير الصورة */
         .zoom-container {
             overflow: hidden;
             position: relative;
             cursor: crosshair;
         }
-        .zoom-container img {
-            transition: transform 0.3s ease;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        .zoom-container:hover img {
-            transform: scale(1.5); /* نسبة التكبير */
-        }
-        
-        /* إخفاء شريط التمرير */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        /* لمعة التحميل */
-        .shimmer {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-        }
-        @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -77,9 +60,15 @@
                 </div>
                 <span>سوق الكويت</span>
             </a>
-            <a href="index.html" class="text-gray-500 hover:text-primary transition flex items-center gap-2 text-sm font-bold">
-                <i class="fa-solid fa-arrow-right"></i> عودة للتسوق
-            </a>
+            <div class="flex gap-4 items-center">
+                <a href="cart.html" class="relative p-2 text-gray-600 hover:text-primary transition">
+                    <i class="fa-solid fa-cart-shopping text-xl"></i>
+                    <!-- سيتم تحديث العداد عبر JS -->
+                </a>
+                <a href="index.html" class="text-gray-500 hover:text-primary transition flex items-center gap-2 text-sm font-bold border-r pr-4 border-gray-200">
+                    <i class="fa-solid fa-arrow-right"></i> عودة للتسوق
+                </a>
+            </div>
         </div>
     </nav>
 
@@ -102,15 +91,68 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8 flex-grow">
-        <div id="product-details-container" class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <!-- Loading Skeleton -->
-            <div class="lg:col-span-1 h-[500px] bg-gray-200 rounded-2xl shimmer"></div>
-            <div class="lg:col-span-1 space-y-6">
-                <div class="h-8 bg-gray-200 rounded w-3/4 shimmer"></div>
-                <div class="h-6 bg-gray-200 rounded w-1/4 shimmer"></div>
-                <div class="h-32 bg-gray-200 rounded w-full shimmer"></div>
+        <div id="product-details-container" class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+            <!-- Loading State -->
+            <div class="lg:col-span-2 text-center py-20">
+                <i class="fa-solid fa-circle-notch fa-spin text-4xl text-primary"></i>
+                <p class="mt-4 text-gray-500">جاري تحميل المنتج...</p>
             </div>
         </div>
+
+        <!-- Reviews Section -->
+        <section class="border-t border-gray-200 pt-12">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 max-w-4xl mx-auto">
+                <h2 class="text-2xl font-bold text-gray-900 mb-8 flex items-center gap-2">
+                    <i class="fa-solid fa-star text-secondary"></i> تقييمات العملاء
+                </h2>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Rating Summary -->
+                    <div class="md:col-span-1 bg-gray-50 p-6 rounded-xl text-center h-fit">
+                        <div class="text-5xl font-extrabold text-gray-900 mb-2" id="avg-rating-display">0.0</div>
+                        <div class="flex justify-center gap-1 text-secondary text-xl mb-2" id="avg-stars-display">
+                            <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+                        </div>
+                        <p class="text-gray-500 text-sm" id="review-count-display">بناءً على 0 تقييم</p>
+                    </div>
+
+                    <!-- Reviews List & Form -->
+                    <div class="md:col-span-2">
+                        <div id="reviews-list" class="space-y-4 mb-8 max-h-80 overflow-y-auto custom-scrollbar pr-2">
+                            <p class="text-gray-400 text-center py-4">لا توجد تقييمات بعد. كن أول من يقيم هذا المنتج!</p>
+                        </div>
+                        
+                        <button onclick="document.getElementById('review-form').classList.toggle('hidden')" class="text-primary font-bold hover:underline text-sm flex items-center gap-1">
+                            <i class="fa-solid fa-pen"></i> أضف تقييمك الخاص
+                        </button>
+                        
+                        <form id="review-form" class="hidden mt-6 bg-gray-50 border border-gray-200 p-5 rounded-xl animate-fade-in" onsubmit="submitReview(event)">
+                            <h3 class="font-bold mb-4 text-sm text-gray-800">شاركنا تجربتك</h3>
+                            
+                            <div class="mb-4">
+                                <label class="block text-xs font-bold text-gray-700 mb-2">تقييمك</label>
+                                <div class="flex flex-row-reverse justify-end gap-1 text-2xl text-gray-300 hover:text-secondary cursor-pointer w-fit" id="star-input">
+                                    <input type="radio" name="rating" value="5" id="s5" class="hidden peer/5" required><label for="s5" class="peer-hover/5:text-secondary hover:text-secondary peer-checked/5:text-secondary transition"><i class="fa-solid fa-star"></i></label>
+                                    <input type="radio" name="rating" value="4" id="s4" class="hidden peer/4"><label for="s4" class="peer-hover/4:text-secondary hover:text-secondary peer-checked/4:text-secondary peer-checked/5:text-secondary transition"><i class="fa-solid fa-star"></i></label>
+                                    <input type="radio" name="rating" value="3" id="s3" class="hidden peer/3"><label for="s3" class="peer-hover/3:text-secondary hover:text-secondary peer-checked/3:text-secondary peer-checked/4:text-secondary peer-checked/5:text-secondary transition"><i class="fa-solid fa-star"></i></label>
+                                    <input type="radio" name="rating" value="2" id="s2" class="hidden peer/2"><label for="s2" class="peer-hover/2:text-secondary hover:text-secondary peer-checked/2:text-secondary peer-checked/3:text-secondary peer-checked/4:text-secondary peer-checked/5:text-secondary transition"><i class="fa-solid fa-star"></i></label>
+                                    <input type="radio" name="rating" value="1" id="s1" class="hidden peer/1"><label for="s1" class="peer-hover/1:text-secondary hover:text-secondary peer-checked/1:text-secondary peer-checked/2:text-secondary peer-checked/3:text-secondary peer-checked/4:text-secondary peer-checked/5:text-secondary transition"><i class="fa-solid fa-star"></i></label>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <input type="text" name="name" placeholder="الاسم" required class="border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+                                <input type="email" name="email" placeholder="البريد الإلكتروني" required class="border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+                            </div>
+                            
+                            <textarea name="comment" placeholder="اكتب تعليقك هنا..." required class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary h-24 mb-4"></textarea>
+                            
+                            <button type="submit" class="bg-primary text-white px-6 py-2 rounded-lg text-sm font-bold hover:bg-blue-800 transition shadow-sm">نشر التقييم</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -120,9 +162,7 @@
         </div>
     </footer>
 
-    <!-- حاوية السكيما -->
     <script type="application/ld+json" id="product-schema"></script>
-
     <script src="product-page.js"></script>
 </body>
 </html>
