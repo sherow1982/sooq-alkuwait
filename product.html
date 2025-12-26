@@ -5,43 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جاري التحميل... | سوق الكويت</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>tailwind.config = { theme: { extend: { colors: { primary: '#1e3a8a', secondary: '#fbbf24' }, fontFamily: { tajawal: ['Tajawal', 'sans-serif'] } } } }</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { primary: '#1e3a8a', secondary: '#fbbf24', surface: '#f8fafc' }, fontFamily: { tajawal: ['Tajawal', 'sans-serif'] } }
+            }
+        }
+    </script>
     <style>.hide-scrollbar::-webkit-scrollbar { display: none; }</style>
 </head>
-<body class="bg-gray-50 font-tajawal text-gray-800 flex flex-col min-h-screen">
+<body class="bg-surface font-tajawal text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Top Bar -->
+    <div class="bg-gray-900 text-gray-300 text-xs py-2 px-4 text-center md:flex justify-between items-center">
+        <div class="mb-1 md:mb-0">
+            <span class="mx-2"><i class="fa-solid fa-truck text-secondary"></i> شحن مجاني خلال 1-3 أيام</span>
+            <span class="mx-2 hidden md:inline">|</span>
+            <span class="mx-2"><i class="fa-solid fa-rotate-left text-secondary"></i> استرجاع خلال 14 يوم</span>
+        </div>
+        <div>
+            <a href="https://wa.me/201110760081" class="hover:text-white transition"><i class="fa-brands fa-whatsapp"></i> خدمة العملاء</a>
+        </div>
+    </div>
+
+    <!-- Navbar -->
     <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-extrabold text-primary flex items-center gap-2"><i class="fa-solid fa-bag-shopping"></i> <span>سوق الكويت</span></a>
-            <div class="flex gap-4 items-center">
-                <a href="cart.html" class="relative p-2 text-gray-600 hover:text-primary transition">
-                    <i class="fa-solid fa-cart-shopping text-xl"></i>
-                    <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+            <a href="index.html" class="text-2xl font-extrabold text-primary flex items-center gap-2">
+                <i class="fa-solid fa-bag-shopping text-secondary"></i> <span>سوق الكويت</span>
+            </a>
+            <div class="flex items-center gap-4">
+                <a href="cart.html" class="relative p-2 text-gray-600 hover:text-primary transition group">
+                    <i class="fa-solid fa-cart-shopping text-2xl group-hover:scale-110 transition-transform"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
                 </a>
-                <a href="index.html" class="text-sm font-bold text-gray-500">الرئيسية</a>
             </div>
         </div>
     </nav>
+
+    <!-- Breadcrumb -->
+    <div class="bg-white border-b border-gray-100 py-2">
+        <div class="container mx-auto px-4">
+            <div class="text-xs text-gray-500 flex items-center gap-2">
+                <a href="index.html" class="hover:text-primary">الرئيسية</a> 
+                <i class="fa-solid fa-chevron-left text-[10px]"></i>
+                <span id="breadcrumb-title">جاري التحميل...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
     <main class="container mx-auto px-4 py-8 flex-grow">
         <div id="product-details-container" class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
             <div class="lg:col-span-2 text-center py-20"><i class="fa-solid fa-circle-notch fa-spin text-primary text-2xl"></i></div>
         </div>
+
+        <!-- Reviews Section -->
         <section class="border-t border-gray-200 pt-12">
             <div class="bg-white p-6 rounded-2xl shadow-sm max-w-4xl mx-auto">
-                <h2 class="text-xl font-bold mb-8 flex items-center gap-2"><i class="fa-solid fa-star text-secondary"></i> التقييمات</h2>
+                <h2 class="text-xl font-bold mb-8 flex items-center gap-2"><i class="fa-solid fa-star text-secondary"></i> تقييمات العملاء</h2>
                 <div class="grid md:grid-cols-3 gap-8">
-                    <div class="md:col-span-1 bg-gray-50 p-6 rounded-xl text-center">
+                    <!-- Summary -->
+                    <div class="md:col-span-1 bg-gray-50 p-6 rounded-xl text-center h-fit">
                         <div class="text-5xl font-extrabold text-gray-900 mb-2" id="avg-rating-display">0.0</div>
                         <div class="flex justify-center gap-1 text-secondary text-lg" id="avg-stars-display"></div>
                         <p class="text-gray-500 text-sm mt-2" id="review-count-display">0 تقييم</p>
                     </div>
+                    <!-- List & Form -->
                     <div class="md:col-span-2">
-                        <div id="reviews-list" class="space-y-4 mb-6 max-h-60 overflow-y-auto pr-2"></div>
-                        <button onclick="document.getElementById('review-form').classList.toggle('hidden')" class="text-primary font-bold text-sm underline">أضف تقييمك</button>
-                        <form id="review-form" class="hidden mt-6 bg-gray-50 p-5 rounded-xl border" onsubmit="submitReview(event)">
+                        <div id="reviews-list" class="space-y-4 mb-6 max-h-80 overflow-y-auto pr-2 custom-scrollbar"></div>
+                        
+                        <button onclick="document.getElementById('review-form').classList.toggle('hidden')" class="text-primary font-bold text-sm underline flex items-center gap-2">
+                            <i class="fa-solid fa-pen"></i> أضف تقييمك
+                        </button>
+                        
+                        <form id="review-form" class="hidden mt-6 bg-gray-50 p-5 rounded-xl border border-gray-200" onsubmit="submitReview(event)">
                             <div class="mb-4">
-                                <label class="block text-xs font-bold mb-2">التقييم</label>
+                                <label class="block text-xs font-bold mb-2">تقييمك</label>
                                 <div class="flex flex-row-reverse justify-end gap-1 text-2xl text-gray-300 hover:text-secondary cursor-pointer w-fit">
                                     <input type="radio" name="rating" value="5" id="s5" class="hidden peer/5" required><label for="s5" class="peer-hover/5:text-secondary hover:text-secondary peer-checked/5:text-secondary"><i class="fa-solid fa-star"></i></label>
                                     <input type="radio" name="rating" value="4" id="s4" class="hidden peer/4"><label for="s4" class="peer-hover/4:text-secondary hover:text-secondary peer-checked/4:text-secondary peer-checked/5:text-secondary"><i class="fa-solid fa-star"></i></label>
@@ -51,18 +93,56 @@
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 gap-4 mb-4">
-                                <input type="text" name="name" placeholder="الاسم" required class="border rounded px-3 py-2 text-sm w-full">
-                                <input type="email" name="email" placeholder="البريد" required class="border rounded px-3 py-2 text-sm w-full">
+                                <input type="text" name="name" placeholder="الاسم" required class="border rounded-lg px-3 py-2 text-sm w-full focus:outline-none focus:border-primary">
+                                <input type="email" name="email" placeholder="البريد الإلكتروني" required class="border rounded-lg px-3 py-2 text-sm w-full focus:outline-none focus:border-primary">
                             </div>
-                            <textarea name="comment" placeholder="رأيك يهمنا..." required class="border rounded px-3 py-2 text-sm w-full h-24 mb-4"></textarea>
-                            <button type="submit" class="bg-primary text-white px-6 py-2 rounded text-sm font-bold">نشر التقييم</button>
+                            <textarea name="comment" placeholder="اكتب رأيك هنا..." required class="border rounded-lg px-3 py-2 text-sm w-full h-24 mb-4 focus:outline-none focus:border-primary"></textarea>
+                            <button type="submit" class="bg-primary text-white px-6 py-2 rounded-lg text-sm font-bold hover:bg-blue-800 transition">نشر التقييم</button>
                         </form>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-    <footer class="bg-gray-900 text-gray-300 py-8 mt-auto text-center"><p>&copy; 2025 سوق الكويت.</p></footer>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800 mt-auto text-sm">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-headset text-secondary"></i> تواصل معنا</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-location-dot mt-1 text-gray-500"></i><span>شكو ماكو، 9XFC+7PJ<br>مدينة الكويت، الكويت<br>(الرمز البريدي: 35020)</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-envelope text-gray-500"></i><a href="mailto:sherow1982@gmail.com" class="hover:text-white transition">sherow1982@gmail.com</a></li>
+                        <li class="flex items-center gap-3"><i class="fa-brands fa-whatsapp text-green-500 text-lg"></i><a href="https://wa.me/201110760081" target="_blank" class="hover:text-white transition font-bold">201110760081+</a></li>
+                    </ul>
+                </div>
+                <!-- Policies -->
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">روابط وسياسات</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="hover:text-secondary transition">الرئيسية</a></li>
+                        <li><a href="shipping-policy.html" class="hover:text-secondary transition">سياسة الشحن والاسترجاع</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-secondary transition">سياسة الخصوصية</a></li>
+                        <li><a href="terms.html" class="hover:text-secondary transition">الشروط والأحكام</a></li>
+                    </ul>
+                </div>
+                <!-- Trust Badges -->
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">تسوق بثقة</h3>
+                    <p class="mb-4 text-xs leading-relaxed">نضمن لكم تجربة تسوق آمنة مع خيارات دفع متعددة وخدمة استرجاع مرنة خلال 14 يوم.</p>
+                    <div class="flex gap-3 text-2xl text-gray-600 mb-6">
+                        <i class="fa-brands fa-cc-visa hover:text-white transition"></i>
+                        <i class="fa-brands fa-cc-mastercard hover:text-white transition"></i>
+                        <i class="fa-solid fa-money-bill-wave hover:text-white transition"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-10 pt-6 text-center text-xs">&copy; 2025 سوق الكويت. جميع الحقوق محفوظة.</div>
+        </div>
+    </footer>
+
     <script type="application/ld+json" id="product-schema"></script>
     <script src="script.js"></script>
     <script src="product-page.js"></script>
