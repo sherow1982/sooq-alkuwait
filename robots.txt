@@ -5,4 +5,4 @@ Disallow: /checkout.html
 Disallow: /thank-you.html
 Disallow: /cdn-cgi/
 
-Sitemap: https://sooq-alkuwait.arabsad.com/sitemap.xml
+Sitemap: https://sherow1982.github.io/sooq-alkuwait/sitemap.xml
